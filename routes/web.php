@@ -83,6 +83,7 @@ Route::post('/ajax-search', 'SearchController@ajax_search')->name('search.ajax')
 Route::get('/category/{category_slug}', 'SearchController@listingByCategory')->name('products.category');
 Route::get('/brand/{brand_slug}', 'SearchController@listingByBrand')->name('products.brand');
 
+Route::get('/products', 'HomeController@products')->name('products');
 Route::get('/product/{slug}', 'HomeController@product')->name('product');
 Route::post('/product/variant_price', 'HomeController@variant_price')->name('products.variant_price');
 Route::get('/shop/{slug}', 'HomeController@shop')->name('shop.visit');

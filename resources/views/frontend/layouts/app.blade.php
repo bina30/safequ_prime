@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-@if(\App\Models\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
-<html dir="rtl" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@if (\App\Models\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
+    <html dir="rtl" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @else
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @endif
+
 <head>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -20,7 +21,7 @@
 
     @yield('meta')
 
-    @if(!isset($detailedProduct) && !isset($customer_product) && !isset($shop) && !isset($page) && !isset($blog))
+    @if (!isset($detailedProduct) && !isset($customer_product) && !isset($shop) && !isset($page) && !isset($blog))
         <!-- Schema.org markup for Google+ -->
         <meta itemprop="name" content="{{ get_setting('meta_title') }}">
         <meta itemprop="description" content="{{ get_setting('meta_description') }}">
@@ -48,14 +49,27 @@
     <link rel="icon" href="{{ uploaded_asset(get_setting('site_icon')) }}">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{ static_asset('assets/css/vendors.css') }}">
-    @if(\App\Models\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
-    <link rel="stylesheet" href="{{ static_asset('assets/css/bootstrap-rtl.min.css') }}">
+    @if (\App\Models\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
+        <link rel="stylesheet" href="{{ static_asset('assets/css/bootstrap-rtl.min.css') }}">
     @endif
-    <link rel="stylesheet" href="{{ static_asset('assets/css/aiz-core.css') }}">
+
+    {{-- <link rel="stylesheet" href="{{ static_asset('assets/css/aiz-core.css') }}"> --}}
+    <link rel="stylesheet" href="{{ static_asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ static_asset('assets/css/custom-style.css') }}">
 
 
@@ -85,78 +99,66 @@
         }
     </script>
 
-    <style>
-        body{
-            font-family: 'Open Sans', sans-serif;
-            font-weight: 400;
-        }
-        :root{
-            --primary: {{ get_setting('base_color', '#e62d04') }};
-            --hov-primary: {{ get_setting('base_hov_color', '#c52907') }};
-            --soft-primary: {{ hex2rgba(get_setting('base_color','#e62d04'),.15) }};
-        }
 
-        #map{
-            width: 100%;
-            height: 250px;
-        }
-        #edit_map{
-            width: 100%;
-            height: 250px;
-        }
+    @if (get_setting('google_analytics') == 1)
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
 
-        .pac-container { z-index: 100000; }
-    </style>
+        <script>
+            window.dataLayer = window.dataLayer || [];
 
-@if (get_setting('google_analytics') == 1)
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', '{{ env('TRACKING_ID') }}');
+        </script>
+    @endif
 
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '{{ env('TRACKING_ID') }}');
-    </script>
-@endif
+    @if (get_setting('facebook_pixel') == 1)
+        <!-- Facebook Pixel Code -->
+        <script>
+            ! function(f, b, e, v, n, t, s) {
+                if (f.fbq) return;
+                n = f.fbq = function() {
+                    n.callMethod ?
+                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!f._fbq) f._fbq = n;
+                n.push = n;
+                n.loaded = !0;
+                n.version = '2.0';
+                n.queue = [];
+                t = b.createElement(e);
+                t.async = !0;
+                t.src = v;
+                s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window, document, 'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '{{ env('FACEBOOK_PIXEL_ID') }}');
+            fbq('track', 'PageView');
+        </script>
+        <noscript>
+            <img height="1" width="1" style="display:none"
+                src="https://www.facebook.com/tr?id={{ env('FACEBOOK_PIXEL_ID') }}&ev=PageView&noscript=1" />
+        </noscript>
+        <!-- End Facebook Pixel Code -->
+    @endif
 
-@if (get_setting('facebook_pixel') == 1)
-    <!-- Facebook Pixel Code -->
-    <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '{{ env('FACEBOOK_PIXEL_ID') }}');
-        fbq('track', 'PageView');
-    </script>
-    <noscript>
-        <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={{ env('FACEBOOK_PIXEL_ID') }}&ev=PageView&noscript=1"/>
-    </noscript>
-    <!-- End Facebook Pixel Code -->
-@endif
-
-@php
-    echo get_setting('header_script');
-@endphp
+    @php
+        echo get_setting('header_script');
+    @endphp
 
 </head>
+
 <body>
-    <!-- aiz-main-wrapper -->
-    <div class="aiz-main-wrapper d-flex flex-column">
 
-        <!-- Header -->
-        @include('frontend.inc.nav')
+    @include('frontend.inc.nav')
 
-        @yield('content')
+    @yield('content')
 
-        @include('frontend.inc.footer')
-
-    </div>
+    @include('frontend.inc.footer')
 
     @if (get_setting('show_cookies_agreement') == 'on')
         <div class="aiz-cookie-alert shadow-xl">
@@ -186,7 +188,8 @@
                             <form class="" method="POST" action="{{ route('subscribers.store') }}">
                                 @csrf
                                 <div class="form-group mb-0">
-                                    <input type="email" class="form-control" placeholder="{{ translate('Your Email Address') }}" name="email" required>
+                                    <input type="email" class="form-control"
+                                        placeholder="{{ translate('Your Email Address') }}" name="email" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block mt-3">
                                     {{ translate('Subscribe Now') }}
@@ -194,7 +197,10 @@
                             </form>
                         </div>
                     @endif
-                    <button class="absolute-top-right bg-white shadow-lg btn btn-circle btn-icon mr-n3 mt-n3 set-session" data-key="website-popup" data-value="removed" data-toggle="remove-parent" data-parent=".website-popup">
+                    <button
+                        class="absolute-top-right bg-white shadow-lg btn btn-circle btn-icon mr-n3 mt-n3 set-session"
+                        data-key="website-popup" data-value="removed" data-toggle="remove-parent"
+                        data-parent=".website-popup">
                         <i class="la la-close fs-20"></i>
                     </button>
                 </div>
@@ -202,325 +208,202 @@
         </div>
     @endif
 
-    @include('frontend.partials.modal')
 
-    <div class="modal fade" id="addToCart">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
-            <div class="modal-content position-relative">
-                <div class="c-preloader text-center p-3">
-                    <i class="las la-spinner la-spin la-3x"></i>
-                </div>
-                <button type="button" class="close absolute-top-right btn-icon close z-1" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="la-2x">&times;</span>
-                </button>
-                <div id="addToCart-modal-body">
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @yield('modal')
-
-    <!-- SCRIPTS -->
-    <script src="{{ static_asset('assets/js/vendors.js') }}"></script>
-    <script src="{{ static_asset('assets/js/aiz-core.js') }}"></script>
-
-
-
-    @if (get_setting('facebook_chat') == 1)
-        <script type="text/javascript">
-            window.fbAsyncInit = function() {
-                FB.init({
-                  xfbml            : true,
-                  version          : 'v3.3'
-                });
-              };
-
-              (function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0];
-              if (d.getElementById(id)) return;
-              js = d.createElement(s); js.id = id;
-              js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
-              fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-        </script>
-        <div id="fb-root"></div>
-        <!-- Your customer chat code -->
-        <div class="fb-customerchat"
-          attribution=setup_tool
-          page_id="{{ env('FACEBOOK_PAGE_ID') }}">
-        </div>
-    @endif
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
     <script>
-        @foreach (session('flash_notification', collect())->toArray() as $message)
-            AIZ.plugins.notify('{{ $message['level'] }}', '{{ $message['message'] }}');
-        @endforeach
-    </script>
+        // Tooltip
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
 
-    <script>
+        let header = document.getElementsByClassName("main-tag");
+        let sticky = header[0].offsetTop;
+
+        window.onscroll = function() {
+            myFunction()
+        };
+
+        function myFunction() {
+            console.log(sticky);
+            if (window.pageYOffset > sticky) {
+                $(".breadcrumbs").addClass("sticky");
+            } else {
+                $(".breadcrumbs").removeClass("sticky");
+            }
+        }
 
         $(document).ready(function() {
-            $('.category-nav-element').each(function(i, el) {
-                $(el).on('mouseover', function(){
-                    if(!$(el).find('.sub-cat-menu').hasClass('loaded')){
-                        $.post('{{ route('category.elements') }}', {_token: AIZ.data.csrf, id:$(el).data('id')}, function(data){
-                            $(el).find('.sub-cat-menu').addClass('loaded').html(data);
-                        });
+
+            $('.carousel').carousel({
+                interval: 7000,
+            })
+
+            $('.community-slider').owlCarousel({
+                loop: true,
+                // nav: true,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplayHoverPause: false,
+                smartSpeed: 1500,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    460: {
+                        items: 2
+                    },
+                    768: {
+                        items: 3
+                    },
+                    991: {
+                        items: 4
+                    },
+                    1200: {
+                        items: 5
                     }
-                });
+                }
+            })
+
+            $('.testimonials').owlCarousel({
+                loop: true,
+                // nav: true,
+                margin: 10,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplayHoverPause: false,
+                smartSpeed: 1500,
+                items: 1
+            })
+
+            // Unit Qty select
+            $(".amt-btn").on('click', function() {
+                let amount = $(this).data('amt');
+                $('#wallet_amount').val(amount);
+                $('#btnAmt').text(amount);
+                $('#btnAmt').parent().removeClass("disabled");
+            })
+
+            $('#wallet_amount').on('keyup touchend', function() {
+                let value = $(this).val();
+
+                if (value != '' && value != 0) {
+                    $('#btnAmt').text(value), $('#btnAmt').parent().removeClass("disabled");
+                } else {
+                    $('#btnAmt').text(0), $('#btnAmt').parent().addClass("disabled");
+                }
+            })
+
+            $(".close-sidenav").on('click', function() {
+                $(".sideNav").removeClass("active");
+            })
+
+            $(".navbar-toggler").on('click', function() {
+                $(".sideNav").addClass("active");
+            })
+
+            // Remaining time
+            $(".remaining-time").each(function() {
+
+                const currDiv = $(this);
+
+                // Set the date we're counting down to
+                var countDownDate = new Date(currDiv.data("time")).getTime();
+
+                // Update the count down every 1 second
+                var x = setInterval(function() {
+
+                    // Get today's date and time
+                    var now = new Date().getTime();
+
+                    // Find the distance between now and the count down date
+                    var distance = countDownDate - now;
+
+                    // Time calculations for days, hours, minutes and seconds
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 *
+                        60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    currDiv.find(".cnt").removeClass("active disabled");
+                    currDiv.find(".days").text(days > 0 ? days : "00");
+                    currDiv.find(".hours").text(hours > 0 ? hours : "00");
+                    currDiv.find(".minutes").text(minutes > 0 ? minutes : "00");
+
+
+                    if (days > 0) {
+                        currDiv.find(".days").parent().addClass("active");
+                    } else if (days <= 0 && hours > 0) {
+                        currDiv.find(".days").parent().addClass("disabled");
+                        currDiv.find(".hours").parent().addClass("active");
+                    } else if (days <= 0 && hours <= 0 && minutes > 0) {
+                        currDiv.find(".days").parent().addClass("disabled");
+                        currDiv.find(".hours").parent().addClass("disabled");
+                        currDiv.find(".minutes").parent().addClass("active");
+                    } else {
+                        currDiv.find(".cnt").addClass("disabled");
+                    }
+                }, 1000);
             });
-            if ($('#lang-change').length > 0) {
-                $('#lang-change .dropdown-menu a').each(function() {
-                    $(this).on('click', function(e){
-                        e.preventDefault();
-                        var $this = $(this);
-                        var locale = $this.data('flag');
-                        $.post('{{ route('language.change') }}',{_token: AIZ.data.csrf, locale:locale}, function(data){
-                            location.reload();
-                        });
 
-                    });
-                });
-            }
+            $('.item-count button').on('click', function() {
+                let qty = $("#quantity").val();
+                $("#itm-cnt").text(qty);
 
-            if ($('#currency-change').length > 0) {
-                $('#currency-change .dropdown-menu a').each(function() {
-                    $(this).on('click', function(e){
-                        e.preventDefault();
-                        var $this = $(this);
-                        var currency_code = $this.data('currency');
-                        $.post('{{ route('currency.change') }}',{_token: AIZ.data.csrf, currency_code:currency_code}, function(data){
-                            location.reload();
-                        });
+                if (qty >= 10) {
+                    $("#itm-cnt").removeClass("d2 d3");
+                    $("#itm-cnt").addClass("d2");
+                }
 
-                    });
-                });
-            }
+                if (qty >= 100) {
+                    $("#itm-cnt").removeClass("d2 d3");
+                    $("#itm-cnt").addClass("d3");
+                }
+
+                (qty < 10) ? $("#itm-cnt").removeClass("d2 d3"): "";
+
+            })
+
+            $(".progress-bar").each(function() {
+                let width = 0;
+                let progressCnt = 0;
+                let target = $(this).data("target");
+                let unit = $(this).data("unit");
+                let progress = $(this).data("progress");
+
+                let progressComplete = (progress * 100) / target;
+
+                const count = setInterval(() => {
+                    if (width != progressComplete) {
+                        width++;
+                        progressCnt++;
+                        $(this).css("opacity", "1");
+                        (width <= 100) ? $(this).css("width", width + "%"): '';
+                        if (progressCnt <= progress) {
+                            $(this).text(progressCnt + ' ' + unit);
+                        }
+                    } else {
+                        clearInterval(count);
+                    }
+                }, 15);
+            });
         });
 
-        $('#search').on('keyup', function(){
-            search();
-        });
-
-        $('#search').on('focus', function(){
-            search();
-        });
-
-        function search(){
-            var searchKey = $('#search').val();
-            if(searchKey.length > 0){
-                $('body').addClass("typed-search-box-shown");
-
-                $('.typed-search-box').removeClass('d-none');
-                $('.search-preloader').removeClass('d-none');
-                $.post('{{ route('search.ajax') }}', { _token: AIZ.data.csrf, search:searchKey}, function(data){
-                    if(data == '0'){
-                        // $('.typed-search-box').addClass('d-none');
-                        $('#search-content').html(null);
-                        $('.typed-search-box .search-nothing').removeClass('d-none').html('Sorry, nothing found for <strong>"'+searchKey+'"</strong>');
-                        $('.search-preloader').addClass('d-none');
-
-                    }
-                    else{
-                        $('.typed-search-box .search-nothing').addClass('d-none').html(null);
-                        $('#search-content').html(data);
-                        $('.search-preloader').addClass('d-none');
-                    }
-                });
-            }
-            else {
-                $('.typed-search-box').addClass('d-none');
-                $('body').removeClass("typed-search-box-shown");
-            }
-        }
-
-        function updateNavCart(view,count){
-            $('.cart-count').html(count);
-            $('#cart_items').html(view);
-        }
-
-        function removeFromCart(key){
-            $.post('{{ route('cart.removeFromCart') }}', {
-                _token  : AIZ.data.csrf,
-                id      :  key
-            }, function(data){
-                updateNavCart(data.nav_cart_view,data.cart_count);
-                $('#cart-summary').html(data.cart_view);
-                AIZ.plugins.notify('success', "{{ translate('Item has been removed from cart') }}");
-                $('#cart_items_sidenav').html(parseInt($('#cart_items_sidenav').html())-1);
-            });
-        }
-
-        function addToCompare(id){
-            $.post('{{ route('compare.addToCompare') }}', {_token: AIZ.data.csrf, id:id}, function(data){
-                $('#compare').html(data);
-                AIZ.plugins.notify('success', "{{ translate('Item has been added to compare list') }}");
-                $('#compare_items_sidenav').html(parseInt($('#compare_items_sidenav').html())+1);
-            });
-        }
-
-        function addToWishList(id){
-            @if (Auth::check() && (Auth::user()->user_type == 'customer' || Auth::user()->user_type == 'seller'))
-                $.post('{{ route('wishlists.store') }}', {_token: AIZ.data.csrf, id:id}, function(data){
-                    if(data != 0){
-                        $('#wishlist').html(data);
-                        AIZ.plugins.notify('success', "{{ translate('Item has been added to wishlist') }}");
-                    }
-                    else{
-                        AIZ.plugins.notify('warning', "{{ translate('Please login first') }}");
-                    }
-                });
-            @else
-                AIZ.plugins.notify('warning', "{{ translate('Please login first') }}");
-            @endif
-        }
-
-        function showAddToCartModal(id){
-            if(!$('#modal-size').hasClass('modal-lg')){
-                $('#modal-size').addClass('modal-lg');
-            }
-            $('#addToCart-modal-body').html(null);
-            $('#addToCart').modal();
-            $('.c-preloader').show();
-            $.post('{{ route('cart.showCartModal') }}', {_token: AIZ.data.csrf, id:id}, function(data){
-                $('.c-preloader').hide();
-                $('#addToCart-modal-body').html(data);
-                AIZ.plugins.slickCarousel();
-                AIZ.plugins.zoom();
-                AIZ.extra.plusMinus();
-                getVariantPrice();
-            });
-        }
-
-        $('#option-choice-form input').on('change', function(){
-            getVariantPrice();
-        });
-
-        function getVariantPrice(){
-            if($('#option-choice-form input[name=quantity]').val() > 0 && checkAddToCartValidity()){
-                $.ajax({
-                   type:"POST",
-                   url: '{{ route('products.variant_price') }}',
-                   data: $('#option-choice-form').serializeArray(),
-                   success: function(data){
-
-                        $('.product-gallery-thumb .carousel-box').each(function (i) {
-                            if($(this).data('variation') && data.variation == $(this).data('variation')){
-                                $('.product-gallery-thumb').slick('slickGoTo', i);
-                            }
-                        })
-
-                       $('#option-choice-form #chosen_price_div').removeClass('d-none');
-                       $('#option-choice-form #chosen_price_div #chosen_price').html(data.price);
-                       $('#available-quantity').html(data.quantity);
-                       $('.input-number').prop('max', data.max_limit);
-                       if(parseInt(data.in_stock) == 0 && data.digital  == 0){
-                           $('.buy-now').addClass('d-none');
-                           $('.add-to-cart').addClass('d-none');
-                           $('.out-of-stock').removeClass('d-none');
-                       }
-                       else{
-                           $('.buy-now').removeClass('d-none');
-                           $('.add-to-cart').removeClass('d-none');
-                           $('.out-of-stock').addClass('d-none');
-                       }
-                   }
-               });
-            }
-        }
-
-        function checkAddToCartValidity(){
-            var names = {};
-            $('#option-choice-form input:radio').each(function() { // find unique names
-                  names[$(this).attr('name')] = true;
-            });
-            var count = 0;
-            $.each(names, function() { // then count them
-                  count++;
-            });
-
-            if($('#option-choice-form input:radio:checked').length == count){
-                return true;
-            }
-
-            return false;
-        }
-
-        function addToCart(){
-            if(checkAddToCartValidity()) {
-                $('#addToCart').modal();
-                $('.c-preloader').show();
-                $.ajax({
-                    type:"POST",
-                    url: '{{ route('cart.addToCart') }}',
-                    data: $('#option-choice-form').serializeArray(),
-                    success: function(data){
-
-                       $('#addToCart-modal-body').html(null);
-                       $('.c-preloader').hide();
-                       $('#modal-size').removeClass('modal-lg');
-                       $('#addToCart-modal-body').html(data.modal_view);
-                       AIZ.extra.plusMinus();
-                       AIZ.plugins.slickCarousel();
-                       updateNavCart(data.nav_cart_view,data.cart_count);
-                    }
-                });
-            }
-            else{
-                AIZ.plugins.notify('warning', "{{ translate('Please choose all the options') }}");
-            }
-        }
-
-        function buyNow(){
-            if(checkAddToCartValidity()) {
-                $('#addToCart-modal-body').html(null);
-                $('#addToCart').modal();
-                $('.c-preloader').show();
-                $.ajax({
-                   type:"POST",
-                   url: '{{ route('cart.addToCart') }}',
-                   data: $('#option-choice-form').serializeArray(),
-                   success: function(data){
-                       if(data.status == 1){
-
-                            $('#addToCart-modal-body').html(data.modal_view);
-                            updateNavCart(data.nav_cart_view,data.cart_count);
-
-                            window.location.replace("{{ route('cart') }}");
-                       }
-                       else{
-                            $('#addToCart-modal-body').html(null);
-                            $('.c-preloader').hide();
-                            $('#modal-size').removeClass('modal-lg');
-                            $('#addToCart-modal-body').html(data.modal_view);
-                       }
-                   }
-               });
-            }
-            else{
-                AIZ.plugins.notify('warning', "{{ translate('Please choose all the options') }}");
-            }
-        }
-
-        function show_purchase_history_details(order_id)
-        {
-            $('#order-details-modal-body').html(null);
-
-            if(!$('#modal-size').hasClass('modal-lg')){
-                $('#modal-size').addClass('modal-lg');
-            }
-
-            $.post('{{ route('purchase_history.details') }}', { _token : AIZ.data.csrf, order_id : order_id}, function(data){
-                $('#order-details-modal-body').html(data);
-                $('#order_details').modal();
-                $('.c-preloader').hide();
-            });
-        }
-
-
+        $(window).on('scroll', function() {
+            $(window).scrollTop() > 5 ? ($("header").addClass("scrolled"), $(".home-header .navbar-nav")
+                .removeClass("mr-auto"), $(".home-header .navbar-nav").addClass("ml-auto")) : ($("header")
+                .removeClass("scrolled"), $(".home-header .navbar-nav").addClass("mr-auto"), $(
+                    ".home-header .navbar-nav").removeClass("ml-auto"));
+        })
     </script>
+
+    @include('frontend.partials.modal')
+
+    @yield('modal')
 
     @yield('script')
 
@@ -529,4 +412,5 @@
     @endphp
 
 </body>
+
 </html>
