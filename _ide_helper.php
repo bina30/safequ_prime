@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.75.0.
+ * Generated for Laravel 8.73.2.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -393,17 +393,6 @@
         {
                         /** @var \Illuminate\Foundation\Application $instance */
                         return $instance->runningUnitTests();
-        }
-                    /**
-         * Determine if the application is running with debug mode enabled.
-         *
-         * @return bool 
-         * @static 
-         */ 
-        public static function hasDebugModeEnabled()
-        {
-                        /** @var \Illuminate\Foundation\Application $instance */
-                        return $instance->hasDebugModeEnabled();
         }
                     /**
          * Register all of the configured providers.
@@ -6400,36 +6389,6 @@
                         return $instance->has($ability);
         }
                     /**
-         * Perform an on-demand authorization check. Throw an authorization exception if the condition or callback is false.
-         *
-         * @param \Illuminate\Auth\Access\Response|\Closure|bool $condition
-         * @param string|null $message
-         * @param string|null $code
-         * @return \Illuminate\Auth\Access\Response 
-         * @throws \Illuminate\Auth\Access\AuthorizationException
-         * @static 
-         */ 
-        public static function allowIf($condition, $message = null, $code = null)
-        {
-                        /** @var \Illuminate\Auth\Access\Gate $instance */
-                        return $instance->allowIf($condition, $message, $code);
-        }
-                    /**
-         * Perform an on-demand authorization check. Throw an authorization exception if the condition or callback is true.
-         *
-         * @param \Illuminate\Auth\Access\Response|\Closure|bool $condition
-         * @param string|null $message
-         * @param string|null $code
-         * @return \Illuminate\Auth\Access\Response 
-         * @throws \Illuminate\Auth\Access\AuthorizationException
-         * @static 
-         */ 
-        public static function denyIf($condition, $message = null, $code = null)
-        {
-                        /** @var \Illuminate\Auth\Access\Gate $instance */
-                        return $instance->denyIf($condition, $message, $code);
-        }
-                    /**
          * Define a new ability.
          *
          * @param string $ability
@@ -8029,23 +7988,9 @@
                     /**
          * Assert the total amount of times a notification was sent.
          *
-         * @param string $notification
-         * @param int $expectedCount
-         * @return void 
-         * @static 
-         */ 
-        public static function assertSentTimes($notification, $expectedCount)
-        {
-                        /** @var \Illuminate\Support\Testing\Fakes\NotificationFake $instance */
-                        $instance->assertSentTimes($notification, $expectedCount);
-        }
-                    /**
-         * Assert the total amount of times a notification was sent.
-         *
          * @param int $expectedCount
          * @param string $notification
          * @return void 
-         * @deprecated Use the assertSentTimes method instead
          * @static 
          */ 
         public static function assertTimesSent($expectedCount, $notification)
@@ -9670,7 +9615,7 @@
                     /**
          * Gets the list of trusted proxies.
          *
-         * @return array 
+         * @return array An array of trusted proxies
          * @static 
          */ 
         public static function getTrustedProxies()
@@ -9702,7 +9647,7 @@
                     /**
          * Gets the list of trusted host patterns.
          *
-         * @return array 
+         * @return array An array of trusted host patterns
          * @static 
          */ 
         public static function getTrustedHosts()
@@ -9715,7 +9660,7 @@
          * It builds a normalized query string, where keys/value pairs are alphabetized,
          * have consistent escaping and unneeded delimiters are removed.
          *
-         * @return string 
+         * @return string A normalized query string for the Request
          * @static 
          */ 
         public static function normalizeQueryString($qs)
@@ -9742,7 +9687,7 @@
                     /**
          * Checks whether support for the _method request parameter is enabled.
          *
-         * @return bool 
+         * @return bool True when the _method request parameter is enabled, false otherwise
          * @static 
          */ 
         public static function getHttpMethodParameterOverride()
@@ -9768,8 +9713,7 @@
          * like whether the session is started or not. It is just a way to check if this Request
          * is associated with a Session instance.
          *
-         * @param bool $skipIfUninitialized When true, ignores factories injected by `setSessionFactory`
-         * @return bool 
+         * @return bool true when the Request contains a Session object, false otherwise
          * @static 
          */ 
         public static function hasSession()
@@ -9791,7 +9735,6 @@
          * 
          *
          * @internal 
-         * @param \Symfony\Component\HttpFoundation\callable():  SessionInterface $factory
          * @static 
          */ 
         public static function setSessionFactory($factory)
@@ -9808,7 +9751,7 @@
          * 
          * Use this method carefully; you should use getClientIp() instead.
          *
-         * @return array 
+         * @return array The client IP addresses
          * @see getClientIp()
          * @static 
          */ 
@@ -9830,7 +9773,7 @@
          * ("Client-Ip" for instance), configure it via the $trustedHeaderSet
          * argument of the Request::setTrustedProxies() method instead.
          *
-         * @return string|null 
+         * @return string|null The client IP address
          * @see getClientIps()
          * @see https://wikipedia.org/wiki/X-Forwarded-For
          * @static 
@@ -9924,7 +9867,7 @@
          * 
          * The "X-Forwarded-Port" header must contain the client port.
          *
-         * @return int|string|null Can be a string if fetched from the server bag
+         * @return int|string can be a string if fetched from the server bag
          * @static 
          */ 
         public static function getPort()
@@ -9995,7 +9938,7 @@
          * If the URL was called with basic authentication, the user
          * and the password are not added to the generated string.
          *
-         * @return string 
+         * @return string The scheme and HTTP host
          * @static 
          */ 
         public static function getSchemeAndHttpHost()
@@ -10006,7 +9949,7 @@
                     /**
          * Generates a normalized URI (URL) for the Request.
          *
-         * @return string 
+         * @return string A normalized URI (URL) for the Request
          * @see getQueryString()
          * @static 
          */ 
@@ -10019,7 +9962,7 @@
          * Generates a normalized URI for the given path.
          *
          * @param string $path A path to use instead of the current one
-         * @return string 
+         * @return string The normalized URI for the path
          * @static 
          */ 
         public static function getUriForPath($path)
@@ -10042,7 +9985,7 @@
          * - "/a/b/c/other" -> "other"
          * - "/a/x/y"       -> "../../x/y"
          *
-         * @return string 
+         * @return string The relative target path
          * @static 
          */ 
         public static function getRelativeUriForPath($path)
@@ -10056,7 +9999,7 @@
          * It builds a normalized query string, where keys/value pairs are alphabetized
          * and have consistent escaping.
          *
-         * @return string|null 
+         * @return string|null A normalized query string for the Request
          * @static 
          */ 
         public static function getQueryString()
@@ -10118,7 +10061,7 @@
          * 
          * The method is always an uppercased string.
          *
-         * @return string 
+         * @return string The request method
          * @see getRealMethod()
          * @static 
          */ 
@@ -10130,7 +10073,7 @@
                     /**
          * Gets the "real" request method.
          *
-         * @return string 
+         * @return string The request method
          * @see getMethod()
          * @static 
          */ 
@@ -10142,7 +10085,7 @@
                     /**
          * Gets the mime type associated with the format.
          *
-         * @return string|null 
+         * @return string|null The associated mime type (null if not found)
          * @static 
          */ 
         public static function getMimeType($format)
@@ -10153,7 +10096,7 @@
                     /**
          * Gets the mime types associated with the format.
          *
-         * @return array 
+         * @return array The associated mime types
          * @static 
          */ 
         public static function getMimeTypes($format)
@@ -10163,7 +10106,7 @@
                     /**
          * Gets the format associated with the mime type.
          *
-         * @return string|null 
+         * @return string|null The format (null if not found)
          * @static 
          */ 
         public static function getFormat($mimeType)
@@ -10192,7 +10135,7 @@
          *  * $default
          *
          * @see getPreferredFormat
-         * @return string|null 
+         * @return string|null The request format
          * @static 
          */ 
         public static function getRequestFormat($default = 'html')
@@ -10213,7 +10156,7 @@
                     /**
          * Gets the format associated with the request.
          *
-         * @return string|null 
+         * @return string|null The format (null if no content type is present)
          * @static 
          */ 
         public static function getContentType()
@@ -10302,7 +10245,7 @@
          * Checks whether the method is cacheable or not.
          *
          * @see https://tools.ietf.org/html/rfc7231#section-4.2.3
-         * @return bool 
+         * @return bool True for GET and HEAD, false otherwise
          * @static 
          */ 
         public static function isMethodCacheable()
@@ -10331,7 +10274,7 @@
          * Returns the request body content.
          *
          * @param bool $asResource If true, a resource will be returned
-         * @return string|resource 
+         * @return string|resource The request body content or a resource to read the body stream
          * @static 
          */ 
         public static function getContent($asResource = false)
@@ -10342,7 +10285,7 @@
                     /**
          * Gets the Etags.
          *
-         * @return array 
+         * @return array The entity tags
          * @static 
          */ 
         public static function getETags()
@@ -10380,7 +10323,7 @@
          * Returns the preferred language.
          *
          * @param string[] $locales An array of ordered available locales
-         * @return string|null 
+         * @return string|null The preferred locale
          * @static 
          */ 
         public static function getPreferredLanguage($locales = null)
@@ -10389,9 +10332,9 @@
                         return $instance->getPreferredLanguage($locales);
         }
                     /**
-         * Gets a list of languages acceptable by the client browser ordered in the user browser preferences.
+         * Gets a list of languages acceptable by the client browser.
          *
-         * @return array 
+         * @return array Languages ordered in the user browser preferences
          * @static 
          */ 
         public static function getLanguages()
@@ -10400,9 +10343,9 @@
                         return $instance->getLanguages();
         }
                     /**
-         * Gets a list of charsets acceptable by the client browser in preferable order.
+         * Gets a list of charsets acceptable by the client browser.
          *
-         * @return array 
+         * @return array List of charsets in preferable order
          * @static 
          */ 
         public static function getCharsets()
@@ -10411,9 +10354,9 @@
                         return $instance->getCharsets();
         }
                     /**
-         * Gets a list of encodings acceptable by the client browser in preferable order.
+         * Gets a list of encodings acceptable by the client browser.
          *
-         * @return array 
+         * @return array List of encodings in preferable order
          * @static 
          */ 
         public static function getEncodings()
@@ -10422,9 +10365,9 @@
                         return $instance->getEncodings();
         }
                     /**
-         * Gets a list of content types acceptable by the client browser in preferable order.
+         * Gets a list of content types acceptable by the client browser.
          *
-         * @return array 
+         * @return array List of content types in preferable order
          * @static 
          */ 
         public static function getAcceptableContentTypes()
@@ -10439,7 +10382,7 @@
          * It is known to work with common JavaScript frameworks:
          *
          * @see https://wikipedia.org/wiki/List_of_Ajax_frameworks#JavaScript
-         * @return bool 
+         * @return bool true if the request is an XMLHttpRequest, false otherwise
          * @static 
          */ 
         public static function isXmlHttpRequest()
@@ -10464,7 +10407,7 @@
          * This can be useful to determine whether or not to trust the
          * contents of a proxy-specific header.
          *
-         * @return bool 
+         * @return bool true if the request came from a trusted proxy, false otherwise
          * @static 
          */ 
         public static function isFromTrustedProxy()
@@ -11366,7 +11309,6 @@
      * @method static \Illuminate\Routing\RouteRegistrar name(string $value)
      * @method static \Illuminate\Routing\RouteRegistrar namespace(string|null $value)
      * @method static \Illuminate\Routing\RouteRegistrar prefix(string $prefix)
-     * @method static \Illuminate\Routing\RouteRegistrar scopeBindings()
      * @method static \Illuminate\Routing\RouteRegistrar where(array $where)
      * @see \Illuminate\Routing\Router
      */ 
@@ -13555,7 +13497,7 @@
          * Write the contents of a file.
          *
          * @param string $path
-         * @param \Psr\Http\Message\StreamInterface|\Illuminate\Http\File|\Illuminate\Http\UploadedFile|string|resource $contents
+         * @param string|resource $contents
          * @param mixed $options
          * @return bool 
          * @static 
@@ -15280,7 +15222,7 @@
                         return \Illuminate\View\Factory::parentPlaceholder($section);
         }
                     /**
-         * Check if section exists.
+         * Check if the section exists.
          *
          * @param string $name
          * @return bool 
@@ -16096,9 +16038,9 @@
          * @param string|null $fileName
          * @param string $writerType
          * @param array $headers
-         * @return \Symfony\Component\HttpFoundation\BinaryFileResponse 
          * @throws \PhpOffice\PhpSpreadsheet\Exception
          * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+         * @return \Symfony\Component\HttpFoundation\BinaryFileResponse 
          * @static 
          */ 
         public static function download($export, $fileName, $writerType = null, $headers = [])
@@ -16114,9 +16056,9 @@
          * @param string|null $disk
          * @param string $writerType
          * @param mixed $diskOptions
-         * @return bool 
          * @throws \PhpOffice\PhpSpreadsheet\Exception
          * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+         * @return bool 
          * @static 
          */ 
         public static function store($export, $filePath, $diskName = null, $writerType = null, $diskOptions = [])
@@ -18056,6 +17998,152 @@
         public static function finalizeCache($addon)
         {
                         return \MehediIitdu\CoreComponentRepository\CoreComponentRepository::finalizeCache($addon);
+        }
+         
+    }
+     
+}
+
+    namespace Milon\Barcode\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class DNS1DFacade {
+                    /**
+         * Return a SVG string representation of barcode.
+         *
+         * @param $code (string) code to print
+         * @param $type (string) type of barcode: <ul><li>C39 : CODE 39 - ANSI MH10.8M-1983 - USD-3 - 3 of 9.</li><li>C39+ : CODE 39 with checksum</li><li>C39E : CODE 39 EXTENDED</li><li>C39E+ : CODE 39 EXTENDED + CHECKSUM</li><li>C93 : CODE 93 - USS-93</li><li>S25 : Standard 2 of 5</li><li>S25+ : Standard 2 of 5 + CHECKSUM</li><li>I25 : Interleaved 2 of 5</li><li>I25+ : Interleaved 2 of 5 + CHECKSUM</li><li>C128 : CODE 128</li><li>C128A : CODE 128 A</li><li>C128B : CODE 128 B</li><li>C128C : CODE 128 C</li><li>EAN2 : 2-Digits UPC-Based Extention</li><li>EAN5 : 5-Digits UPC-Based Extention</li><li>EAN8 : EAN 8</li><li>EAN13 : EAN 13</li><li>UPCA : UPC-A</li><li>UPCE : UPC-E</li><li>MSI : MSI (Variation of Plessey code)</li><li>MSI+ : MSI + CHECKSUM (modulo 11)</li><li>POSTNET : POSTNET</li><li>PLANET : PLANET</li><li>RMS4CC : RMS4CC (Royal Mail 4-state Customer Code) - CBC (Customer Bar Code)</li><li>KIX : KIX (Klant index - Customer index)</li><li>IMB: Intelligent Mail Barcode - Onecode - USPS-B-3200</li><li>CODABAR : CODABAR</li><li>CODE11 : CODE 11</li><li>PHARMA : PHARMACODE</li><li>PHARMA2T : PHARMACODE TWO-TRACKS</li></ul>
+         * @param $w (int) Minimum width of a single bar in user units.
+         * @param $h (int) Height of barcode in user units.
+         * @param $color (string) Foreground color (in SVG format) for bar elements (background is transparent).
+         * @return string SVG code.
+         * @protected 
+         * @static 
+         */ 
+        public static function getBarcodeSVG($code, $type, $w = 2, $h = 30, $color = 'black', $showCode = true, $inline = false)
+        {
+                        /** @var \Milon\Barcode\DNS1D $instance */
+                        return $instance->getBarcodeSVG($code, $type, $w, $h, $color, $showCode, $inline);
+        }
+                    /**
+         * Return an HTML representation of barcode.
+         *
+         * @param $code (string) code to print
+         * @param $type (string) type of barcode: <ul><li>C39 : CODE 39 - ANSI MH10.8M-1983 - USD-3 - 3 of 9.</li><li>C39+ : CODE 39 with checksum</li><li>C39E : CODE 39 EXTENDED</li><li>C39E+ : CODE 39 EXTENDED + CHECKSUM</li><li>C93 : CODE 93 - USS-93</li><li>S25 : Standard 2 of 5</li><li>S25+ : Standard 2 of 5 + CHECKSUM</li><li>I25 : Interleaved 2 of 5</li><li>I25+ : Interleaved 2 of 5 + CHECKSUM</li><li>C128 : CODE 128</li><li>C128A : CODE 128 A</li><li>C128B : CODE 128 B</li><li>C128C : CODE 128 C</li><li>EAN2 : 2-Digits UPC-Based Extention</li><li>EAN5 : 5-Digits UPC-Based Extention</li><li>EAN8 : EAN 8</li><li>EAN13 : EAN 13</li><li>UPCA : UPC-A</li><li>UPCE : UPC-E</li><li>MSI : MSI (Variation of Plessey code)</li><li>MSI+ : MSI + CHECKSUM (modulo 11)</li><li>POSTNET : POSTNET</li><li>PLANET : PLANET</li><li>RMS4CC : RMS4CC (Royal Mail 4-state Customer Code) - CBC (Customer Bar Code)</li><li>KIX : KIX (Klant index - Customer index)</li><li>IMB: Intelligent Mail Barcode - Onecode - USPS-B-3200</li><li>CODABAR : CODABAR</li><li>CODE11 : CODE 11</li><li>PHARMA : PHARMACODE</li><li>PHARMA2T : PHARMACODE TWO-TRACKS</li></ul>
+         * @param $w (int) Width of a single bar element in pixels.
+         * @param $h (int) Height of a single bar element in pixels.
+         * @param $color (string) Foreground color for bar elements (background is transparent).
+         * @return string HTML code.
+         * @protected 
+         * @static 
+         */ 
+        public static function getBarcodeHTML($code, $type, $w = 2, $h = 30, $color = 'black', $showCode = false)
+        {
+                        /** @var \Milon\Barcode\DNS1D $instance */
+                        return $instance->getBarcodeHTML($code, $type, $w, $h, $color, $showCode);
+        }
+                    /**
+         * Return a PNG image representation of barcode (requires GD or Imagick library).
+         *
+         * @param $code (string) code to print
+         * @param $type (string) type of barcode: <ul><li>C39 : CODE 39 - ANSI MH10.8M-1983 - USD-3 - 3 of 9.</li><li>C39+ : CODE 39 with checksum</li><li>C39E : CODE 39 EXTENDED</li><li>C39E+ : CODE 39 EXTENDED + CHECKSUM</li><li>C93 : CODE 93 - USS-93</li><li>S25 : Standard 2 of 5</li><li>S25+ : Standard 2 of 5 + CHECKSUM</li><li>I25 : Interleaved 2 of 5</li><li>I25+ : Interleaved 2 of 5 + CHECKSUM</li><li>C128 : CODE 128</li><li>C128A : CODE 128 A</li><li>C128B : CODE 128 B</li><li>C128C : CODE 128 C</li><li>EAN2 : 2-Digits UPC-Based Extention</li><li>EAN5 : 5-Digits UPC-Based Extention</li><li>EAN8 : EAN 8</li><li>EAN13 : EAN 13</li><li>UPCA : UPC-A</li><li>UPCE : UPC-E</li><li>MSI : MSI (Variation of Plessey code)</li><li>MSI+ : MSI + CHECKSUM (modulo 11)</li><li>POSTNET : POSTNET</li><li>PLANET : PLANET</li><li>RMS4CC : RMS4CC (Royal Mail 4-state Customer Code) - CBC (Customer Bar Code)</li><li>KIX : KIX (Klant index - Customer index)</li><li>IMB: Intelligent Mail Barcode - Onecode - USPS-B-3200</li><li>CODABAR : CODABAR</li><li>CODE11 : CODE 11</li><li>PHARMA : PHARMACODE</li><li>PHARMA2T : PHARMACODE TWO-TRACKS</li></ul>
+         * @param $w (int) Width of a single bar element in pixels.
+         * @param $h (int) Height of a single bar element in pixels.
+         * @param $color (array) RGB (0-255) foreground color for bar elements (background is transparent).
+         * @return \image or false in case of error.
+         * @protected 
+         * @static 
+         */ 
+        public static function getBarcodePNG($code, $type, $w = 2, $h = 30, $color = [], $showCode = false)
+        {
+                        /** @var \Milon\Barcode\DNS1D $instance */
+                        return $instance->getBarcodePNG($code, $type, $w, $h, $color, $showCode);
+        }
+                    /**
+         * Get the array representation of last generated barcode.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getBarcodeArray()
+        {
+                        /** @var \Milon\Barcode\DNS1D $instance */
+                        return $instance->getBarcodeArray();
+        }
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class DNS2DFacade {
+                    /**
+         * Return a SVG string representation of barcode.
+         * 
+         * <li>$arrcode['code'] code to be printed on text label</li>
+         * <li>$arrcode['num_rows'] required number of rows</li>
+         * <li>$arrcode['num_cols'] required number of columns</li>
+         * <li>$arrcode['bcode'][$r][$c] value of the cell is $r row and $c column (0 = transparent, 1 = black)</li></ul>
+         *
+         * @param $code (string) code to print
+         * @param $type (string) type of barcode: <ul><li>DATAMATRIX : Datamatrix (ISO/IEC 16022)</li><li>PDF417 : PDF417 (ISO/IEC 15438:2006)</li><li>PDF417,a,e,t,s,f,o0,o1,o2,o3,o4,o5,o6 : PDF417 with parameters: a = aspect ratio (width/height); e = error correction level (0-8); t = total number of macro segments; s = macro segment index (0-99998); f = file ID; o0 = File Name (text); o1 = Segment Count (numeric); o2 = Time Stamp (numeric); o3 = Sender (text); o4 = Addressee (text); o5 = File Size (numeric); o6 = Checksum (numeric). NOTES: Parameters t, s and f are required for a Macro Control Block, all other parametrs are optional. To use a comma character ',' on text options, replace it with the character 255: "\xff".</li><li>QRCODE : QRcode Low error correction</li><li>QRCODE,L : QRcode Low error correction</li><li>QRCODE,M : QRcode Medium error correction</li><li>QRCODE,Q : QRcode Better error correction</li><li>QRCODE,H : QR-CODE Best error correction</li><li>RAW: raw mode - comma-separad list of array rows</li><li>RAW2: raw mode - array rows are surrounded by square parenthesis.</li><li>TEST : Test matrix</li></ul>
+         * @param $w (int) Width of a single rectangle element in user units.
+         * @param $h (int) Height of a single rectangle element in user units.
+         * @param $color (string) Foreground color (in SVG format) for bar elements (background is transparent).
+         * @return string SVG code.
+         * @protected 
+         * @static 
+         */ 
+        public static function getBarcodeSVG($code, $type, $w = 3, $h = 3, $color = 'black')
+        {
+                        /** @var \Milon\Barcode\DNS2D $instance */
+                        return $instance->getBarcodeSVG($code, $type, $w, $h, $color);
+        }
+                    /**
+         * Return an HTML representation of barcode.
+         * 
+         * <li>$arrcode['code'] code to be printed on text label</li>
+         * <li>$arrcode['num_rows'] required number of rows</li>
+         * <li>$arrcode['num_cols'] required number of columns</li>
+         * <li>$arrcode['bcode'][$r][$c] value of the cell is $r row and $c column (0 = transparent, 1 = black)</li></ul>
+         *
+         * @param $code (string) code to print
+         * @param $type (string) type of barcode: <ul><li>DATAMATRIX : Datamatrix (ISO/IEC 16022)</li><li>PDF417 : PDF417 (ISO/IEC 15438:2006)</li><li>PDF417,a,e,t,s,f,o0,o1,o2,o3,o4,o5,o6 : PDF417 with parameters: a = aspect ratio (width/height); e = error correction level (0-8); t = total number of macro segments; s = macro segment index (0-99998); f = file ID; o0 = File Name (text); o1 = Segment Count (numeric); o2 = Time Stamp (numeric); o3 = Sender (text); o4 = Addressee (text); o5 = File Size (numeric); o6 = Checksum (numeric). NOTES: Parameters t, s and f are required for a Macro Control Block, all other parametrs are optional. To use a comma character ',' on text options, replace it with the character 255: "\xff".</li><li>QRCODE : QRcode Low error correction</li><li>QRCODE,L : QRcode Low error correction</li><li>QRCODE,M : QRcode Medium error correction</li><li>QRCODE,Q : QRcode Better error correction</li><li>QRCODE,H : QR-CODE Best error correction</li><li>RAW: raw mode - comma-separad list of array rows</li><li>RAW2: raw mode - array rows are surrounded by square parenthesis.</li><li>TEST : Test matrix</li></ul>
+         * @param $w (int) Width of a single rectangle element in pixels.
+         * @param $h (int) Height of a single rectangle element in pixels.
+         * @param $color (string) Foreground color for bar elements (background is transparent).
+         * @return string HTML code.
+         * @protected 
+         * @static 
+         */ 
+        public static function getBarcodeHTML($code, $type, $w = 10, $h = 10, $color = 'black')
+        {
+                        /** @var \Milon\Barcode\DNS2D $instance */
+                        return $instance->getBarcodeHTML($code, $type, $w, $h, $color);
+        }
+                    /**
+         * Return a PNG image representation of barcode (requires GD or Imagick library).
+         * 
+         * <li>$arrcode['code'] code to be printed on text label</li>
+         * <li>$arrcode['num_rows'] required number of rows</li>
+         * <li>$arrcode['num_cols'] required number of columns</li>
+         * <li>$arrcode['bcode'][$r][$c] value of the cell is $r row and $c column (0 = transparent, 1 = black)</li></ul>
+         *
+         * @param $code (string) code to print
+         * @param $type (string) type of barcode: <ul><li>DATAMATRIX : Datamatrix (ISO/IEC 16022)</li><li>PDF417 : PDF417 (ISO/IEC 15438:2006)</li><li>PDF417,a,e,t,s,f,o0,o1,o2,o3,o4,o5,o6 : PDF417 with parameters: a = aspect ratio (width/height); e = error correction level (0-8); t = total number of macro segments; s = macro segment index (0-99998); f = file ID; o0 = File Name (text); o1 = Segment Count (numeric); o2 = Time Stamp (numeric); o3 = Sender (text); o4 = Addressee (text); o5 = File Size (numeric); o6 = Checksum (numeric). NOTES: Parameters t, s and f are required for a Macro Control Block, all other parametrs are optional. To use a comma character ',' on text options, replace it with the character 255: "\xff".</li><li>QRCODE : QRcode Low error correction</li><li>QRCODE,L : QRcode Low error correction</li><li>QRCODE,M : QRcode Medium error correction</li><li>QRCODE,Q : QRcode Better error correction</li><li>QRCODE,H : QR-CODE Best error correction</li><li>RAW: raw mode - comma-separad list of array rows</li><li>RAW2: raw mode - array rows are surrounded by square parenthesis.</li><li>TEST : Test matrix</li></ul>
+         * @param $w (int) Width of a single rectangle element in pixels.
+         * @param $h (int) Height of a single rectangle element in pixels.
+         * @param $color (array) RGB (0-255) foreground color for bar elements (background is transparent).
+         * @return \Milon\Barcode\path or false in case of error.
+         * @protected 
+         * @static 
+         */ 
+        public static function getBarcodePNG($code, $type, $w = 3, $h = 3, $color = [])
+        {
+                        /** @var \Milon\Barcode\DNS2D $instance */
+                        return $instance->getBarcodePNG($code, $type, $w, $h, $color);
         }
          
     }
@@ -20477,7 +20565,7 @@ namespace  {
                 /**
              * Add a "where date" statement to the query.
              *
-             * @param \Illuminate\Database\Query\Expression|string $column
+             * @param string $column
              * @param string $operator
              * @param \DateTimeInterface|string|null $value
              * @param string $boolean
@@ -21803,6 +21891,8 @@ namespace  {
             class Combinations extends \Laracon21\Combinations\CombinationsFacade {}
             class Timezones extends \Laracon21\Timezones\TimezonesFacade {}
             class CoreComponentRepository extends \MehediIitdu\CoreComponentRepository\CoreComponentRepositoryFacade {}
+            class DNS1D extends \Milon\Barcode\Facades\DNS1DFacade {}
+            class DNS2D extends \Milon\Barcode\Facades\DNS2DFacade {}
             class LaravelPayku extends \SebaCarrasco93\LaravelPayku\Facades\LaravelPayku {}
      
 }
