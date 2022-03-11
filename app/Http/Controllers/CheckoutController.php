@@ -393,18 +393,19 @@ class CheckoutController extends Controller
 
     public function order_confirmed()
     {
-        $combined_order = CombinedOrder::findOrFail(Session::get('combined_order_id'));
+        // $combined_order = CombinedOrder::findOrFail(Session::get('combined_order_id'));
 
-        Cart::where('user_id', $combined_order->user_id)
-                ->delete();
+        // Cart::where('user_id', $combined_order->user_id)
+        //         ->delete();
 
-        //Session::forget('club_point');
-        //Session::forget('combined_order_id');
+        // //Session::forget('club_point');
+        // //Session::forget('combined_order_id');
         
-        foreach($combined_order->orders as $order){
-            NotificationUtility::sendOrderPlacedNotification($order);
-        }
+        // foreach($combined_order->orders as $order){
+        //     NotificationUtility::sendOrderPlacedNotification($order);
+        // }
 
-        return view('frontend.order_confirmed', compact('combined_order'));
+        // return view('frontend.order_confirmed', compact('combined_order'));
+        return view('frontend.order_confirmed');
     }
 }
