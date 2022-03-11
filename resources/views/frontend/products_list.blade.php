@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app', ['header_show' => true, 'header2' => true])
+@extends('frontend.layouts.app', ['header_show' => true, 'header2' => true, 'footer' => true])
 
 @if (isset($category_id))
     @php

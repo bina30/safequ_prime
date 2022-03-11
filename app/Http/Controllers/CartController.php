@@ -14,27 +14,28 @@ class CartController extends Controller
 {
     public function index(Request $request)
     {
-        if(auth()->user() != null) {
-            $user_id = Auth::user()->id;
-            if($request->session()->get('temp_user_id')) {
-                Cart::where('temp_user_id', $request->session()->get('temp_user_id'))
-                        ->update(
-                                [
-                                    'user_id' => $user_id,
-                                    'temp_user_id' => null
-                                ]
-                );
+        // if(auth()->user() != null) {
+        //     $user_id = Auth::user()->id;
+        //     if($request->session()->get('temp_user_id')) {
+        //         Cart::where('temp_user_id', $request->session()->get('temp_user_id'))
+        //                 ->update(
+        //                         [
+        //                             'user_id' => $user_id,
+        //                             'temp_user_id' => null
+        //                         ]
+        //         );
 
-                Session::forget('temp_user_id');
-            }
-            $carts = Cart::where('user_id', $user_id)->get();
-        } else {
-            $temp_user_id = $request->session()->get('temp_user_id');
-            // $carts = Cart::where('temp_user_id', $temp_user_id)->get();
-            $carts = ($temp_user_id != null) ? Cart::where('temp_user_id', $temp_user_id)->get() : [] ;
-        }
+        //         Session::forget('temp_user_id');
+        //     }
+        //     $carts = Cart::where('user_id', $user_id)->get();
+        // } else {
+        //     $temp_user_id = $request->session()->get('temp_user_id');
+        //     // $carts = Cart::where('temp_user_id', $temp_user_id)->get();
+        //     $carts = ($temp_user_id != null) ? Cart::where('temp_user_id', $temp_user_id)->get() : [] ;
+        // }
 
-        return view('frontend.view_cart', compact('carts'));
+        // return view('frontend.view_cart', compact('carts'));
+        return view('frontend.view_cart');
     }
 
     public function showCartModal(Request $request)

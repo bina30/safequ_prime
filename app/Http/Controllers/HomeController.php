@@ -146,12 +146,12 @@ class HomeController extends Controller
 
     public function profile(Request $request)
     {
-        if(Auth::user()->user_type == 'delivery_boy'){
-            return view('delivery_boys.frontend.profile');
-        }
-        else{
+        // if(Auth::user()->user_type == 'delivery_boy'){
+        //     return view('delivery_boys.frontend.profile');
+        // }
+        // else{
             return view('frontend.user.profile');
-        }
+        // }
     }
 
     public function userProfileUpdate(Request $request)

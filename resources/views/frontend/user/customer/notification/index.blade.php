@@ -1,74 +1,127 @@
-@extends('frontend.layouts.user_panel')
+@extends('frontend.layouts.app', ['header_show' => true, 'header2' => false, 'footer' => true])
 
-@section('panel_content')
-
-<div class="card">
-    <form class="" id="sort_customers" action="" method="GET">
-        <div class="card-header row gutters-5">
-            <div class="col">
-                <h5 class="mb-0 h6">{{translate('Notifications')}}</h5>
+@section('content')
+    <header class="inner-header bg-white py-3">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-sm-8 px-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a class="nav-logo" href="javascript:history.back()">
+                            <i class="fad fa-chevron-left pl-2 pr-3 py-2"></i>
+                        </a>
+                        <a class="nav-logo" href="{{ route('home')}}">
+                            <img src="{{ static_asset('assets/img/safequ-logo.png') }}" alt="SafeQu Logo">
+                        </a>
+                        <div class="empty-nav-div"></div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="card-body">
-            <ul class="list-group list-group-flush">
-                @forelse($notifications as $notification)
-                    @if($notification->type == 'App\Notifications\OrderNotification')
-                        <li class="list-group-item d-flex justify-content-between align-items- py-3">
-                            <div class="media text-inherit">
-                                <div class="media-body">
-                                    <p class="mb-1 text-truncate-2">
-                                        {{translate('Your Order: ')}}
-                                        <a href="javascript:void(0)" onclick="show_purchase_history_details({{ $notification->data['order_id'] }})">
-                                            {{$notification->data['order_code']}}
-                                        </a>
-                                        {{translate(' has been '. ucfirst(str_replace('_', ' ', $notification->data['status'])))}}
-                                    </p>
-                                    <small class="text-muted">
-                                        {{ date("F j Y, g:i a", strtotime($notification->created_at)) }}
-                                    </small>
+    </header>
+
+    <main class="main-tag-mt-sm">
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-6 col-sm-8 px-2">
+                    <div class="notifications py-4">
+                        <h5 class="mb-0 fw700 title-txt mb-4">Notifications</h5>
+
+                        <div class="notify-crd">
+                            <div class="d-flex justify-content-start align-items-center pr-2">
+                                <div class="img-name pr-2">
+                                    <div class="item-img item-img-sm text-center">
+                                        <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="fw500 fsize14 title-txt mb-1">Your order is pending right now</p>
+                                    <p class="mb-0 fsize13 body-txt ordered-qty">10 Dec, 2021 3:30</p>
                                 </div>
                             </div>
-                        </li>
-                    @endif
+                            <i class="fad fa-times p-2"></i>
+                        </div>
 
-                @empty
-                    <li class="list-group-item">
-                        <div class="py-4 text-center fs-16">{{ translate('No notification found') }}</div>
-                    </li>
-                @endforelse
-            </ul>
+                        <div class="notify-crd">
+                            <div class="d-flex justify-content-start align-items-center pr-2">
+                                <div class="img-name pr-2">
+                                    <div class="item-img item-img-sm text-center">
+                                        <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="fw500 fsize14 title-txt mb-1">Your order is pending right now</p>
+                                    <p class="mb-0 fsize13 body-txt ordered-qty">10 Dec, 2021 3:30</p>
+                                </div>
+                            </div>
+                            <i class="fad fa-times p-2"></i>
+                        </div>
 
-            {{ $notifications->links() }}
-        </div>
-    </form>
-</div>
+                        <div class="notify-crd">
+                            <div class="d-flex justify-content-start align-items-center pr-2">
+                                <div class="img-name pr-2">
+                                    <div class="item-img item-img-sm text-center">
+                                        <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="fw500 fsize14 title-txt mb-1">Your order is pending right now</p>
+                                    <p class="mb-0 fsize13 body-txt ordered-qty">10 Dec, 2021 3:30</p>
+                                </div>
+                            </div>
+                            <i class="fad fa-times p-2"></i>
+                        </div>
 
-@endsection
+                        <div class="notify-crd">
+                            <div class="d-flex justify-content-start align-items-center pr-2">
+                                <div class="img-name pr-2">
+                                    <div class="item-img item-img-sm text-center">
+                                        <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="fw500 fsize14 title-txt mb-1">Your order is pending right now</p>
+                                    <p class="mb-0 fsize13 body-txt ordered-qty">10 Dec, 2021 3:30</p>
+                                </div>
+                            </div>
+                            <i class="fad fa-times p-2"></i>
+                        </div>
 
-@section('modal')
-    @include('modals.delete_modal')
+                        <div class="notify-crd">
+                            <div class="d-flex justify-content-start align-items-center pr-2">
+                                <div class="img-name pr-2">
+                                    <div class="item-img item-img-sm text-center">
+                                        <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="fw500 fsize14 title-txt mb-1">Your order is pending right now</p>
+                                    <p class="mb-0 fsize13 body-txt ordered-qty">10 Dec, 2021 3:30</p>
+                                </div>
+                            </div>
+                            <i class="fad fa-times p-2"></i>
+                        </div>
 
-    <div class="modal fade" id="order_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-            <div class="modal-content">
-                <div id="order-details-modal-body">
-
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
+            <hr>
 
-    <div class="modal fade" id="payment_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div id="payment_modal_body">
+            <!-- No Notifications -->
+            <div class="row justify-content-center py-5">
+                <div class="col-lg-5 col-md-6 col-sm-8 text-center empty-notification">
+                    <div class="mb-4 empty-notify-bell">
+                        <img src="assets/img/notification-bell.png" alt="notification-bell">
+                    </div>
 
+                    <h6 class="fw700">Nothing here!!!</h6>
+                    <p class="fsize13">Subscribe to anything. Tell us how you want your day sorted and we will do the
+                        heavy lifting for you.</p>
                 </div>
             </div>
+            <!-- No Notifications -->
+
         </div>
-    </div>
-
+    </main>
 @endsection
-
-

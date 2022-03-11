@@ -36,20 +36,20 @@
                             <a class="nav-link" href="{{ route('user.login') }}">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@{{ route('profile') }}">Account</a>
+                            <a class="nav-link" href="{{ route('profile') }}">Account</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@{{ route('orders') }}">My Orders</a>
+                            <a class="nav-link" href="{{ route('purchase_history.index') }}">My Orders</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="@{{ route('wallet') }}">Wallet</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@{{ route('notification') }}">Notification</a>
+                            <a class="nav-link" href="{{ route('all-notifications') }}">Notification</a>
                         </li>
                     </ul>
                     <div class="cart-icon pl-4">
-                        <a href="cart">
+                        <a href="{{ route('cart') }}">
                             <i class="fad fa-shopping-cart"></i>
                             <span class="cart-item-count">0</span>
                         </a>
@@ -74,22 +74,22 @@
             </div>
 
             <ul class="side-nav-links mb-0 py-2">
-                <a href="@{{ route('orders') }}">
+                <a href="{{ route('purchase_history.index') }}">
                     <li class="p-2 mb-2"> <i class="fad fa-bags-shopping"></i> My Orders</li>
                 </a>
-                <a href="@{{ route('products') }}">
+                <a href="{{ route('products') }}">
                     <li class="p-2 mb-2"> <i class="fad fa-conveyor-belt-alt"></i> Products</li>
                 </a>
                 <a href="@{{ route('wallet') }}">
                     <li class="p-2 mb-2"> <i class="fad fa-wallet"></i> Wallet</li>
                 </a>
-                <a href="@{{ route('profile') }}">
+                <a href="{{ route('profile') }}">
                     <li class="p-2 mb-2"> <i class="fad fa-user"></i> Account</li>
                 </a>
-                <a href="@{{ route('notification') }}">
+                <a href="{{ route('all-notifications') }}">
                     <li class="p-2 mb-2"> <i class="fad fa-bell-on"></i> Notifications</li>
                 </a>
-                <a href="@{{ route('cart') }}">
+                <a href="{{ route('cart') }}">
                     <li class="p-2 mb-2">
                         <div class="cart-icon">
                             <i class="fad fa-shopping-cart mr-2"></i> <span class="cart-item-count">0</span>

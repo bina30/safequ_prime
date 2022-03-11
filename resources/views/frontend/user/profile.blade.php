@@ -1,6 +1,6 @@
-@extends('frontend.layouts.user_panel', ['header_show' => false, 'header2' => false])
+@extends('frontend.layouts.app', ['header_show' => true, 'header2' => false, 'footer' => true])
 
-@section('panel_content')
+@section('content')
 
     <header class="inner-header bg-white py-3">
         <div class="container">
@@ -10,8 +10,8 @@
                         <a class="nav-logo" href="javascript:history.back()">
                             <i class="fad fa-chevron-left pl-2 pr-3 py-2"></i>
                         </a>
-                        <a class="nav-logo" href="/">
-                            <img src="assets/img/safequ-logo.png" alt="SafeQu Logo">
+                        <a class="nav-logo" href="{{ route('home')}}">
+                            <img src="{{ static_asset('assets/img/safequ-logo.png') }}" alt="SafeQu Logo">
                         </a>
                         <div class="empty-nav-div"></div>
                     </div>
@@ -26,7 +26,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-5 col-md-6 col-sm-8 px-2 py-4">
                     <div class="profile-img">
-                        <img src="assets/img/user-4.webp" alt="User Img">
+                        <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="User Img">
                         <div class="cmr-btn flex-acenter-jcenter">
                             <i class="fad fa-camera-alt text-white"></i>
                         </div>
