@@ -33,7 +33,7 @@
                             <a class="nav-link" href="{{ route('products') }}">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@{{ route('login') }}">Login</a>
+                            <a class="nav-link" href="{{ route('user.login') }}">Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="@{{ route('profile') }}">Account</a>
@@ -101,7 +101,7 @@
 
             <div class="bottom bt-1 pt-2">
                 <ul class="mb-0">
-                    <a href="@{{ route('login') }}">
+                    <a href="{{ route('user.login') }}">
                         <li class="p-2 mb-1"> <i class="fad fa-sign-in"></i> Login</li>
                     </a>
                     <a href="@{{ route('login') }}">
