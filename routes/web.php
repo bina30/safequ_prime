@@ -165,6 +165,7 @@ Route::group(['middleware' => ['user', 'verified', 'unbanned']], function() {
 
     Route::resource('purchase_history', 'PurchaseHistoryController');
     Route::post('/purchase_history/details', 'PurchaseHistoryController@purchase_history_details')->name('purchase_history.details');
+    Route::get('/purchase_details', 'PurchaseHistoryController@purchase_history_details')->name('purchase_details');
     Route::get('/purchase_history/destroy/{id}', 'PurchaseHistoryController@destroy')->name('purchase_history.destroy');
 
     Route::resource('wishlists', 'WishlistController');
