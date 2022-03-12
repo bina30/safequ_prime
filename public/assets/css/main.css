@@ -483,6 +483,13 @@ h4 .act-price.currency-symbol {
     justify-content: flex-start;
 }
 
+.flex-col-astretch-jbtw {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
 .flex-astart-jstart {
     display: flex;
     align-items: flex-start;

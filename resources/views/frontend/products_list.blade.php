@@ -55,10 +55,10 @@
                         </div>
                     </div>
 
+                    <!-- Card For Timeout Product -->
                     <div class="col-lg-4 col-md-6 col-sm-8 px-2 pb-4 timeout-card">
                         <!-- Item Cards -->
                         <div class="item-card p-3">
-
                             <div class="d-flex justify-content-start align-items-center">
                                 <div class="img-name pr-2">
                                     <div class="item-img item-img-sm text-center">
@@ -99,46 +99,53 @@
                             </a>
                         </div>
                     </div>
+                    <!-- Card For Timeout Product -->
 
                     <div class="col-lg-4 col-md-6 col-sm-8 px-2 pb-4">
                         <!-- Item Cards -->
-                        <div class="item-card">
-                            <div class="card-top">
-                                <div class="pricing text-center">
-                                    <span class="text-white">Price Per KG</span>
-                                    <h6 class="mb-0 mt-2 mx-auto">
-                                        <ins class="currency-symbol">&#8377;</ins>
-                                        400
-                                    </h6>
+                        <div class="item-card h-100 flex-col-astretch-jbtw">
+                            <div class="top-part pb-3">
+                                <div class="card-top">
+                                    <div class="pricing text-center">
+                                        <span class="text-white">Price Per KG</span>
+                                        <h6 class="mb-0 mt-2 mx-auto">
+                                            <ins class="currency-symbol">&#8377;</ins>
+                                            400
+                                        </h6>
+                                    </div>
+                                    <div class="item-img text-center">
+                                        <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
+                                    </div>
+                                    <div class="nxt-delivery">
+                                        <span class="text-white">Next Shipment</span>
+                                        <h6 class="mb-0 mt-2 text-center mx-auto">22<br><ins>Jan</ins></h6>
+                                    </div>
                                 </div>
-                                <div class="item-img text-center">
-                                    <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
-                                </div>
-                                <div class="nxt-delivery">
-                                    <span class="text-white">Next Shipment</span>
-                                    <h6 class="mb-0 mt-2 text-center mx-auto">22<br><ins>Jan</ins></h6>
+                                <div class="item-data text-center pt-5 px-3">
+                                    <div class="px-2">
+                                        <h6 class="pt-1 fw700 mb-1">Strawberry White Goblin</h6>
+                                        <p class="fw600f fsize13 body-txt mb-2">Variety: Ac Valley Sunset</p>
+                                        <a href="reviews.html">
+                                            <p class="rating-stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fad fa-star-half-alt"></i>
+                                            </p>
+                                        </a>
+                                        <p class="body-txt fsize13 font-italic pb-1 mb-0">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            Mahabaleshwar Fresh Farm, Chennai, India
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="item-data text-center pt-5 px-3">
-                                <div class="px-2">
-                                    <h6 class="pt-1 fw700 mb-1">Strawberry White Goblin</h6>
-                                    <p class="fw600f fsize13 body-txt mb-2">Variety: Ac Valley Sunset</p>
-                                    <a href="reviews.html">
-                                        <p class="rating-stars">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fad fa-star-half-alt"></i>
-                                        </p>
-                                    </a>
-                                    <p class="body-txt fsize13 font-italic pb-1">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        Mahabaleshwar Fresh Farm, Chennai, India
-                                    </p>
-                                    <hr>
+                            <div class="bottom-part item-data text-center">
+                                <div class="px-3">
+                                    <hr class="mt-0">
                                 </div>
-                                <p class="fw700 px-2">Time Remaining</p>
+                                <p class="fw700 px-3">Time Remaining</p>
                                 <div class="remaining-time pb-2 px-2" data-time="06-14-2022 01:00:00">
                                     <div class="timing">
                                         <div class="cnt">
@@ -168,15 +175,18 @@
                                         </a>
                                     </p>
                                 </div>
-                                <div class="progress-div mb-4">
-                                    <div class="progress">
-                                        <div class="progress-bar" data-target="20" data-progress="8" data-unit="Kg">0
+
+                                <div class="px-3">
+                                    <div class="progress-div mb-4">
+                                        <div class="progress">
+                                            <div class="progress-bar" data-target="20" data-progress="8" data-unit="Kg">0
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <a href="javascript:void(0)" data-toggle="modal" data-target="#orderListModal">
-                                    <div class="card-members pb-3">
+                                    <div class="card-members pb-3 px-3">
                                         <div class="mbr-img pr-3">
                                             <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
                                             <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
@@ -187,60 +197,68 @@
                                         </div>
                                     </div>
                                 </a>
+
+                                <div class="card-bottom">
+                                    <button class="btn text-uppercase text-white fw600 w-100" data-toggle="modal"
+                                        data-target="#itemModal">
+                                        <i class="fas fa-shopping-cart text-white fsize18"></i>
+                                        &nbsp; Add to cart
+                                    </button>
+                                </div>
                             </div>
-                            <div class="card-bottom">
-                                <button class="btn text-uppercase text-white fw600 w-100" data-toggle="modal"
-                                    data-target="#itemModal">
-                                    <i class="fas fa-shopping-cart text-white fsize18"></i>
-                                    &nbsp; Add to cart
-                                </button>
-                            </div>
+
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 col-sm-8 px-2 pb-4">
                         <!-- Item Cards -->
-                        <div class="item-card">
-                            <div class="card-top">
-                                <div class="pricing text-center">
-                                    <span class="text-white">Price Per KG</span>
-                                    <h6 class="mb-0 mt-2 mx-auto">
-                                        <ins class="currency-symbol">&#8377;</ins>
-                                        400
-                                    </h6>
+                        <div class="item-card h-100 flex-col-astretch-jbtw">
+                            <div class="top-part pb-3">
+                                <div class="card-top">
+                                    <div class="pricing text-center">
+                                        <span class="text-white">Price Per KG</span>
+                                        <h6 class="mb-0 mt-2 mx-auto">
+                                            <ins class="currency-symbol">&#8377;</ins>
+                                            400
+                                        </h6>
+                                    </div>
+                                    <div class="item-img text-center">
+                                        <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
+                                    </div>
+                                    <div class="nxt-delivery">
+                                        <span class="text-white">Next Shipment</span>
+                                        <h6 class="mb-0 mt-2 text-center mx-auto">22<br><ins>Jan</ins></h6>
+                                    </div>
                                 </div>
-                                <div class="item-img text-center">
-                                    <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
-                                </div>
-                                <div class="nxt-delivery">
-                                    <span class="text-white">Next Shipment</span>
-                                    <h6 class="mb-0 mt-2 text-center mx-auto">22<br><ins>Jan</ins></h6>
+                                <div class="item-data text-center pt-5 px-3">
+                                    <div class="px-2">
+                                        <h6 class="pt-1 fw700 mb-1">Strawberry White Goblin</h6>
+                                        <p class="fw600f fsize13 body-txt mb-2">Variety: Ac Valley Sunset</p>
+                                        <a href="reviews.html">
+                                            <p class="rating-stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fad fa-star-half-alt"></i>
+                                            </p>
+                                        </a>
+                                        <p class="body-txt fsize13 font-italic pb-1 mb-0">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            Mahabaleshwar Fresh Farm, Chennai, India
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="item-data text-center pt-5 px-3">
-                                <div class="px-2">
-                                    <h6 class="pt-1 fw700 mb-1">Strawberry White Goblin</h6>
-                                    <p class="fw600f fsize13 body-txt mb-2">Variety: Ac Valley Sunset</p>
-                                    <a href="reviews.html">
-                                        <p class="rating-stars">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fad fa-star-half-alt"></i>
-                                        </p>
-                                    </a>
-                                    <p class="body-txt fsize13 font-italic pb-1">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        Mahabaleshwar Fresh Farm, Chennai, India
-                                    </p>
-                                    <hr>
+                            <div class="bottom-part item-data text-center">
+                                <div class="px-3">
+                                    <hr class="mt-0">
                                 </div>
-                                <p class="fw700 px-2">Time Remaining</p>
-                                <div class="remaining-time pb-2 px-2" data-time="04-24-2022 15:00:00">
+                                <p class="fw700 px-3">Time Remaining</p>
+                                <div class="remaining-time pb-2 px-2" data-time="06-14-2022 01:00:00">
                                     <div class="timing">
                                         <div class="cnt">
-                                            <h2 class="mb-0 days">00</h2>
+                                            <h2 class="mb-0 days ">00</h2>
                                         </div>
                                         <span>Days</span>
                                     </div>
@@ -266,15 +284,18 @@
                                         </a>
                                     </p>
                                 </div>
-                                <div class="progress-div mb-4">
-                                    <div class="progress">
-                                        <div class="progress-bar" data-target="20" data-progress="8" data-unit="Kg">0
+
+                                <div class="px-3">
+                                    <div class="progress-div mb-4">
+                                        <div class="progress">
+                                            <div class="progress-bar" data-target="20" data-progress="8" data-unit="Kg">0
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <a href="javascript:void(0)" data-toggle="modal" data-target="#orderListModal">
-                                    <div class="card-members pb-3">
+                                    <div class="card-members pb-3 px-3">
                                         <div class="mbr-img pr-3">
                                             <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
                                             <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
@@ -285,16 +306,19 @@
                                         </div>
                                     </div>
                                 </a>
+
+                                <div class="card-bottom">
+                                    <button class="btn text-uppercase text-white fw600 w-100" data-toggle="modal"
+                                        data-target="#itemModal">
+                                        <i class="fas fa-shopping-cart text-white fsize18"></i>
+                                        &nbsp; Add to cart
+                                    </button>
+                                </div>
                             </div>
-                            <div class="card-bottom">
-                                <button class="btn text-uppercase text-white fw600 w-100" data-toggle="modal"
-                                    data-target="#itemModal">
-                                    <i class="fas fa-shopping-cart text-white fsize18"></i>
-                                    &nbsp; Add to cart
-                                </button>
-                            </div>
+
                         </div>
                     </div>
+
                 </div>
 
             </div>
@@ -322,9 +346,9 @@
                                     </div>
                                 </div>
                                 <!-- <div class="nxtdelivery-date p-2">
-                                    <p class="mb-2 fsize13">Next Delivery</p>
-                                    <h5 class="fw700">22 <span class="fw400">Jan</span></h5>
-                                </div> -->
+                                                            <p class="mb-2 fsize13">Next Delivery</p>
+                                                            <h5 class="fw700">22 <span class="fw400">Jan</span></h5>
+                                                        </div> -->
                             </div>
 
                             <div class="distributor pt-2">
