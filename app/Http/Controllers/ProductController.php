@@ -845,7 +845,7 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
-        if (Auth::user()->id == $product->user_id || Auth::user()->user_type == 'staff') {
+        if (Auth::user()->id == $product->user_id || Auth::user()->user_type == 'staff' || Auth::user()->user_type == 'admin') {
             $product_new = $product->replicate();
             $product_new->slug = $product_new->slug . '-' . Str::random(5);
             $product_new->save();
