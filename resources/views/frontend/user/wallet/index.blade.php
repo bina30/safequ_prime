@@ -18,13 +18,13 @@
 
                     <div class="trans-history pt-4 mt-3">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0 fw700 title-txt">Transection History</h6>
+                            <h6 class="mb-0 fw700 title-txt">Transaction History</h6>
                             <i class="fad fa-filter fsize16 py-1 px-2" data-toggle="modal"
                                 data-target="#filterTransModal"></i>
                         </div>
 
                         <div class="pt-4">
-                            <div class="transections credit">
+                            <div class="transactions credit">
                                 <div class="d-flex justify-content-start align-items-center">
                                     <div class="indicater text-center">
                                         <i class="fad fa-long-arrow-left text-danger"></i>
@@ -41,7 +41,7 @@
                                 </h6>
                             </div>
 
-                            <div class="transections debit">
+                            <div class="transactions debit">
                                 <div class="d-flex justify-content-start align-items-center">
                                     <div class="indicater text-center">
                                         <i class="fad fa-long-arrow-left text-danger"></i>
@@ -58,7 +58,7 @@
                                 </h6>
                             </div>
 
-                            <div class="transections credit">
+                            <div class="transactions credit">
                                 <div class="d-flex justify-content-start align-items-center">
                                     <div class="indicater text-center">
                                         <i class="fad fa-long-arrow-left text-danger"></i>
@@ -75,7 +75,7 @@
                                 </h6>
                             </div>
 
-                            <div class="transections debit">
+                            <div class="transactions debit">
                                 <div class="d-flex justify-content-start align-items-center">
                                     <div class="indicater text-center">
                                         <i class="fad fa-long-arrow-left text-danger"></i>
@@ -92,7 +92,7 @@
                                 </h6>
                             </div>
 
-                            <div class="transections debit">
+                            <div class="transactions debit">
                                 <div class="d-flex justify-content-start align-items-center">
                                     <div class="indicater text-center">
                                         <i class="fad fa-long-arrow-left text-danger"></i>
@@ -109,7 +109,7 @@
                                 </h6>
                             </div>
 
-                            <div class="transections debit">
+                            <div class="transactions debit">
                                 <div class="d-flex justify-content-start align-items-center">
                                     <div class="indicater text-center">
                                         <i class="fad fa-long-arrow-left text-danger"></i>
@@ -125,7 +125,7 @@
                                     5000.99
                                 </h6>
                             </div>
-                            <div class="transections credit">
+                            <div class="transactions credit">
                                 <div class="d-flex justify-content-start align-items-center">
                                     <div class="indicater text-center">
                                         <i class="fad fa-long-arrow-left text-danger"></i>
@@ -142,7 +142,7 @@
                                 </h6>
                             </div>
 
-                            <div class="transections credit">
+                            <div class="transactions credit">
                                 <div class="d-flex justify-content-start align-items-center">
                                     <div class="indicater text-center">
                                         <i class="fad fa-long-arrow-left text-danger"></i>
@@ -161,45 +161,6 @@
                         </div>
                     </div>
 
-                </div>
-            </div>
-        </div>
-
-        <!-- Add Money to wallet Popup -->
-        <div class="modal fade" id="addMoneyModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-            aria-labelledby="addMoneyModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h6 class="modal-title" id="addMoneyModalLabel">Add money to wallet</h6>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span class="fw700" aria-hidden="true">X</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="py-2 text-center">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">
-                                        <ins class="currency-symbol">&#8377;</ins>
-                                    </span>
-                                </div>
-                                <input type="text" class="form-control" name="wallet_amount" id="wallet_amount"
-                                    placeholder="0" />
-                            </div>
-                            <div class="amt-select text-center pb-3">
-                                <button class="btn amt-btn my-1 btn-round" data-amt="100">100</button>
-                                <button class="btn amt-btn my-1 btn-round" data-amt="500">500</button>
-                                <button class="btn amt-btn my-1 btn-round" data-amt="1000">1000</button>
-                                <button class="btn amt-btn my-1 btn-round" data-amt="2000">2000</button>
-                            </div>
-
-                            <button class="btn primary-btn disabled"> Add &nbsp;
-                                <ins class="currency-symbol text-white fw400">&#8377;</ins>
-                                <span id="btnAmt" class="text-white fw500">0</span>
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -208,13 +169,52 @@
 
 
 @section('modal')
+    <!-- Add Money to wallet Popup -->
+    <div class="modal fade" id="addMoneyModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="addMoneyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="addMoneyModalLabel">Add money to wallet</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="fw700" aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="py-2 text-center">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <ins class="currency-symbol">&#8377;</ins>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control" name="wallet_amount" id="wallet_amount"
+                                placeholder="0" />
+                        </div>
+                        <div class="amt-select text-center pb-3">
+                            <button class="btn amt-btn my-1 btn-round" data-amt="100">100</button>
+                            <button class="btn amt-btn my-1 btn-round" data-amt="500">500</button>
+                            <button class="btn amt-btn my-1 btn-round" data-amt="1000">1000</button>
+                            <button class="btn amt-btn my-1 btn-round" data-amt="2000">2000</button>
+                        </div>
+
+                        <button class="btn primary-btn disabled"> Add &nbsp;
+                            <ins class="currency-symbol text-white fw400">&#8377;</ins>
+                            <span id="btnAmt" class="text-white fw500">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Filter Popup -->
     <div class="modal fade" id="filterTransModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="filterTransModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="filterTransModalLabel">Add money to wallet</h6>
+                    <h6 class="modal-title" id="filterTransModalLabel">Filter</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span class="fw700" aria-hidden="true">X</span>
                     </button>

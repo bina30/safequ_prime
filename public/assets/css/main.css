@@ -1520,7 +1520,7 @@ button.btn-before-none::before,
     font-weight: 400;
 }
 
-.transections,
+.transactions,
 .notify-crd {
     display: flex;
     justify-content: space-between;
@@ -1536,59 +1536,59 @@ button.btn-before-none::before,
     cursor: pointer;
 }
 
-.transections .indicater {
+.transactions .indicater {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.transections .indicater {
+.transactions .indicater {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     background: #e4f1f2;
 }
 
-.transections .indicater i {
+.transactions .indicater i {
     font-size: 1.1rem;
     width: 23px;
     height: 23px;
     transform: rotate(135deg);
 }
 
-.transections.credit .amount ins,
-.transections.credit .amount {
+.transactions.credit .amount ins,
+.transactions.credit .amount {
     color: #28a745;
     min-width: 112px;
 }
 
-.transections.debit .amount ins,
-.transections.debit .amount {
+.transactions.debit .amount ins,
+.transactions.debit .amount {
     color: #dc3545;
     min-width: 112px;
 }
 
-.transections.credit i.text-success {
+.transactions.credit i.text-success {
     display: block;
 }
 
-.transections.credit i.text-danger {
+.transactions.credit i.text-danger {
     display: none;
 }
 
-.transections.debit i.text-success {
+.transactions.debit i.text-success {
     display: none;
 }
 
-.transections.debit i.text-danger {
+.transactions.debit i.text-danger {
     display: block;
 }
 
-.transections h6 {
+.transactions h6 {
     font-size: 0.9rem !important;
 }
 
-.transections .body-txt {
+.transactions .body-txt {
     font-size: 0.83rem !important;
 }
 
@@ -2047,11 +2047,11 @@ input[type=checkbox]:checked+.check-box::before,
         margin-top: 11px;
     }
 
-    .transections {
+    .transactions {
         padding: 8px 5px;
     }
 
-    .transections .indicater {
+    .transactions .indicater {
         width: 35px;
         height: 35px;
     }

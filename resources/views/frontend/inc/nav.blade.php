@@ -42,7 +42,7 @@
                             <a class="nav-link" href="{{ route('purchase_history.index') }}">My Orders</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('wallet') }}">Wallet</a>
+                            <a class="nav-link" href="{{ route('wallet.index') }}">Wallet</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('all-notifications') }}">Notification</a>
@@ -80,7 +80,7 @@
                 <a href="{{ route('products') }}">
                     <li class="p-2 mb-2"> <i class="fad fa-conveyor-belt-alt"></i> Products</li>
                 </a>
-                <a href="{{ route('wallet') }}">
+                <a href="{{ route('wallet.index') }}">
                     <li class="p-2 mb-2"> <i class="fad fa-wallet"></i> Wallet</li>
                 </a>
                 <a href="{{ route('profile') }}">
