@@ -39,18 +39,22 @@ class HomeController extends Controller
         $featured_categories = Cache::rememberForever('featured_categories', function () {
             return Category::where('featured', 1)->get();
         });
-        
+
         $todays_deal_products = Cache::rememberForever('todays_deal_products', function () {
-            return filter_products(Product::where('published', 1)->where('todays_deal', '1'))->get();            
+            return filter_products(Product::where('published', 1)->where('todays_deal', '1'))->get();
         });
-        
+
         $newest_products = Cache::remember('newest_products', 3600, function () {
             return filter_products(Product::latest())->limit(12)->get();
         });
 
-        return view('frontend.index', compact('featured_categories', 'todays_deal_products', 'newest_products'));
+        $communities = Cache::remember('communities', 3600, function () {
+            return User::where('user_type', 'seller')->where('banned', 0)->limit(12)->latest();
+        });
+
+        return view('frontend.index', compact('featured_categories', 'todays_deal_products', 'newest_products', 'communities'));
     }
-    
+
     public function login()
     {
         if(Auth::check()){
@@ -93,7 +97,7 @@ class HomeController extends Controller
         elseif($request->get('email') != null){
             $user = User::whereIn('user_type', ['customer', 'seller'])->where('email', $request->email)->first();
         }
-        
+
         if($user != null){
             if(Hash::check($request->password, $user->password)){
                 if($request->has('remember')){
@@ -172,7 +176,7 @@ class HomeController extends Controller
         if($request->new_password != null && ($request->new_password == $request->confirm_password)){
             $user->password = Hash::make($request->new_password);
         }
-        
+
         $user->avatar_original = $request->photo;
 
         $seller = $user->seller;
@@ -275,11 +279,14 @@ class HomeController extends Controller
 
     public function shop($slug)
     {
-        $shop  = Shop::where('slug', $slug)->first();
+        $shop = Shop::where('slug', $slug)->first();
         if($shop!=null){
-            $seller = Seller::where('user_id', $shop->user_id)->first();
+            $seller = Seller::with('user.products_purchase_started', 'user.products_purchase_expired')->where('user_id', $shop->user_id)->first();
+            $products_purchase_started = $seller->user->products_purchase_started;
+            $products_purchase_expired = $seller->user->products_purchase_expired;
+
             if ($seller->verification_status != 0){
-                return view('frontend.seller_shop', compact('shop'));
+                return view('frontend.seller_shop', compact('shop', 'products_purchase_started', 'products_purchase_expired'));
             }
             else{
                 return view('frontend.seller_shop_without_verification', compact('shop', 'seller'));

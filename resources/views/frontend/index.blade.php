@@ -91,173 +91,31 @@
                         <div class="py-4">
                             <div class="community-slider owl-carousel owl-theme">
 
-                                <div class="item py-3 px-2">
-                                    <div class="community-card mx-auto p-3 pt-4">
-                                        <div class="card-img mb-1">
-                                            <img src="{{ static_asset('assets/img/user-1.webp') }}" class="img-rounded" alt="Community Img">
-                                        </div>
-                                        <div class="card-data pt-3 pb-4">
-                                            <h6 class="fw700 mb-1">Lodha Park</h6>
-                                            <p class="mb-0 body-txt">Mumbai</p>
-                                        </div>
-                                        <div class="card-members pb-3">
-                                            <div class="mbr-img">
-                                                <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
+                                @foreach($communities AS $community)
+                                    <div class="item py-3 px-2">
+                                        <div class="community-card mx-auto p-3 pt-4">
+                                            <div class="card-img mb-1">
+                                                <img src="{{ uploaded_asset($community->avatar_original) }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" class="img-rounded" alt="{{ $community->name }}">
                                             </div>
-                                            <div class="mbr-cnt">
-                                                <p class="mb-0 body-txt">775 Members</p>
+                                            <div class="card-data pt-3 pb-4">
+                                                <h6 class="fw700 mb-1">{{ $community->name }}</h6>
+                                                <p class="mb-0 body-txt">{{ $community->city }}</p>
                                             </div>
-                                        </div>
+                                            <div class="card-members pb-3">
+                                                <div class="mbr-img">
+                                                    <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
+                                                    <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
+                                                    <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
+                                                </div>
+                                                <div class="mbr-cnt">
+                                                    <p class="mb-0 body-txt">775 Members</p>
+                                                </div>
+                                            </div>
 
-                                        <button class="btn primary-btn btn-block fw700">JOIN</button>
+                                            <a href="{{ route('shop.visit', $community->shop->slug) }}" class="btn primary-btn btn-block fw600 text-white">JOIN</a>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="item py-3 px-2">
-                                    <div class="community-card mx-auto p-3 pt-4">
-                                        <div class="card-img mb-1">
-                                            <img src="{{ static_asset('assets/img/user-2.webp') }}" class="img-rounded" alt="Community Img">
-                                        </div>
-                                        <div class="card-data pt-3 pb-4">
-                                            <h6 class="fw700 mb-1">Lodha Park</h6>
-                                            <p class="mb-0 body-txt">Mumbai</p>
-                                        </div>
-                                        <div class="card-members pb-3">
-                                            <div class="mbr-img">
-                                                <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-1.webp') }}" alt="Community Img">
-                                            </div>
-                                            <div class="mbr-cnt">
-                                                <p class="mb-0 body-txt">775 Members</p>
-                                            </div>
-                                        </div>
-
-                                        <button class="btn primary-btn btn-block fw700">JOIN</button>
-                                    </div>
-                                </div>
-
-                                <div class="item py-3 px-2">
-                                    <div class="community-card mx-auto p-3 pt-4">
-                                        <div class="card-img mb-1">
-                                            <img src="{{ static_asset('assets/img/user-3.webp') }}" class="img-rounded" alt="Community Img">
-                                        </div>
-                                        <div class="card-data pt-3 pb-4">
-                                            <h6 class="fw700 mb-1">Lodha Park</h6>
-                                            <p class="mb-0 body-txt">Mumbai</p>
-                                        </div>
-                                        <div class="card-members pb-3">
-                                            <div class="mbr-img">
-                                                <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-1.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
-                                            </div>
-                                            <div class="mbr-cnt">
-                                                <p class="mb-0 body-txt">775 Members</p>
-                                            </div>
-                                        </div>
-
-                                        <button class="btn primary-btn btn-block fw700">JOIN</button>
-                                    </div>
-                                </div>
-
-                                <div class="item py-3 px-2">
-                                    <div class="community-card mx-auto p-3 pt-4">
-                                        <div class="card-img mb-1">
-                                            <img src="{{ static_asset('assets/img/user-4.webp') }}" class="img-rounded" alt="Community Img">
-                                        </div>
-                                        <div class="card-data pt-3 pb-4">
-                                            <h6 class="fw700 mb-1">Lodha Park</h6>
-                                            <p class="mb-0 body-txt">Mumbai</p>
-                                        </div>
-                                        <div class="card-members pb-3">
-                                            <div class="mbr-img">
-                                                <img src="{{ static_asset('assets/img/user-1.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
-                                            </div>
-                                            <div class="mbr-cnt">
-                                                <p class="mb-0 body-txt">775 Members</p>
-                                            </div>
-                                        </div>
-
-                                        <button class="btn primary-btn btn-block fw700">JOIN</button>
-                                    </div>
-                                </div>
-
-                                <div class="item py-3 px-2">
-                                    <div class="community-card mx-auto p-3 pt-4">
-                                        <div class="card-img mb-1">
-                                            <img src="{{ static_asset('assets/img/user-1.webp') }}" class="img-rounded" alt="Community Img">
-                                        </div>
-                                        <div class="card-data pt-3 pb-4">
-                                            <h6 class="fw700 mb-1">Lodha Park</h6>
-                                            <p class="mb-0 body-txt">Mumbai</p>
-                                        </div>
-                                        <div class="card-members pb-3">
-                                            <div class="mbr-img">
-                                                <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
-                                            </div>
-                                            <div class="mbr-cnt">
-                                                <p class="mb-0 body-txt">775 Members</p>
-                                            </div>
-                                        </div>
-
-                                        <button class="btn primary-btn btn-block fw700">JOIN</button>
-                                    </div>
-                                </div>
-
-                                <div class="item py-3 px-2">
-                                    <div class="community-card mx-auto p-3 pt-4">
-                                        <div class="card-img mb-1">
-                                            <img src="{{ static_asset('assets/img/user-2.webp') }}" class="img-rounded" alt="Community Img">
-                                        </div>
-                                        <div class="card-data pt-3 pb-4">
-                                            <h6 class="fw700 mb-1">Lodha Park</h6>
-                                            <p class="mb-0 body-txt">Mumbai</p>
-                                        </div>
-                                        <div class="card-members pb-3">
-                                            <div class="mbr-img">
-                                                <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-1.webp') }}" alt="Community Img">
-                                            </div>
-                                            <div class="mbr-cnt">
-                                                <p class="mb-0 body-txt">775 Members</p>
-                                            </div>
-                                        </div>
-
-                                        <button class="btn primary-btn btn-block fw700">JOIN</button>
-                                    </div>
-                                </div>
-
-                                <div class="item py-3 px-2">
-                                    <div class="community-card mx-auto p-3 pt-4">
-                                        <div class="card-img mb-1">
-                                            <img src="{{ static_asset('assets/img/user-3.webp') }}" class="img-rounded" alt="Community Img">
-                                        </div>
-                                        <div class="card-data pt-3 pb-4">
-                                            <h6 class="fw700 mb-1">Lodha Park</h6>
-                                            <p class="mb-0 body-txt">Mumbai</p>
-                                        </div>
-                                        <div class="card-members pb-3">
-                                            <div class="mbr-img">
-                                                <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-1.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
-                                            </div>
-                                            <div class="mbr-cnt">
-                                                <p class="mb-0 body-txt">775 Members</p>
-                                            </div>
-                                        </div>
-
-                                        <button class="btn primary-btn btn-block fw700">JOIN</button>
-                                    </div>
-                                </div>
+                                @endforeach
 
                             </div>
                         </div>
