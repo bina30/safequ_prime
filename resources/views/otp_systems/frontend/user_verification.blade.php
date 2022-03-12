@@ -1,36 +1,52 @@
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.app', ['header_show' => false, 'header2' => false, 'footer' => true])
 
 @section('content')
-    <section class="py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-xl-5 mx-auto">
-                    <div class="card">
-                        <div class="text-center pt-5">
-                            <h1 class="h2 fw-600">
-                                {{translate('Phone Verification')}}
-                            </h1>
-                            <p>Verification code has been sent. Please wait a few minutes.</p>
-                            <a href="{{ route('verification.phone.resend') }}" class="btn btn-link">{{translate('Resend Code')}}</a>
-                        </div>
-                        <div class="px-5 py-lg-5">
-                            <div class="row align-items-center">
-                                <div class="col-12 col-lg">
-                                    <form class="form-default" role="form" action="{{ route('verification.submit') }}" method="POST">
-                                        @csrf
-                                        <div class="form-group">
-                                            <div class="input-group input-group--style-1">
-                                                <input type="text" class="form-control" name="verification_code">
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary btn-block">{{ translate('Verify') }}</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="login-screen container py-4">
+        <div class="row justify-content-center pt-3">
+            <div class="col-lg-5 col-md-7 col-sm-8 px-0">
+
+                <div class="logo-div pb-5">
+                    <a href="{{ route('home') }}"> <img src="{{ static_asset('assets/img/safequ-logo.png') }}"
+                            alt="SafeQu Logo"> </a>
                 </div>
+
+                <form method="post" class="otp-form" action="{{ route('verification.submit') }}">
+                    @csrf
+
+                    <h5 class="fw700">Varification Code</h5>
+                    <p class="pb-3">Code sent to <span class="otp-to-phone fw600">+91-1234567890</span>
+                    </p>
+
+                    <div class="form-group mb-4">
+                        <input type="text" id="digit-1" name="digit-1" data-next="digit-2" required
+                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')" />
+                        <input type="text" id="digit-2" name="digit-2" data-next="digit-3" data-previous="digit-1" required
+                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')" />
+                        <input type="text" id="digit-3" name="digit-3" data-next="digit-4" data-previous="digit-2" required
+                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')" />
+                        <input type="text" id="digit-4" name="digit-4" data-previous="digit-3" required
+                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')" />
+                    </div>
+
+                    <p class="mb-4 text-center">Resend code in
+                        <span class="otp-timer act-price fw600">0:46</span>
+                    </p>
+
+                    <a href="{{ route('verification.phone.resend') }}">
+                        <p class="mb-4 text-center act-price fw600">Resend code</p>
+                    </a>
+
+                    <a href="products.html" class="btn primary-btn btn-block text-white">Verify Otp</a>
+
+                    <a href="#">
+                        <p class="text-center pt-3">Need help?</p>
+                    </a>
+                </form>
+                
             </div>
         </div>
-    </section>
+    </div>
+@endsection
+
+@section('script')
 @endsection
