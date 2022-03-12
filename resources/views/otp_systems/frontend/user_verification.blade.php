@@ -13,7 +13,7 @@
                 <form method="post" class="otp-form" action="{{ route('verification.submit') }}">
                     @csrf
 
-                    <h5 class="fw700">Varification Code</h5>
+                    <h5 class="fw700">Verification Code</h5>
                     <p class="pb-3">Code sent to <span class="otp-to-phone fw600">+91-1234567890</span>
                     </p>
 
@@ -42,7 +42,7 @@
                         <p class="text-center pt-3">Need help?</p>
                     </a>
                 </form>
-                
+
             </div>
         </div>
     </div>

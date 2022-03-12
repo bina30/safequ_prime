@@ -1,4 +1,4 @@
-@if ($header_show)
+@if (isset($header_show) && $header_show)
     @if (get_setting('topbar_banner') != null)
         <div class="position-relative top-banner removable-session z-1035 d-none" data-key="top-banner"
             data-value="removed">
