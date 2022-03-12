@@ -49,7 +49,7 @@ class HomeController extends Controller
         });
 
         $communities = Cache::remember('communities', 3600, function () {
-            return User::where('user_type', 'seller')->where('banned', 0)->limit(12)->latest();
+            return User::where('user_type', 'seller')->where('banned', 0)->get();
         });
 
         return view('frontend.index', compact('featured_categories', 'todays_deal_products', 'newest_products', 'communities'));
