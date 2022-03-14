@@ -195,6 +195,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * SMS Service Providers...
+         */
+        Craftsys\Msg91\Msg91LaravelServiceProvider::class,
     ],
 
     /*

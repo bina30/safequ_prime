@@ -13,7 +13,7 @@
 
 
 //Verofocation phone
-Route::get('/verification', 'OTPVerificationController@verification')->name('verification');
+Route::get('/verification/{user}', 'OTPVerificationController@verification')->name('verification');
 Route::post('/verification', 'OTPVerificationController@verify_phone')->name('verification.submit');
 Route::get('/verification/phone/code/resend', 'OTPVerificationController@resend_verificcation_code')->name('verification.phone.resend');
 

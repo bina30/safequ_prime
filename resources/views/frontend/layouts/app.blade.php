@@ -221,14 +221,13 @@
         })
 
         let header = document.getElementsByClassName("main-tag");
-        let sticky = header[0].offsetTop;
+        let sticky = header.length > 0 ? header[0].offsetTop : '';
 
         window.onscroll = function() {
             myFunction()
         };
 
         function myFunction() {
-            console.log(sticky);
             if (window.pageYOffset > sticky) {
                 $(".breadcrumbs").addClass("sticky");
             } else {
@@ -237,48 +236,6 @@
         }
 
         $(document).ready(function() {
-
-            $('.carousel').carousel({
-                interval: 7000,
-            })
-
-            $('.community-slider').owlCarousel({
-                loop: false,
-                // nav: true,
-                autoplay: true,
-                autoplayTimeout: 4000,
-                autoplayHoverPause: false,
-                smartSpeed: 1500,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    460: {
-                        items: 2
-                    },
-                    768: {
-                        items: 3
-                    },
-                    991: {
-                        items: 4
-                    },
-                    1200: {
-                        items: 5
-                    }
-                }
-            })
-
-            $('.testimonials').owlCarousel({
-                loop: true,
-                // nav: true,
-                margin: 10,
-                autoplay: true,
-                autoplayTimeout: 4000,
-                autoplayHoverPause: false,
-                smartSpeed: 1500,
-                items: 1
-            })
-
             // Unit Qty select
             $(".amt-btn").on('click', function() {
                 let amount = $(this).data('amt');
@@ -391,6 +348,31 @@
                     }
                 }, 15);
             });
+
+            $('.otp-form').find('input').each(function () {
+                $(this).attr('maxlength', 1);
+                $(this).on('keyup touchend', function (e) {
+                    var parent = $($(this).parent());
+
+                    if (e.keyCode === 8 || e.keyCode === 37) {
+                        var prev = parent.find('input#' + $(this).data('previous'));
+
+                        if (prev.length) {
+                            $(prev).select();
+                        }
+                    } else if ($.isNumeric($(this).val())) {
+                        var next = parent.find('input#' + $(this).data('next'));
+
+                        if (next.length) {
+                            $(next).select();
+                        } else {
+                            if (parent.data('autosubmit')) {
+                                parent.submit();
+                            }
+                        }
+                    }
+                });
+            });
         });
 
         $(window).on('scroll', function() {
@@ -401,6 +383,98 @@
         })
     </script>
 
+    <!-- SCRIPTS -->
+    <script src="{{ static_asset('assets/js/frontend_vendors.js') }}"></script>
+    <script src="{{ static_asset('assets/js/aiz-core.js') }}"></script>
+
+    <script>
+        @foreach (session('flash_notification', collect())->toArray() as $message)
+            AIZ.plugins.notify('{{ $message['level'] }}', '{{ $message['message'] }}');
+        @endforeach
+    </script>
+
+    <script type="text/javascript">
+        var countryData = window.intlTelInputGlobals.getCountryData(),
+            input = document.querySelector("#phone-code");
+
+        for (var i = 0; i < countryData.length; i++) {
+            var country = countryData[i];
+            if (country.iso2 == 'bd') {
+                country.dialCode = '88';
+            }
+        }
+
+        var iti = intlTelInput(input, {
+            separateDialCode: true,
+            utilsScript: "{{ static_asset('assets/js/intlTelutils.js') }}?1590403638580",
+            onlyCountries: ['in'],
+            customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
+                if (selectedCountryData.iso2 == 'bd') {
+                    return "01xxxxxxxxx";
+                }
+                return selectedCountryPlaceholder;
+            }
+        });
+
+        var country = iti.getSelectedCountryData();
+        $('input[name=country_code]').val(country.dialCode);
+
+        input.addEventListener("countrychange", function (e) {
+            // var currentMask = e.currentTarget.placeholder;
+
+            var country = iti.getSelectedCountryData();
+            $('input[name=country_code]').val(country.dialCode);
+
+        });
+    </script>
+
+    @if(@$owlCarousel)
+        <script>
+            $(document).ready(function() {
+
+                $('.carousel').carousel({
+                    interval: 7000,
+                })
+
+                $('.community-slider').owlCarousel({
+                    loop: true,
+                    // nav: true,
+                    autoplay: true,
+                    autoplayTimeout: 4000,
+                    autoplayHoverPause: false,
+                    smartSpeed: 1500,
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        460: {
+                            items: 2
+                        },
+                        768: {
+                            items: 3
+                        },
+                        991: {
+                            items: 4
+                        },
+                        1200: {
+                            items: 5
+                        }
+                    }
+                })
+
+                $('.testimonials').owlCarousel({
+                    loop: true,
+                    // nav: true,
+                    margin: 10,
+                    autoplay: true,
+                    autoplayTimeout: 4000,
+                    autoplayHoverPause: false,
+                    smartSpeed: 1500,
+                    items: 1
+                })
+            })
+        </script>
+    @endif
     @include('frontend.partials.modal')
 
     @yield('modal')
@@ -410,7 +484,6 @@
     @php
         echo get_setting('footer_script');
     @endphp
-
 </body>
 
 </html>

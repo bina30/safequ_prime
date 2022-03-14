@@ -39,22 +39,18 @@ class HomeController extends Controller
         $featured_categories = Cache::rememberForever('featured_categories', function () {
             return Category::where('featured', 1)->get();
         });
-
+        
         $todays_deal_products = Cache::rememberForever('todays_deal_products', function () {
-            return filter_products(Product::where('published', 1)->where('todays_deal', '1'))->get();
+            return filter_products(Product::where('published', 1)->where('todays_deal', '1'))->get();            
         });
-
+        
         $newest_products = Cache::remember('newest_products', 3600, function () {
             return filter_products(Product::latest())->limit(12)->get();
         });
 
-        $communities = Cache::remember('communities', 3600, function () {
-            return User::where('user_type', 'seller')->where('banned', 0)->get();
-        });
-
-        return view('frontend.index', compact('featured_categories', 'todays_deal_products', 'newest_products', 'communities'));
+        return view('frontend.index', compact('featured_categories', 'todays_deal_products', 'newest_products'));
     }
-
+    
     public function login()
     {
         if(Auth::check()){
@@ -97,7 +93,7 @@ class HomeController extends Controller
         elseif($request->get('email') != null){
             $user = User::whereIn('user_type', ['customer', 'seller'])->where('email', $request->email)->first();
         }
-
+        
         if($user != null){
             if(Hash::check($request->password, $user->password)){
                 if($request->has('remember')){
@@ -165,18 +161,20 @@ class HomeController extends Controller
             return back();
         }
 
+        // Auth::attempt(['email' => 'customer@example.com', 'password' => '123456']);
         $user = Auth::user();
         $user->name = $request->name;
-        $user->address = $request->address;
-        $user->country = $request->country;
-        $user->city = $request->city;
-        $user->postal_code = $request->postal_code;
         $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->city = $request->city;
+        $user->state = $request->state;
+        $user->country = $request->country;
+        $user->postal_code = $request->postal_code;
 
-        if($request->new_password != null && ($request->new_password == $request->confirm_password)){
-            $user->password = Hash::make($request->new_password);
-        }
-
+        // if($request->new_password != null && ($request->new_password == $request->confirm_password)){
+        //     $user->password = Hash::make($request->new_password);
+        // }
+        
         $user->avatar_original = $request->photo;
 
         $seller = $user->seller;
@@ -279,14 +277,11 @@ class HomeController extends Controller
 
     public function shop($slug)
     {
-        $shop = Shop::where('slug', $slug)->first();
+        $shop  = Shop::where('slug', $slug)->first();
         if($shop!=null){
-            $seller = Seller::with('user.products_purchase_started', 'user.products_purchase_expired')->where('user_id', $shop->user_id)->first();
-            $products_purchase_started = $seller->user->products_purchase_started;
-            $products_purchase_expired = $seller->user->products_purchase_expired;
-
+            $seller = Seller::where('user_id', $shop->user_id)->first();
             if ($seller->verification_status != 0){
-                return view('frontend.seller_shop', compact('shop', 'products_purchase_started', 'products_purchase_expired'));
+                return view('frontend.seller_shop', compact('shop'));
             }
             else{
                 return view('frontend.seller_shop_without_verification', compact('shop', 'seller'));

@@ -49,6 +49,7 @@ Route::get('/users/login', 'HomeController@login')->name('user.login');
 Route::get('/users/registration', 'HomeController@registration')->name('user.registration');
 //Route::post('/users/login', 'HomeController@user_login')->name('user.login.submit');
 Route::post('/users/login/cart', 'HomeController@cart_login')->name('cart.login.submit');
+Route::post('/send_otp', '\App\Http\Controllers\Auth\LoginController@send_otp')->name('user.send_otp');
 
 //Home Page
 Route::get('/', 'HomeController@index')->name('home');
@@ -120,7 +121,7 @@ Route::get('/paypal/payment/cancel', 'PaypalController@getCancel')->name('paymen
 //Mercadopago START
 Route::any('/mercadopago/payment/done', 'MercadopagoController@paymentstatus')->name('mercadopago.done');
 Route::any('/mercadopago/payment/cancel', 'MercadopagoController@callback')->name('mercadopago.cancel');
-//Mercadopago 
+//Mercadopago
 
 // SSLCOMMERZ Start
 Route::get('/sslcommerz/pay', 'PublicSslCommerzPaymentController@index');
@@ -155,7 +156,7 @@ Route::get('/support-policy', 'HomeController@supportpolicy')->name('supportpoli
 Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/privacy-policy', 'HomeController@privacypolicy')->name('privacypolicy');
 
-Route::group(['middleware' => ['user', 'verified', 'unbanned']], function() {
+//Route::group(['middleware' => ['user', 'verified', 'unbanned']], function() {
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
     Route::get('/profile', 'HomeController@profile')->name('profile');
     Route::post('/new-user-verification', 'HomeController@new_verify')->name('user.new.verify');
@@ -165,6 +166,7 @@ Route::group(['middleware' => ['user', 'verified', 'unbanned']], function() {
 
     Route::resource('purchase_history', 'PurchaseHistoryController');
     Route::post('/purchase_history/details', 'PurchaseHistoryController@purchase_history_details')->name('purchase_history.details');
+    Route::get('/purchase_details', 'PurchaseHistoryController@purchase_history_details')->name('purchase_details');
     Route::get('/purchase_history/destroy/{id}', 'PurchaseHistoryController@destroy')->name('purchase_history.destroy');
 
     Route::resource('wishlists', 'WishlistController');
@@ -185,7 +187,7 @@ Route::group(['middleware' => ['user', 'verified', 'unbanned']], function() {
     Route::get('digital_purchase_history', 'PurchaseHistoryController@digital_index')->name('digital_purchase_history.index');
 
     Route::get('/all-notifications', 'NotificationController@index')->name('all-notifications');
-});
+//});
 
 Route::get('/customer_products/destroy/{id}', 'CustomerProductController@destroy')->name('customer_products.destroy');
 

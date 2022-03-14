@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app', ['header_show' => true, 'header2' => false, 'footer' => true])
+@extends('frontend.layouts.app', ['header_show' => true, 'header2' => false, 'footer' => true, 'owlCarousel' => true])
 
 @section('content')
     <main class="main-tag main-tag-mt">

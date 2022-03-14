@@ -1,4 +1,4 @@
-@if ($footer)
+@if (isset($footer) && $footer)
     <footer class="primary-color-bg">
         <div class="text-center py-3">
             <a href="#"><i class="fab fa-facebook-f mx-1"></i></a>

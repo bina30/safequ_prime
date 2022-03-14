@@ -23,9 +23,9 @@ use App\Utility\NotificationUtility;
 
 //sensSMS function for OTP
 if (!function_exists('sendSMS')) {
-    function sendSMS($to, $from, $text, $template_id)
+    function sendSMS($to, $from, $text, $template_id, $variables = [])
     {
-        return SendSMSUtility::sendSMS($to, $from, $text, $template_id);
+        return SendSMSUtility::sendSMS($to, $from, $text, $template_id, $variables = []);
     }
 }
 
@@ -176,13 +176,13 @@ if (!function_exists('format_price')) {
         }
 
         if (get_setting('symbol_format') == 1) {
-            return currency_symbol() . $fomated_price;
+            return '<ins class="currency-symbol">' . currency_symbol() . '</ins> ' . $fomated_price;
         } else if (get_setting('symbol_format') == 3) {
-            return currency_symbol() . ' ' . $fomated_price;
+            return '<ins class="currency-symbol">' . currency_symbol() . '</ins> ' . $fomated_price;
         } else if (get_setting('symbol_format') == 4) {
-            return $fomated_price . ' ' . currency_symbol();
+            return $fomated_price . ' <ins class="currency-symbol">' . currency_symbol() . '</ins>';
         }
-        return $fomated_price . currency_symbol();
+        return $fomated_price . ' <ins class="currency-symbol">' . currency_symbol() . '</ins>';
     }
 }
 
@@ -194,7 +194,7 @@ if (!function_exists('single_price')) {
     }
 }
 
-if (! function_exists('discount_in_percentage')) {
+if (!function_exists('discount_in_percentage')) {
     function discount_in_percentage($product)
     {
         try {
@@ -449,16 +449,16 @@ if (!function_exists('renderStarRating')) {
 
 function translate($key, $lang = null, $addslashes = false)
 {
-    if($lang == null){
+    if ($lang == null) {
         $lang = App::getLocale();
     }
-    
+
     $lang_key = preg_replace('/[^A-Za-z0-9\_]/', '', str_replace(' ', '_', strtolower($key)));
-    
+
     $translations_en = Cache::rememberForever('translations-en', function () {
         return Translation::where('lang', 'en')->pluck('lang_value', 'lang_key')->toArray();
     });
-    
+
     if (!isset($translations_en[$lang_key])) {
         $translation_def = new Translation;
         $translation_def->lang = 'en';
@@ -525,15 +525,13 @@ function getShippingCost($carts, $index)
 
     if (get_setting('shipping_type') == 'flat_rate') {
         return get_setting('flat_rate_shipping_cost') / count($carts);
-    }
-    elseif (get_setting('shipping_type') == 'seller_wise_shipping') {
+    } elseif (get_setting('shipping_type') == 'seller_wise_shipping') {
         if ($product->added_by == 'admin') {
             return get_setting('shipping_cost_admin') / count($admin_products);
         } else {
             return Shop::where('user_id', $product->user_id)->first()->shipping_cost / count($seller_products[$product->user_id]);
         }
-    }
-    elseif (get_setting('shipping_type') == 'area_wise_shipping') {
+    } elseif (get_setting('shipping_type') == 'area_wise_shipping') {
         $shipping_info = Address::where('id', $carts[0]['address_id'])->first();
         $city = City::where('id', $shipping_info->city_id)->first();
         if ($city != null) {
@@ -544,10 +542,9 @@ function getShippingCost($carts, $index)
             }
         }
         return 0;
-    }
-    else {
-        if($product->is_quantity_multiplied && get_setting('shipping_type') == 'product_wise_shipping') {
-            return  $product->shipping_cost * $cartItem['quantity'];
+    } else {
+        if ($product->is_quantity_multiplied && get_setting('shipping_type') == 'product_wise_shipping') {
+            return $product->shipping_cost * $cartItem['quantity'];
         }
         return $product->shipping_cost;
     }
@@ -795,7 +792,7 @@ if (!function_exists('checkout_done')) {
                 NotificationUtility::sendOrderPlacedNotification($order);
                 calculateCommissionAffilationClubPoint($order);
             } catch (\Exception $e) {
-               
+
             }
         }
     }
@@ -862,5 +859,13 @@ if (!function_exists('addon_is_activated')) {
 
         $activation = $addons->where('unique_identifier', $identifier)->where('activated', 1)->first();
         return $activation == null ? false : true;
+    }
+}
+
+//convert date to format
+if (!function_exists('dateFormat')) {
+    function dateFormat($date, $format = 'd M, Y H:i')
+    {
+        return \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format($format);
     }
 }

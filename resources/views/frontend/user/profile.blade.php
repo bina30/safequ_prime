@@ -10,7 +10,7 @@
                         <a class="nav-logo" href="javascript:history.back()">
                             <i class="fad fa-chevron-left pl-2 pr-3 py-2"></i>
                         </a>
-                        <a class="nav-logo" href="{{ route('home')}}">
+                        <a class="nav-logo" href="{{ route('home') }}">
                             <img src="{{ static_asset('assets/img/safequ-logo.png') }}" alt="SafeQu Logo">
                         </a>
                         <div class="empty-nav-div"></div>
@@ -25,42 +25,54 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-5 col-md-6 col-sm-8 px-2 py-4">
-                    <div class="profile-img">
-                        <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="User Img">
-                        <div class="cmr-btn flex-acenter-jcenter">
-                            <i class="fad fa-camera-alt text-white"></i>
-                        </div>
-                    </div>
 
-                    <form method="post" id="userProfileForm" class="py-4">
+                    <form id="userProfileForm" action="{{ route('user.profile.update') }}"
+                        method="POST" enctype="multipart/form-data">
+                        @csrf
+
+                        <div class="profile-img mb-4">
+                            <img src="{{ Auth::user()->avatar }}" alt="User Img"
+                                onerror="this.onerror=null;this.src='https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png'">
+
+                            <div class="cmr-btn flex-acenter-jcenter" data-toggle="aizuploader" data-type="image">
+                                <i class="fad fa-camera-alt text-white"></i>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" name="name" id="name" />
+                            <input type="text" name="name" id="name" value="{{ Auth::user()->name == 'Guest User' ? '' : Auth::user()->name }}" required />
                         </div>
                         <div class="form-group">
-                            <label for="phone">Mobile numbar</label>
-                            <input type="text" name="phone" id="phone" />
+                            <label for="phone-code">Mobile number</label>
+                            <input type="text" name="phone" id="phone-code" value="{{ Auth::user()->phone }}" required disabled/>
                         </div>
                         <div class="form-group">
                             <label for="address">Address</label>
-                            <textarea rows="3" name="address" id="address"></textarea>
+                            <textarea rows="3" name="address" id="address" required>{{ Auth::user()->address }}</textarea>
                         </div>
                         <div class="row">
                             <div class="form-group col-6 pl-0 pr-1">
                                 <label for="city">City</label>
-                                <input type="text" name="city" id="city" />
+                                <input type="text" name="city" id="city" value="{{ Auth::user()->city }}" required />
                             </div>
                             <div class="form-group col-6 pr-0 pl-1">
                                 <label for="state">State</label>
-                                <input type="text" name="state" id="state" />
+                                <input type="text" name="state" id="state" value="{{ Auth::user()->state }}" required />
+                            </div>
+                            <div class="form-group col-6 pl-0 pr-1">
+                                <label for="country">Country</label>
+                                <input type="text" name="country" id="country" value="{{ Auth::user()->country }}"
+                                    required />
+                            </div>
+                            <div class="form-group col-6 pr-0 pl-1">
+                                <label for="postal_code">Postal code</label>
+                                <input type="text" name="postal_code" id="postal_code"
+                                    value="{{ Auth::user()->postal_code }}" required />
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="text" name="password" id="password" />
-                        </div>
 
-                        <button class="btn primary-btn mt-4 btn-block">Save</button>
+                        <button type="submit" class="btn primary-btn mt-4 btn-block">Save</button>
                     </form>
                 </div>
             </div>
