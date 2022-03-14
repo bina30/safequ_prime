@@ -221,7 +221,7 @@
         })
 
         let header = document.getElementsByClassName("main-tag");
-        let sticky = header[0].offsetTop;
+        let sticky = header.length > 0 ? header[0].offsetTop : '';
 
         window.onscroll = function() {
             myFunction()
@@ -236,48 +236,6 @@
         }
 
         $(document).ready(function() {
-
-            $('.carousel').carousel({
-                interval: 7000,
-            })
-
-            $('.community-slider').owlCarousel({
-                loop: true,
-                // nav: true,
-                autoplay: true,
-                autoplayTimeout: 4000,
-                autoplayHoverPause: false,
-                smartSpeed: 1500,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    460: {
-                        items: 2
-                    },
-                    768: {
-                        items: 3
-                    },
-                    991: {
-                        items: 4
-                    },
-                    1200: {
-                        items: 5
-                    }
-                }
-            })
-
-            $('.testimonials').owlCarousel({
-                loop: true,
-                // nav: true,
-                margin: 10,
-                autoplay: true,
-                autoplayTimeout: 4000,
-                autoplayHoverPause: false,
-                smartSpeed: 1500,
-                items: 1
-            })
-
             // Unit Qty select
             $(".amt-btn").on('click', function() {
                 let amount = $(this).data('amt');
@@ -400,18 +358,56 @@
         })
     </script>
 
+    @if(@$owlCarousel)
+        <script>
+            $(document).ready(function() {
+
+                $('.carousel').carousel({
+                    interval: 7000,
+                })
+
+                $('.community-slider').owlCarousel({
+                    loop: true,
+                    // nav: true,
+                    autoplay: true,
+                    autoplayTimeout: 4000,
+                    autoplayHoverPause: false,
+                    smartSpeed: 1500,
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        460: {
+                            items: 2
+                        },
+                        768: {
+                            items: 3
+                        },
+                        991: {
+                            items: 4
+                        },
+                        1200: {
+                            items: 5
+                        }
+                    }
+                })
+
+                $('.testimonials').owlCarousel({
+                    loop: true,
+                    // nav: true,
+                    margin: 10,
+                    autoplay: true,
+                    autoplayTimeout: 4000,
+                    autoplayHoverPause: false,
+                    smartSpeed: 1500,
+                    items: 1
+                })
+            })
+        </script>
+    @endif
     @include('frontend.partials.modal')
 
     @yield('modal')
-
-    <!-- SCRIPTS -->
-    <script src="{{ static_asset('assets/js/aiz-core.js') }}"></script>
-
-    <script>
-        @foreach (session('flash_notification', collect())->toArray() as $message)
-        AIZ.plugins.notify('{{ $message['level'] }}', '{{ $message['message'] }}');
-        @endforeach
-    </script>
 
     @yield('script')
 
@@ -419,6 +415,16 @@
         echo get_setting('footer_script');
     @endphp
 
+
+    <!-- SCRIPTS -->
+    <script src="{{ static_asset('assets/js/frontend_vendors.js') }}"></script>
+    <script src="{{ static_asset('assets/js/aiz-core.js') }}"></script>
+
+    <script>
+        @foreach (session('flash_notification', collect())->toArray() as $message)
+            AIZ.plugins.notify('{{ $message['level'] }}', '{{ $message['message'] }}');
+        @endforeach
+    </script>
 </body>
 
 </html>
