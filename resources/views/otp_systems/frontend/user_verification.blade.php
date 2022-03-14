@@ -28,7 +28,8 @@
                             onkeyup="this.value = this.value.replace(/[^0-9]/g, '')" />
                     </div>
 
-                    <input type="hidden" name="verification_code" value="">
+                    <input type="hidden" name="verification_code" value="8499">
+                    <input type="hidden" name="user_id" value="{{$user->id}}">
 
                     {{-- <p class="mb-4 text-center">Resend code in
                         <span class="otp-timer act-price fw600">0:46</span>

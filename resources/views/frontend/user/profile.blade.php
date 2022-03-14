@@ -41,11 +41,11 @@
 
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" name="name" id="name" value="{{ Auth::user()->name }}" required />
+                            <input type="text" name="name" id="name" value="{{ Auth::user()->name == 'Guest User' ? '' : Auth::user()->name }}" required />
                         </div>
                         <div class="form-group">
-                            <label for="phone">Mobile numbar</label>
-                            <input type="text" name="phone" id="phone" value="{{ Auth::user()->phone }}" required />
+                            <label for="phone-code">Mobile number</label>
+                            <input type="text" name="phone" id="phone-code" value="{{ Auth::user()->phone }}" required disabled/>
                         </div>
                         <div class="form-group">
                             <label for="address">Address</label>

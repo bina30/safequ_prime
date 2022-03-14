@@ -1,13 +1,13 @@
 @if (isset($header_show) && $header_show)
     @if (get_setting('topbar_banner') != null)
         <div class="position-relative top-banner removable-session z-1035 d-none" data-key="top-banner"
-            data-value="removed">
+             data-value="removed">
             <a href="{{ get_setting('topbar_banner_link') }}" class="d-block text-reset">
                 <img src="{{ uploaded_asset(get_setting('topbar_banner')) }}"
-                    class="w-100 mw-100 h-50px h-lg-auto img-fit">
+                     class="w-100 mw-100 h-50px h-lg-auto img-fit">
             </a>
             <button class="btn text-white absolute-top-right set-session" data-key="top-banner" data-value="removed"
-                data-toggle="remove-parent" data-parent=".top-banner">
+                    data-toggle="remove-parent" data-parent=".top-banner">
                 <i class="la la-close la-2x"></i>
             </button>
         </div>
@@ -19,8 +19,9 @@
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <img src="{{ static_asset('assets/img/safequ-logo.png') }}" alt="SafeQu Logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -35,18 +36,20 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.login') }}">Login</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('profile') }}">Account</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('purchase_history.index') }}">My Orders</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('wallet.index') }}">Wallet</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('all-notifications') }}">Notification</a>
-                        </li>
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('profile') }}">Account</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('purchase_history.index') }}">My Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('wallet.index') }}">Wallet</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('all-notifications') }}">Notification</a>
+                            </li>
+                        @endauth
                     </ul>
                     <div class="cart-icon pl-4">
                         <a href="{{ route('cart') }}">
@@ -66,29 +69,42 @@
             </div>
 
             <div class="user-profile flex-acenter-jstart pt-3 pb-4">
-                <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="User img">
-                <div class="pl-3">
-                    <p class="fw500 title-txt mb-1">Robart Carol</p>
-                    <p class="fsize13 body-txt mb-0">Community: Lodha Park</p>
-                </div>
+
+                @if (Auth::user())
+                    <a href="{{route('profile')}}"><img src="{{ uploaded_asset(Auth::user()->avatar_original) }}"
+                                                        onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';"></a>
+                @else
+                    <img src="{{ static_asset('assets/img/avatar-default.webp') }}"
+                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                @endif
+                @auth
+                    <div class="pl-3">
+                        <p class="fw500 title-txt mb-1">{{ Auth::user()->name == 'Guest User' ? Auth::user()->phone : Auth::user()->name }}</p>
+                        <p class="fsize13 body-txt mb-0">Community: Lodha Park</p>
+                    </div>
+                @else
+
+                @endauth
             </div>
 
             <ul class="side-nav-links mb-0 py-2">
-                <a href="{{ route('purchase_history.index') }}">
-                    <li class="p-2 mb-2"> <i class="fad fa-bags-shopping"></i> My Orders</li>
-                </a>
                 <a href="{{ route('products') }}">
-                    <li class="p-2 mb-2"> <i class="fad fa-conveyor-belt-alt"></i> Products</li>
+                    <li class="p-2 mb-2"><i class="fad fa-conveyor-belt-alt"></i> Products</li>
                 </a>
-                <a href="{{ route('wallet.index') }}">
-                    <li class="p-2 mb-2"> <i class="fad fa-wallet"></i> Wallet</li>
-                </a>
-                <a href="{{ route('profile') }}">
-                    <li class="p-2 mb-2"> <i class="fad fa-user"></i> Account</li>
-                </a>
-                <a href="{{ route('all-notifications') }}">
-                    <li class="p-2 mb-2"> <i class="fad fa-bell-on"></i> Notifications</li>
-                </a>
+                @auth
+                    <a href="{{ route('purchase_history.index') }}">
+                        <li class="p-2 mb-2"><i class="fad fa-bags-shopping"></i> My Orders</li>
+                    </a>
+                    <a href="{{ route('wallet.index') }}">
+                        <li class="p-2 mb-2"><i class="fad fa-wallet"></i> Wallet</li>
+                    </a>
+                    <a href="{{ route('profile') }}">
+                        <li class="p-2 mb-2"><i class="fad fa-user"></i> Account</li>
+                    </a>
+                    <a href="{{ route('all-notifications') }}">
+                        <li class="p-2 mb-2"><i class="fad fa-bell-on"></i> Notifications</li>
+                    </a>
+                @endauth
                 <a href="{{ route('cart') }}">
                     <li class="p-2 mb-2">
                         <div class="cart-icon">
@@ -101,12 +117,15 @@
 
             <div class="bottom bt-1 pt-2">
                 <ul class="mb-0">
-                    <a href="{{ route('user.login') }}">
-                        <li class="p-2 mb-1"> <i class="fad fa-sign-in"></i> Login</li>
-                    </a>
-                    <a href="{{ route('logout') }}">
-                        <li class="p-2 mb-1"> <i class="fad fa-sign-out"></i> Logout</li>
-                    </a>
+                    @auth
+                        <a href="{{ route('logout') }}">
+                            <li class="p-2 mb-1"><i class="fad fa-sign-out"></i> Logout</li>
+                        </a>
+                    @else
+                        <a href="{{ route('user.login') }}">
+                            <li class="p-2 mb-1"><i class="fad fa-sign-in"></i> Login</li>
+                        </a>
+                    @endauth
                 </ul>
             </div>
         </div>

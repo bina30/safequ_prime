@@ -87,7 +87,10 @@ class RegisterController extends Controller
         } else {
             if (addon_is_activated('otp_system')) {
                 $user = User::where('phone', '+' . $data['country_code'] . $data['phone'])->first();
-                if ($user == null) {
+                if ($user != null) {
+//                    $user->verification_code = rand(1000, 9999);
+//                    $user->save();
+                } else {
                     $user = User::create([
                         'name'              => 'Guest User',
                         'phone'             => '+' . $data['country_code'] . $data['phone'],
@@ -144,7 +147,7 @@ class RegisterController extends Controller
 
         $user = $this->create($request->all());
 
-        $this->guard()->login($user);
+//        $this->guard()->login($user);
 
         if ($user->email != null) {
             if (BusinessSetting::where('type', 'email_verification')->first()->value != 1) {
@@ -170,7 +173,7 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         if ($user->email == null) {
-            return redirect()->route('verification');
+            return redirect()->route('verification', $user);
         } elseif (session('link') != null) {
             return redirect(session('link'));
         } else {
