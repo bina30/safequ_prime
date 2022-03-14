@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app', ['header_show' => true, 'header2' => false, 'footer' => true, 'owlCarousel' => true])
+@extends('frontend.layouts.app', ['header_show' => true, 'header2' => false, 'footer' => true])
 
 @section('content')
     <main class="main-tag main-tag-mt">
@@ -95,7 +95,8 @@
                                     <div class="item py-3 px-2">
                                         <div class="community-card mx-auto p-3 pt-4">
                                             <div class="card-img mb-1">
-                                                <img src="{{ uploaded_asset($community->avatar_original) }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" class="img-rounded" alt="{{ $community->name }}">
+                                                <img src="{{ uploaded_asset($community->avatar_original) }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" class="img-rounded"
+                                                alt="{{ $community->name }}">
                                             </div>
                                             <div class="card-data pt-3 pb-4">
                                                 <h6 class="fw700 mb-1">{{ $community->name }}</h6>
@@ -176,4 +177,47 @@
 @endsection
 
 @section('script')
+    <script>
+        $(document).ready(function() {
+
+            $('.carousel').carousel({
+                interval: 7000,
+            })
+
+            $('.community-slider').owlCarousel({
+                loop: false,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplayHoverPause: false,
+                smartSpeed: 1500,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    460: {
+                        items: 2
+                    },
+                    768: {
+                        items: 3
+                    },
+                    991: {
+                        items: 4
+                    },
+                    1200: {
+                        items: 5
+                    }
+                }
+            })
+
+            $('.testimonials').owlCarousel({
+                loop: true,
+                margin: 10,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplayHoverPause: false,
+                smartSpeed: 1500,
+                items: 1
+            })
+        })
+    </script>
 @endsection

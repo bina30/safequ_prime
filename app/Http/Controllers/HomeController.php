@@ -177,6 +177,7 @@ class HomeController extends Controller
         // if($request->new_password != null && ($request->new_password == $request->confirm_password)){
         //     $user->password = Hash::make($request->new_password);
         // }
+
         $user->avatar_original = $request->photo;
 
         $seller = $user->seller;
