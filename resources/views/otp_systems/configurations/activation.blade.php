@@ -6,6 +6,19 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
+                    <h3 class="mb-0 h6">{{translate('Msg91 OTP')}}</h3>
+                </div>
+                <div class="card-body text-center">
+                    <label class="aiz-switch aiz-switch-success mb-0">
+                        <input type="checkbox" onchange="updateSettings(this, 'msg91')" @if(\App\Models\OtpConfiguration::where('type', 'msg91')->first()->value == 1) checked @endif>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
                     <h3 class="mb-0 h6">{{translate('Nexmo OTP')}}</h3>
                 </div>
                 <div class="card-body text-center">

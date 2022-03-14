@@ -55,13 +55,13 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'name'     => 'required|string|max:255',
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
@@ -69,54 +69,56 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \App\Models\User
      */
     protected function create(array $data)
     {
-        if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+        if (isset($data['email']) && filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
+                'name'     => $data['name'],
+                'email'    => $data['email'],
                 'password' => Hash::make($data['password']),
             ]);
 
             $customer = new Customer;
             $customer->user_id = $user->id;
             $customer->save();
-        }
-        else {
-            if (addon_is_activated('otp_system')){
-                $user = User::create([
-                    'name' => $data['name'],
-                    'phone' => '+'.$data['country_code'].$data['phone'],
-                    'password' => Hash::make($data['password']),
-                    'verification_code' => rand(100000, 999999)
-                ]);
+        } else {
+            if (addon_is_activated('otp_system')) {
+                $user = User::where('phone', '+' . $data['country_code'] . $data['phone'])->first();
+                if ($user == null) {
+                    $user = User::create([
+                        'name'              => 'Guest User',
+                        'phone'             => '+' . $data['country_code'] . $data['phone'],
+                        'password'          => Hash::make(123456),
+                        'verification_code' => rand(1000, 9999)
+                    ]);
 
-                $customer = new Customer;
-                $customer->user_id = $user->id;
-                $customer->save();
+                    $customer = new Customer;
+                    $customer->user_id = $user->id;
+                    $customer->save();
+                }
 
                 $otpController = new OTPVerificationController;
                 $otpController->send_code($user);
             }
         }
-        
-        if(session('temp_user_id') != null){
+
+        if (session('temp_user_id') != null) {
             Cart::where('temp_user_id', session('temp_user_id'))
-                    ->update([
-                        'user_id' => $user->id,
-                        'temp_user_id' => null
-            ]);
+                ->update([
+                    'user_id'      => $user->id,
+                    'temp_user_id' => null
+                ]);
 
             Session::forget('temp_user_id');
         }
 
-        if(Cookie::has('referral_code')){
+        if (Cookie::has('referral_code')) {
             $referral_code = Cookie::get('referral_code');
             $referred_by_user = User::where('referral_code', $referral_code)->first();
-            if($referred_by_user != null){
+            if ($referred_by_user != null) {
                 $user->referred_by = $referred_by_user->id;
                 $user->save();
             }
@@ -128,29 +130,28 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
-            if(User::where('email', $request->email)->first() != null){
+            if (User::where('email', $request->email)->first() != null) {
                 flash(translate('Email or Phone already exists.'));
                 return back();
             }
         }
-        elseif (User::where('phone', '+'.$request->country_code.$request->phone)->first() != null) {
+        /*elseif (User::where('phone', '+'.$request->country_code.$request->phone)->first() != null) {
             flash(translate('Phone already exists.'));
             return back();
-        }
+        }*/
 
-        $this->validator($request->all())->validate();
+//        $this->validator($request->all())->validate();
 
         $user = $this->create($request->all());
 
         $this->guard()->login($user);
 
-        if($user->email != null){
-            if(BusinessSetting::where('type', 'email_verification')->first()->value != 1){
+        if ($user->email != null) {
+            if (BusinessSetting::where('type', 'email_verification')->first()->value != 1) {
                 $user->email_verified_at = date('Y-m-d H:m:s');
                 $user->save();
                 flash(translate('Registration successful.'))->success();
-            }
-            else {
+            } else {
                 try {
                     $user->sendEmailVerificationNotification();
                     flash(translate('Registration successful. Please verify your email.'))->success();
@@ -170,9 +171,9 @@ class RegisterController extends Controller
     {
         if ($user->email == null) {
             return redirect()->route('verification');
-        }elseif(session('link') != null){
+        } elseif (session('link') != null) {
             return redirect(session('link'));
-        }else {
+        } else {
             return redirect()->route('home');
         }
     }

@@ -104,7 +104,7 @@
                     <a href="{{ route('user.login') }}">
                         <li class="p-2 mb-1"> <i class="fad fa-sign-in"></i> Login</li>
                     </a>
-                    <a href="@{{ route('login') }}">
+                    <a href="{{ route('logout') }}">
                         <li class="p-2 mb-1"> <i class="fad fa-sign-out"></i> Logout</li>
                     </a>
                 </ul>

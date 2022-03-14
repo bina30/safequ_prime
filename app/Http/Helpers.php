@@ -23,9 +23,9 @@ use App\Utility\NotificationUtility;
 
 //sensSMS function for OTP
 if (!function_exists('sendSMS')) {
-    function sendSMS($to, $from, $text, $template_id)
+    function sendSMS($to, $from, $text, $template_id, $variables = [])
     {
-        return SendSMSUtility::sendSMS($to, $from, $text, $template_id);
+        return SendSMSUtility::sendSMS($to, $from, $text, $template_id, $variables = []);
     }
 }
 

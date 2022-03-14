@@ -7,7 +7,7 @@
 
                 <div class="logo-div pb-5">
                     <a href="{{ route('home') }}"> <img src="{{ static_asset('assets/img/safequ-logo.png') }}"
-                            alt="SafeQu Logo"> </a>
+                                                        alt="SafeQu Logo"> </a>
                 </div>
 
                 <form method="post" class="otp-form" action="{{ route('verification.submit') }}">
@@ -19,30 +19,32 @@
 
                     <div class="form-group mb-4">
                         <input type="text" id="digit-1" name="digit-1" data-next="digit-2" required
-                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')" />
-                        <input type="text" id="digit-2" name="digit-2" data-next="digit-3" data-previous="digit-1" required
-                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')" />
-                        <input type="text" id="digit-3" name="digit-3" data-next="digit-4" data-previous="digit-2" required
-                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')" />
+                               onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"/>
+                        <input type="text" id="digit-2" name="digit-2" data-next="digit-3" data-previous="digit-1"
+                               required
+                               onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"/>
+                        <input type="text" id="digit-3" name="digit-3" data-next="digit-4" data-previous="digit-2"
+                               required
+                               onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"/>
                         <input type="text" id="digit-4" name="digit-4" data-previous="digit-3" required
-                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')" />
+                               onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"/>
                     </div>
+                    
+                    <input type="hidden" name="verification_code" value="">
 
-                    <p class="mb-4 text-center">Resend code in
+<!--                    <p class="mb-4 text-center">Resend code in
                         <span class="otp-timer act-price fw600">0:46</span>
-                    </p>
+                    </p>-->
 
                     <a href="{{ route('verification.phone.resend') }}">
                         <p class="mb-4 text-center act-price fw600">Resend code</p>
                     </a>
 
-                    <a href="products.html" class="btn primary-btn btn-block text-white">Verify Otp</a>
-
-                    <a href="#">
-                        <p class="text-center pt-3">Need help?</p>
-                    </a>
+                    <button type="submit" class="btn primary-btn btn-block text-white">{{ translate('Verify OTP') }}</button>
                 </form>
-
+                <a href="#">
+                    <p class="text-center pt-3">Need help?</p>
+                </a>
             </div>
         </div>
     </div>

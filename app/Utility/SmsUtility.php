@@ -13,8 +13,9 @@ class SmsUtility
         $sms_body       = str_replace('[[code]]', $user->verification_code, $sms_body);
         $sms_body       = str_replace('[[site_name]]', env('APP_NAME'), $sms_body);
         $template_id    = $sms_template->template_id;
+        $variables      = array('name'=>'Sarthak Shah', 'orderId'=>'ORD121631');
         try {
-            sendSMS($user->phone, env('APP_NAME'), $sms_body, $template_id);
+            sendSMS($user->phone, env('APP_NAME'), $sms_body, $template_id, $variables);
         } catch (\Exception $e) {
 
         }
