@@ -1,13 +1,13 @@
 @if (isset($header_show) && $header_show)
     @if (get_setting('topbar_banner') != null)
         <div class="position-relative top-banner removable-session z-1035 d-none" data-key="top-banner"
-             data-value="removed">
+            data-value="removed">
             <a href="{{ get_setting('topbar_banner_link') }}" class="d-block text-reset">
                 <img src="{{ uploaded_asset(get_setting('topbar_banner')) }}"
-                     class="w-100 mw-100 h-50px h-lg-auto img-fit">
+                    class="w-100 mw-100 h-50px h-lg-auto img-fit">
             </a>
             <button class="btn text-white absolute-top-right set-session" data-key="top-banner" data-value="removed"
-                    data-toggle="remove-parent" data-parent=".top-banner">
+                data-toggle="remove-parent" data-parent=".top-banner">
                 <i class="la la-close la-2x"></i>
             </button>
         </div>
@@ -19,9 +19,8 @@
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <img src="{{ static_asset('assets/img/safequ-logo.png') }}" alt="SafeQu Logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -71,23 +70,31 @@
             <div class="user-profile flex-acenter-jstart pt-3 pb-4">
 
                 @if (Auth::user())
-                    <a href="{{route('profile')}}"><img src="{{ uploaded_asset(Auth::user()->avatar_original) }}"
-                                                        onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';"></a>
+                    <a href="{{ route('profile') }}">
+                        <img src="{{ uploaded_asset(Auth::user()->avatar_original) }}"
+                            onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                    </a>
                 @else
                     <img src="{{ static_asset('assets/img/avatar-default.webp') }}"
-                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                        onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
                 @endif
+
                 @auth
                     <div class="pl-3">
-                        <p class="fw500 title-txt mb-1">{{ Auth::user()->name == 'Guest User' ? Auth::user()->phone : Auth::user()->name }}</p>
+                        <p class="fw500 title-txt mb-1">
+                            {{ Auth::user()->name == 'Guest User' ? Auth::user()->phone : Auth::user()->name }}</p>
                         <p class="fsize13 body-txt mb-0">Community: Lodha Park</p>
                     </div>
                 @else
-
+                    <a href="{{ route('user.login') }}" class="w-100">
+                        <div class="pl-3 p-2 w-100">
+                            <p class="fw500 title-txt mb-0"> <i class="fad fa-sign-in"></i> &nbsp; Login</p>
+                        </div>
+                    </a>
                 @endauth
             </div>
 
-            <ul class="side-nav-links mb-0 py-2">
+            <ul class="side-nav-links bt-1 mb-0 py-2">
                 <a href="{{ route('products') }}">
                     <li class="p-2 mb-2"><i class="fad fa-conveyor-belt-alt"></i> Products</li>
                 </a>
@@ -115,19 +122,15 @@
                 </a>
             </ul>
 
-            <div class="bottom bt-1 pt-2">
-                <ul class="mb-0">
-                    @auth
+            @auth
+                <div class="bottom bt-1 pt-2">
+                    <ul class="mb-0">
                         <a href="{{ route('logout') }}">
                             <li class="p-2 mb-1"><i class="fad fa-sign-out"></i> Logout</li>
                         </a>
-                    @else
-                        <a href="{{ route('user.login') }}">
-                            <li class="p-2 mb-1"><i class="fad fa-sign-in"></i> Login</li>
-                        </a>
-                    @endauth
-                </ul>
-            </div>
+                    </ul>
+                </div>
+            @endauth
         </div>
     </div>
 @endif
