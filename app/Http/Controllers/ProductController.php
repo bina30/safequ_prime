@@ -54,7 +54,7 @@ class ProductController extends Controller
                 ->orWhereHas('stocks', function($q) use ($sort_search){
                         $q->where('sku', 'like', '%'.$sort_search.'%');
                     });
-            
+
         }
 
         $products = $products->where('digital', 0)->orderBy('created_at', 'desc')->paginate(15);
@@ -115,7 +115,7 @@ class ProductController extends Controller
                 ->orWhereHas('stocks', function($q) use ($sort_search){
                         $q->where('sku', 'like', '%'.$sort_search.'%');
                     });
-            
+
         }
         if ($request->type != null) {
             $var = explode(",", $request->type);
@@ -146,7 +146,11 @@ class ProductController extends Controller
             ->with('childrenCategories')
             ->get();
 
-        return view('backend.product.products.create', compact('categories'));
+        $users = User::where('user_type', 'seller')
+                ->where('banned', 0)
+                ->get();
+
+        return view('backend.product.products.create', compact('categories', 'users'));
     }
 
     public function add_more_choice_option(Request $request)
@@ -172,18 +176,29 @@ class ProductController extends Controller
     {
         $product = new Product;
         $product->name = $request->name;
-        $product->added_by = $request->added_by;
+        $added_by = $request->added_by;
         if (Auth::user()->user_type == 'seller') {
             $product->user_id = Auth::user()->id;
             if (get_setting('product_approve_by_admin') == 1) {
                 $product->approved = 0;
             }
+        } elseif (intval($request->seller_id) > 0) {
+            $product->user_id = $request->seller_id;
+            $added_by = 'seller';
         } else {
             $product->user_id = User::where('user_type', 'admin')->first()->id;
         }
+        $product->added_by = $added_by;
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
         $product->barcode = $request->barcode;
+        $product->manufacturer_location = $request->manufacturer_location;
+
+        if ($request->purchase_date_range != null) {
+            $purchase_date_var = explode(" TO ", $request->purchase_date_range);
+            $product->purchase_start_date = date('Y-m-d H:i:s', strtotime($purchase_date_var[0]));
+            $product->purchase_end_date = date('Y-m-d H:i:s', strtotime($purchase_date_var[1]));
+        }
 
         if (addon_is_activated('refund_request')) {
             if ($request->refundable != null) {
@@ -429,7 +444,7 @@ class ProductController extends Controller
         Artisan::call('cache:clear');
 
         if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
-            return redirect()->route('products.admin');
+            return redirect()->route('products.all');
         } else {
             if (addon_is_activated('seller_subscription')) {
                 $seller = Auth::user()->seller;
@@ -466,13 +481,18 @@ class ProductController extends Controller
             return redirect('digitalproducts/' . $id . '/edit');
         }
 
-        $lang = $request->lang;
+        $lang = ($request->lang ? $request->lang : 'en');
         $tags = json_decode($product->tags);
         $categories = Category::where('parent_id', 0)
             ->where('digital', 0)
             ->with('childrenCategories')
             ->get();
-        return view('backend.product.products.edit', compact('product', 'categories', 'tags', 'lang'));
+
+        $users = User::where('user_type', 'seller')
+            ->where('banned', 0)
+            ->get();
+
+        return view('backend.product.products.edit', compact('product', 'categories', 'tags', 'lang', 'users'));
     }
 
     /**
@@ -494,7 +514,7 @@ class ProductController extends Controller
             ->where('digital', 0)
             ->with('childrenCategories')
             ->get();
-            
+
         return view('backend.product.products.edit', compact('product', 'categories', 'tags', 'lang'));
     }
 
@@ -511,10 +531,25 @@ class ProductController extends Controller
         $product->category_id       = $request->category_id;
         $product->brand_id          = $request->brand_id;
         $product->barcode           = $request->barcode;
+        if (intval($request->seller_id) > 0) {
+            $product->user_id = $request->seller_id;
+            $product->added_by = 'seller';
+        } else {
+            $product->user_id = User::where('user_type', 'admin')->first()->id;
+            $product->added_by = 'admin';
+        }
         $product->cash_on_delivery = 0;
         $product->featured = 0;
         $product->todays_deal = 0;
         $product->is_quantity_multiplied = 0;
+
+        $product->manufacturer_location = $request->manufacturer_location;
+
+        if ($request->purchase_date_range != null) {
+            $purchase_date_var = explode(" TO ", $request->purchase_date_range);
+            $product->purchase_start_date = date('Y-m-d H:i:s', strtotime($purchase_date_var[0]));
+            $product->purchase_end_date = date('Y-m-d H:i:s', strtotime($purchase_date_var[1]));
+        }
 
         if (addon_is_activated('refund_request')) {
             if ($request->refundable != null) {
@@ -810,7 +845,7 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
-        if (Auth::user()->id == $product->user_id || Auth::user()->user_type == 'staff') {
+        if (Auth::user()->id == $product->user_id || Auth::user()->user_type == 'staff' || Auth::user()->user_type == 'admin') {
             $product_new = $product->replicate();
             $product_new->slug = $product_new->slug . '-' . Str::random(5);
             $product_new->save();

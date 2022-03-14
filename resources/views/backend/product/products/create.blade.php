@@ -21,6 +21,17 @@
                                 <input type="text" class="form-control" name="name" placeholder="{{ translate('Product Name') }}" onchange="update_sku()" required>
                             </div>
                         </div>
+                        <div class="form-group row" id="seller">
+                            <label class="col-md-3 col-from-label">{{translate('Community')}} <span class="text-danger">*</span></label>
+                            <div class="col-md-8">
+                                <select class="form-control aiz-selectpicker" name="seller_id" id="seller_id" data-live-search="true" required>
+                                    <option value="">{{ translate('Select Community') }}</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group row" id="category">
                             <label class="col-md-3 col-from-label">{{translate('Category')}} <span class="text-danger">*</span></label>
                             <div class="col-md-8">
@@ -62,6 +73,18 @@
                             <div class="col-md-8">
                                 <input type="text" class="form-control aiz-tag-input" name="tags[]" placeholder="{{ translate('Type and hit enter to add a tag') }}">
                                 <small class="text-muted">{{translate('This is used for search. Input those words by which cutomer can find this product.')}}</small>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-from-label">{{translate('Manufacturer Name')}}</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="manufacturer_location" placeholder="{{ translate('Manufacturer Name') }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label" for="purchase_date_range">{{translate('Purchase Date Range')}} <span class="text-danger">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control aiz-date-range" name="purchase_date_range" placeholder="{{translate('Purchase Date Range')}}" data-time-picker="true" data-format="DD-MM-Y HH:mm:ss" data-separator=" TO " autocomplete="off" required>
                             </div>
                         </div>
 
@@ -649,17 +672,17 @@
 		}
         // Disable the submit button while evaluating if the form should be submitted
         // $("button[type='submit']").prop('disabled', true);
-        
+
         // var valid = true;
 
         // if (!valid) {
             // e.preventDefault();
-            
+
             ////Reactivate the button if the form was not submitted
             // $("button[type='submit']").button.prop('disabled', false);
         // }
     });
-    
+
     $("[name=shipping_type]").on("change", function (){
         $(".flat_rate_shipping_div").hide();
 
