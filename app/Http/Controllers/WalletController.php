@@ -13,14 +13,15 @@ use Auth;
 use Session;
 use App\Models\Wallet;
 use App\Utility\PayhereUtility;
+use Carbon\Carbon;
 
 class WalletController extends Controller
 {
     public function index()
     {
-        // $wallets = Wallet::where('user_id', Auth::user()->id)->latest()->paginate(9);
-        // return view('frontend.user.wallet.index', compact('wallets'));
-        return view('frontend.user.wallet.index');
+        $wallets = Wallet::where('user_id', Auth::user()->id)->latest()->paginate(9);
+//         return view('frontend.user.wallet.index', compact('wallets'));
+        return view('frontend.user.wallet.index', compact('wallets'));
     }
 
     public function recharge(Request $request)

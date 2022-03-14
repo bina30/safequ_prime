@@ -228,7 +228,6 @@
         };
 
         function myFunction() {
-            console.log(sticky);
             if (window.pageYOffset > sticky) {
                 $(".breadcrumbs").addClass("sticky");
             } else {
@@ -404,6 +403,15 @@
     @include('frontend.partials.modal')
 
     @yield('modal')
+
+    <!-- SCRIPTS -->
+    <script src="{{ static_asset('assets/js/aiz-core.js') }}"></script>
+
+    <script>
+        @foreach (session('flash_notification', collect())->toArray() as $message)
+        AIZ.plugins.notify('{{ $message['level'] }}', '{{ $message['message'] }}');
+        @endforeach
+    </script>
 
     @yield('script')
 
