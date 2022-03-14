@@ -954,6 +954,7 @@ button.btn-before-none::before,
 .item-card .card-top .item-img img {
     width: 65px;
     height: 65px;
+    border-radius: 50%;
 }
 
 .item-card .card-top h6 {
@@ -1115,17 +1116,20 @@ button.btn-before-none::before,
 .img-name .item-img img {
     width: 56px;
     height: 56px;
+    border-radius: 50%;
 }
 
 .crtord-itm-card .img-name .item-img {
     width: 60px;
     height: 60px;
     min-width: 60px;
+    border-radius: 50%;
 }
 
 .crtord-itm-card .img-name .item-img img {
     width: 42px;
     height: 42px;
+    border-radius: 50%;
 }
 
 .img-name-sm {
@@ -1537,6 +1541,7 @@ button.btn-before-none::before,
 .order-list .item-img img {
     max-width: 55px;
     max-height: 55px;
+    border-radius: 50%;
 }
 
 .order-list .lh-17 {
@@ -1564,6 +1569,7 @@ button.btn-before-none::before,
 .review-itm-card .img-name .item-img img {
     width: 42px;
     height: 42px;
+    border-radius: 50%;
 }
 
 .user-img {
