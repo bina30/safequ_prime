@@ -383,6 +383,16 @@
         })
     </script>
 
+    <!-- SCRIPTS -->
+    <script src="{{ static_asset('assets/js/frontend_vendors.js') }}"></script>
+    <script src="{{ static_asset('assets/js/aiz-core.js') }}"></script>
+
+    <script>
+        @foreach (session('flash_notification', collect())->toArray() as $message)
+            AIZ.plugins.notify('{{ $message['level'] }}', '{{ $message['message'] }}');
+        @endforeach
+    </script>
+
     @if(@$owlCarousel)
         <script>
             $(document).ready(function() {
@@ -439,17 +449,6 @@
     @php
         echo get_setting('footer_script');
     @endphp
-
-
-    <!-- SCRIPTS -->
-    <script src="{{ static_asset('assets/js/frontend_vendors.js') }}"></script>
-    <script src="{{ static_asset('assets/js/aiz-core.js') }}"></script>
-
-    <script>
-        @foreach (session('flash_notification', collect())->toArray() as $message)
-            AIZ.plugins.notify('{{ $message['level'] }}', '{{ $message['message'] }}');
-        @endforeach
-    </script>
 </body>
 
 </html>

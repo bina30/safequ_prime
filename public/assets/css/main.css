@@ -1,4 +1,3 @@
-
 /* ---------------- Common CSS ---------------- */
 :root {
     --v-light-color: #f7f7f7;
@@ -10,6 +9,14 @@
     --primary-color-dark: #f55c1f;
     --secondary-color: #be660b;
     --default-border-color: #cfcfcf;
+
+    /* Notification Colors */
+    --primary: #ff6c31;
+    --secondary: #8f97ab;
+    --success: #0abb75;
+    --info: #25bcf1;
+    --warning: #ffc519;
+    --danger: #ed1d1d;
 }
 
 * {
@@ -1334,6 +1341,148 @@ button.btn-before-none::before,
     background: #fff;
 }
 
+
+/*notify*/
+.aiz-notify {
+    min-width: 350px;
+    max-width: 350px;
+    padding-right: 50px;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    border: 0;
+    color: var(--v-light-color);
+    box-shadow: 0 5px 20px 0 rgba(38, 45, 58, 0.2);
+    -webkit-box-shadow: 0 5px 20px 0 rgba(38, 45, 58, 0.2);
+    padding: 0.8rem 1.5rem;
+    font-size: 0.8rem;
+    z-index: 1060 !important;
+}
+
+[dir="rtl"] .aiz-notify {
+    text-align: right !important;
+}
+
+.aiz-notify .close {
+    top: 50% !important;
+    height: 20px;
+    width: 20px;
+    margin-top: -10px;
+    font-size: 20px;
+    line-height: 20px;
+    color: var(--v-light-color);
+    opacity: 0.7;
+    right: 15px !important;
+    text-shadow: none;
+}
+
+[dir="rtl"] .aiz-notify .close {
+    right: auto !important;
+    left: 15px !important;
+}
+
+.aiz-notify .close:before {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    z-index: -1;
+    opacity: 0;
+}
+
+.aiz-notify .close:hover {
+    color: var(--default-color-dark);
+    opacity: 1;
+}
+
+.aiz-notify .close:hover:before {
+    opacity: 1;
+    background-color: #fff;
+    width: 170%;
+    height: 170%;
+    top: -35%;
+    left: -35%;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.aiz-notify .progress {
+    height: 3px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0;
+    background-color: transparent;
+}
+
+.aiz-notify .progress-bar {
+    background-color: var(--v-light-color);
+}
+
+.aiz-notify.alert-success {
+    background-color: var(--success);
+}
+
+.aiz-notify.alert-danger {
+    background-color: var(--danger);
+}
+
+.aiz-notify.alert-primary {
+    background-color: var(--primary);
+}
+
+.aiz-notify.alert-warning {
+    background-color: var(--warning);
+}
+
+.aiz-notify.alert-info {
+    background-color: var(--info);
+}
+
+.aiz-notify.alert-dark {
+    background-color: var(--default-color-dark);
+}
+
+.aiz-notify.alert-secondary {
+    background-color: var(--secondary);
+}
+
+.aiz-notify.alert-dark span,
+.aiz-notify.alert-info span,
+.aiz-notify.alert-danger span,
+.aiz-notify.alert-primary span,
+.aiz-notify.alert-success span {
+    color: var(--v-light-color);
+}
+
+.aiz-notify .close i {
+    color: var(--v-light-color);
+}
+
+.aiz-notify.alert-light,
+.aiz-notify.alert-light .close i {
+    background-color: var(--v-light-color);
+    color: var(--dark);
+}
+
+.aiz-notify.alert-light .progress-bar {
+    background-color: var(--primary);
+}
+
+@media (max-width: 575px) {
+    .aiz-notify {
+        width: calc(100% - 40px);
+        min-width: auto;
+    }
+}
+
 /* Login Page */
 .login-screen .logo-div {
     width: 110px;
@@ -1346,6 +1495,7 @@ button.btn-before-none::before,
     height: 45px;
     line-height: 40px;
     padding: 8px 12px;
+    padding-left: 88px !important;
     border-radius: 5px;
     box-shadow: 0 0 10px #e7e7e7;
 }
@@ -1366,6 +1516,22 @@ button.btn-before-none::before,
     margin: 0 10px;
     box-shadow: 0 0 10px #dfdfdf;
     caret-color: #dddddd;
+}
+
+.phone-form-group .iti {
+    width: 100%;
+    margin-bottom: 1.3rem;
+    border-radius: 5px;
+}
+
+.phone-form-group .iti .iti__flag-container {
+    padding: 0;
+}
+
+.phone-form-group .iti .iti__flag-container,
+.phone-form-group .iti .iti__flag-container .iti__selected-flag {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
 .order-list .item-img img {
