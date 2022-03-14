@@ -24,7 +24,7 @@
 
                     <input type="hidden" name="country_code" value="">
 
-                    <button type="submit" class="btn primary-btn btn-block">Request Otp</button>
+                    <button type="submit" class="btn primary-btn btn-block">Request OTP</button>
 
                     <a href="{{ route('home') }}">
                         <p class="text-center pt-3 act-price">Skip for now</p>

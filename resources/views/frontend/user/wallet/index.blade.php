@@ -14,7 +14,7 @@
                         </h4>
                         @if (get_setting('razorpay') == 1)
                             <button class="btn btn-outline-light fsize14 fw500 px-4 btn-round btn-before-none"
-                                    data-toggle="modal" data-target="#addMoneyModal">
+                                data-toggle="modal" data-target="#addMoneyModal">
                                 Add Money
                             </button>
                         @endif
@@ -24,25 +24,30 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h6 class="mb-0 fw700 title-txt">Transaction History</h6>
                             <i class="fad fa-filter fsize16 py-1 px-2" data-toggle="modal"
-                               data-target="#filterTransModal"></i>
+                                data-target="#filterTransModal"></i>
                         </div>
 
                         <div class="pt-4">
                             @foreach ($wallets as $key => $wallet)
-                                <div class="transactions @if($wallet->amount > 0) credit @else debit @endif">
+                                <div class="transactions @if ($wallet->amount > 0) credit @else debit @endif">
                                     <div class="d-flex justify-content-start align-items-center">
                                         <div class="indicater text-center">
                                             <i class="fad fa-long-arrow-left text-danger"></i>
                                             <i class="fad fa-long-arrow-right text-success"></i>
                                         </div>
                                         <div class="pl-2">
-                                            <h6 class="mb-0 title-txt">@if($wallet->amount > 0)Credit @else
-                                                    Debit @endif</h6>
-                                            <p class="mb-0 body-txt">{{dateFormat($wallet->created_at)}}</p>
+                                            <h6 class="mb-0 title-txt">
+                                                @if ($wallet->amount > 0)
+                                                    Credit
+                                                @else
+                                                    Debit
+                                                @endif
+                                            </h6>
+                                            <p class="mb-0 body-txt">{{ dateFormat($wallet->created_at) }}</p>
                                         </div>
                                     </div>
                                     <h6 class="amount text-right mb-0">
-                                        {!! single_price(abs($wallet->amount))  !!}
+                                        {!! single_price(abs($wallet->amount)) !!}
                                     </h6>
                                 </div>
                             @endforeach
@@ -61,7 +66,7 @@
 @section('modal')
     <!-- Add Money to wallet Popup -->
     <div class="modal fade" id="addMoneyModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-         aria-labelledby="addMoneyModalLabel" aria-hidden="true">
+        aria-labelledby="addMoneyModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -76,12 +81,12 @@
                         <div class="py-2 text-center">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">
-                                    <ins class="currency-symbol">&#8377;</ins>
-                                </span>
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <ins class="currency-symbol">&#8377;</ins>
+                                    </span>
                                 </div>
                                 <input type="text" class="form-control" name="amount" id="wallet_amount"
-                                       placeholder="0"/>
+                                    placeholder="0" />
                             </div>
                             <div class="amt-select text-center pb-3">
                                 <button type="button" class="btn amt-btn my-1 btn-round" data-amt="100">100</button>
@@ -103,7 +108,7 @@
 
     <!-- Filter Popup -->
     <div class="modal fade" id="filterTransModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-         aria-labelledby="filterTransModalLabel" aria-hidden="true">
+        aria-labelledby="filterTransModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -116,11 +121,11 @@
                     <div class="py-2 px-3">
                         <div class="form-group">
                             <label for="from_date" class="fw500">From Date</label>
-                            <input type="date" class="form-control" name="from_date" id="from_date"/>
+                            <input type="date" class="form-control" name="from_date" id="from_date" />
                         </div>
                         <div class="form-group pb-3">
                             <label for="from_date" class="fw500">To Date</label>
-                            <input type="date" class="form-control" name="to_date" id="to_date"/>
+                            <input type="date" class="form-control" name="to_date" id="to_date" />
                         </div>
                         <div class="form-group pb-3">
                             <label for="from_date" class="fw500">Transection Type</label>
@@ -129,10 +134,10 @@
                                 <input type="radio" class="switch-input" name="view" value="all" id="all" checked>
                                 <label for="all" class="switch-label switch-label-all mb-0">All</label>
 
-                                <input type="radio" class="switch-input" name="view" value="1" id="income"/>
+                                <input type="radio" class="switch-input" name="view" value="1" id="income" />
                                 <label for="income" class="switch-label switch-label-in">Income</label>
 
-                                <input type="radio" class="switch-input" name="view" value="0" id="outgoings"/>
+                                <input type="radio" class="switch-input" name="view" value="0" id="outgoings" />
                                 <label for="outgoings" class="switch-label switch-label-out">Outgoings</label>
 
                                 <span class="switch-selection"></span>
@@ -146,4 +151,28 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            // Unit Qty select
+            $(".amt-btn").on('click', function() {
+                let amount = $(this).data('amt');
+                $('#wallet_amount').val(amount);
+                $('#btnAmt').text(amount);
+                $('#btnAmt').parent().removeClass("disabled");
+            })
+
+            $('#wallet_amount').on('keyup touchend', function() {
+                let value = $(this).val();
+
+                if (value != '' && value != 0) {
+                    $('#btnAmt').text(value), $('#btnAmt').parent().removeClass("disabled");
+                } else {
+                    $('#btnAmt').text(0), $('#btnAmt').parent().addClass("disabled");
+                }
+            })
+        })
+    </script>
 @endsection

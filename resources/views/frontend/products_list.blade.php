@@ -346,9 +346,9 @@
                                     </div>
                                 </div>
                                 <!-- <div class="nxtdelivery-date p-2">
-                                                            <p class="mb-2 fsize13">Next Delivery</p>
-                                                            <h5 class="fw700">22 <span class="fw400">Jan</span></h5>
-                                                        </div> -->
+                                        <p class="mb-2 fsize13">Next Delivery</p>
+                                        <h5 class="fw700">22 <span class="fw400">Jan</span></h5>
+                                    </div> -->
                             </div>
 
                             <div class="distributor pt-2">
@@ -575,5 +575,101 @@
 @endsection
 
 @section('script')
+    <script>
+        // Tooltip
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+        
+        $(document).ready(function() {
 
+            // Remaining time
+            $(".remaining-time").each(function() {
+
+                const currDiv = $(this);
+
+                // Set the date we're counting down to
+                var countDownDate = new Date(currDiv.data("time")).getTime();
+
+                // Update the count down every 1 second
+                var x = setInterval(function() {
+
+                    // Get today's date and time
+                    var now = new Date().getTime();
+
+                    // Find the distance between now and the count down date
+                    var distance = countDownDate - now;
+
+                    // Time calculations for days, hours, minutes and seconds
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 *
+                        60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    currDiv.find(".cnt").removeClass("active disabled");
+                    currDiv.find(".days").text(days > 0 ? days : "00");
+                    currDiv.find(".hours").text(hours > 0 ? hours : "00");
+                    currDiv.find(".minutes").text(minutes > 0 ? minutes : "00");
+
+
+                    if (days > 0) {
+                        currDiv.find(".days").parent().addClass("active");
+                    } else if (days <= 0 && hours > 0) {
+                        currDiv.find(".days").parent().addClass("disabled");
+                        currDiv.find(".hours").parent().addClass("active");
+                    } else if (days <= 0 && hours <= 0 && minutes > 0) {
+                        currDiv.find(".days").parent().addClass("disabled");
+                        currDiv.find(".hours").parent().addClass("disabled");
+                        currDiv.find(".minutes").parent().addClass("active");
+                    } else {
+                        currDiv.find(".cnt").addClass("disabled");
+                    }
+                }, 1000);
+            });
+
+            $('.item-count button').on('click', function() {
+                let qty = $("#quantity").val();
+                $("#itm-cnt").text(qty);
+
+                if (qty >= 10) {
+                    $("#itm-cnt").removeClass("d2 d3");
+                    $("#itm-cnt").addClass("d2");
+                }
+
+                if (qty >= 100) {
+                    $("#itm-cnt").removeClass("d2 d3");
+                    $("#itm-cnt").addClass("d3");
+                }
+
+                (qty < 10) ? $("#itm-cnt").removeClass("d2 d3"): "";
+
+            })
+
+            $(".progress-bar").each(function() {
+                let width = 0;
+                let progressCnt = 0;
+                let target = $(this).data("target");
+                let unit = $(this).data("unit");
+                let progress = $(this).data("progress");
+
+                let progressComplete = (progress * 100) / target;
+
+                const count = setInterval(() => {
+                    if (width != progressComplete) {
+                        width++;
+                        progressCnt++;
+                        $(this).css("opacity", "1");
+                        (width <= 100) ? $(this).css("width", width + "%"): '';
+                        if (progressCnt <= progress) {
+                            $(this).text(progressCnt + ' ' + unit);
+                        }
+                    } else {
+                        clearInterval(count);
+                    }
+                }, 15);
+            });
+
+        })
+    </script>
 @endsection

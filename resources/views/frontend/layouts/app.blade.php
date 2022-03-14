@@ -215,11 +215,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
     <script>
-        // Tooltip
-        $(function() {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-
         let header = document.getElementsByClassName("main-tag");
         let sticky = header.length > 0 ? header[0].offsetTop : '';
 
@@ -236,23 +231,6 @@
         }
 
         $(document).ready(function() {
-            // Unit Qty select
-            $(".amt-btn").on('click', function() {
-                let amount = $(this).data('amt');
-                $('#wallet_amount').val(amount);
-                $('#btnAmt').text(amount);
-                $('#btnAmt').parent().removeClass("disabled");
-            })
-
-            $('#wallet_amount').on('keyup touchend', function() {
-                let value = $(this).val();
-
-                if (value != '' && value != 0) {
-                    $('#btnAmt').text(value), $('#btnAmt').parent().removeClass("disabled");
-                } else {
-                    $('#btnAmt').text(0), $('#btnAmt').parent().addClass("disabled");
-                }
-            })
 
             $(".close-sidenav").on('click', function() {
                 $(".sideNav").removeClass("active");
@@ -262,117 +240,6 @@
                 $(".sideNav").addClass("active");
             })
 
-            // Remaining time
-            $(".remaining-time").each(function() {
-
-                const currDiv = $(this);
-
-                // Set the date we're counting down to
-                var countDownDate = new Date(currDiv.data("time")).getTime();
-
-                // Update the count down every 1 second
-                var x = setInterval(function() {
-
-                    // Get today's date and time
-                    var now = new Date().getTime();
-
-                    // Find the distance between now and the count down date
-                    var distance = countDownDate - now;
-
-                    // Time calculations for days, hours, minutes and seconds
-                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 *
-                        60));
-                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                    currDiv.find(".cnt").removeClass("active disabled");
-                    currDiv.find(".days").text(days > 0 ? days : "00");
-                    currDiv.find(".hours").text(hours > 0 ? hours : "00");
-                    currDiv.find(".minutes").text(minutes > 0 ? minutes : "00");
-
-
-                    if (days > 0) {
-                        currDiv.find(".days").parent().addClass("active");
-                    } else if (days <= 0 && hours > 0) {
-                        currDiv.find(".days").parent().addClass("disabled");
-                        currDiv.find(".hours").parent().addClass("active");
-                    } else if (days <= 0 && hours <= 0 && minutes > 0) {
-                        currDiv.find(".days").parent().addClass("disabled");
-                        currDiv.find(".hours").parent().addClass("disabled");
-                        currDiv.find(".minutes").parent().addClass("active");
-                    } else {
-                        currDiv.find(".cnt").addClass("disabled");
-                    }
-                }, 1000);
-            });
-
-            $('.item-count button').on('click', function() {
-                let qty = $("#quantity").val();
-                $("#itm-cnt").text(qty);
-
-                if (qty >= 10) {
-                    $("#itm-cnt").removeClass("d2 d3");
-                    $("#itm-cnt").addClass("d2");
-                }
-
-                if (qty >= 100) {
-                    $("#itm-cnt").removeClass("d2 d3");
-                    $("#itm-cnt").addClass("d3");
-                }
-
-                (qty < 10) ? $("#itm-cnt").removeClass("d2 d3"): "";
-
-            })
-
-            $(".progress-bar").each(function() {
-                let width = 0;
-                let progressCnt = 0;
-                let target = $(this).data("target");
-                let unit = $(this).data("unit");
-                let progress = $(this).data("progress");
-
-                let progressComplete = (progress * 100) / target;
-
-                const count = setInterval(() => {
-                    if (width != progressComplete) {
-                        width++;
-                        progressCnt++;
-                        $(this).css("opacity", "1");
-                        (width <= 100) ? $(this).css("width", width + "%"): '';
-                        if (progressCnt <= progress) {
-                            $(this).text(progressCnt + ' ' + unit);
-                        }
-                    } else {
-                        clearInterval(count);
-                    }
-                }, 15);
-            });
-
-            $('.otp-form').find('input').each(function () {
-                $(this).attr('maxlength', 1);
-                $(this).on('keyup touchend', function (e) {
-                    var parent = $($(this).parent());
-
-                    if (e.keyCode === 8 || e.keyCode === 37) {
-                        var prev = parent.find('input#' + $(this).data('previous'));
-
-                        if (prev.length) {
-                            $(prev).select();
-                        }
-                    } else if ($.isNumeric($(this).val())) {
-                        var next = parent.find('input#' + $(this).data('next'));
-
-                        if (next.length) {
-                            $(next).select();
-                        } else {
-                            if (parent.data('autosubmit')) {
-                                parent.submit();
-                            }
-                        }
-                    }
-                });
-            });
         });
 
         $(window).on('scroll', function() {
@@ -394,87 +261,42 @@
     </script>
 
     <script type="text/javascript">
-        var countryData = window.intlTelInputGlobals.getCountryData(),
-            input = document.querySelector("#phone-code");
+        if ($("#phone-code").length) {
+            var countryData = window.intlTelInputGlobals.getCountryData(),
+                input = document.querySelector("#phone-code");
 
-        for (var i = 0; i < countryData.length; i++) {
-            var country = countryData[i];
-            if (country.iso2 == 'bd') {
-                country.dialCode = '88';
-            }
-        }
-
-        var iti = intlTelInput(input, {
-            separateDialCode: true,
-            utilsScript: "{{ static_asset('assets/js/intlTelutils.js') }}?1590403638580",
-            onlyCountries: ['in'],
-            customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
-                if (selectedCountryData.iso2 == 'bd') {
-                    return "01xxxxxxxxx";
+            for (var i = 0; i < countryData.length; i++) {
+                var country = countryData[i];
+                if (country.iso2 == 'bd') {
+                    country.dialCode = '88';
                 }
-                return selectedCountryPlaceholder;
             }
-        });
 
-        var country = iti.getSelectedCountryData();
-        $('input[name=country_code]').val(country.dialCode);
-
-        input.addEventListener("countrychange", function (e) {
-            // var currentMask = e.currentTarget.placeholder;
+            var iti = intlTelInput(input, {
+                separateDialCode: true,
+                utilsScript: "{{ static_asset('assets/js/intlTelutils.js') }}?1590403638580",
+                onlyCountries: ['in'],
+                customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+                    if (selectedCountryData.iso2 == 'bd') {
+                        return "01xxxxxxxxx";
+                    }
+                    return selectedCountryPlaceholder;
+                }
+            });
 
             var country = iti.getSelectedCountryData();
             $('input[name=country_code]').val(country.dialCode);
 
-        });
+            input.addEventListener("countrychange", function(e) {
+                // var currentMask = e.currentTarget.placeholder;
+
+                var country = iti.getSelectedCountryData();
+                $('input[name=country_code]').val(country.dialCode);
+
+            });
+        }
     </script>
 
-    @if(@$owlCarousel)
-        <script>
-            $(document).ready(function() {
-
-                $('.carousel').carousel({
-                    interval: 7000,
-                })
-
-                $('.community-slider').owlCarousel({
-                    loop: true,
-                    // nav: true,
-                    autoplay: true,
-                    autoplayTimeout: 4000,
-                    autoplayHoverPause: false,
-                    smartSpeed: 1500,
-                    responsive: {
-                        0: {
-                            items: 1
-                        },
-                        460: {
-                            items: 2
-                        },
-                        768: {
-                            items: 3
-                        },
-                        991: {
-                            items: 4
-                        },
-                        1200: {
-                            items: 5
-                        }
-                    }
-                })
-
-                $('.testimonials').owlCarousel({
-                    loop: true,
-                    // nav: true,
-                    margin: 10,
-                    autoplay: true,
-                    autoplayTimeout: 4000,
-                    autoplayHoverPause: false,
-                    smartSpeed: 1500,
-                    items: 1
-                })
-            })
-        </script>
-    @endif
     @include('frontend.partials.modal')
 
     @yield('modal')
