@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app', ['header_show' => true, 'header2' => false, 'footer' => true, 'owlCarousel' => true])
+@extends('frontend.layouts.app', ['header_show' => true, 'header2' => false, 'footer' => true])
 
 @section('content')
     <main class="main-tag main-tag-mt">
@@ -94,7 +94,8 @@
                                 <div class="item py-3 px-2">
                                     <div class="community-card mx-auto p-3 pt-4">
                                         <div class="card-img mb-1">
-                                            <img src="{{ static_asset('assets/img/user-1.webp') }}" class="img-rounded" alt="Community Img">
+                                            <img src="{{ static_asset('assets/img/user-1.webp') }}" class="img-rounded"
+                                                alt="Community Img">
                                         </div>
                                         <div class="card-data pt-3 pb-4">
                                             <h6 class="fw700 mb-1">Lodha Park</h6>
@@ -102,9 +103,12 @@
                                         </div>
                                         <div class="card-members pb-3">
                                             <div class="mbr-img">
-                                                <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-2.webp') }}"
+                                                    alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-3.webp') }}"
+                                                    alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-4.webp') }}"
+                                                    alt="Community Img">
                                             </div>
                                             <div class="mbr-cnt">
                                                 <p class="mb-0 body-txt">775 Members</p>
@@ -118,7 +122,8 @@
                                 <div class="item py-3 px-2">
                                     <div class="community-card mx-auto p-3 pt-4">
                                         <div class="card-img mb-1">
-                                            <img src="{{ static_asset('assets/img/user-2.webp') }}" class="img-rounded" alt="Community Img">
+                                            <img src="{{ static_asset('assets/img/user-2.webp') }}" class="img-rounded"
+                                                alt="Community Img">
                                         </div>
                                         <div class="card-data pt-3 pb-4">
                                             <h6 class="fw700 mb-1">Lodha Park</h6>
@@ -126,9 +131,12 @@
                                         </div>
                                         <div class="card-members pb-3">
                                             <div class="mbr-img">
-                                                <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-1.webp') }}" alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-3.webp') }}"
+                                                    alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-4.webp') }}"
+                                                    alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-1.webp') }}"
+                                                    alt="Community Img">
                                             </div>
                                             <div class="mbr-cnt">
                                                 <p class="mb-0 body-txt">775 Members</p>
@@ -142,7 +150,8 @@
                                 <div class="item py-3 px-2">
                                     <div class="community-card mx-auto p-3 pt-4">
                                         <div class="card-img mb-1">
-                                            <img src="{{ static_asset('assets/img/user-3.webp') }}" class="img-rounded" alt="Community Img">
+                                            <img src="{{ static_asset('assets/img/user-3.webp') }}" class="img-rounded"
+                                                alt="Community Img">
                                         </div>
                                         <div class="card-data pt-3 pb-4">
                                             <h6 class="fw700 mb-1">Lodha Park</h6>
@@ -150,9 +159,12 @@
                                         </div>
                                         <div class="card-members pb-3">
                                             <div class="mbr-img">
-                                                <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-1.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-4.webp') }}"
+                                                    alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-1.webp') }}"
+                                                    alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-2.webp') }}"
+                                                    alt="Community Img">
                                             </div>
                                             <div class="mbr-cnt">
                                                 <p class="mb-0 body-txt">775 Members</p>
@@ -166,7 +178,8 @@
                                 <div class="item py-3 px-2">
                                     <div class="community-card mx-auto p-3 pt-4">
                                         <div class="card-img mb-1">
-                                            <img src="{{ static_asset('assets/img/user-4.webp') }}" class="img-rounded" alt="Community Img">
+                                            <img src="{{ static_asset('assets/img/user-4.webp') }}"
+                                                class="img-rounded" alt="Community Img">
                                         </div>
                                         <div class="card-data pt-3 pb-4">
                                             <h6 class="fw700 mb-1">Lodha Park</h6>
@@ -174,9 +187,12 @@
                                         </div>
                                         <div class="card-members pb-3">
                                             <div class="mbr-img">
-                                                <img src="{{ static_asset('assets/img/user-1.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-1.webp') }}"
+                                                    alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-2.webp') }}"
+                                                    alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-3.webp') }}"
+                                                    alt="Community Img">
                                             </div>
                                             <div class="mbr-cnt">
                                                 <p class="mb-0 body-txt">775 Members</p>
@@ -190,7 +206,8 @@
                                 <div class="item py-3 px-2">
                                     <div class="community-card mx-auto p-3 pt-4">
                                         <div class="card-img mb-1">
-                                            <img src="{{ static_asset('assets/img/user-1.webp') }}" class="img-rounded" alt="Community Img">
+                                            <img src="{{ static_asset('assets/img/user-1.webp') }}"
+                                                class="img-rounded" alt="Community Img">
                                         </div>
                                         <div class="card-data pt-3 pb-4">
                                             <h6 class="fw700 mb-1">Lodha Park</h6>
@@ -198,9 +215,12 @@
                                         </div>
                                         <div class="card-members pb-3">
                                             <div class="mbr-img">
-                                                <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-2.webp') }}"
+                                                    alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-3.webp') }}"
+                                                    alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-4.webp') }}"
+                                                    alt="Community Img">
                                             </div>
                                             <div class="mbr-cnt">
                                                 <p class="mb-0 body-txt">775 Members</p>
@@ -214,7 +234,8 @@
                                 <div class="item py-3 px-2">
                                     <div class="community-card mx-auto p-3 pt-4">
                                         <div class="card-img mb-1">
-                                            <img src="{{ static_asset('assets/img/user-2.webp') }}" class="img-rounded" alt="Community Img">
+                                            <img src="{{ static_asset('assets/img/user-2.webp') }}"
+                                                class="img-rounded" alt="Community Img">
                                         </div>
                                         <div class="card-data pt-3 pb-4">
                                             <h6 class="fw700 mb-1">Lodha Park</h6>
@@ -222,9 +243,12 @@
                                         </div>
                                         <div class="card-members pb-3">
                                             <div class="mbr-img">
-                                                <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-1.webp') }}" alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-3.webp') }}"
+                                                    alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-4.webp') }}"
+                                                    alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-1.webp') }}"
+                                                    alt="Community Img">
                                             </div>
                                             <div class="mbr-cnt">
                                                 <p class="mb-0 body-txt">775 Members</p>
@@ -238,7 +262,8 @@
                                 <div class="item py-3 px-2">
                                     <div class="community-card mx-auto p-3 pt-4">
                                         <div class="card-img mb-1">
-                                            <img src="{{ static_asset('assets/img/user-3.webp') }}" class="img-rounded" alt="Community Img">
+                                            <img src="{{ static_asset('assets/img/user-3.webp') }}"
+                                                class="img-rounded" alt="Community Img">
                                         </div>
                                         <div class="card-data pt-3 pb-4">
                                             <h6 class="fw700 mb-1">Lodha Park</h6>
@@ -246,9 +271,12 @@
                                         </div>
                                         <div class="card-members pb-3">
                                             <div class="mbr-img">
-                                                <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-1.webp') }}" alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-4.webp') }}"
+                                                    alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-1.webp') }}"
+                                                    alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-2.webp') }}"
+                                                    alt="Community Img">
                                             </div>
                                             <div class="mbr-cnt">
                                                 <p class="mb-0 body-txt">775 Members</p>
@@ -318,4 +346,47 @@
 @endsection
 
 @section('script')
+    <script>
+        $(document).ready(function() {
+
+            $('.carousel').carousel({
+                interval: 7000,
+            })
+
+            $('.community-slider').owlCarousel({
+                loop: false,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplayHoverPause: false,
+                smartSpeed: 1500,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    460: {
+                        items: 2
+                    },
+                    768: {
+                        items: 3
+                    },
+                    991: {
+                        items: 4
+                    },
+                    1200: {
+                        items: 5
+                    }
+                }
+            })
+
+            $('.testimonials').owlCarousel({
+                loop: true,
+                margin: 10,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplayHoverPause: false,
+                smartSpeed: 1500,
+                items: 1
+            })
+        })
+    </script>
 @endsection
