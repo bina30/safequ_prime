@@ -40,7 +40,7 @@
 
         <div class="breadcrumbs high">
             <div class="container">
-                <h5 class="mb-0 fw700 text-white text-uppercase">Lodha Park Community</h5>
+                <h5 class="mb-0 fw700 text-white text-uppercase">{{ $shop->name }} Community</h5>
             </div>
         </div>
 
@@ -109,7 +109,7 @@
                                 <div class="item-card">
                                     <div class="card-top">
                                         <div class="pricing text-center">
-                                            <span class="text-white">Price Per KG</span>
+                                            <span class="text-white">Price Per {{ $product->unit }}</span>
                                             <h6 class="mb-0 mt-2 mx-auto">
                                                 <ins class="currency-symbol">&#8377;</ins>
                                                 {{ $product->unit_price }}
@@ -193,8 +193,12 @@
                                         </a>
                                     </div>
                                     <div class="card-bottom">
-                                        <button class="btn text-uppercase text-white fw600 w-100" data-toggle="modal"
+<!--                                        <button class="btn text-uppercase text-white fw600 w-100" data-toggle="modal"
                                                 data-target="#itemModal">
+                                            <i class="fas fa-shopping-cart text-white fsize18"></i>
+                                            &nbsp; Add to cart
+                                        </button>-->
+                                        <button class="btn text-uppercase text-white fw600 w-100" onclick="addToCart('{{route('products-details', $product->id)}}');">
                                             <i class="fas fa-shopping-cart text-white fsize18"></i>
                                             &nbsp; Add to cart
                                         </button>
@@ -213,91 +217,6 @@
         <!-- Item Modal -->
         <div class="modal fade itemModal" id="itemModal" data-backdrop="static" tabindex="-1"
              aria-labelledby="itemModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="close-btn text-right">
-                            <a href="javascript:void(0)" class="fw900" data-dismiss="modal">X</a>
-                        </div>
-                        <div class="item-details px-sm-4">
-                            <div class="d-flex justify-content-between align-items-center pb-3">
-                                <div class="img-name">
-                                    <div class="item-img text-center">
-                                        <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
-                                    </div>
-                                    <div class="pl-3">
-                                        <h6 class="fw700">Strawberry White Goblin</h6>
-                                        <p class="fw600 body-txt mb-0">Variety: Ac Valley Sunset</p>
-                                    </div>
-                                </div>
-                                <!-- <div class="nxtdelivery-date p-2">
-                                    <p class="mb-2 fsize13">Next Delivery</p>
-                                    <h5 class="fw700">22 <span class="fw400">Jan</span></h5>
-                                </div> -->
-                            </div>
-
-                            <div class="distributor pt-2">
-                                <div class="display-table pb-2">
-                                    <div class="table-cell">
-                                        <i class="fas fa-map-marker-alt fsize18"></i>
-                                    </div>
-                                    <div class="table-cell">
-                                        <h6 class="mb-1">Location</h6>
-                                        <p class="mb-0">Strawberry Farm, Chennai, India</p>
-                                    </div>
-                                </div>
-                                <div class="display-table">
-                                    <div class="table-cell">
-                                        <i class="fas fa-user-tie fsize18"></i>
-                                    </div>
-                                    <div class="table-cell">
-                                        <h6 class="mb-1">Producer</h6>
-                                        <p class="mb-0">Mahabaleshwar Fresh Farm</p>
-                                    </div>
-                                </div>
-                                <hr>
-
-                                <div class="qty-select text-center pb-3">
-                                    <h6 class="fw600 mb-3">Select Quantity</h6>
-                                    <div class="d-flex justify-content-center">
-                                        <div class="item-count">
-                                            <button class="btn mr-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown();"
-                                                    type="button"><i class="fa fa-minus"></i></button>
-
-                                            <input class="quantity form-control" min="1" name="quantity" value="1"
-                                                   type="number" id="quantity" readonly
-                                                   onchange="this.value = this.value.replace(/[^0-9]/g, '')" />
-
-                                            <span class="itm-unit fw500" id="itm-cnt">1</span>
-                                            <span class="itm-unit fw500">&nbsp;KG</span>
-
-                                            <button class="btn ml-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp();"
-                                                    type="button"><i class="fa fa-plus"></i></button>
-                                        </div>
-                                    </div>
-
-                                    <div class="py-4">
-                                        <h4 class="fw700 act-price mb-1 lh-1">
-                                            <ins class="act-price currency-symbol">&#8377;</ins> 100.00
-                                        </h4>
-                                        <i class="body-txt fsize15">(<ins class="currency-symbol">&#8377;</ins>
-                                            100/Kg)</i>
-                                    </div>
-
-                                    <a href="cart.html">
-                                        <button class="btn primary-btn text-uppercase">
-                                            <i class="fas fa-shopping-cart text-white fsize18"></i>
-                                            &nbsp; Add to Cart
-                                        </button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Community Order list Modal -->
@@ -460,5 +379,106 @@
 @endsection
 
 @section('script')
+
+<script>
+    function addToCart(url)
+    {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url,
+            type: 'POST',
+            data: {},
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $('#itemModal').html('');
+                $('#itemModal').html(response);
+                $('#itemModal').modal('show');
+            }
+        });
+    }
+
+    // Tooltip
+    $(function() {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    $(document).ready(function() {
+
+        // Remaining time
+        $(".remaining-time").each(function() {
+
+            const currDiv = $(this);
+
+            // Set the date we're counting down to
+            var countDownDate = new Date(currDiv.data("time")).getTime();
+
+            // Update the count down every 1 second
+            var x = setInterval(function() {
+
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 *
+                    60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                currDiv.find(".cnt").removeClass("active disabled");
+                currDiv.find(".days").text(days > 0 ? days : "00");
+                currDiv.find(".hours").text(hours > 0 ? hours : "00");
+                currDiv.find(".minutes").text(minutes > 0 ? minutes : "00");
+
+
+                if (days > 0) {
+                    currDiv.find(".days").parent().addClass("active");
+                } else if (days <= 0 && hours > 0) {
+                    currDiv.find(".days").parent().addClass("disabled");
+                    currDiv.find(".hours").parent().addClass("active");
+                } else if (days <= 0 && hours <= 0 && minutes > 0) {
+                    currDiv.find(".days").parent().addClass("disabled");
+                    currDiv.find(".hours").parent().addClass("disabled");
+                    currDiv.find(".minutes").parent().addClass("active");
+                } else {
+                    currDiv.find(".cnt").addClass("disabled");
+                }
+            }, 1000);
+        });
+
+
+        $(".progress-bar").each(function() {
+            let width = 0;
+            let progressCnt = 0;
+            let target = $(this).data("target");
+            let unit = $(this).data("unit");
+            let progress = $(this).data("progress");
+
+            let progressComplete = (progress * 100) / target;
+
+            const count = setInterval(() => {
+                if (width != progressComplete) {
+                    width++;
+                    progressCnt++;
+                    $(this).css("opacity", "1");
+                    (width <= 100) ? $(this).css("width", width + "%"): '';
+                    if (progressCnt <= progress) {
+                        $(this).text(progressCnt + ' ' + unit);
+                    }
+                } else {
+                    clearInterval(count);
+                }
+            }, 15);
+        });
+
+    })
+</script>
 
 @endsection

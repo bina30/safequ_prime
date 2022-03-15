@@ -191,6 +191,7 @@ Route::get('/privacy-policy', 'HomeController@privacypolicy')->name('privacypoli
 
 Route::get('/customer_products/destroy/{id}', 'CustomerProductController@destroy')->name('customer_products.destroy');
 
+
 Route::group(['prefix' => 'seller', 'middleware' => ['seller', 'verified', 'user']], function() {
     Route::get('/products', 'HomeController@seller_product_list')->name('seller.products');
     Route::get('/product/upload', 'HomeController@show_product_upload_form')->name('seller.products.upload');
@@ -227,6 +228,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/products/update/{id}', 'ProductController@update')->name('products.update');
     Route::get('/products/destroy/{id}', 'ProductController@destroy')->name('products.destroy');
     Route::get('/products/duplicate/{id}', 'ProductController@duplicate')->name('products.duplicate');
+    Route::post('/product-details/{id}', 'HomeController@show_product_details')->name('products-details');
     Route::post('/products/sku_combination', 'ProductController@sku_combination')->name('products.sku_combination');
     Route::post('/products/sku_combination_edit', 'ProductController@sku_combination_edit')->name('products.sku_combination_edit');
     Route::post('/products/seller/featured', 'ProductController@updateSellerFeatured')->name('products.seller.featured');
