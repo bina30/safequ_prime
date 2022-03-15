@@ -352,6 +352,12 @@ class HomeController extends Controller
         return view('frontend.user.seller.product_edit', compact('product', 'categories', 'tags', 'lang'));
     }
 
+    public function show_product_details($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('frontend.cart_modal', compact('product'));
+    }
+
     public function seller_product_list(Request $request)
     {
         $search = null;
@@ -486,7 +492,9 @@ class HomeController extends Controller
             'digital' => $product->digital,
             'variation' => $str,
             'max_limit' => $max_limit,
-            'in_stock' => $in_stock
+            'in_stock' => $in_stock,
+            'total_qty' => $request->qty,
+            'total_price' => $request->qty * $price
         );
     }
 

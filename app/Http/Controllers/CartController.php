@@ -14,28 +14,29 @@ class CartController extends Controller
 {
     public function index(Request $request)
     {
-        // if(auth()->user() != null) {
-        //     $user_id = Auth::user()->id;
-        //     if($request->session()->get('temp_user_id')) {
-        //         Cart::where('temp_user_id', $request->session()->get('temp_user_id'))
-        //                 ->update(
-        //                         [
-        //                             'user_id' => $user_id,
-        //                             'temp_user_id' => null
-        //                         ]
-        //         );
+        $user = array();
+         if(auth()->user() != null) {
+             $user_id = auth()->user();
+             $user = Auth::user();
+             if($request->session()->get('temp_user_id')) {
+                 Cart::where('temp_user_id', $request->session()->get('temp_user_id'))
+                         ->update(
+                                 [
+                                     'user_id' => $user_id,
+                                     'temp_user_id' => null
+                                 ]
+                 );
 
-        //         Session::forget('temp_user_id');
-        //     }
-        //     $carts = Cart::where('user_id', $user_id)->get();
-        // } else {
-        //     $temp_user_id = $request->session()->get('temp_user_id');
-        //     // $carts = Cart::where('temp_user_id', $temp_user_id)->get();
-        //     $carts = ($temp_user_id != null) ? Cart::where('temp_user_id', $temp_user_id)->get() : [] ;
-        // }
-
-        // return view('frontend.view_cart', compact('carts'));
-        return view('frontend.view_cart');
+                 Session::forget('temp_user_id');
+             }
+             $carts = Cart::where('user_id', $user_id)->get();
+         } else {
+             $temp_user_id = $request->session()->get('temp_user_id');
+             // $carts = Cart::where('temp_user_id', $temp_user_id)->get();
+             $carts = ($temp_user_id != null) ? Cart::where('temp_user_id', $temp_user_id)->get() : [] ;
+         }
+         dd($user);
+         return view('frontend.view_cart', compact('carts'));
     }
 
     public function showCartModal(Request $request)
@@ -77,14 +78,14 @@ class CartController extends Controller
         $str = '';
         $tax = 0;
         if($product->auction_product == 0){
-            if($product->digital != 1 && $request->quantity < $product->min_qty) {
+            /*if($product->digital != 1 && $request->quantity < $product->min_qty) {
                 return array(
                     'status' => 0,
                     'cart_count' => count($carts),
                     'modal_view' => view('frontend.partials.minQtyNotSatisfied', [ 'min_qty' => $product->min_qty ])->render(),
                     'nav_cart_view' => view('frontend.partials.cart')->render(),
                 );
-            }
+            }*/
 
             //check the color enabled or disabled for the product
             if($request->has('color')) {
@@ -117,14 +118,14 @@ class CartController extends Controller
 
             $quantity = $product_stock->qty;
 
-            if($quantity < $request['quantity']){
+            /*if($quantity < $request['quantity']){
                 return array(
                     'status' => 0,
                     'cart_count' => count($carts),
                     'modal_view' => view('frontend.partials.outOfStockCart')->render(),
                     'nav_cart_view' => view('frontend.partials.cart')->render(),
                 );
-            }
+            }*/
 
             //discount calculation
             $discount_applicable = false;
@@ -190,14 +191,14 @@ class CartController extends Controller
                     if($cartItem['product_id'] == $request->id) {
                         $product_stock = $cart_product->stocks->where('variant', $str)->first();
                         $quantity = $product_stock->qty;
-                        if($quantity < $cartItem['quantity'] + $request['quantity']){
+                        /*if($quantity < $cartItem['quantity'] + $request['quantity']){
                             return array(
                                 'status' => 0,
                                 'cart_count' => count($carts),
                                 'modal_view' => view('frontend.partials.outOfStockCart')->render(),
                                 'nav_cart_view' => view('frontend.partials.cart')->render(),
                             );
-                        }
+                        }*/
                         if(($str != null && $cartItem['variation'] == $str) || $str == null){
                             $foundInCart = true;
 
@@ -231,12 +232,12 @@ class CartController extends Controller
                 $temp_user_id = $request->session()->get('temp_user_id');
                 $carts = Cart::where('temp_user_id', $temp_user_id)->get();
             }
-			
+
             return array(
                 'status' => 1,
                 'cart_count' => count($carts),
-                'modal_view' => view('frontend.partials.addedToCart', compact('product', 'data'))->render(),
-                'nav_cart_view' => view('frontend.partials.cart')->render(),
+//                'modal_view' => view('frontend.partials.addedToCart', compact('product', 'data'))->render(),
+//                'nav_cart_view' => view('frontend.partials.cart')->render(),
             );
         }
         else{
@@ -307,7 +308,7 @@ class CartController extends Controller
             $product_stock = $product->stocks->where('variant', $cartItem['variation'])->first();
             $quantity = $product_stock->qty;
             $price = $product_stock->price;
-			
+
 			//discount calculation
             $discount_applicable = false;
 
