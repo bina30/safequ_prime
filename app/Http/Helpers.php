@@ -25,7 +25,7 @@ use App\Utility\NotificationUtility;
 if (!function_exists('sendSMS')) {
     function sendSMS($to, $from, $text, $template_id, $variables = [])
     {
-        return SendSMSUtility::sendSMS($to, $from, $text, $template_id, $variables = []);
+        return SendSMSUtility::sendSMS($to, $from, $text, $template_id, $variables);
     }
 }
 

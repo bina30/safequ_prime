@@ -280,9 +280,13 @@ class HomeController extends Controller
 
     public function shop($slug)
     {
+        if(!Auth::check()){
+            session(['link' => url()->current()]);
+            return redirect()->route('user.login');
+        }
         $shop  = Shop::where('slug', $slug)->first();
         if($shop!=null){
-            $seller = Seller::with('user.products_purchase_started', 'user.products_purchase_expired')->where('user_id', $shop->user_id)->first();
+            $seller = Seller::where('user_id', $shop->user_id)->first();
             $products_purchase_started = $seller->user->products_purchase_started;
             $products_purchase_expired = $seller->user->products_purchase_expired;
 
@@ -494,7 +498,7 @@ class HomeController extends Controller
             'max_limit' => $max_limit,
             'in_stock' => $in_stock,
             'total_qty' => $request->qty,
-            'total_price' => $request->qty * $price
+            'total_price' => single_price($request->qty * $price)
         );
     }
 

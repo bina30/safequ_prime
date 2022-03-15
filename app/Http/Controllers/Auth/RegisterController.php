@@ -88,8 +88,8 @@ class RegisterController extends Controller
             if (addon_is_activated('otp_system')) {
                 $user = User::where('phone', '+' . $data['country_code'] . $data['phone'])->first();
                 if ($user != null) {
-//                    $user->verification_code = rand(1000, 9999);
-//                    $user->save();
+                    $user->verification_code = rand(1000, 9999);
+                    $user->save();
                 } else {
                     $user = User::create([
                         'name'              => 'Guest User',
