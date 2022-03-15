@@ -31,11 +31,12 @@
                         @csrf
 
                         <div class="profile-img mb-4">
-                            <img src="{{ Auth::user()->avatar }}" alt="User Img"
-                                onerror="this.onerror=null;this.src='https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png'">
+                            <img src="{{ Auth::user()->avatar_original }}" alt="User Img"
+                                onerror="this.onerror=null;this.src='https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png'" id="userProfileImage">
 
                             <div class="cmr-btn flex-acenter-jcenter" data-toggle="aizuploader" data-type="image">
                                 <i class="fad fa-camera-alt text-white"></i>
+                                <input type="hidden" class="selected-files" name="photo" id="userAvatar" value="{{ Auth::user()->avatar_original }}">
                             </div>
                         </div>
 
@@ -62,7 +63,7 @@
                             </div>
                             <div class="form-group col-6 pl-0 pr-1">
                                 <label for="country">Country</label>
-                                <input type="text" name="country" id="country" value="{{ Auth::user()->country }}"
+                                <input type="text" name="country" id="country" value="{{ Auth::user()->country ?? 'India' }}"
                                     required />
                             </div>
                             <div class="form-group col-6 pr-0 pl-1">
