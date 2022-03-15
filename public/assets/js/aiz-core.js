@@ -1158,9 +1158,9 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
             }
         },
         tooltip: function () {
-            $('body').tooltip({selector: '[data-toggle="tooltip"]'}).click(function () {
-                $('[data-toggle="tooltip"]').tooltip("hide");
-            });
+            // $('body').tooltip({selector: '[data-toggle="tooltip"]'}).click(function () {
+            //     $('[data-toggle="tooltip"]').tooltip("hide");
+            // });
         },
         countDown: function () {
             if ($(".aiz-count-down").length > 0) {
