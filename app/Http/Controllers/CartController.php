@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Cart;
+use App\Models\User;
 use Auth;
 use Session;
 use Cookie;
@@ -14,10 +15,10 @@ class CartController extends Controller
 {
     public function index(Request $request)
     {
-        $user = array();
+         $user_data = array();
          if(auth()->user() != null) {
-             $user_id = auth()->user();
-             $user = Auth::user();
+             $user_id = auth()->user()->id;
+             $user_data = auth()->user();
              if($request->session()->get('temp_user_id')) {
                  Cart::where('temp_user_id', $request->session()->get('temp_user_id'))
                          ->update(
@@ -35,8 +36,8 @@ class CartController extends Controller
              // $carts = Cart::where('temp_user_id', $temp_user_id)->get();
              $carts = ($temp_user_id != null) ? Cart::where('temp_user_id', $temp_user_id)->get() : [] ;
          }
-         dd($user);
-         return view('frontend.view_cart', compact('carts'));
+
+         return view('frontend.view_cart', compact('carts', 'user_data'));
     }
 
     public function showCartModal(Request $request)
