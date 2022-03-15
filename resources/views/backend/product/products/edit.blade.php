@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="aiz-titlebar text-left mt-2 mb-3">
-    <h1 class="mb-0 h6">{{ translate('Edit Product') }}</h5>
+    <h1 class="mb-0 h6">{{ translate('Edit Product') }}</h1>
 </div>
 <div class="">
     <form class="form form-horizontal mar-top" action="{{route('products.update', $product->id)}}" method="POST" enctype="multipart/form-data" id="choice_form">
@@ -28,6 +28,19 @@
                             <label class="col-lg-3 col-from-label">{{translate('Product Name')}} <i class="las la-language text-danger" title="{{translate('Translatable')}}"></i></label>
                             <div class="col-lg-8">
                                 <input type="text" class="form-control" name="name" placeholder="{{translate('Product Name')}}" value="{{ $product->getTranslation('name', $lang) }}" required>
+                            </div>
+                        </div>
+                        <div class="form-group row" id="seller">
+                            <label class="col-md-3 col-from-label">{{translate('Community')}} <span class="text-danger">*</span></label>
+                            <div class="col-md-8">
+                                <select class="form-control aiz-selectpicker" name="seller_id" id="seller_id" data-live-search="true" required>
+                                    <option value="">{{ translate('Select Community') }}</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}" @if($product->user_id == $user->id) selected @endif>
+                                            {{ $user->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row" id="category">
@@ -72,7 +85,19 @@
                                 <input type="text" class="form-control aiz-tag-input" name="tags[]" id="tags" value="{{ $product->tags }}" placeholder="{{ translate('Type to add a tag') }}" data-role="tagsinput">
                             </div>
                         </div>
-                        
+                        <div class="form-group row">
+                            <label class="col-md-3 col-from-label">{{translate('Manufacturer Name')}}</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="manufacturer_location" placeholder="{{ translate('Manufacturer Name') }}" value="{{ $product->manufacturer_location }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label" for="purchase_date_range">{{translate('Purchase Date Range')}} <span class="text-danger">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control aiz-date-range" name="purchase_date_range" placeholder="{{translate('Purchase Date Range')}}" @if($product->purchase_start_date && $product->purchase_end_date) value="{{ $product->purchase_start_date.' TO '.$product->purchase_end_date }}" @endif data-time-picker="true" data-format="DD-MM-Y HH:mm:ss" data-separator=" TO " autocomplete="off" required>
+                            </div>
+                        </div>
+
                         @if (addon_is_activated('pos_system'))
                         <div class="form-group row">
                             <label class="col-lg-3 col-from-label">{{translate('Barcode')}}</label>
@@ -88,7 +113,7 @@
                             <div class="col-lg-8">
                                 <label class="aiz-switch aiz-switch-success mb-0" style="margin-top:5px;">
                                     <input type="checkbox" name="refundable" @if ($product->refundable == 1) checked @endif>
-                                    <span class="slider round"></span></label>
+                                    <span class="slider round"></span>
                                 </label>
                             </div>
                         </div>
