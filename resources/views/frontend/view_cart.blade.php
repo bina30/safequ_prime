@@ -13,6 +13,7 @@
             </div>
         </div>
 
+        <input type="hidden" id="item_count" value="{{ count($carts) }}">
 
         <div class="content pb-5" id="cart_summary">
             <div class="container py-4">
@@ -56,7 +57,7 @@
                                             {!! single_price($sub_total) !!}
                                         </span>
                                                 <i class="body-txt fsize12">&nbsp; <br class="sm" />
-                                                    ({!! single_price($product->unit_price) !!} / $product->unit)
+                                                    ({!! single_price($product->unit_price) !!} / {{$product->unit}})
                                                 </i>
                                             </p>
                                             <div class="action">
@@ -158,6 +159,8 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+            updateNavCart($('#item_count').val());
+
             $('.item-count button').on('click', function() {
                 let cart_id = $(this).data('cart_id');
                 let qty = parseInt($("#quantity_"+cart_id).val());
@@ -197,7 +200,7 @@
                 id       :  cart_id,
                 quantity :  qty
             }, function(data){
-                // updateNavCart(data.nav_cart_view,data.cart_count);
+                updateNavCart(data.cart_count);
                 $('#cart_summary').html('');
                 $('#cart_summary').html(data.cart_view);
                 $('#btn_pay_now').removeAttr('disabled');
@@ -210,7 +213,7 @@
                 _token  : AIZ.data.csrf,
                 id      :  key
             }, function(data){
-                // updateNavCart(data.nav_cart_view,data.cart_count);
+                updateNavCart(data.cart_count);
                 $('#cart_summary').html(data.cart_view);
                 AIZ.plugins.notify('success', "{{ translate('Item has been removed from cart') }}");
             });

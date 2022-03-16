@@ -42,7 +42,7 @@
                                         {!! single_price($sub_total) !!}
                                     </span>
                                     <i class="body-txt fsize12">&nbsp; <br class="sm" />
-                                        ({!! single_price($product->unit_price) !!} / $product->unit)
+                                        ({!! single_price($product->unit_price) !!} / {{ $product->unit }})
                                     </i>
                                 </p>
                                 <div class="action">
