@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Seller;
 use App\Utility\PayfastUtility;
 use Illuminate\Http\Request;
 use Auth;
@@ -37,7 +38,7 @@ class CheckoutController extends Controller
             (new OrderController)->store($request);
 
             $request->session()->put('payment_type', 'cart_payment');
-            
+
             $data['combined_order_id'] = $request->session()->get('combined_order_id');
             $request->session()->put('payment_data', $data);
 
@@ -393,19 +394,18 @@ class CheckoutController extends Controller
 
     public function order_confirmed()
     {
-        // $combined_order = CombinedOrder::findOrFail(Session::get('combined_order_id'));
+        $combined_order = CombinedOrder::findOrFail(Session::get('combined_order_id'));
 
-        // Cart::where('user_id', $combined_order->user_id)
-        //         ->delete();
+        Cart::where('user_id', $combined_order->user_id)
+                 ->delete();
 
-        // //Session::forget('club_point');
-        // //Session::forget('combined_order_id');
-        
-        // foreach($combined_order->orders as $order){
-        //     NotificationUtility::sendOrderPlacedNotification($order);
-        // }
+        //Session::forget('club_point');
+        //Session::forget('combined_order_id');
 
-        // return view('frontend.order_confirmed', compact('combined_order'));
-        return view('frontend.order_confirmed');
+        foreach($combined_order->orders as $order){
+            NotificationUtility::sendOrderPlacedNotification($order);
+        }
+
+        return view('frontend.order_confirmed', compact('combined_order'));
     }
 }
