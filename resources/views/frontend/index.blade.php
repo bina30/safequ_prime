@@ -95,10 +95,17 @@
                                     <div class="item py-3 px-2">
                                         <div class="community-card mx-auto p-3 pt-4">
                                             <div class="card-img mb-1">
-                                                <img src="{{ uploaded_asset($community->user->avatar_original) }}"
-                                                     onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
-                                                     class="img-rounded"
-                                                     alt="{{ $community->name }}">
+                                                @if(isset($community->user->avatar_original))
+                                                    <img src="{{ uploaded_asset($community->user->avatar_original) }}"
+                                                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                                         class="img-rounded"
+                                                         alt="{{ $community->name }}">
+                                                @else
+                                                    <img src=""
+                                                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                                         class="img-rounded"
+                                                         alt="{{ $community->name }}">
+                                                @endif
                                             </div>
                                             <div class="card-data pt-3 pb-4">
                                                 <h6 class="fw700 mb-1">{{ $community->name }}</h6>
