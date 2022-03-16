@@ -30,8 +30,8 @@
     <meta name="twitter:description" content="{{ $meta_description }}">
 
     <!-- Open Graph data -->
-    <meta property="og:title" content="{{ $meta_title }}" />
-    <meta property="og:description" content="{{ $meta_description }}" />
+    <meta property="og:title" content="{{ $meta_title }}"/>
+    <meta property="og:description" content="{{ $meta_description }}"/>
 @endsection
 
 @section('content')
@@ -55,54 +55,61 @@
                         </div>
                     </div>
 
-                    @if($products_purchase_expired)
-                        <div class="col-lg-4 col-md-6 col-sm-8 px-2 pb-4 timeout-card">
-                            <!-- Item Cards -->
-                            <div class="item-card p-3">
+                    @if(count($products_purchase_expired) > 0)
+                        @foreach($products_purchase_expired AS $expired_product)
+                            <div class="col-lg-4 col-md-6 col-sm-8 px-2 pb-4 timeout-card">
+                                <!-- Item Cards -->
+                                <div class="item-card p-3">
 
-                                <div class="d-flex justify-content-start align-items-center">
-                                    <div class="img-name pr-2">
-                                        <div class="item-img item-img-sm text-center">
-                                            <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <div class="img-name pr-2">
+                                            <div class="item-img item-img-sm text-center">
+                                                <img src="{{ uploaded_asset($expired_product->photos) }}"
+                                                     onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                                     alt="{{ $expired_product->name }}"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <p class="fw500 fsize14 title-txt mb-1">Strawberry White Goblin</p>
-                                        <p class="mb-0 fsize12 body-txt ordered-qty">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            Mahabaleshwar Fresh Farm, Chennai, India
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="item-data text-center py-3">
-                                    <div class="progress-div">
-                                        <div class="progress">
-                                            <p class="mb-0 fsize13 text-white">
-                                                Ran out of time
-                                                <span class="fsize13 text-white">(55Kg ordered)</span>
+                                        <div>
+                                            <p class="fw500 fsize14 title-txt mb-1">{{ $expired_product->name }}</p>
+                                            <p class="mb-0 fsize12 body-txt ordered-qty">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                {{ $expired_product->manufacturer_location }}
                                             </p>
                                         </div>
                                     </div>
-                                </div>
 
-                                <a href="javascript:void(0)" data-toggle="modal" data-target="#orderListModal">
-                                    <div class="card-members">
-                                        <div class="mbr-img pr-3">
-                                            <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
-                                            <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
-                                            <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
-                                        </div>
-                                        <div class="mbr-cnt pl-2">
-                                            <p class="mb-0 text-primary fsize13">ordered</p>
+                                    <div class="item-data text-center py-3">
+                                        <div class="progress-div">
+                                            <div class="progress">
+                                                <p class="mb-0 fsize13 text-white">
+                                                    Ran out of time
+                                                    <span class="fsize13 text-white">(55Kg ordered)</span>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </a>
+
+                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#orderListModal">
+                                        <div class="card-members">
+                                            <div class="mbr-img pr-3">
+                                                <img src="{{ static_asset('assets/img/user-2.webp') }}"
+                                                     alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-3.webp') }}"
+                                                     alt="Community Img">
+                                                <img src="{{ static_asset('assets/img/user-4.webp') }}"
+                                                     alt="Community Img">
+                                            </div>
+                                            <div class="mbr-cnt pl-2">
+                                                <p class="mb-0 text-primary fsize13">ordered</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        @endforeach
                     @endif
 
-                    @if($products_purchase_started)
+                    @if(count($products_purchase_started) > 0)
                         @foreach($products_purchase_started AS $product)
                             <div class="col-lg-4 col-md-6 col-sm-8 px-2 pb-4">
                                 <!-- Item Cards -->
@@ -111,16 +118,20 @@
                                         <div class="pricing text-center">
                                             <span class="text-white">Price Per {{ $product->unit }}</span>
                                             <h6 class="mb-0 mt-2 mx-auto">
-                                                <ins class="currency-symbol">&#8377;</ins>
-                                                {{ $product->unit_price }}
+                                                {!! single_price($product->unit_price)  !!}
                                             </h6>
                                         </div>
                                         <div class="item-img text-center">
-                                            <img src="{{ uploaded_asset($product->photos) }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" alt="{{ $product->name }}" />
+                                            <img src="{{ uploaded_asset($product->photos) }}"
+                                                 onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                                 alt="{{ $product->name }}"/>
                                         </div>
                                         <div class="nxt-delivery">
                                             <span class="text-white">Next Shipment</span>
-                                            <h6 class="mb-0 mt-2 text-center mx-auto">{{ date("d", strtotime($product->purchase_end_date)) }}<br><ins>{{ date("F", strtotime($product->purchase_end_date)) }}</ins></h6>
+                                            <h6 class="mb-0 mt-2 text-center mx-auto">{{ date("d", strtotime($product->purchase_end_date)) }}
+                                                <br>
+                                                <ins>{{ date("F", strtotime($product->purchase_end_date)) }}</ins>
+                                            </h6>
                                         </div>
                                     </div>
                                     <div class="item-data text-center pt-5 px-3">
@@ -143,7 +154,8 @@
                                             <hr>
                                         </div>
                                         <p class="fw700 px-2">Time Remaining</p>
-                                        <div class="remaining-time pb-2 px-2" data-time="{{ date('m-d-Y H:i:s', strtotime($product->purchase_end_date)) }}">
+                                        <div class="remaining-time pb-2 px-2"
+                                             data-time="{{ date('m-d-Y H:i:s', strtotime($product->purchase_end_date)) }}">
                                             <div class="timing">
                                                 <div class="cnt">
                                                     <h2 class="mb-0 days ">00</h2>
@@ -165,7 +177,8 @@
                                         </div>
 
                                         <div class="order-progress text-center pt-3 px-2">
-                                            <p class="fw600 target-qty">Order Target: {{ $product->min_qty }} {{ $product->unit }}&nbsp;
+                                            <p class="fw600 target-qty">Order
+                                                Target: {{ $product->min_qty }} {{ $product->unit }}&nbsp;
                                                 <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top"
                                                    title="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro beatae dolorem ea veritatis.">
                                                     <i class="fad fa-info-circle animated faa-tada align-middle"></i>
@@ -174,7 +187,8 @@
                                         </div>
                                         <div class="progress-div mb-4">
                                             <div class="progress">
-                                                <div class="progress-bar" data-target="20" data-progress="8" data-unit="Kg">0
+                                                <div class="progress-bar" data-target="20" data-progress="8"
+                                                     data-unit="Kg">0
                                                 </div>
                                             </div>
                                         </div>
@@ -182,9 +196,12 @@
                                         <a href="javascript:void(0)" data-toggle="modal" data-target="#orderListModal">
                                             <div class="card-members pb-3">
                                                 <div class="mbr-img pr-3">
-                                                    <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
-                                                    <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
-                                                    <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
+                                                    <img src="{{ static_asset('assets/img/user-2.webp') }}"
+                                                         alt="Community Img">
+                                                    <img src="{{ static_asset('assets/img/user-3.webp') }}"
+                                                         alt="Community Img">
+                                                    <img src="{{ static_asset('assets/img/user-4.webp') }}"
+                                                         alt="Community Img">
                                                 </div>
                                                 <div class="mbr-cnt pl-2">
                                                     <p class="mb-0 text-primary fsize13">have already ordered</p>
@@ -193,12 +210,8 @@
                                         </a>
                                     </div>
                                     <div class="card-bottom">
-<!--                                        <button class="btn text-uppercase text-white fw600 w-100" data-toggle="modal"
-                                                data-target="#itemModal">
-                                            <i class="fas fa-shopping-cart text-white fsize18"></i>
-                                            &nbsp; Add to cart
-                                        </button>-->
-                                        <button class="btn text-uppercase text-white fw600 w-100" onclick="addToCart('{{route('products-details', $product->id)}}');">
+                                        <button class="btn text-uppercase text-white fw600 w-100"
+                                                onclick="addToCart('{{route('products-details', $product->id)}}');">
                                             <i class="fas fa-shopping-cart text-white fsize18"></i>
                                             &nbsp; Add to cart
                                         </button>
@@ -380,105 +393,104 @@
 
 @section('script')
 
-<script>
-    function addToCart(url)
-    {
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: url,
-            type: 'POST',
-            data: {},
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                $('#itemModal').html('');
-                $('#itemModal').html(response);
-                $('#itemModal').modal('show');
-            }
-        });
-    }
-
-    // Tooltip
-    $(function() {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-
-    $(document).ready(function() {
-
-        // Remaining time
-        $(".remaining-time").each(function() {
-
-            const currDiv = $(this);
-
-            // Set the date we're counting down to
-            var countDownDate = new Date(currDiv.data("time")).getTime();
-
-            // Update the count down every 1 second
-            var x = setInterval(function() {
-
-                // Get today's date and time
-                var now = new Date().getTime();
-
-                // Find the distance between now and the count down date
-                var distance = countDownDate - now;
-
-                // Time calculations for days, hours, minutes and seconds
-                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 *
-                    60));
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                currDiv.find(".cnt").removeClass("active disabled");
-                currDiv.find(".days").text(days > 0 ? days : "00");
-                currDiv.find(".hours").text(hours > 0 ? hours : "00");
-                currDiv.find(".minutes").text(minutes > 0 ? minutes : "00");
-
-
-                if (days > 0) {
-                    currDiv.find(".days").parent().addClass("active");
-                } else if (days <= 0 && hours > 0) {
-                    currDiv.find(".days").parent().addClass("disabled");
-                    currDiv.find(".hours").parent().addClass("active");
-                } else if (days <= 0 && hours <= 0 && minutes > 0) {
-                    currDiv.find(".days").parent().addClass("disabled");
-                    currDiv.find(".hours").parent().addClass("disabled");
-                    currDiv.find(".minutes").parent().addClass("active");
-                } else {
-                    currDiv.find(".cnt").addClass("disabled");
+    <script>
+        function addToCart(url) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: url,
+                type: 'POST',
+                data: {},
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $('#itemModal').html('');
+                    $('#itemModal').html(response);
+                    $('#itemModal').modal('show');
                 }
-            }, 1000);
-        });
+            });
+        }
+
+        // Tooltip
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+        $(document).ready(function () {
+
+            // Remaining time
+            $(".remaining-time").each(function () {
+
+                const currDiv = $(this);
+
+                // Set the date we're counting down to
+                var countDownDate = new Date(currDiv.data("time")).getTime();
+
+                // Update the count down every 1 second
+                var x = setInterval(function () {
+
+                    // Get today's date and time
+                    var now = new Date().getTime();
+
+                    // Find the distance between now and the count down date
+                    var distance = countDownDate - now;
+
+                    // Time calculations for days, hours, minutes and seconds
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 *
+                        60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    currDiv.find(".cnt").removeClass("active disabled");
+                    currDiv.find(".days").text(days > 0 ? days : "00");
+                    currDiv.find(".hours").text(hours > 0 ? hours : "00");
+                    currDiv.find(".minutes").text(minutes > 0 ? minutes : "00");
 
 
-        $(".progress-bar").each(function() {
-            let width = 0;
-            let progressCnt = 0;
-            let target = $(this).data("target");
-            let unit = $(this).data("unit");
-            let progress = $(this).data("progress");
-
-            let progressComplete = (progress * 100) / target;
-
-            const count = setInterval(() => {
-                if (width != progressComplete) {
-                    width++;
-                    progressCnt++;
-                    $(this).css("opacity", "1");
-                    (width <= 100) ? $(this).css("width", width + "%"): '';
-                    if (progressCnt <= progress) {
-                        $(this).text(progressCnt + ' ' + unit);
+                    if (days > 0) {
+                        currDiv.find(".days").parent().addClass("active");
+                    } else if (days <= 0 && hours > 0) {
+                        currDiv.find(".days").parent().addClass("disabled");
+                        currDiv.find(".hours").parent().addClass("active");
+                    } else if (days <= 0 && hours <= 0 && minutes > 0) {
+                        currDiv.find(".days").parent().addClass("disabled");
+                        currDiv.find(".hours").parent().addClass("disabled");
+                        currDiv.find(".minutes").parent().addClass("active");
+                    } else {
+                        currDiv.find(".cnt").addClass("disabled");
                     }
-                } else {
-                    clearInterval(count);
-                }
-            }, 15);
-        });
+                }, 1000);
+            });
 
-    })
-</script>
+
+            $(".progress-bar").each(function () {
+                let width = 0;
+                let progressCnt = 0;
+                let target = $(this).data("target");
+                let unit = $(this).data("unit");
+                let progress = $(this).data("progress");
+
+                let progressComplete = (progress * 100) / target;
+
+                const count = setInterval(() => {
+                    if (width != progressComplete) {
+                        width++;
+                        progressCnt++;
+                        $(this).css("opacity", "1");
+                        (width <= 100) ? $(this).css("width", width + "%") : '';
+                        if (progressCnt <= progress) {
+                            $(this).text(progressCnt + ' ' + unit);
+                        }
+                    } else {
+                        clearInterval(count);
+                    }
+                }, 15);
+            });
+
+        })
+    </script>
 
 @endsection
