@@ -15,15 +15,17 @@
                     <div class="col-lg-6 col-md-7 px-1">
                         <h6 class="fw600 title-txt pb-2 mb-2">My Cart</h6>
 
-                        <div class="delivery-addr p-3 flex-astart-jstart mb-3">
-                            <input type="checkbox" name="delivery_address" id="delivery_address" class="mr-2"
-                                checked />
-                            <span class="check-box"></span>
+                        @if($user_data)
+                            <div class="delivery-addr p-3 flex-astart-jstart mb-3">
+                                <input type="checkbox" name="delivery_address" id="delivery_address" class="mr-2"
+                                       checked />
+                                <span class="check-box"></span>
 
-                            <label for="delivery_address" class="body-txt mb-0">
-                                {{ $user_data->address." ".$user_data->city." ".$user_data->state." ".$user_data->postal_code }}
-                            </label>
-                        </div>
+                                <label for="delivery_address" class="body-txt mb-0">
+                                    {{ $user_data->address." ".$user_data->city." ".$user_data->state." ".$user_data->postal_code }}
+                                </label>
+                            </div>
+                        @endif
                         <br>
                         <!-- Item Card -->
 
@@ -101,20 +103,6 @@
                             <!-- Payment Method -->
                             <div class="pay-method pb-3">
 
-    <!--                            <div class="pay-by-wallet p-3 flex-acenter-jstart mb-4">
-                                    <input type="checkbox" name="wallet_pay" id="wallet_pay" class="mr-2"
-                                    @if($total > Auth::user()->balance) disabled @endif />
-                                    <span class="check-box"></span>
-
-                                    <label for="wallet_pay" class="body-txt mb-0">Use your
-                                        <span class="fw500 fsize13">
-                                            <ins class="currency-symbol">&#8377;</ins>
-                                            {!! single_price(Auth::user()->balance) !!}
-                                        </span>
-                                        SafeQu balance
-                                    </label>
-                                </div>-->
-
                                 <div class="other-gatewy p-3 mb-3">
                                     <label for="pay-option1" class="label-radio mb-0 py-2 d-block">
                                         <input type="radio" id="pay-option1" name="payment_option" tabindex="1" value="razorpay" checked />
@@ -124,17 +112,19 @@
                                     </label>
                                 </div>
 
-                                <div class="other-gatewy p-3 mb-3">
-                                    <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
-                                        <input type="radio" id="pay-option2" name="payment_option" value="wallet" tabindex="1"
-                                               @if($total > Auth::user()->balance) disabled @endif />
-                                        <span class="align-middle body-txt">
+                                @if(Auth::user())
+                                    <div class="other-gatewy p-3 mb-3">
+                                        <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
+                                            <input type="radio" id="pay-option2" name="payment_option" value="wallet" tabindex="1"
+                                                   @if($total > Auth::user()->balance) disabled @endif />
+                                            <span class="align-middle body-txt">
                                             Use your
                                             <ins class="fw600 body-txt">{!! single_price(Auth::user()->balance) !!} </ins>
                                             SafeQu balance
                                         </span>
-                                    </label>
-                                </div>
+                                        </label>
+                                    </div>
+                                @endif
 
                             </div>
 
