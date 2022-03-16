@@ -48,7 +48,11 @@ class OTPVerificationController extends Controller
             $user->save();
             $this->guard()->login($user);
             flash('Login successfully')->success();
-            return redirect()->route('home');
+            if (session('link') != null) {
+                return redirect(session('link'));
+            } else {
+                return redirect()->route('home');
+            }
         } else {
             flash('Invalid Code')->error();
             return back();

@@ -431,9 +431,9 @@ if (!function_exists('home_discounted_base_price')) {
 if (!function_exists('renderStarRating')) {
     function renderStarRating($rating, $maxRating = 5)
     {
-        $fullStar = "<i class = 'las la-star active'></i>";
-        $halfStar = "<i class = 'las la-star half'></i>";
-        $emptyStar = "<i class = 'las la-star'></i>";
+        $fullStar = "<i class = 'fas fa-star'></i> ";
+        $halfStar = "<i class = 'fad fa-star-half-alt'></i> ";
+        $emptyStar = "<i class = 'far fa-star'></i> ";
         $rating = $rating <= $maxRating ? $rating : $maxRating;
 
         $fullStarCount = (int)$rating;

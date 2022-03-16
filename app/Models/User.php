@@ -91,6 +91,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Order::class);
     }
 
+    public function seller_orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function wallets()
     {
         return $this->hasMany(Wallet::class)->orderBy('created_at', 'desc');

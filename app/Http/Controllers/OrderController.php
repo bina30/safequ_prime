@@ -309,6 +309,15 @@ class OrderController extends Controller
             if ($address->latitude || $address->longitude) {
                 $shippingAddress['lat_lang'] = $address->latitude . ',' . $address->longitude;
             }
+        } else {
+            $shippingAddress['name']        = Auth::user()->name;
+            $shippingAddress['email']       = Auth::user()->email;
+            $shippingAddress['address']     = Auth::user()->address;
+            $shippingAddress['country']     = Auth::user()->country;
+            $shippingAddress['state']       = Auth::user()->state;
+            $shippingAddress['city']        = Auth::user()->city;
+            $shippingAddress['postal_code'] = Auth::user()->postal_code;
+            $shippingAddress['phone']       = Auth::user()->phone;
         }
 
         $combined_order = new CombinedOrder;

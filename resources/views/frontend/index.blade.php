@@ -95,25 +95,29 @@
                                     <div class="item py-3 px-2">
                                         <div class="community-card mx-auto p-3 pt-4">
                                             <div class="card-img mb-1">
-                                                <img src="{{ uploaded_asset($community->avatar_original) }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" class="img-rounded"
-                                                alt="{{ $community->name }}">
+                                                <img src="{{ uploaded_asset($community->user->avatar_original) }}"
+                                                     onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                                     class="img-rounded"
+                                                     alt="{{ $community->name }}">
                                             </div>
                                             <div class="card-data pt-3 pb-4">
                                                 <h6 class="fw700 mb-1">{{ $community->name }}</h6>
-                                                <p class="mb-0 body-txt">{{ $community->city }}</p>
+                                                <p class="mb-0 body-txt">{{ $community->address }}</p>
                                             </div>
                                             <div class="card-members pb-3">
                                                 <div class="mbr-img">
-                                                    <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="Community Img">
-                                                    <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="Community Img">
-                                                    <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="Community Img">
+                                                    @foreach($community->orders->unique('user_id') as $order)
+                                                        <img src="{{ uploaded_asset($order->user->avatar_original) }}"
+                                                             onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                    @endforeach
                                                 </div>
                                                 <div class="mbr-cnt">
-                                                    <p class="mb-0 body-txt">775 Members</p>
+                                                    <p class="mb-0 body-txt">{{count($community->orders->unique('user_id'))}} Members</p>
                                                 </div>
                                             </div>
 
-                                            <a href="{{ route('shop.visit', $community->shop->slug) }}" class="btn primary-btn btn-block fw600 text-white">JOIN</a>
+                                            <a href="{{ route('shop.visit', $community->slug) }}"
+                                               class="btn primary-btn btn-block fw600 text-white">JOIN</a>
                                         </div>
                                     </div>
                                 @endforeach
@@ -163,7 +167,8 @@
                                         sorted and we will do the heavy lifting for you. Subscribe to anything. Tell us
                                         how you want your day sorted and we will do the heavy lifting for you.</p>
 
-                                    <p class="fw700 text-center">- Vinod Shukla <span class="body-txt fsize12">CEO</span>
+                                    <p class="fw700 text-center">- Vinod Shukla <span
+                                            class="body-txt fsize12">CEO</span>
                                     </p>
                                 </div>
                             </div>
@@ -178,7 +183,7 @@
 
 @section('script')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             $('.carousel').carousel({
                 interval: 7000,

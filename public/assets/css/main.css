@@ -806,11 +806,11 @@ button.btn-before-none::before,
 
 .card-members .mbr-img img {
     width: 30px;
-    height: 28px;
+    height: 30px;
     border-radius: 50%;
     background: #fff;
     margin-right: -14px;
-    border-left: 3px solid #fff;
+    border: 3px solid #fff;
 }
 
 .view-more-btn {

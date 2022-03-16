@@ -83,7 +83,8 @@
                                             <div class="progress">
                                                 <p class="mb-0 fsize13 text-white">
                                                     Ran out of time
-                                                    <span class="fsize13 text-white">(55Kg ordered)</span>
+                                                    <span
+                                                        class="fsize13 text-white">({{$expired_product->orderDetails->sum('quantity')}}{{$expired_product->unit}} ordered)</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -140,11 +141,7 @@
                                             <p class="fw600f fsize13 body-txt mb-2">Variety: {{ $product->tags }}</p>
                                             <a href="reviews.html">
                                                 <p class="rating-stars">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fad fa-star-half-alt"></i>
+                                                    {{renderStarRating($product->rating)}}
                                                 </p>
                                             </a>
                                             <p class="body-txt fsize13 font-italic pb-1">
@@ -187,8 +184,9 @@
                                         </div>
                                         <div class="progress-div mb-4">
                                             <div class="progress">
-                                                <div class="progress-bar" data-target="20" data-progress="8"
-                                                     data-unit="Kg">0
+                                                <div class="progress-bar" data-target="{{ $product->min_qty }}"
+                                                     data-progress="{{$product->orderDetails->sum('quantity')}}"
+                                                     data-unit="{{ $product->unit }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -482,7 +480,7 @@
                         $(this).css("opacity", "1");
                         (width <= 100) ? $(this).css("width", width + "%") : '';
                         if (progressCnt <= progress) {
-                            $(this).text(progressCnt + ' ' + unit);
+                            $(this).text(progress + ' ' + unit);
                         }
                     } else {
                         clearInterval(count);
