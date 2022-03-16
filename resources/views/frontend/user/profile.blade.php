@@ -29,10 +29,9 @@
                     <form id="userProfileForm" action="{{ route('user.profile.update') }}"
                           method="POST" enctype="multipart/form-data">
                         @csrf
-
                         <div class="profile-img mb-4">
                             <img src="{{ Auth::user()->avatar_original }}" alt="User Img"
-                                 onerror="this.onerror=null;this.src={{static_asset('assets/img/avatar-default.webp')}}"
+                                 onerror="this.onerror=null;this.src='{{static_asset('assets/img/avatar-default.webp')}}'"
                                  id="userProfileImage">
 
                             <div class="cmr-btn flex-acenter-jcenter" data-toggle="aizuploader" data-type="image">
