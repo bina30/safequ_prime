@@ -5,7 +5,7 @@
 
         <div class="breadcrumbs">
             <div class="container">
-                <h5 class="mb-0 fw700 text-white text-uppercase">Lodha Park Community</h5>
+                <h5 class="mb-0 fw700 text-white text-uppercase">Order Confirmed</h5>
             </div>
         </div>
 
@@ -22,25 +22,34 @@
                         </div>
 
                         <div class="thankyou-card">
-                            <div class="d-flex justify-content-between align-items-center pb-3">
-                                <div class="img-name d-flex align-items-center">
-                                    <div class="item-img text-center">
-                                        <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
-                                    </div>
-                                    <div class="pl-3">
-                                        <h6 class="fw700">Strawberry White Goblin</h6>
-                                        <p class="fw600 body-txt mb-0">Variety: Ac Valley Sunset</p>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="text-center pt-2">
-                                <a href="order-details.html">
-                                    <button class="btn primary-btn text-uppercase btn-round">
-                                        Order Details
-                                    </button>
-                                </a>
-                            </div>
+                            @foreach($combined_order->orders AS $order)
+                                @foreach($order->orderDetails AS $order_detail)
+                                    @php
+                                        $product = \App\Models\Product::find($order_detail->product_id);
+                                    @endphp
+                                    <div class="d-flex justify-content-between align-items-center pb-3">
+                                        <div class="img-name d-flex align-items-center">
+                                            <div class="item-img text-center">
+                                                <img src="{{ uploaded_asset($product->photos) }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" alt="{{ $product->name }}" />
+                                            </div>
+                                            <div class="pl-3">
+                                                <h6 class="fw700">{{ $product->name }}</h6>
+                                                <p class="fw600 body-txt mb-0">Variety: {{ $product->tags }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                                <div class="text-center pt-2">
+                                    <a href="{{ route('purchase_details', encrypt($order->id)) }}">
+                                        <button class="btn primary-btn text-uppercase btn-round">
+                                            Order Details
+                                        </button>
+                                    </a>
+                                </div>
+                            @endforeach
+
                         </div>
                     </div>
                 </div>

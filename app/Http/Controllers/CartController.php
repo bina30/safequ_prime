@@ -284,9 +284,11 @@ class CartController extends Controller
     public function removeFromCart(Request $request)
     {
         Cart::destroy($request->id);
+        $user_data = array();
         if(auth()->user() != null) {
             $user_id = Auth::user()->id;
             $carts = Cart::where('user_id', $user_id)->get();
+            $user_data = Auth::user();
         } else {
             $temp_user_id = $request->session()->get('temp_user_id');
             $carts = Cart::where('temp_user_id', $temp_user_id)->get();
@@ -294,7 +296,7 @@ class CartController extends Controller
 
         return array(
             'cart_count' => count($carts),
-            'cart_view' => view('frontend.partials.cart_details', compact('carts'))->render(),
+            'cart_view' => view('frontend.partials.cart_details', compact('carts', 'user_data'))->render(),
             'nav_cart_view' => view('frontend.partials.cart')->render(),
         );
     }
@@ -303,7 +305,7 @@ class CartController extends Controller
     public function updateQuantity(Request $request)
     {
         $cartItem = Cart::findOrFail($request->id);
-
+        $user_data = array();
         if($cartItem['id'] == $request->id){
             $product = Product::find($cartItem['product_id']);
             $product_stock = $product->stocks->where('variant', $cartItem['variation'])->first();
@@ -331,17 +333,21 @@ class CartController extends Controller
             }
 
             if($quantity >= $request->quantity) {
+                $cartItem['quantity'] = $request->quantity;
+            }
+
+            /*if($quantity >= $request->quantity) {
                 if($request->quantity >= $product->min_qty){
                     $cartItem['quantity'] = $request->quantity;
                 }
-            }
+            }*/
 
-            if($product->wholesale_product){
+            /*if($product->wholesale_product){
                 $wholesalePrice = $product_stock->wholesalePrices->where('min_qty', '<=', $request->quantity)->where('max_qty', '>=', $request->quantity)->first();
                 if($wholesalePrice){
                     $price = $wholesalePrice->price;
                 }
-            }
+            }*/
 
             $cartItem['price'] = $price;
             $cartItem->save();
@@ -350,6 +356,7 @@ class CartController extends Controller
         if(auth()->user() != null) {
             $user_id = Auth::user()->id;
             $carts = Cart::where('user_id', $user_id)->get();
+            $user_data = Auth::user();
         } else {
             $temp_user_id = $request->session()->get('temp_user_id');
             $carts = Cart::where('temp_user_id', $temp_user_id)->get();
@@ -357,7 +364,7 @@ class CartController extends Controller
 
         return array(
             'cart_count' => count($carts),
-            'cart_view' => view('frontend.partials.cart_details', compact('carts'))->render(),
+            'cart_view' => view('frontend.partials.cart_details', compact('carts', 'user_data'))->render(),
             'nav_cart_view' => view('frontend.partials.cart')->render(),
         );
     }

@@ -232,6 +232,10 @@
             }
         }
 
+        function updateNavCart(count){
+            $('.cart-item-count').html(count);
+        }
+
         $(document).ready(function() {
 
             $(".close-sidenav").on('click', function() {
