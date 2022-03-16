@@ -165,8 +165,11 @@ class ReviewController extends Controller
 
 
     // Frontend Products Reviews by User
-    public function get_product_review()
+    public function get_product_review($id)
     {
-        return view('frontend.product_reviews');
+        $user = Auth::user();
+        $reviews = Review::where('product_id', $id)->orderBy('created_at', 'desc')->paginate();
+        $product = Product::where('id', $id)->first();
+        return view('frontend.product_reviews', compact('reviews', 'user', 'product'));
     }
 }
