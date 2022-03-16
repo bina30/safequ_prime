@@ -597,6 +597,7 @@ header .cart-icon i {
     width: 60px;
     height: 60px;
     min-width: 60px;
+    object-fit: cover;
     border-radius: 50%;
     box-shadow: 0 3px 12px -5px #7c7c7c;
 }
@@ -807,6 +808,7 @@ button.btn-before-none::before,
 .card-members .mbr-img img {
     width: 30px;
     height: 28px;
+    object-fit: cover;
     border-radius: 50%;
     background: #fff;
     margin-right: -14px;
@@ -955,6 +957,7 @@ button.btn-before-none::before,
     width: 65px;
     height: 65px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .item-card .card-top h6 {
@@ -1117,6 +1120,7 @@ button.btn-before-none::before,
     width: 56px;
     height: 56px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .crtord-itm-card .img-name .item-img {
@@ -1130,6 +1134,7 @@ button.btn-before-none::before,
     width: 42px;
     height: 42px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .img-name-sm {
@@ -1142,6 +1147,7 @@ button.btn-before-none::before,
     width: 55px;
     height: 55px;
     min-width: 55px;
+    object-fit: cover;
     border-radius: 50%;
     box-shadow: 0 3px 12px -5px #7c7c7c;
 }
@@ -1541,6 +1547,7 @@ button.btn-before-none::before,
     max-width: 55px;
     max-height: 55px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .order-list .lh-17 {
@@ -1569,6 +1576,7 @@ button.btn-before-none::before,
     width: 42px;
     height: 42px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .user-img {
@@ -1587,6 +1595,17 @@ button.btn-before-none::before,
 .user-img-sm img {
     border-radius: 50%;
     box-shadow: 0 4px 15px -4px #464646;
+    object-fit: cover;
+}
+
+.user-img img {
+    width: 80px;
+    height: 80px;    
+}
+
+.user-img-sm img {
+    width: 60px;
+    height: 60px;
 }
 
 .review-form textarea {
@@ -1608,6 +1627,7 @@ button.btn-before-none::before,
 .user-review .user img {
     width: 65px;
     height: 65px;
+    object-fit: cover;
     border-radius: 50%;
     box-shadow: 0 4px 15px -4px #464646;
 }
@@ -1824,6 +1844,9 @@ button.btn-before-none::before,
 }
 
 .profile-img img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
     border-radius: 50%;
     box-shadow: 0 3px 15px -4px #424242;
 }
