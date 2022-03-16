@@ -53,7 +53,7 @@ class RazorpayController extends Controller
                 $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount'=>$payment['amount']));
                 $payment_detalis = json_encode(array('id' => $response['id'],'method' => $response['method'],'amount' => $response['amount'],'currency' => $response['currency']));
             } catch (\Exception $e) {
-                return  $e->getMessage();
+//                return  $e->getMessage();
                 \Session::put('error',$e->getMessage());
                 return redirect()->back();
             }

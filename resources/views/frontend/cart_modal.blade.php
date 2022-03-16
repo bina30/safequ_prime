@@ -9,7 +9,9 @@
                 <div class="d-flex justify-content-between align-items-center pb-3">
                     <div class="img-name">
                         <div class="item-img text-center">
-                            <img src="{{ uploaded_asset($product->photos) }}" alt="Item image" />
+                            <img src="{{ uploaded_asset($product->photos) }}"
+                                 onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                 alt="{{ $product->name }}"/>
                         </div>
                         <div class="pl-3">
                             <h6 class="fw700">{{ $product->name }}</h6>
@@ -108,11 +110,9 @@
                 url: '{{ route('products.variant_price') }}',
                 data: { id: $('#product_id').val(), qty: qty },
                 success: function(data){
-                    if (data.total_price > 0) {
-                        let html = '';
-                        html = '<ins class="act-price currency-symbol">&#8377;</ins>' + data.total_price;
+                    if (data.total_price != '') {
                         $('#total_price').html('');
-                        $('#total_price').html(html);
+                        $('#total_price').html(data.total_price);
                     }
                 }
             });
@@ -131,7 +131,7 @@
                 data: { id: productId, quantity: qty},
                 success: function(data){
                     if(data.status == 1){
-                        AIZ.plugins.notify('success', "{{ translate('Item has been removed from cart') }}");
+{{--                        AIZ.plugins.notify('success', "{{ translate('Item has been removed from cart') }}");--}}
                         window.location.replace("{{ route('cart') }}");
                     } else {
                         AIZ.plugins.notify('danger', '{{ translate('Something went wrong') }}');

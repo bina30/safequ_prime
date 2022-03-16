@@ -95,8 +95,8 @@
             </div>
 
             <ul class="side-nav-links bt-1 mb-0 py-2">
-                <a href="{{ route('products') }}">
-                    <li class="p-2 mb-2"><i class="fad fa-conveyor-belt-alt"></i> Products</li>
+                <a href="{{ route('home') }}">
+                    <li class="p-2 mb-2"><i class="fad fa-home"></i> Home</li>
                 </a>
                 @auth
                     <a href="{{ route('purchase_history.index') }}">
