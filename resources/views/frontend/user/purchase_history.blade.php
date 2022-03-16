@@ -8,166 +8,40 @@
 
                     <h5 class="fw700 title-txt mb-4">My orders</h5>
 
-                    <div class="ord-item-card p-3 mb-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="{{ route('purchase_details') }}">
-                                <div class="pr-2">
-                                    <p class="fw600 fsize15 title-txt mb-1">Order # 995622</p>
-                                    <p class="mb-0 lh-17">
-                                        <span class="fsize13 body-txt ordered-qty"> 25Kg </span>
-                                        <span class="fsize13 body-txt ordered-qty">
-                                            &nbsp;&bull;&nbsp; 10 Dec, 2021 3:30
-                                        </span>
-                                    </p>
-                                </div>
-                            </a>
-                            <div class="img-name">
-                                <div class="item-img item-img-sm text-center">
-                                    <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="delivery-status d-flex justify-content-between align-items-start pt-3">
-                            <p class="mb-0 fsize13 status text-success">Estimated delivery on 21 Dec</p>
-                            <a href="reviews.html">
-                                <p class="mb-0 fsize15 rating-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fad fa-star-half-alt"></i>
-                                </p>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ord-item-card p-3 mb-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="{{ route('purchase_details') }}">
-                                <div class="pr-2">
-                                    <p class="fw600 fsize15 title-txt mb-1">Order # 75465</p>
-                                    <p class="mb-0 lh-17">
-                                        <span class="fsize13 body-txt ordered-qty"> 25Kg </span>
-                                        <span class="fsize13 body-txt ordered-qty">
-                                            &nbsp;&bull;&nbsp; 10 Dec, 2021 3:30
-                                        </span>
-                                    </p>
-                                </div>
-                            </a>
-                            <div class="img-name">
-                                <div class="item-img item-img-sm text-center">
-                                    <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
+                    @foreach ($orders as $item)
+                        <div class="ord-item-card p-3 mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{{ route('purchase_details', encrypt($item->id)) }}">
+                                    <div class="pr-2">
+                                        <p class="fw600 fsize15 title-txt mb-1">Order # {{ $item->code }}</p>
+                                        <p class="mb-0 lh-17">
+                                            <span class="fsize13 body-txt ordered-qty"> 25Kg </span>
+                                            <span class="fsize13 body-txt ordered-qty">
+                                                &nbsp;&bull;&nbsp; 10 Dec, 2021 3:30
+                                            </span>
+                                        </p>
+                                    </div>
+                                </a>
+                                <div class="img-name">
+                                    <div class="item-img item-img-sm text-center">
+                                        <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="delivery-status d-flex justify-content-between align-items-start pt-3">
-                            <p class="mb-0 fsize13 status text-success">Estimated delivery on 21 Dec</p>
-                            <a href="reviews.html">
-                                <p class="mb-0 fsize15 rating-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fad fa-star-half-alt"></i>
-                                </p>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ord-item-card p-3 mb-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="{{ route('purchase_details') }}">
-                                <div class="pr-2">
-                                    <p class="fw600 fsize15 title-txt mb-1">Order # 965432</p>
-                                    <p class="mb-0 lh-17">
-                                        <span class="fsize13 body-txt ordered-qty"> 25Kg </span>
-                                        <span class="fsize13 body-txt ordered-qty">
-                                            &nbsp;&bull;&nbsp; 10 Dec, 2021 3:30
-                                        </span>
+                            <div class="delivery-status d-flex justify-content-between align-items-start pt-3">
+                                <p class="mb-0 fsize13 status text-success">Estimated delivery on 21 Dec</p>
+                                <a href="reviews.html">
+                                    <p class="mb-0 fsize15 rating-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fad fa-star-half-alt"></i>
                                     </p>
-                                </div>
-                            </a>
-                            <div class="img-name">
-                                <div class="item-img item-img-sm text-center">
-                                    <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
-                                </div>
+                                </a>
                             </div>
                         </div>
-                        <div class="delivery-status d-flex justify-content-between align-items-start pt-3">
-                            <p class="mb-0 fsize13 status text-success">Estimated delivery on 21 Dec</p>
-                            <a href="reviews.html">
-                                <p class="mb-0 fsize15 rating-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fad fa-star-half-alt"></i>
-                                </p>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ord-item-card p-3 mb-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="{{ route('purchase_details') }}">
-                                <div class="pr-2">
-                                    <p class="fw600 fsize15 title-txt mb-1">Order # 879462</p>
-                                    <p class="mb-0 lh-17">
-                                        <span class="fsize13 body-txt ordered-qty"> 25Kg </span>
-                                        <span class="fsize13 body-txt ordered-qty">
-                                            &nbsp;&bull;&nbsp; 10 Dec, 2021 3:30
-                                        </span>
-                                    </p>
-                                </div>
-                            </a>
-                            <div class="img-name">
-                                <div class="item-img item-img-sm text-center">
-                                    <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="delivery-status d-flex justify-content-between align-items-start pt-3">
-                            <p class="mb-0 fsize13 status text-success">Estimated delivery on 21 Dec</p>
-                            <a href="reviews.html">
-                                <p class="mb-0 fsize15 rating-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fad fa-star-half-alt"></i>
-                                </p>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ord-item-card p-3 mb-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="{{ route('purchase_details') }}">
-                                <div class="pr-2">
-                                    <p class="fw600 fsize15 title-txt mb-1">Order # 654814</p>
-                                    <p class="mb-0 lh-17">
-                                        <span class="fsize13 body-txt ordered-qty"> 25Kg </span>
-                                        <span class="fsize13 body-txt ordered-qty">
-                                            &nbsp;&bull;&nbsp; 10 Dec, 2021 3:30
-                                        </span>
-                                    </p>
-                                </div>
-                            </a>
-                            <div class="img-name">
-                                <div class="item-img item-img-sm text-center">
-                                    <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="delivery-status d-flex justify-content-between align-items-start pt-3">
-                            <p class="mb-0 fsize13 status text-success">Estimated delivery on 21 Dec</p>
-                            <a href="reviews.html">
-                                <p class="mb-0 fsize15 rating-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fad fa-star-half-alt"></i>
-                                </p>
-                            </a>
-                        </div>
-                    </div>
+                    @endforeach
 
                 </div>
             </div>

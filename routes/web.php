@@ -156,7 +156,7 @@ Route::get('/support-policy', 'HomeController@supportpolicy')->name('supportpoli
 Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/privacy-policy', 'HomeController@privacypolicy')->name('privacypolicy');
 
-//Route::group(['middleware' => ['user', 'verified', 'unbanned']], function() {
+Route::group(['middleware' => ['user', 'verified', 'unbanned']], function() {
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
     Route::get('/profile', 'HomeController@profile')->name('profile');
     Route::post('/new-user-verification', 'HomeController@new_verify')->name('user.new.verify');
@@ -166,7 +166,7 @@ Route::get('/privacy-policy', 'HomeController@privacypolicy')->name('privacypoli
 
     Route::resource('purchase_history', 'PurchaseHistoryController');
     Route::post('/purchase_history/details', 'PurchaseHistoryController@purchase_history_details')->name('purchase_history.details');
-    Route::get('/purchase_details', 'PurchaseHistoryController@purchase_history_details')->name('purchase_details');
+    Route::get('/purchase_details/{id}', 'PurchaseHistoryController@purchase_history_details')->name('purchase_details');
     Route::get('/purchase_history/destroy/{id}', 'PurchaseHistoryController@destroy')->name('purchase_history.destroy');
 
     Route::resource('wishlists', 'WishlistController');
@@ -187,7 +187,7 @@ Route::get('/privacy-policy', 'HomeController@privacypolicy')->name('privacypoli
     Route::get('digital_purchase_history', 'PurchaseHistoryController@digital_index')->name('digital_purchase_history.index');
 
     Route::get('/all-notifications', 'NotificationController@index')->name('all-notifications');
-//});
+});
 
 Route::get('/customer_products/destroy/{id}', 'CustomerProductController@destroy')->name('customer_products.destroy');
 
