@@ -499,6 +499,11 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
                                         AIZ.data.fileBaseUrl +
                                         data[i].file_name +
                                         '" class="img-fit">';
+                                    
+                                    if ($("#userProfileImage").length) {
+                                        $("#userProfileImage").attr('src', AIZ.data.fileBaseUrl + data[0].file_name);
+                                    }
+
                                 } else {
                                     thumb = '<i class="la la-file-text"></i>';
                                 }
@@ -758,6 +763,7 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
             $('[data-toggle="aizuploader"]').each(function () {
                 var $this = $(this);
                 var files = $this.find(".selected-files").val();
+
                 if(files != ""){
                     $.post(
                         AIZ.data.appUrl + "/aiz-uploader/get_file_by_ids",
@@ -782,6 +788,11 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
                                             AIZ.data.fileBaseUrl +
                                             data[i].file_name +
                                             '" class="img-fit">';
+                                        
+                                        if ($("#userProfileImage").length) {
+                                            $("#userProfileImage").attr('src', AIZ.data.fileBaseUrl + data[0].file_name);
+                                        }
+
                                     } else {
                                         thumb = '<i class="la la-file-text"></i>';
                                     }
@@ -1158,9 +1169,9 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
             }
         },
         tooltip: function () {
-            $('body').tooltip({selector: '[data-toggle="tooltip"]'}).click(function () {
-                $('[data-toggle="tooltip"]').tooltip("hide");
-            });
+            // $('body').tooltip({selector: '[data-toggle="tooltip"]'}).click(function () {
+            //     $('[data-toggle="tooltip"]').tooltip("hide");
+            // });
         },
         countDown: function () {
             if ($(".aiz-count-down").length > 0) {
