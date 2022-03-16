@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderDetail;
@@ -17,8 +18,10 @@ class PurchaseHistoryController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('user_id', Auth::user()->id)->orderBy('code', 'desc')->paginate(9);
-        return view('frontend.user.purchase_history', compact('orders'));
+//        $orders = Order::where('user_id', Auth::user()->id)->orderBy('code', 'desc')->get();
+        $user = User::where('id', Auth::user()->id)->first();
+        $order_details = (isset($user->order_details) && !empty($user->order_details) ? $user->order_details : []);
+        return view('frontend.user.purchase_history', compact('order_details', 'user'));
     }
 
     public function digital_index()
