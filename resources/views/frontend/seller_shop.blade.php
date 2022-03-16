@@ -191,15 +191,14 @@
                                             </div>
                                         </div>
 
-                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#orderListModal">
+                                        <a href="javascript:void(0)" data-toggle="modal"
+                                           data-target="#orderListModal_{{$product->id}}">
                                             <div class="card-members pb-3">
                                                 <div class="mbr-img pr-3">
-                                                    <img src="{{ static_asset('assets/img/user-2.webp') }}"
-                                                         alt="Community Img">
-                                                    <img src="{{ static_asset('assets/img/user-3.webp') }}"
-                                                         alt="Community Img">
-                                                    <img src="{{ static_asset('assets/img/user-4.webp') }}"
-                                                         alt="Community Img">
+                                                    @foreach($product->orders->unique('user_id') as $order)
+                                                        <img src="{{ uploaded_asset($order->user->avatar_original) }}"
+                                                             onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                    @endforeach
                                                 </div>
                                                 <div class="mbr-cnt pl-2">
                                                     <p class="mb-0 text-primary fsize13">have already ordered</p>
@@ -216,6 +215,48 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Users Order list Modal -->
+                            <div class="modal fade orderListModal" id="orderListModal_{{$product->id}}" tabindex="-1"
+                                 aria-labelledby="orderListModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="close-btn text-right">
+                                                <a href="javascript:void(0)" class="fw900" data-dismiss="modal">X</a>
+                                            </div>
+                                            @foreach($product->orderDetails as $orderDetail)
+                                                <div class="item-details px-sm-3">
+                                                    <div class="order-list pt-4">
+                                                        <div class="item-card p-3 mb-3">
+                                                            <div
+                                                                class="d-flex justify-content-between align-items-center">
+                                                                <div class="pr-2">
+                                                                    <p class="fw600 fsize15 title-txt mb-1">{{$orderDetail->order->user->name}}</p>
+                                                                    <p class="mb-0 lh-17">
+                                                                        <span
+                                                                            class="fsize13 body-txt ordered-qty"> {{$orderDetail->quantity}}{{$product->unit}} </span>
+                                                                        <span class="fsize13 body-txt ordered-qty">
+                                                    &nbsp;&bull;&nbsp; {{date('d F, Y H:i',$orderDetail->order->date)}}
+                                                </span>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="user-img-sm m-0">
+                                                                    <img
+                                                                        src="{{ uploaded_asset($orderDetail->order->user->avatar_original) }}"
+                                                                        onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     @endif
 
@@ -228,161 +269,6 @@
         <!-- Item Modal -->
         <div class="modal fade itemModal" id="itemModal" data-backdrop="static" tabindex="-1"
              aria-labelledby="itemModalLabel" aria-hidden="true">
-        </div>
-
-        <!-- Community Order list Modal -->
-        <div class="modal fade orderListModal" id="orderListModal" tabindex="-1" aria-labelledby="orderListModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="close-btn text-right">
-                            <a href="javascript:void(0)" class="fw900" data-dismiss="modal">X</a>
-                        </div>
-                        <div class="item-details px-sm-3">
-
-                            <div class="order-list pt-4">
-                                <div class="item-card p-3 mb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="pr-2">
-                                            <p class="fw600 fsize15 title-txt mb-1">Rahul Jain</p>
-                                            <p class="mb-0 lh-17">
-                                                <span class="fsize13 body-txt ordered-qty"> 25Kg </span>
-                                                <span class="fsize13 body-txt ordered-qty">
-                                                    &nbsp;&bull;&nbsp; 10 Dec, 2021 3:30
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <div class="user-img-sm m-0">
-                                            <img src="{{ static_asset('assets/img/user-1.webp') }}" alt="User Img">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item-card p-3 mb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="pr-2">
-                                            <p class="fw600 fsize15 title-txt mb-1">Angela Carol</p>
-                                            <p class="mb-0 lh-17">
-                                                <span class="fsize13 body-txt ordered-qty"> 25Kg </span>
-                                                <span class="fsize13 body-txt ordered-qty">
-                                                    &nbsp;&bull;&nbsp; 10 Dec, 2021 3:30
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <div class="user-img-sm m-0">
-                                            <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="User Img">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item-card p-3 mb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="pr-2">
-                                            <p class="fw600 fsize15 title-txt mb-1">Rahul Jain</p>
-                                            <p class="mb-0 lh-17">
-                                                <span class="fsize13 body-txt ordered-qty"> 25Kg </span>
-                                                <span class="fsize13 body-txt ordered-qty">
-                                                    &nbsp;&bull;&nbsp; 10 Dec, 2021 3:30
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <div class="user-img-sm m-0">
-                                            <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="User Img">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item-card p-3 mb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="pr-2">
-                                            <p class="fw600 fsize15 title-txt mb-1">Angela Carol</p>
-                                            <p class="mb-0 lh-17">
-                                                <span class="fsize13 body-txt ordered-qty"> 25Kg </span>
-                                                <span class="fsize13 body-txt ordered-qty">
-                                                    &nbsp;&bull;&nbsp; 10 Dec, 2021 3:30
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <div class="user-img-sm m-0">
-                                            <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="User Img">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item-card p-3 mb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="pr-2">
-                                            <p class="fw600 fsize15 title-txt mb-1">Rahul Jain</p>
-                                            <p class="mb-0 lh-17">
-                                                <span class="fsize13 body-txt ordered-qty"> 25Kg </span>
-                                                <span class="fsize13 body-txt ordered-qty">
-                                                    &nbsp;&bull;&nbsp; 10 Dec, 2021 3:30
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <div class="user-img-sm m-0">
-                                            <img src="{{ static_asset('assets/img/user-1.webp') }}" alt="User Img">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item-card p-3 mb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="pr-2">
-                                            <p class="fw600 fsize15 title-txt mb-1">Angela Carol</p>
-                                            <p class="mb-0 lh-17">
-                                                <span class="fsize13 body-txt ordered-qty"> 25Kg </span>
-                                                <span class="fsize13 body-txt ordered-qty">
-                                                    &nbsp;&bull;&nbsp; 10 Dec, 2021 3:30
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <div class="user-img-sm m-0">
-                                            <img src="{{ static_asset('assets/img/user-2.webp') }}" alt="User Img">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item-card p-3 mb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="pr-2">
-                                            <p class="fw600 fsize15 title-txt mb-1">Rahul Jain</p>
-                                            <p class="mb-0 lh-17">
-                                                <span class="fsize13 body-txt ordered-qty"> 25Kg </span>
-                                                <span class="fsize13 body-txt ordered-qty">
-                                                    &nbsp;&bull;&nbsp; 10 Dec, 2021 3:30
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <div class="user-img-sm m-0">
-                                            <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="User Img">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item-card p-3 mb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="pr-2">
-                                            <p class="fw600 fsize15 title-txt mb-1">Angela Carol</p>
-                                            <p class="mb-0 lh-17">
-                                                <span class="fsize13 body-txt ordered-qty"> 25Kg </span>
-                                                <span class="fsize13 body-txt ordered-qty">
-                                                    &nbsp;&bull;&nbsp; 10 Dec, 2021 3:30
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <div class="user-img-sm m-0">
-                                            <img src="{{ static_asset('assets/img/user-4.webp') }}" alt="User Img">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </main>

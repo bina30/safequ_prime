@@ -108,9 +108,9 @@
                     <a href="{{ route('profile') }}">
                         <li class="p-2 mb-2"><i class="fad fa-user"></i> Account</li>
                     </a>
-                    <a href="{{ route('all-notifications') }}">
-                        <li class="p-2 mb-2"><i class="fad fa-bell-on"></i> Notifications</li>
-                    </a>
+{{--                    <a href="{{ route('all-notifications') }}">--}}
+{{--                        <li class="p-2 mb-2"><i class="fad fa-bell-on"></i> Notifications</li>--}}
+{{--                    </a>--}}
                 @endauth
                 <a href="{{ route('cart') }}">
                     <li class="p-2 mb-2">
