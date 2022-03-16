@@ -286,8 +286,8 @@ class HomeController extends Controller
         $shop = Shop::where('slug', $slug)->first();
         if ($shop != null) {
             $seller = Seller::where('user_id', $shop->user_id)->first();
-            $products_purchase_started = $seller->user->products_purchase_started;
-            $products_purchase_expired = $seller->user->products_purchase_expired;
+            $products_purchase_started = isset($seller->user->products_purchase_started) ? $seller->user->products_purchase_started : [];
+            $products_purchase_expired = isset($seller->user->products_purchase_expired) ? $seller->user->products_purchase_expired : [];
 
             if ($seller->verification_status != 0) {
                 return view('frontend.seller_shop', compact('shop', 'products_purchase_started', 'products_purchase_expired'));
