@@ -162,4 +162,11 @@ class ReviewController extends Controller
 
         return 1;
     }
+
+
+    // Frontend Products Reviews by User
+    public function get_product_review()
+    {
+        return view('frontend.product_reviews');
+    }
 }

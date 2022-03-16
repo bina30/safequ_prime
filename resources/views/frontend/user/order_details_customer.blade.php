@@ -17,30 +17,39 @@
                         <div class="user-data px-3 py-4">
                             <div class="img-name-sm px-3 mb-2">
                                 <div class="user-img-sm m-0">
-                                    <img src="{{ static_asset('assets/img/user-3.webp') }}" alt="User Img">
+                                    <img src="" alt="User Img"
+                                        onerror="this.onerror=null;this.src='https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png'"
+                                        id="userProfileImage">
+                                    <input type="hidden" class="selected-files" name="photo" id="userAvatar"
+                                        value="{{ Auth::user()->avatar_original }}">
                                 </div>
                                 <div class="pl-3">
-                                    <p class="fw600 fsize14 mb-1">Rahul Jain</p>
-                                    <p class="body-txt fsize12 mb-1">rahuljain12@gmail.com</p>
-                                    <p class="body-txt fsize12 mb-0">+91 987654321</p>
+                                    <p class="fw600 fsize14 mb-1">{{ Auth::user()->name }}</p>
+                                    <p class="body-txt fsize12 mb-0">{{ Auth::user()->phone }}</p>
                                 </div>
                             </div>
-                            <div class="btns text-center pt-3">
+                            {{-- <div class="btns text-center pt-3">
                                 <a href="#" class="fsize12 fw500">Track</a>
                                 <a href="#" class="fsize12 fw500">Repeat</a>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="ord-details py-4 px-3 primary-color-bg mt-4">
                             <p class="text-white fw600 mb-2">Order Id: &nbsp; <span class="text-white orderId">
-                                    #65212021</span> </p>
+                                    #{{ $order->code }}</span> </p>
 
-                            <p class="text-white pb-2">Time: <span class="text-white dateTime">&bull;&nbsp; 10 Dec, 2021
-                                    3:30</span> </p>
+                            <p class="text-white pb-2">Time: <span class="text-white dateTime"> &nbsp;
+                                    {{ date('d M, Y H:i A', strtotime($order->created_at)) }}</span>
+                            </p>
 
                             <p class="text-white fw600 mb-2">Delivery Address:</p>
-                            <p class="text-white address mb-0">A-45, Radhakrishna Park, Old Padra Road, Akota, Vadodara
-                                - 390020</p>
+                            <p class="text-white address mb-0">
+                                {{ json_decode($order->shipping_address)->address }},<br>
+                                {{ json_decode($order->shipping_address)->city }},
+                                {{ json_decode($order->shipping_address)->state }},<br>
+                                {{ json_decode($order->shipping_address)->country }} -
+                                {{ json_decode($order->shipping_address)->postal_code }}
+                            </p>
                         </div>
 
                         <div class="order-data pt-4 mt-3">
@@ -53,16 +62,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>&bull; Strawberry White Goblin</td>
-                                        <td class="text-right">5Kg</td>
-                                        <td class="text-right">2000</td>
-                                    </tr>
+                                    @foreach ($order->orderDetails as $key => $orderDetail)
+                                        <tr>
+                                            <td>&bull; {{ $orderDetail->product->getTranslation('name') }}</td>
+                                            <td class="text-right">{{ $orderDetail->quantity }}</td>
+                                            <td class="text-right">{{ $orderDetail->price }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
-                                    <tr>
+                                    {{-- <tr>
                                         <th colspan="2">Sub Total</th>
-                                        <th class="text-right">2000</th>
+                                        <th class="text-right">{{$order->grand_total}}</th>
                                     </tr>
                                     <tr>
                                         <th colspan="2" class="bt-0">Discount</th>
@@ -75,12 +86,12 @@
                                     <tr>
                                         <th colspan="2" class="bt-0">Service Tax</th>
                                         <th class="text-right bt-0">80</th>
-                                    </tr>
+                                    </tr> --}}
                                     <tr class="bb-1">
                                         <th colspan="2" class="fw600 fsize15 py-2">Total</th>
                                         <th class="fw600 fsize15 text-right py-2">
                                             <ins class="currency-symbol">&#8377;</ins>
-                                            1930
+                                            {{ $order->grand_total }}
                                         </th>
                                     </tr>
                                 </tfoot>
@@ -88,7 +99,7 @@
                         </div>
 
                         <div class="pt-4 text-center">
-                            <a href="products.html">
+                            <a href="{{ route('home') }}">
                                 <button class="btn primary-btn btn-round px-5">
                                     Continue Shopping &nbsp;&nbsp;
                                     <i class="fal fa-long-arrow-right text-white"></i>

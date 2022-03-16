@@ -17,9 +17,8 @@ class PurchaseHistoryController extends Controller
      */
     public function index()
     {
-        // $orders = Order::where('user_id', Auth::user()->id)->orderBy('code', 'desc')->paginate(9);
-        // return view('frontend.user.purchase_history', compact('orders'));
-        return view('frontend.user.purchase_history');
+        $orders = Order::where('user_id', Auth::user()->id)->orderBy('code', 'desc')->paginate(9);
+        return view('frontend.user.purchase_history', compact('orders'));
     }
 
     public function digital_index()
@@ -36,14 +35,13 @@ class PurchaseHistoryController extends Controller
         return view('frontend.user.digital_purchase_history', compact('orders'));
     }
 
-    public function purchase_history_details(Request $request)
+    public function purchase_history_details(Request $request, $id)
     {
-        // $order = Order::findOrFail($request->order_id);
-        // $order->delivery_viewed = 1;
-        // $order->payment_status_viewed = 1;
-        // $order->save();
-        // return view('frontend.user.order_details_customer', compact('order'));
-        return view('frontend.user.order_details_customer');
+        $order = Order::findOrFail(decrypt($id));
+        $order->delivery_viewed = 1;
+        $order->payment_status_viewed = 1;
+        $order->save();
+        return view('frontend.user.order_details_customer', compact('order'));
     }
 
     /**
