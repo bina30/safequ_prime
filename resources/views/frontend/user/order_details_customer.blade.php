@@ -42,14 +42,16 @@
                                     {{ date('d M, Y H:i A', strtotime($order->created_at)) }}</span>
                             </p>
 
-                            <p class="text-white fw600 mb-2">Delivery Address:</p>
-                            <p class="text-white address mb-0">
-                                {{ json_decode($order->shipping_address)->address }},<br>
-                                {{ json_decode($order->shipping_address)->city }},
-                                {{ json_decode($order->shipping_address)->state }},<br>
-                                {{ json_decode($order->shipping_address)->country }} -
-                                {{ json_decode($order->shipping_address)->postal_code }}
-                            </p>
+                            @if(json_decode($order->shipping_address))
+                                <p class="text-white fw600 mb-2">Delivery Address:</p>
+                                <p class="text-white address mb-0">
+                                    {{ json_decode($order->shipping_address)->address }},<br>
+                                    {{ json_decode($order->shipping_address)->city }},
+                                    {{ json_decode($order->shipping_address)->state }},<br>
+                                    {{ json_decode($order->shipping_address)->country }} -
+                                    {{ json_decode($order->shipping_address)->postal_code }}
+                                </p>
+                            @endif
                         </div>
 
                         <div class="order-data pt-4 mt-3">

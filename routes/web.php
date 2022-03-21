@@ -189,6 +189,8 @@ Route::group(['middleware' => ['user', 'verified', 'unbanned']], function() {
     Route::get('digital_purchase_history', 'PurchaseHistoryController@digital_index')->name('digital_purchase_history.index');
 
     Route::get('/all-notifications', 'NotificationController@index')->name('all-notifications');
+
+    Route::get('/view-notification/{id}', 'NotificationController@view')->name('view-notification');
 });
 
 Route::get('/customer_products/destroy/{id}', 'CustomerProductController@destroy')->name('customer_products.destroy');

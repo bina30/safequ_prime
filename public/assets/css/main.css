@@ -2766,3 +2766,7 @@ input[type=checkbox]:checked+.check-box::before,
 .modal-dialog-right .modal-body {
     max-height: 86vh;
 }
+
+.notification_a {
+    color: #e62e04 !important;
+}
