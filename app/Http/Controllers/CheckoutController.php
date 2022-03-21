@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Seller;
+use App\Models\Wallet;
 use App\Utility\PayfastUtility;
 use Illuminate\Http\Request;
 use Auth;
@@ -164,6 +165,16 @@ class CheckoutController extends Controller
             $order->payment_status = 'paid';
             $order->payment_details = $payment;
             $order->save();
+
+            // If Order is done from Wallet then make transaction entry in Wallet of Debit
+            if ($order->payment_type == "wallet") {
+                $wallet = new Wallet;
+                $wallet->user_id = $order->user_id;
+                $wallet->amount = '-'.$order->grand_total;
+                $wallet->payment_method = 'order';
+                $wallet->payment_details = json_encode(array('id' => $order->id, 'code' => $order->code, 'amount' => $order->grand_total, 'method' => 'order'));
+                $wallet->save();
+            }
 
             calculateCommissionAffilationClubPoint($order);
         }
