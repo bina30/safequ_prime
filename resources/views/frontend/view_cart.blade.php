@@ -83,6 +83,19 @@
                             </div>
                         @endforeach
 
+                        @if($total == 0)
+                            <div class="row">
+                                <div class="col-xl-8 mx-auto">
+                                    <div class="shadow-sm bg-white p-4 rounded">
+                                        <div class="text-center p-3">
+                                            <i class="las la-frown la-3x opacity-60 mb-3"></i>
+                                            <h3 class="h4 fw-700">{{translate('Your Cart is empty')}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
                         <form action="{{ route('payment.checkout') }}" class="form-default" role="form" method="POST" id="checkout-form">
                             @csrf
 
@@ -90,58 +103,52 @@
                                 <input type="hidden" name="owner_id" value="{{  $carts[0]['owner_id'] }}">
                             @endif
 
-                            <!-- Amount -->
-                            <div class="payings py-4">
-    <!--                            <h6>
-                                    <ins class="fw500">SubTotal : </ins>
-                                    <ins class="text-right">1249.99</ins>
-                                </h6>-->
-    <!--                            <h6>
-                                    <ins class="fw500">Shipping : </ins>
-                                    <ins class="text-right">99.99</ins>
-                                </h6>-->
-                                <hr class="b-1">
-                                <h5>
-                                    <ins class="fw700">Total : </ins>
-                                    <ins class="fw700 text-right"> {!! single_price($total) !!} </ins>
-                                </h5>
-                            </div>
-
-                            <!-- Payment Method -->
-                            <div class="pay-method pb-3">
-
-                                <div class="other-gatewy p-3 mb-3">
-                                    <label for="pay-option1" class="label-radio mb-0 py-2 d-block">
-                                        <input type="radio" id="pay-option1" name="payment_option" tabindex="1" value="razorpay" checked />
-                                        <span class="align-middle body-txt">
-                                            Razorpay
-                                        </span>
-                                    </label>
+                            @if($total > 0)
+                                <!-- Amount -->
+                                <div class="payings py-4">
+                                    <hr class="b-1">
+                                    <h5>
+                                        <ins class="fw700">Total : </ins>
+                                        <ins class="fw700 text-right"> {!! single_price($total) !!} </ins>
+                                    </h5>
                                 </div>
 
-                                @if(Auth::user())
+                                <!-- Payment Method -->
+                                <div class="pay-method pb-3">
+
                                     <div class="other-gatewy p-3 mb-3">
-                                        <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
-                                            <input type="radio" id="pay-option2" name="payment_option" value="wallet" tabindex="1"
-                                                   @if($total > Auth::user()->balance) disabled @endif />
+                                        <label for="pay-option1" class="label-radio mb-0 py-2 d-block">
+                                            <input type="radio" id="pay-option1" name="payment_option" tabindex="1" value="razorpay" checked />
                                             <span class="align-middle body-txt">
+                                            Razorpay
+                                        </span>
+                                        </label>
+                                    </div>
+
+                                    @if(Auth::user())
+                                        <div class="other-gatewy p-3 mb-3">
+                                            <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
+                                                <input type="radio" id="pay-option2" name="payment_option" value="wallet" tabindex="1"
+                                                       @if($total > Auth::user()->balance) disabled @endif />
+                                                <span class="align-middle body-txt">
                                             Use your
                                             <ins class="fw600 body-txt">{!! single_price(Auth::user()->balance) !!} </ins>
                                             SafeQu balance
                                         </span>
-                                        </label>
-                                    </div>
-                                @endif
+                                            </label>
+                                        </div>
+                                    @endif
 
-                            </div>
-
-                            <div class="p-3 pay-btn bt-1 flex-acenter-jbtw">
-                                <div class="total">
-                                    <p class="fsize15 mb-1 body-txt">Total:</p>
-                                    <h5 class="fw500 mb-0"><ins class="currency-symbol">&#8377;</ins> {{ $total }}</h5>
                                 </div>
-                                 <button id="btn_pay_now" class="btn primary-btn btn-round py-1" onclick="submitOrder(this)" @if(count($carts) == 0) disabled @endif >Pay Now</button>
-                            </div>
+
+                                <div class="p-3 pay-btn bt-1 flex-acenter-jbtw">
+                                    <div class="total">
+                                        <p class="fsize15 mb-1 body-txt">Total:</p>
+                                        <h5 class="fw500 mb-0"><ins class="currency-symbol">&#8377;</ins> {{ $total }}</h5>
+                                    </div>
+                                    <button id="btn_pay_now" class="btn primary-btn btn-round py-1" onclick="submitOrder(this)" @if(count($carts) == 0) disabled @endif >Pay Now</button>
+                                </div>
+                            @endif
 
                         </form>
                     </div>
