@@ -31,11 +31,11 @@
                             @if($notification->type == 'App\Notifications\OrderNotification')
                                 <div class="notify-crd">
                                     <div class="d-flex justify-content-start align-items-center pr-2">
-                                        <div class="img-name pr-2">
+<!--                                        <div class="img-name pr-2">
                                             <div class="item-img item-img-sm text-center">
                                                 <img src="{{ static_asset('assets/img/strawberry.png') }}" alt="Item image" />
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <div>
                                             <p class="fw500 fsize14 title-txt mb-1">
                                                 {{translate('Your Order: ')}}
