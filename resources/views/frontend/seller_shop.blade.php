@@ -357,7 +357,7 @@
                 let unit = $(this).data("unit");
                 let progress = $(this).data("progress");
 
-                let progressComplete = (progress * 100) / target;
+                let progressComplete = parseInt((progress * 100) / target);
 
                 const count = setInterval(() => {
                     if (width != progressComplete) {
@@ -365,9 +365,10 @@
                         progressCnt++;
                         $(this).css("opacity", "1");
                         (width <= 100) ? $(this).css("width", width + "%") : '';
-                        if (progressCnt <= progress) {
+                        $(this).text(progress + ' ' + unit);
+                        /*if (progressCnt <= progress) {
                             $(this).text(progress + ' ' + unit);
-                        }
+                        }*/
                     } else {
                         clearInterval(count);
                     }
