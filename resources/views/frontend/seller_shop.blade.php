@@ -139,11 +139,9 @@
                                         <div class="px-2">
                                             <h6 class="pt-1 fw700 mb-1">{{ $product->name }}</h6>
                                             <p class="fw600f fsize13 body-txt mb-2">Variety: {{ $product->tags }}</p>
-                                            <a href="reviews.html">
-                                                <p class="rating-stars">
-                                                    {{renderStarRating($product->rating)}}
-                                                </p>
-                                            </a>
+                                            <p class="rating-stars">
+                                                {{renderStarRating($product->rating)}}
+                                            </p>
                                             <p class="body-txt fsize13 font-italic pb-1">
                                                 <i class="fas fa-map-marker-alt"></i>
                                                 {{ $product->manufacturer_location }}
