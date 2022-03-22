@@ -119,7 +119,7 @@
                                         <div class="pricing text-center">
                                             <span class="text-white">Price Per {{ $product->unit }}</span>
                                             <h6 class="mb-0 mt-2 mx-auto">
-                                                {!! single_price($product->unit_price)  !!}
+                                                {!! single_price_web($product->unit_price)  !!}
                                             </h6>
                                         </div>
                                         <div class="item-img text-center">

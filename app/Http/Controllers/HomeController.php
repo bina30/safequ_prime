@@ -483,14 +483,14 @@ class HomeController extends Controller
         $price += $tax;
 
         return array(
-            'price'       => single_price($price * $request->quantity),
+            'price'       => single_price_web($price * $request->quantity),
             'quantity'    => $quantity,
             'digital'     => $product->digital,
             'variation'   => $str,
             'max_limit'   => $max_limit,
             'in_stock'    => $in_stock,
             'total_qty'   => $request->qty,
-            'total_price' => single_price($request->qty * $price)
+            'total_price' => single_price_web($request->qty * $price)
         );
     }
 

@@ -14,7 +14,7 @@
                 <h5 class="fw700 pt-3 px-2">Verification Code</h5>
                 <p class="pb-3 px-2">Code sent to <span class="otp-to-phone fw600">{{ $user->phone }}</span></p>
 
-                <form method="post" class="otp-form px-2" action="{{ route('verification.submit') }}">
+                <form method="post" class="otp-form px-2" action="{{ route('verification.submit') }}" autocomplete="off">
                     @csrf
 
                     <div class="form-group mb-4">

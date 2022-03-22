@@ -18,10 +18,10 @@
                             <div class="img-name-sm px-3 mb-2">
                                 <div class="user-img-sm m-0">
                                     <img src="" alt="User Img"
-                                        onerror="this.onerror=null;this.src='https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png'"
-                                        id="userProfileImage">
+                                         onerror="this.onerror=null;this.src='https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png'"
+                                         id="userProfileImage">
                                     <input type="hidden" class="selected-files" name="photo" id="userAvatar"
-                                        value="{{ Auth::user()->avatar_original }}">
+                                           value="{{ Auth::user()->avatar_original }}">
                                 </div>
                                 <div class="pl-3">
                                     <p class="fw600 fsize14 mb-1">{{ Auth::user()->name }}</p>
@@ -36,7 +36,7 @@
 
                         <div class="ord-details py-4 px-3 primary-color-bg mt-4">
                             <p class="text-white fw600 mb-2">Order Id: &nbsp; <span class="text-white orderId">
-                                    #{{ $order->code }}</span> </p>
+                                    #{{ $order->code }}</span></p>
 
                             <p class="text-white pb-2">Time: <span class="text-white dateTime"> &nbsp;
                                     {{ date('d M, Y H:i A', strtotime($order->created_at)) }}</span>
@@ -57,45 +57,44 @@
                         <div class="order-data pt-4 mt-3">
                             <table class="table w-100">
                                 <thead>
-                                    <tr>
-                                        <th class="fw700 fsize13">Item Name</th>
-                                        <th class="fw700 fsize13 text-right pr-4">Qty</th>
-                                        <th class="fw700 fsize13 text-right pr-4">Price</th>
-                                    </tr>
+                                <tr>
+                                    <th class="fw700 fsize13">Item Name</th>
+                                    <th class="fw700 fsize13 text-right pr-4">Qty</th>
+                                    <th class="fw700 fsize13 text-right pr-4">Price</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($order->orderDetails as $key => $orderDetail)
-                                        <tr>
-                                            <td>&bull; {{ $orderDetail->product->getTranslation('name') }}</td>
-                                            <td class="text-right">{{ $orderDetail->quantity }}</td>
-                                            <td class="text-right">{{ $orderDetail->price }}</td>
-                                        </tr>
-                                    @endforeach
+                                @foreach ($order->orderDetails as $key => $orderDetail)
+                                    <tr>
+                                        <td>&bull; {{ $orderDetail->product->getTranslation('name') }}</td>
+                                        <td class="text-right">{{ $orderDetail->quantity }}</td>
+                                        <td class="text-right">{!! single_price_web($orderDetail->price) !!} </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                                 <tfoot>
-                                    {{-- <tr>
-                                        <th colspan="2">Sub Total</th>
-                                        <th class="text-right">{{$order->grand_total}}</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2" class="bt-0">Discount</th>
-                                        <th class="text-right bt-0">- 200</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2" class="bt-0">Shipping Charge</th>
-                                        <th class="text-right bt-0">50</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2" class="bt-0">Service Tax</th>
-                                        <th class="text-right bt-0">80</th>
-                                    </tr> --}}
-                                    <tr class="bb-1">
-                                        <th colspan="2" class="fw600 fsize15 py-2">Total</th>
-                                        <th class="fw600 fsize15 text-right py-2">
-                                            <ins class="currency-symbol">&#8377;</ins>
-                                            {{ $order->grand_total }}
-                                        </th>
-                                    </tr>
+                                {{-- <tr>
+                                    <th colspan="2">Sub Total</th>
+                                    <th class="text-right">{{$order->grand_total}}</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" class="bt-0">Discount</th>
+                                    <th class="text-right bt-0">- 200</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" class="bt-0">Shipping Charge</th>
+                                    <th class="text-right bt-0">50</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" class="bt-0">Service Tax</th>
+                                    <th class="text-right bt-0">80</th>
+                                </tr> --}}
+                                <tr class="bb-1">
+                                    <th colspan="2" class="fw600 fsize15 py-2">Total</th>
+                                    <th class="fw600 fsize15 text-right py-2">
+                                        {!! single_price_web($order->grand_total) !!}
+                                    </th>
+                                </tr>
                                 </tfoot>
                             </table>
                         </div>
