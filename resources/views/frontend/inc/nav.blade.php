@@ -83,7 +83,7 @@
                     <div class="pl-3">
                         <p class="fw500 title-txt mb-1">
                             {{ Auth::user()->name == 'Guest User' ? Auth::user()->phone : Auth::user()->name }}</p>
-                        <p class="fsize13 body-txt mb-0">Community: Lodha Park</p>
+<!--                        <p class="fsize13 body-txt mb-0">Community: Lodha Park</p>-->
                     </div>
                 @else
                     <a href="{{ route('user.login') }}" class="w-100">
