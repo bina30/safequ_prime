@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="px-3 pt-4 mt-3 pb-2 pb-0 text-center w-md-50 mx-auto">
-                    <a href="products.html">Continue Shopping &nbsp;&nbsp; <i class="fal fa-long-arrow-right"></i></a>
+                    <a href="{{ route('home') }}">Continue Shopping &nbsp;&nbsp; <i class="fal fa-long-arrow-right"></i></a>
                 </div>
             </div>
         </div>
