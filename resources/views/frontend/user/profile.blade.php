@@ -52,6 +52,10 @@
                                    disabled/>
                         </div>
                         <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" value="{{ Auth::user()->email }}" required />
+                        </div>
+                        <div class="form-group">
                             <label for="address">Address</label>
                             <textarea rows="3" name="address" id="address"
                                       required>{{ Auth::user()->address }}</textarea>
