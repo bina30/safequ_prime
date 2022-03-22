@@ -51,6 +51,7 @@
                             <th>{{ translate('Amount')}}</th>
                             <th data-breakpoints="lg">{{ translate('Payment Method')}}</th>
                             <th data-breakpoints="lg" class="text-right">{{ translate('Approval')}}</th>
+                            <th>Transaction Type</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,7 +64,7 @@
                                     <td>{{ translate('User Not found') }}</td>
                                 @endif
                                 <td>{{ date('d-m-Y', strtotime($wallet->created_at)) }}</td>
-                                <td>{{ single_price($wallet->amount) }}</td>
+                                <td>{{ single_price(abs($wallet->amount)) }}</td>
                                 <td>{{ ucfirst(str_replace('_', ' ', $wallet ->payment_method)) }}</td>
                                 <td class="text-right">
                                     @if ($wallet->offline_payment)
@@ -76,6 +77,7 @@
                                         N/A
                                     @endif
                                 </td>
+                                <td>{{ ($wallet->amount > 0 ? 'Credit' : 'Debit') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
