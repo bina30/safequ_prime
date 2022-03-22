@@ -39,10 +39,10 @@
                             <div class="pt-2 d-flex">
                                 <p class="body-txt mb-0">
                                     <span class="act-price fw700">
-                                        {!! single_price($sub_total) !!}
+                                        {!! single_price_web($sub_total) !!}
                                     </span>
                                     <i class="body-txt fsize12">&nbsp; <br class="sm" />
-                                        ({!! single_price($product->unit_price) !!} / {{ $product->unit }})
+                                        ({!! single_price_web($product->unit_price) !!} / {{ $product->unit }})
                                     </i>
                                 </p>
                                 <div class="action">
@@ -94,7 +94,7 @@
                         <hr class="b-1">
                         <h5>
                             <ins class="fw700">Total : </ins>
-                            <ins class="fw700 text-right"> {!! single_price($total) !!} </ins>
+                            <ins class="fw700 text-right"> {!! single_price_web($total) !!} </ins>
                         </h5>
                     </div>
 
@@ -117,7 +117,7 @@
                                            @if($total > Auth::user()->balance) disabled @endif />
                                     <span class="align-middle body-txt">
                                         Use your
-                                        <ins class="fw600 body-txt">{!! single_price(Auth::user()->balance) !!} </ins>
+                                        <ins class="fw600 body-txt">{!! single_price_web(Auth::user()->balance) !!} </ins>
                                         SafeQu balance
                                     </span>
                                 </label>
@@ -129,7 +129,7 @@
                     <div class="p-3 pay-btn bt-1 flex-acenter-jbtw">
                         <div class="total">
                             <p class="fsize15 mb-1 body-txt">Total:</p>
-                            <h5 class="fw500 mb-0"><ins class="currency-symbol">&#8377;</ins> {{ $total }}</h5>
+                            <h5 class="fw500 mb-0">{!! single_price_web($total) !!} </h5>
                         </div>
                         <button id="btn_pay_now" class="btn primary-btn btn-round py-1" onclick="submitOrder(this)" @if(count($carts) == 0) disabled @endif >Pay Now</button>
                     </div>

@@ -176,13 +176,13 @@ if (!function_exists('format_price')) {
         }
 
         if (get_setting('symbol_format') == 1) {
-            return '<ins class="currency-symbol">' . currency_symbol() . '</ins> ' . $fomated_price;
+            return currency_symbol() . ' ' . $fomated_price;
         } else if (get_setting('symbol_format') == 3) {
-            return '<ins class="currency-symbol">' . currency_symbol() . '</ins> ' . $fomated_price;
+            return currency_symbol() . ' ' . $fomated_price;
         } else if (get_setting('symbol_format') == 4) {
-            return $fomated_price . ' <ins class="currency-symbol">' . currency_symbol() . '</ins>';
+            return $fomated_price . ' ' . currency_symbol();
         }
-        return $fomated_price . ' <ins class="currency-symbol">' . currency_symbol() . '</ins>';
+        return $fomated_price . ' ' . currency_symbol();
     }
 }
 
@@ -191,6 +191,28 @@ if (!function_exists('single_price')) {
     function single_price($price)
     {
         return format_price(convert_price($price));
+    }
+}
+
+//formats price to home default price with convertion
+if (!function_exists('single_price_web')) {
+    function single_price_web($price)
+    {
+        $price = convert_price($price);
+        if (get_setting('decimal_separator') == 1) {
+            $fomated_price = number_format($price, get_setting('no_of_decimals'));
+        } else {
+            $fomated_price = number_format($price, get_setting('no_of_decimals'), ',', ' ');
+        }
+
+        if (get_setting('symbol_format') == 1) {
+            return '<ins class="currency-symbol">' . currency_symbol() . '</ins> ' . $fomated_price;
+        } else if (get_setting('symbol_format') == 3) {
+            return '<ins class="currency-symbol">' . currency_symbol() . '</ins> ' . $fomated_price;
+        } else if (get_setting('symbol_format') == 4) {
+            return $fomated_price . ' <ins class="currency-symbol">' . currency_symbol() . '</ins>';
+        }
+        return $fomated_price . ' <ins class="currency-symbol">' . currency_symbol() . '</ins>';
     }
 }
 

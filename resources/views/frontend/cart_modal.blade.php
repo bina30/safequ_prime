@@ -55,10 +55,10 @@
 
                         <div class="py-4">
                             <h4 class="fw700 act-price mb-1 lh-1" id="total_price">
-                                <ins class="act-price currency-symbol">&#8377;</ins> {{ $product->unit_price }}
+                                {!! single_price_web($product->unit_price) !!}
                             </h4>
                             <i class="body-txt fsize15">
-                                (<ins class="currency-symbol">&#8377;</ins> {{ $product->unit_price }} / {{ $product->unit }})</i>
+                                ({!! single_price_web($product->unit_price) !!} / {{ $product->unit }})</i>
                         </div>
 
 <!--                        <a href="cart.html">-->

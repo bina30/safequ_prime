@@ -132,13 +132,12 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+        /*if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
             if (User::where('email', $request->email)->first() != null) {
                 flash(translate('Email or Phone already exists.'));
                 return back();
             }
-        }
-        /*elseif (User::where('phone', '+'.$request->country_code.$request->phone)->first() != null) {
+        } elseif (User::where('phone', '+' . $request->country_code . $request->phone)->first() != null) {
             flash(translate('Phone already exists.'));
             return back();
         }*/
@@ -149,7 +148,7 @@ class RegisterController extends Controller
 
 //        $this->guard()->login($user);
 
-        if ($user->email != null) {
+        /*if ($user->email != null) {
             if (BusinessSetting::where('type', 'email_verification')->first()->value != 1) {
                 $user->email_verified_at = date('Y-m-d H:m:s');
                 $user->save();
@@ -164,7 +163,7 @@ class RegisterController extends Controller
                     flash(translate('Registration failed. Please try again later.'))->error();
                 }
             }
-        }
+        }*/
 
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());
@@ -172,7 +171,7 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     {
-        if ($user->email == null) {
+        if (addon_is_activated('otp_system') || $user->email == null) {
             return redirect()->route('verification', $user);
         } elseif (session('link') != null) {
             return redirect(session('link'));
