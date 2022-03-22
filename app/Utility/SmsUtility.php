@@ -1,6 +1,7 @@
 <?php
 namespace App\Utility;
 
+use App\Mail\InvoiceEmailManager;
 use App\Models\SmsTemplate;
 use App\Models\User;
 
@@ -60,6 +61,48 @@ class SmsUtility
 
         try {
             sendSMS($phone, env('APP_NAME'), $sms_body, $template_id);
+        } catch (\Exception $e) {
+
+        }
+    }
+
+    public static function order_shipped($phone = '', $order)
+    {
+        //sends email to customer with the invoice details
+        $array['view'] = 'emails.invoice';
+        $array['subject'] = translate('Order has been shipped') . ' - ' . $order->code;
+        $array['from'] = env('MAIL_FROM_ADDRESS');
+        $array['order'] = $order;
+
+        $sms_template = SmsTemplate::where('identifier', 'order_shipped')->first();
+        $sms_body = $sms_template->sms_body;
+        $sms_body = str_replace('[[order_code]]', $order->code, $sms_body);
+        $template_id = $sms_template->template_id;
+        $variables = array('name' => env('APP_NAME'), 'orderId' => 'OrderNo: '.$order->code);
+        try {
+            sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
+            Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
+        } catch (\Exception $e) {
+
+        }
+    }
+
+    public static function order_cancelled($phone = '', $order)
+    {
+        //sends email to customer with the invoice details
+        $array['view'] = 'emails.invoice';
+        $array['subject'] = translate('Order has been cancelled') . ' - ' . $order->code;
+        $array['from'] = env('MAIL_FROM_ADDRESS');
+        $array['order'] = $order;
+
+        $sms_template = SmsTemplate::where('identifier', 'order_cancel')->first();
+        $sms_body = $sms_template->sms_body;
+        $sms_body = str_replace('[[order_code]]', $order->code, $sms_body);
+        $template_id = $sms_template->template_id;
+        $variables = array('name' => env('APP_NAME'), 'orderId' => 'OrderNo: '.$order->code);
+        try {
+            sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
+            sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
         } catch (\Exception $e) {
 
         }
