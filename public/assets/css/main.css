@@ -455,6 +455,10 @@ li {
     font-weight: 500;
 }
 
+h4.act-price .currency-symbol {
+    color: #4883e5;
+}
+
 h4 .act-price.currency-symbol {
     font-size: 1.45rem !important;
 }

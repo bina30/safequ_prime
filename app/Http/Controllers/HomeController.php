@@ -159,10 +159,16 @@ class HomeController extends Controller
             flash(translate('Sorry! the action is not permitted in demo '))->error();
             return back();
         }
-
         $user = Auth::user();
+        if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+            if (User::where('email', $request->email)->where('id', '!=', $user->id)->first() != null) {
+                flash(translate('Email already exists.'))->error();
+                return back();
+            }
+        }
+
         $user->name = $request->name;
-        $user->phone = $request->phone;
+        $user->email = $request->email;
         $user->address = $request->address;
         $user->city = $request->city;
         $user->state = $request->state;
