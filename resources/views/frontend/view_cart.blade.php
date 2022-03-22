@@ -21,7 +21,7 @@
                     <div class="col-lg-6 col-md-7 px-1">
                         <h6 class="fw600 title-txt pb-2 mb-2">My Cart</h6>
 
-                        @if($user_data)
+                        @if($user_data && $user_data->address != '')
                             <div class="delivery-addr p-3 flex-astart-jstart mb-3">
                                 <input type="checkbox" name="delivery_address" id="delivery_address" class="mr-2"
                                        checked />
@@ -31,6 +31,13 @@
                                     {{ $user_data->address." ".$user_data->city." ".$user_data->state." ".$user_data->postal_code }}
                                 </label>
                             </div>
+                        @else
+                            <div class="text-center">
+                                <a href="{{ route('profile') }}">
+                                    <button class="btn primary-btn btn-round py-1"> Add Address </button>
+                                </a>
+                            </div>
+                            <hr>
                         @endif
                         <br>
                         <!-- Item Card -->
