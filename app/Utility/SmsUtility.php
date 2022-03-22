@@ -102,7 +102,7 @@ class SmsUtility
         $variables = array('name' => env('APP_NAME'), 'orderId' => 'OrderNo: '.$order->code);
         try {
             sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
-            sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
+            Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
         } catch (\Exception $e) {
 
         }
