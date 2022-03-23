@@ -295,11 +295,13 @@ class HomeController extends Controller
             $products_purchase_started = isset($seller->user->products_purchase_started) ? $seller->user->products_purchase_started : [];
             $products_purchase_expired = isset($seller->user->products_purchase_expired) ? $seller->user->products_purchase_expired : [];
 
-            if ($seller->verification_status != 0) {
+            /*if ($seller->verification_status != 0) {
                 return view('frontend.seller_shop', compact('shop', 'products_purchase_started', 'products_purchase_expired'));
             } else {
                 return view('frontend.seller_shop_without_verification', compact('shop', 'seller'));
-            }
+            }*/
+
+            return view('frontend.seller_shop', compact('shop', 'products_purchase_started', 'products_purchase_expired'));
         }
         abort(404);
     }

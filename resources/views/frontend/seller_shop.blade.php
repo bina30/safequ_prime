@@ -220,13 +220,16 @@
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                     <div class="modal-content">
-                                        <div class="modal-body">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Who Have Ordered</h5>
                                             <div class="close-btn text-right">
                                                 <a href="javascript:void(0)" class="fw900" data-dismiss="modal">X</a>
                                             </div>
+                                        </div>
+                                        <div class="modal-body">
                                             @foreach($product->orderDetails as $orderDetail)
                                                 <div class="item-details px-sm-3">
-                                                    <div class="order-list pt-4">
+                                                    <div class="order-list">
                                                         <div class="item-card p-3 mb-3">
                                                             <div
                                                                 class="d-flex justify-content-between align-items-center">
