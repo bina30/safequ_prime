@@ -236,6 +236,14 @@
             $('.cart-item-count').html(count);
         }
 
+        function getCartCount(){
+            $.post('{{ route('cart.cartCount') }}', {
+                _token   :  AIZ.data.csrf
+            }, function(data){
+                updateNavCart(data.cart_count);
+            });
+        }
+
         $(document).ready(function() {
 
             $(".close-sidenav").on('click', function() {
@@ -245,6 +253,8 @@
             $(".navbar-toggler").on('click', function() {
                 $(".sideNav").addClass("active");
             })
+
+            getCartCount();
 
         });
 

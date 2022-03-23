@@ -95,6 +95,7 @@ Route::post('/cart/show-cart-modal', 'CartController@showCartModal')->name('cart
 Route::post('/cart/addtocart', 'CartController@addToCart')->name('cart.addToCart');
 Route::post('/cart/removeFromCart', 'CartController@removeFromCart')->name('cart.removeFromCart');
 Route::post('/cart/updateQuantity', 'CartController@updateQuantity')->name('cart.updateQuantity');
+Route::post('/cart/cartCount', 'CartController@cartCount')->name('cart.cartCount');
 
 //Checkout Routes
 Route::group(['prefix' => 'checkout', 'middleware' => ['user', 'verified', 'unbanned']], function() {
