@@ -15,7 +15,7 @@
                                     <div class="pr-2">
                                         <p class="fw600 fsize15 title-txt mb-1">Order # {{ $detail->order->code }}</p>
                                         <p class="mb-0 lh-17">
-                                            <span class="fsize13 body-txt ordered-qty"> {{ $detail->product->unit_price . ' ' . $detail->product->unit }} </span>
+                                            <span class="fsize13 body-txt ordered-qty"> {{ $detail->quantity . ' ' . $detail->product->unit }} </span>
                                             <span class="fsize13 body-txt ordered-qty">
                                                 &nbsp;&bull;&nbsp;
                                                 {{ date("d F, Y H:i", $detail->order->date) }}
