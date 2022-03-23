@@ -153,7 +153,7 @@
                                         <p class="fsize15 mb-1 body-txt">Total:</p>
                                         <h5 class="fw500 mb-0">{!! single_price_web($total) !!} </h5>
                                     </div>
-                                    <button id="btn_pay_now" class="btn primary-btn btn-round py-1" onclick="submitOrder(this)" @if(count($carts) == 0 || $user_data->address == '') disabled @endif >Pay Now</button>
+                                    <button type="button" id="btn_pay_now" class="btn primary-btn btn-round py-1" onclick="submitOrder(this)" @if(count($carts) == 0 || $user_data->address == '') disabled @endif >Pay Now</button>
                                 </div>
                             @endif
 
