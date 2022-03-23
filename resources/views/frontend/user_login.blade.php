@@ -17,7 +17,7 @@
                 <form method="POST" class="login-form pt-2 px-2" action="{{ route('register') }}">
                     @csrf
                     <div class="form-group phone-form-group mb-4">
-                        <input type="tel" id="phone-code"
+                        <input type="tel" id="phone-code" required
                             class="mb-4 form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
                             value="{{ old('phone') }}" placeholder="" name="phone" autocomplete="off">
                     </div>
@@ -26,9 +26,9 @@
 
                     <button type="submit" class="btn primary-btn btn-block">Request OTP</button>
 
-                    <a href="{{ route('home') }}">
-                        <p class="text-center pt-3 act-price">Skip for now</p>
-                    </a>
+{{--                    <a href="{{ route('home') }}">--}}
+{{--                        <p class="text-center pt-3 act-price">Skip for now</p>--}}
+{{--                    </a>--}}
                 </form>
 
             </div>

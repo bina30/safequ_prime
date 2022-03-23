@@ -177,6 +177,7 @@ Route::group(['middleware' => ['user', 'verified', 'unbanned']], function() {
 
     Route::get('/wallet', 'WalletController@index')->name('wallet.index');
     Route::post('/recharge', 'WalletController@recharge')->name('wallet.recharge');
+    Route::post('/wallet/filter', 'WalletController@filter')->name('wallet.filter');
 
     Route::resource('support_ticket', 'SupportTicketController');
     Route::post('support_ticket/reply', 'SupportTicketController@seller_store')->name('support_ticket.seller_store');

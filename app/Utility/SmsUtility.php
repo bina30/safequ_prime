@@ -4,6 +4,7 @@ namespace App\Utility;
 use App\Mail\InvoiceEmailManager;
 use App\Models\SmsTemplate;
 use App\Models\User;
+use Mail;
 
 class SmsUtility
 {
@@ -51,6 +52,12 @@ class SmsUtility
 
     public static function delivery_status_change($phone = '', $order)
     {
+        //sends email to customer with the invoice details
+        $array['view'] = 'emails.invoice';
+        $array['subject'] = translate('Order has been delivered') . ' - ' . $order->code;
+        $array['from'] = env('MAIL_FROM_ADDRESS');
+        $array['order'] = $order;
+
         $sms_template = SmsTemplate::where('identifier', 'delivery_status_change')->first();
         $sms_body = $sms_template->sms_body;
         $delivery_status = translate(ucfirst(str_replace('_', ' ', $order->delivery_status)));
@@ -61,6 +68,7 @@ class SmsUtility
 
         try {
             sendSMS($phone, env('APP_NAME'), $sms_body, $template_id);
+            Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
         } catch (\Exception $e) {
 
         }
@@ -80,7 +88,7 @@ class SmsUtility
         $template_id = $sms_template->template_id;
         $variables = array('name' => env('APP_NAME'), 'orderId' => 'OrderNo: '.$order->code);
         try {
-            sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
+            sendSMS($phone, env('APP_NAME'), $sms_body, $template_id);
             Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
         } catch (\Exception $e) {
 
