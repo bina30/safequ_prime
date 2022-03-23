@@ -29,9 +29,14 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="delivery-status d-flex justify-content-between align-items-start pt-3">
                                 <p class="mb-0 fsize13 status text-success">
-                                    Estimated delivery on {{ date("d F", strtotime($detail->product->purchase_end_date. "+7 day")) }}
+                                    @if($detail->delivery_status == 'delivered')
+                                        Delivered on {{ date("d F", strtotime($detail->product->purchase_end_date. "+".$detail->product->est_shipping_days." day")) }}
+                                    @else
+                                        Estimated delivery on {{ date("d F", strtotime($detail->product->purchase_end_date. "+".$detail->product->est_shipping_days." day")) }}
+                                    @endif
                                 </p>
                                 @if(Auth::check())
                                     @php
