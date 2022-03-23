@@ -20,8 +20,27 @@ class WalletController extends Controller
     public function index()
     {
         $wallets = Wallet::where('user_id', Auth::user()->id)->latest()->paginate(9);
-//         return view('frontend.user.wallet.index', compact('wallets'));
-        return view('frontend.user.wallet.index', compact('wallets'));
+        $request = null;
+        return view('frontend.user.wallet.index', compact('wallets', 'request'));
+    }
+
+    public function filter(Request $request)
+    {
+        $wallets = Wallet::where('user_id', Auth::user()->id);
+
+        if ($request->from_date != '') {
+            $wallets->whereDate('created_at', '>=', date('Y-m-d', strtotime($request->from_date)));
+        }
+        if ($request->to_date != '') {
+            $wallets->whereDate('created_at', '<=', date('Y-m-d', strtotime($request->to_date)));
+        }
+        if ($request->view == 'credit') {
+            $wallets->where('amount', '>', 0);
+        } else if ($request->view == 'debit') {
+            $wallets->where('amount', '<', 0);
+        }
+        $wallets = $wallets->latest()->paginate(9);
+        return view('frontend.user.wallet.index', compact('wallets', 'request'));
     }
 
     public function recharge(Request $request)
