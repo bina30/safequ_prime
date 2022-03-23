@@ -368,4 +368,18 @@ class CartController extends Controller
             'nav_cart_view' => view('frontend.partials.cart')->render(),
         );
     }
+
+    public function cartCount(Request $request)
+    {
+        $cart_count = 0;
+        if(auth()->user() != null) {
+            $user_id = Auth::user()->id;
+            $carts = Cart::where('user_id', $user_id)->get();
+            $cart_count = $carts->count();
+        }
+
+        return array(
+            'cart_count' => $cart_count
+        );
+    }
 }
