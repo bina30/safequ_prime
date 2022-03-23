@@ -3,7 +3,7 @@
         <div class="col-lg-6 col-md-7 px-1">
             <h6 class="fw600 title-txt pb-2 mb-2">My Cart</h6>
 
-            @if($user_data)
+            @if($user_data && $user_data->address != '')
                 <div class="delivery-addr p-3 flex-astart-jstart mb-3">
                     <input type="checkbox" name="delivery_address" id="delivery_address" class="mr-2"
                            checked />
@@ -13,6 +13,13 @@
                         {{ $user_data->address." ".$user_data->city." ".$user_data->state." ".$user_data->postal_code }}
                     </label>
                 </div>
+            @else
+                <div class="text-center">
+                    <a href="{{ route('profile') }}">
+                        <button class="btn primary-btn btn-round py-1"> Add Address </button>
+                    </a>
+                </div>
+                <hr>
             @endif
             <br>
             <!-- Item Card -->
@@ -131,7 +138,7 @@
                             <p class="fsize15 mb-1 body-txt">Total:</p>
                             <h5 class="fw500 mb-0">{!! single_price_web($total) !!} </h5>
                         </div>
-                        <button id="btn_pay_now" class="btn primary-btn btn-round py-1" onclick="submitOrder(this)" @if(count($carts) == 0) disabled @endif >Pay Now</button>
+                        <button id="btn_pay_now" class="btn primary-btn btn-round py-1" onclick="submitOrder(this)" @if(count($carts) == 0 || $user_data->address == '') disabled @endif >Pay Now</button>
                     </div>
                 @endif
 
@@ -160,7 +167,7 @@
 
             (qty < 10) ? $("#itm-cnt").removeClass("d2 d3"): "";
 
-            $('#btn_pay_now').attr('disabled', 'disabled');
+            // $('#btn_pay_now').attr('disabled', 'disabled');
             updateQuantity(cart_id, qty);
         })
 
@@ -173,7 +180,7 @@
                 // updateNavCart(data.nav_cart_view,data.cart_count);
                 $('#cart_summary').html('');
                 $('#cart_summary').html(data.cart_view);
-                $('#btn_pay_now').removeAttr('disabled');
+                // $('#btn_pay_now').removeAttr('disabled');
             });
         }
     })
