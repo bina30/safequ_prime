@@ -5,7 +5,7 @@
 
         <div class="breadcrumbs">
             <div class="container">
-                <h5 class="mb-0 fw700 text-white text-uppercase">Lodha Park Community</h5>
+                <h5 class="mb-0 fw700 text-white text-uppercase">Order Details</h5>
             </div>
         </div>
 
@@ -18,7 +18,7 @@
                             <div class="img-name-sm px-3 mb-2">
                                 <div class="user-img-sm m-0">
                                     <img src="" alt="User Img"
-                                         onerror="this.onerror=null;this.src='https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png'"
+                                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}'"
                                          id="userProfileImage">
                                     <input type="hidden" class="selected-files" name="photo" id="userAvatar"
                                            value="{{ Auth::user()->avatar_original }}">
@@ -59,15 +59,15 @@
                                 <thead>
                                 <tr>
                                     <th class="fw700 fsize13">Item Name</th>
-                                    <th class="fw700 fsize13 text-right pr-4">Qty</th>
-                                    <th class="fw700 fsize13 text-right pr-4">Price</th>
+                                    <th class="fw700 fsize13 text-center">Qty</th>
+                                    <th class="fw700 fsize13 text-right">Price</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach ($order->orderDetails as $key => $orderDetail)
                                     <tr>
                                         <td>&bull; {{ $orderDetail->product->getTranslation('name') }}</td>
-                                        <td class="text-right">{{ $orderDetail->quantity }}</td>
+                                        <td class="text-center">{{ $orderDetail->quantity }} {{ $orderDetail->product->unit }}</td>
                                         <td class="text-right">{!! single_price_web($orderDetail->price) !!} </td>
                                     </tr>
                                 @endforeach

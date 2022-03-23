@@ -65,12 +65,13 @@ class OTPVerificationController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function resend_verificcation_code(Request $request)
+    public function resend_verificcation_code(Request $request, $user_id)
     {
-        $user = Auth::user();
+        $user = User::findOrFail(decrypt($user_id));
         $user->verification_code = rand(1000, 9999);
         $user->save();
         SmsUtility::phone_number_verification($user);
+        flash('Code resend successfully')->success();
         return back();
     }
 
