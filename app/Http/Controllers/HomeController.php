@@ -52,7 +52,7 @@ class HomeController extends Controller
 //            return Seller::get();
 //        });
 
-        $communities = Shop::get();
+        $communities = Shop::limit(10)->get();
 
         return view('frontend.index', compact('featured_categories', 'todays_deal_products', 'newest_products', 'communities'));
     }
