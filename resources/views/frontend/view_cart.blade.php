@@ -123,28 +123,32 @@
                                 <!-- Payment Method -->
                                 <div class="pay-method pb-3">
 
+                                    @if(Auth::user())
+                                        <div class="other-gatewy p-3 mb-3">
+                                            <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
+                                                <input type="radio" id="pay-option2" name="payment_option" value="wallet" tabindex="1"
+                                                       @if($total > Auth::user()->balance) disabled @else checked @endif />
+                                                <span class="align-middle body-txt">
+                                                    SafeQu balance
+                                                </span>
+                                                <br>
+                                                <span class="align-middle body-txt cart_wallet_bal">
+                                                    Available
+                                                    <ins class="fw600 body-txt">{!! single_price_web(Auth::user()->balance) !!} </ins>
+                                                    for Payment
+                                                </span>
+                                            </label>
+                                        </div>
+                                    @endif
+
                                     <div class="other-gatewy p-3 mb-3">
                                         <label for="pay-option1" class="label-radio mb-0 py-2 d-block">
-                                            <input type="radio" id="pay-option1" name="payment_option" tabindex="1" value="razorpay" checked />
+                                            <input type="radio" id="pay-option1" name="payment_option" tabindex="1" value="razorpay" @if($total > Auth::user()->balance) checked @endif />
                                             <span class="align-middle body-txt">
                                             Razorpay
                                         </span>
                                         </label>
                                     </div>
-
-                                    @if(Auth::user())
-                                        <div class="other-gatewy p-3 mb-3">
-                                            <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
-                                                <input type="radio" id="pay-option2" name="payment_option" value="wallet" tabindex="1"
-                                                       @if($total > Auth::user()->balance) disabled @endif />
-                                                <span class="align-middle body-txt">
-                                            Use your
-                                            <ins class="fw600 body-txt">{!! single_price_web(Auth::user()->balance) !!} </ins>
-                                            SafeQu balance
-                                        </span>
-                                            </label>
-                                        </div>
-                                    @endif
 
                                 </div>
 

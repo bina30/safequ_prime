@@ -2774,3 +2774,8 @@ input[type=checkbox]:checked+.check-box::before,
 .notification_a {
     color: #e62e04 !important;
 }
+
+.cart_wallet_bal {
+    font-size: 12px !important;
+    padding-left: 25px !important;;
+}
