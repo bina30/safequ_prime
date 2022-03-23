@@ -45,7 +45,7 @@
                                        onchange="this.value = this.value.replace(/[^0-9]/g, '')" />
 
                                 <span class="itm-unit fw500" id="itm-cnt">1</span>
-                                <span class="itm-unit fw500">&nbsp;KG</span>
+                                <span class="itm-unit fw500">&nbsp;{{ $product->unit }}</span>
 
                                 <button class="btn ml-2"
                                         onclick="this.parentNode.querySelector('input[type=number]').stepUp();"
