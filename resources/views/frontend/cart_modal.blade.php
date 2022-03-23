@@ -59,7 +59,7 @@
                             </h4>
                             <i class="body-txt fsize15">
                                 ({!! single_price_web($product->unit_price) !!} / {{ $product->unit }})</i>
-                        </div>
+                           </div>
 
 <!--                        <a href="cart.html">-->
                             <button class="btn primary-btn text-uppercase" onclick="addProductToCart({{ $product->id }})">
