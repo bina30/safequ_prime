@@ -217,7 +217,6 @@
                 updateNavCart(data.cart_count);
                 $('#cart_summary').html('');
                 $('#cart_summary').html(data.cart_view);
-                $('#btn_pay_now').removeAttr('disabled');
             });
         }
 
