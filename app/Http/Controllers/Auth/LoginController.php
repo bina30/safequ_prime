@@ -231,9 +231,9 @@ class LoginController extends Controller
         }
 
         //User's Cart Delete
-        if (auth()->user()) {
+        /*if (auth()->user()) {
             Cart::where('user_id', auth()->user()->id)->delete();
-        }
+        }*/
 
         $this->guard()->logout();
 
