@@ -15,7 +15,7 @@
                         </div>
                         <div class="pl-3">
                             <h6 class="fw700">{{ $product->name }}</h6>
-                            <p class="fw600 body-txt mb-0">Variety: {{ $product->tags }}</p>
+                            <p class="fw600 body-txt mb-0">Variety: {{ $product->category->name }}</p>
                         </div>
                     </div>
                 </div>

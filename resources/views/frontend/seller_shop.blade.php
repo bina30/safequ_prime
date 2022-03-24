@@ -138,7 +138,7 @@
                                     <div class="item-data text-center pt-5 px-3">
                                         <div class="px-2">
                                             <h6 class="pt-1 fw700 mb-1">{{ $product->name }}</h6>
-                                            <p class="fw600f fsize13 body-txt mb-2">Variety: {{ $product->tags }}</p>
+                                            <p class="fw600f fsize13 body-txt mb-2">Variety: {{ $product->category->name }}</p>
                                             <p class="rating-stars">
                                                 {{renderStarRating($product->rating)}}
                                             </p>
