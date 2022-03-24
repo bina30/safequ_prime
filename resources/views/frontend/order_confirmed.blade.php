@@ -55,7 +55,11 @@
                 </div>
 
                 <div class="px-3 pt-4 mt-3 pb-2 pb-0 text-center w-md-50 mx-auto">
-                    <a href="{{ route('home') }}">Continue Shopping &nbsp;&nbsp; <i class="fal fa-long-arrow-right"></i></a>
+                    @if(session()->has('shop_slug'))
+                        <a href="{{ route('shop.visit', session()->get('shop_slug')) }}">Continue Shopping &nbsp;&nbsp; <i class="fal fa-long-arrow-right"></i></a>
+                    @else
+                        <a href="{{ route('home') }}">Continue Shopping &nbsp;&nbsp; <i class="fal fa-long-arrow-right"></i></a>
+                    @endif
                 </div>
             </div>
         </div>

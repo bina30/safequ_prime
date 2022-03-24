@@ -123,8 +123,14 @@
                                                 </div>
                                             </div>
 
-                                            <a href="{{ route('shop.visit', $community->slug) }}"
-                                               class="btn primary-btn btn-block fw600 text-white">JOIN</a>
+                                            @if(session()->has('shop_slug') && session()->get('shop_slug') != $community->slug)
+                                                <a href="javascript:void(0);"
+                                                   class="btn primary-btn btn-block fw600 text-white" onclick="confrimCommunityChange('{{ route('shop.visit', $community->slug) }}');">JOIN</a>
+                                            @else
+                                                <a href="{{ route('shop.visit', $community->slug) }}"
+                                                   class="btn primary-btn btn-block fw600 text-white">JOIN</a>
+                                            @endif
+
                                         </div>
                                     </div>
                                 @endforeach
@@ -187,6 +193,47 @@
             </div>
 
         </div>
+
+        <!-- Change Community Modal Starts -->
+        <div class="modal fade changeCommunityModal" id="changeCommunityModal" tabindex="-1"
+             aria-labelledby="changeCommunityModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Change Community</h5>
+                        <div class="close-btn text-right">
+                            <a href="javascript:void(0)" class="fw900" data-dismiss="modal">X</a>
+                        </div>
+                    </div>
+                    <form action="" class="form-default" role="form" method="GET" id="change-community-form">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="item-details px-sm-3">
+                                <div class="order-list">
+                                    <div class="item-card">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="pr-2 text-center">
+                                                <h6> Are you sure you want to leave {{ session()->get('shop_name') }} community ? </h6>
+                                                <p class="mb-0">
+                                                    <i class="fa fa-exclamation-circle fsize12" aria-hidden="true"></i> <span class="fsize12 body-txt ordered-qty"> Cart items will get removed. </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn primary-btn fw600 text-white">Yes</button>
+                            <button type="button" class="btn btn-secondary btn-no fw600 text" data-dismiss="modal">No</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Change Community Modal Ends -->
+
     </main>
 @endsection
 
@@ -233,5 +280,11 @@
                 items: 1
             })
         })
+
+        function confrimCommunityChange(url)
+        {
+            $('#changeCommunityModal').modal('show');
+            $('#changeCommunityModal #change-community-form').attr('action', url);
+        }
     </script>
 @endsection
