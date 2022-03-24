@@ -25,12 +25,11 @@ class OTPVerificationController extends Controller
     public function verification(Request $request, User $user)
     {
 //        if (Auth::check() && Auth::user()->email_verified_at == null) {
-        return view('otp_systems.frontend.user_verification', array('user' => $user));
-//        }
-//        else {
-//            flash('You have already verified your number')->warning();
-//            return redirect()->route('home');
-//        }
+        if (Auth::check() && Auth::user()) {
+            return redirect()->route('home');
+        } else {
+            return view('otp_systems.frontend.user_verification', array('user' => $user));
+        }
     }
 
 
