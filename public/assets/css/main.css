@@ -2788,3 +2788,14 @@ input[type=checkbox]:checked+.check-box::before,
 .btn-no {
     padding: 9px 20px;
 }
+
+.item-tags {
+    overflow-x: auto;
+}
+
+.item-tags li {
+    margin: 0;
+    padding: 5px 15px;
+    white-space: nowrap;
+    margin: auto;
+}
