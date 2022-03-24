@@ -81,10 +81,10 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="addMoneyModalLabel">Add money to wallet</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span class="fw700" aria-hidden="true">X</span>
-                    </button>
+                    <h5 class="modal-title" id="addMoneyModalLabel">Add money to wallet</h5>
+                    <div class="close-btn text-right">
+                        <a href="javascript:void(0)" class="fw900" data-dismiss="modal">X</a>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <form class="" action="{{ route('wallet.recharge') }}" method="post">
@@ -123,10 +123,10 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="filterTransModalLabel">Filter</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span class="fw700" aria-hidden="true">X</span>
-                    </button>
+                    <h5 class="modal-title" id="filterTransModalLabel">Filter</h5>
+                    <div class="close-btn text-right">
+                        <a href="javascript:void(0)" class="fw900" data-dismiss="modal">X</a>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <div class="py-2 px-3">
@@ -134,23 +134,28 @@
                             @csrf
                             <div class="form-group">
                                 <label for="from_date" class="fw500">From Date</label>
-                                <input type="date" class="form-control" name="from_date" id="from_date" value="{{$request->from_date ?? ''}}"/>
+                                <input type="date" class="form-control" name="from_date" id="from_date"
+                                       value="{{$request->from_date ?? ''}}"/>
                             </div>
                             <div class="form-group pb-3">
                                 <label for="from_date" class="fw500">To Date</label>
-                                <input type="date" class="form-control" name="to_date" id="to_date" value="{{$request->to_date ?? ''}}"/>
+                                <input type="date" class="form-control" name="to_date" id="to_date"
+                                       value="{{$request->to_date ?? ''}}"/>
                             </div>
                             <div class="form-group pb-3">
                                 <label for="from_date" class="fw500">Transaction Type</label>
 
                                 <div class="switch">
-                                    <input type="radio" class="switch-input" name="view" value="all" id="all" @if(isset($request->view) && $request->view == 'all') checked @endif>
+                                    <input type="radio" class="switch-input" name="view" value="all" id="all"
+                                           @if(isset($request->view) && $request->view == 'all') checked @endif>
                                     <label for="all" class="switch-label switch-label-all mb-0">All</label>
 
-                                    <input type="radio" class="switch-input" name="view" value="credit" id="credit" @if(isset($request->view) && $request->view == 'credit') checked @endif/>
+                                    <input type="radio" class="switch-input" name="view" value="credit" id="credit"
+                                           @if(isset($request->view) && $request->view == 'credit') checked @endif/>
                                     <label for="credit" class="switch-label switch-label-in">Credit</label>
 
-                                    <input type="radio" class="switch-input" name="view" value="debit" id="debit" @if(isset($request->view) && $request->view == 'debit') checked @endif/>
+                                    <input type="radio" class="switch-input" name="view" value="debit" id="debit"
+                                           @if(isset($request->view) && $request->view == 'debit') checked @endif/>
                                     <label for="debit" class="switch-label switch-label-out">Debit</label>
 
                                     <span class="switch-selection"></span>
