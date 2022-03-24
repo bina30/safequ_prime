@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="btns text-center pt-3">
-                                <a href="#" class="fsize12 fw500">
+                                <a href="{{ route('invoice.download', $order->id) }}" class="fsize12 fw500">
                                     <i class="fad fa-file-download text-primary"></i> &nbsp; Download invoice
                                 </a>
                                 {{-- <a href="#" class="fsize12 fw500">Repeat</a> --}}

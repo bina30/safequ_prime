@@ -31,7 +31,7 @@
                             </div>
 
                             <div class="py-1">
-                                <a href="" class="fsize13">
+                                <a href="{{ route('invoice.download', $detail->order->id) }}" class="fsize13">
                                     <i class="fad fa-file-download text-primary"></i> &nbsp; Download invoice
                                 </a>
                             </div>
