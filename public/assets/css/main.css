@@ -2783,3 +2783,8 @@ input[type=checkbox]:checked+.check-box::before,
     font-size: 12px !important;
     padding-left: 25px !important;;
 }
+
+
+.btn-no {
+    padding: 9px 20px;
+}
