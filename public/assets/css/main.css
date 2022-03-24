@@ -2783,3 +2783,14 @@ input[type=checkbox]:checked+.check-box::before,
     font-size: 12px !important;
     padding-left: 25px !important;;
 }
+
+.item-tags {
+    overflow-x: auto;
+}
+
+.item-tags li {
+    margin: 0;
+    padding: 5px 15px;
+    white-space: nowrap;
+    margin: auto;
+}
