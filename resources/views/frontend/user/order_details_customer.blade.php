@@ -28,17 +28,19 @@
                                     <p class="body-txt fsize12 mb-0">{{ Auth::user()->phone }}</p>
                                 </div>
                             </div>
-                            {{-- <div class="btns text-center pt-3">
-                                <a href="#" class="fsize12 fw500">Track</a>
-                                <a href="#" class="fsize12 fw500">Repeat</a>
-                            </div> --}}
+                            <div class="btns text-center pt-3">
+                                <a href="#" class="fsize12 fw500">
+                                    <i class="fad fa-file-download text-primary"></i> &nbsp; Download invoice
+                                </a>
+                                {{-- <a href="#" class="fsize12 fw500">Repeat</a> --}}
+                            </div>
                         </div>
 
                         <div class="ord-details py-4 px-3 primary-color-bg mt-4">
-                            <p class="text-white fw600 mb-2">Order Id: &nbsp; <span class="text-white orderId">
+                            <p class="text-white fw600 pb-1 mb-2">Order Id: &nbsp; <span class="text-white orderId">
                                     #{{ $order->code }}</span></p>
 
-                            <p class="text-white pb-2">Time: <span class="text-white dateTime"> &nbsp;
+                            <p class="text-white pb-1 mb-2">Time: <span class="text-white dateTime"> &nbsp;
                                     {{ date('d M, Y H:i A', strtotime($order->created_at)) }}</span>
                             </p>
 

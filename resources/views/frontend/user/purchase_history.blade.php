@@ -30,7 +30,13 @@
                                 </div>
                             </div>
 
-                            <div class="delivery-status d-flex justify-content-between align-items-start pt-3">
+                            <div class="py-1">
+                                <a href="" class="fsize13">
+                                    <i class="fad fa-file-download text-primary"></i> &nbsp; Download invoice
+                                </a>
+                            </div>
+
+                            <div class="delivery-status d-flex justify-content-between align-items-start pt-2">
                                 <p class="mb-0 fsize13 status text-success">
                                     @if($detail->delivery_status == 'delivered')
                                         Delivered on {{ date("d F", strtotime($detail->product->purchase_end_date. "+".$detail->product->est_shipping_days." day")) }}
