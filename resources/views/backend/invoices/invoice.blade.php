@@ -110,7 +110,7 @@
 				<thead>
 	                <tr class="gry-color" style="background: #eceff4;">
 	                    <th width="35%" class="text-left">{{ translate('Product Name') }}</th>
-						<th width="15%" class="text-left">{{ translate('Delivery Type') }}</th>
+<!--						<th width="15%" class="text-left">{{ translate('Delivery Type') }}</th>-->
 	                    <th width="10%" class="text-left">{{ translate('Qty') }}</th>
 	                    <th width="15%" class="text-left">{{ translate('Unit Price') }}</th>
 	                    <th width="10%" class="text-left">{{ translate('Tax') }}</th>
@@ -122,7 +122,7 @@
 		                @if ($orderDetail->product != null)
 							<tr class="">
 								<td>{{ $orderDetail->product->name }} @if($orderDetail->variation != null) ({{ $orderDetail->variation }}) @endif</td>
-								<td>
+<!--								<td>
 									@if ($order->shipping_type != null && $order->shipping_type == 'home_delivery')
 										{{ translate('Home Delivery') }}
 									@elseif ($order->shipping_type == 'pickup_point')
@@ -130,7 +130,7 @@
 											{{ $order->pickup_point->getTranslation('name') }} ({{ translate('Pickip Point') }})
 										@endif
 									@endif
-								</td>
+								</td>-->
 								<td class="">{{ $orderDetail->quantity }}</td>
 								<td class="currency">{{ single_price($orderDetail->price/$orderDetail->quantity) }}</td>
 								<td class="currency">{{ single_price($orderDetail->tax/$orderDetail->quantity) }}</td>
@@ -153,10 +153,10 @@
 		        <tbody>
 			        <tr>
 			            <td class="text-left">
-                            @php
+                            {{--@php
                                 $removedXML = '<?xml version="1.0" encoding="UTF-8"?>';
                             @endphp
-                            {!! str_replace($removedXML,"", QrCode::size(100)->generate($order->code)) !!}
+                            {!! str_replace($removedXML,"", QrCode::size(100)->generate($order->code)) !!}--}}
 			            </td>
 			            <td>
 					        <table class="text-right sm-padding small strong">
