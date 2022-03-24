@@ -1650,6 +1650,10 @@ button.btn-before-none::before,
     color: #ffffff !important;
 }
 
+.btns a:hover i {
+    color: #ffffff !important;
+}
+
 .order-data table td {
     padding: 0.35rem;
     font-size: 0.83rem;
