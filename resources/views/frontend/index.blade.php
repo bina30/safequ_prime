@@ -111,21 +111,27 @@
                                                 <h6 class="fw700 mb-1">{{ $community->name }}</h6>
                                                 <p class="mb-0 body-txt">{{ $community->address }}</p>
                                             </div>
-                                            <div class="card-members pb-3">
+
+                                            <div class="card-members  @if(count($community->orders->unique('user_id')) > 0) pb-3 @else pb-5 @endif">
                                                 <div class="mbr-img">
-                                                    @foreach($community->orders->unique('user_id') as $order)
-                                                        <img src="{{ uploaded_asset($order->user->avatar_original) }}"
-                                                             onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                    @foreach($community->orders->unique('user_id') as $i => $order)
+                                                        @if($i < 5)
+                                                            <img src="{{ uploaded_asset($order->user->avatar_original) }}"
+                                                                 onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                        @endif
                                                     @endforeach
                                                 </div>
-                                                <div class="mbr-cnt">
-                                                    <p class="mb-0 body-txt">{{count($community->orders->unique('user_id'))}} Members</p>
-                                                </div>
+                                                @if(count($community->orders->unique('user_id')) > 0)
+                                                    <div class="mbr-cnt">
+                                                        <p class="mb-0 body-txt">{{count($community->orders->unique('user_id')) > 1 ? count($community->orders->unique('user_id')).' Members' : count($community->orders->unique('user_id')).' Member' }}</p>
+                                                    </div>
+                                                @endif
                                             </div>
 
                                             @if(session()->has('shop_slug') && session()->get('shop_slug') != $community->slug)
                                                 <a href="javascript:void(0);"
-                                                   class="btn primary-btn btn-block fw600 text-white" onclick="confrimCommunityChange('{{ route('shop.visit', $community->slug) }}');">JOIN</a>
+                                                   class="btn primary-btn btn-block fw600 text-white"
+                                                   onclick="confrimCommunityChange('{{ route('shop.visit', $community->slug) }}');">JOIN</a>
                                             @else
                                                 <a href="{{ route('shop.visit', $community->slug) }}"
                                                    class="btn primary-btn btn-block fw600 text-white">JOIN</a>
@@ -183,7 +189,7 @@
                                         how you want your day sorted and we will do the heavy lifting for you.</p>
 
                                     <p class="fw700 text-center">- Vinod Shukla <span
-                                            class="body-txt fsize12">CEO</span>
+                                                class="body-txt fsize12">CEO</span>
                                     </p>
                                 </div>
                             </div>
@@ -214,8 +220,9 @@
                                     <h6> Are you sure you want to leave {{ session()->get('shop_name') }}
                                         community ? </h6>
                                     <p class="mb-0">
-                                        <i class="fad primary-color fa-exclamation-circle fsize14" aria-hidden="true"></i> <span
-                                            class="fsize12 body-txt ordered-qty"> Cart items will get removed.
+                                        <i class="fad primary-color fa-exclamation-circle fsize14"
+                                           aria-hidden="true"></i> <span
+                                                class="fsize12 body-txt ordered-qty"> Cart items will get removed.
                                         </span>
                                     </p>
                                 </div>
@@ -223,7 +230,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn primary-btn fw600 text-white">Yes</button>
-                            <button type="button" class="btn btn-secondary btn-no fw600 text" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-secondary btn-no fw600 text" data-dismiss="modal">No
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -278,8 +286,7 @@
             })
         })
 
-        function confrimCommunityChange(url)
-        {
+        function confrimCommunityChange(url) {
             $('#changeCommunityModal').modal('show');
             $('#changeCommunityModal #change-community-form').attr('action', url);
         }
