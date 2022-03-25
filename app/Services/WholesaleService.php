@@ -27,19 +27,29 @@ class WholesaleService
         }
 
         $product->name = $request->name;
-        $product->added_by = $request->added_by;
+        $added_by = $request->added_by;
         if(Auth::user()->user_type == 'seller'){
             $product->user_id = Auth::user()->id;
             if(get_setting('product_approve_by_admin') == 1) {
                 $product->approved = 0;
             }
-        }
-        else{
+        } elseif (intval($request->seller_id) > 0) {
+            $product->user_id = $request->seller_id;
+            $added_by = 'seller';
+        } else{
             $product->user_id = User::where('user_type', 'admin')->first()->id;
         }
+        $product->added_by = $added_by;
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
         $product->barcode = $request->barcode;
+        $product->manufacturer_location = $request->manufacturer_location;
+
+        if ($request->purchase_date_range != null) {
+            $purchase_date_var = explode(" TO ", $request->purchase_date_range);
+            $product->purchase_start_date = date('Y-m-d H:i:s', strtotime($purchase_date_var[0]));
+            $product->purchase_end_date = date('Y-m-d H:i:s', strtotime($purchase_date_var[1]));
+        }
 
         if (addon_is_activated('refund_request')) {
             if ($request->refundable != null) {
@@ -199,6 +209,15 @@ class WholesaleService
 
     public function update(Request $request , $id){
         $product                    = Product::findOrFail($id);
+
+        if (intval($request->seller_id) > 0) {
+            $product->user_id = $request->seller_id;
+            $product->added_by = 'seller';
+        } else {
+            $product->user_id = User::where('user_type', 'admin')->first()->id;
+            $product->added_by = 'admin';
+        }
+
         $product->category_id       = $request->category_id;
         $product->brand_id          = $request->brand_id;
         $product->barcode           = $request->barcode;
@@ -206,6 +225,13 @@ class WholesaleService
         $product->featured = 0;
         $product->todays_deal = 0;
         $product->is_quantity_multiplied = 0;
+        $product->manufacturer_location = $request->manufacturer_location;
+
+        if ($request->purchase_date_range != null) {
+            $purchase_date_var = explode(" TO ", $request->purchase_date_range);
+            $product->purchase_start_date = date('Y-m-d H:i:s', strtotime($purchase_date_var[0]));
+            $product->purchase_end_date = date('Y-m-d H:i:s', strtotime($purchase_date_var[1]));
+        }
 
         if (addon_is_activated('refund_request')) {
             if ($request->refundable != null) {
@@ -399,7 +425,7 @@ class WholesaleService
             Cart::where('product_id', $id)->delete();
 
             flash(translate('Product has been deleted successfully'))->success();
-            
+
             Artisan::call('view:clear');
             Artisan::call('cache:clear');
         }
