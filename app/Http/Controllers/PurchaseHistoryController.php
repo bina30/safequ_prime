@@ -16,12 +16,18 @@ class PurchaseHistoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-//        $orders = Order::where('user_id', Auth::user()->id)->orderBy('code', 'desc')->get();
         $user = User::where('id', Auth::user()->id)->first();
-        $order_details = (isset($user->order_details) && !empty($user->order_details) ? $user->order_details : []);
-        return view('frontend.user.purchase_history', compact('order_details', 'user'));
+        $dropdownFilter = '';
+        if (isset($request->dropdownFilter) && $request->dropdownFilter == "delivered") {
+            $dropdownFilter = 'delivered';
+            $orders = $user->orders->where('delivery_status', '=', 'delivered')->all();
+        } else {
+            $dropdownFilter = 'pending';
+            $orders = $user->orders->where('delivery_status', '!=', 'delivered')->all();
+        }
+        return view('frontend.user.purchase_history', compact('orders', 'user', 'dropdownFilter'));
     }
 
     public function digital_index()
