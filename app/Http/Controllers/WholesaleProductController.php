@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use CoreComponentRepository;
 use App\Models\Category;
@@ -22,7 +23,8 @@ class WholesaleProductController extends Controller
         $sort_search = null;
         $seller_id  = null;
 
-        $products = Product::where('wholesale_product', 1)->orderBy('created_at', 'desc');
+//        $products = Product::where('wholesale_product', 1)->orderBy('created_at', 'desc');
+        $products = Product::orderBy('created_at', 'desc');
 
         if ($request->has('user_id') && $request->user_id != null) {
             $products = $products->where('user_id', $request->user_id);
@@ -92,7 +94,7 @@ class WholesaleProductController extends Controller
             $products = $products->where('user_id', $request->user_id);
             $seller_id = $request->user_id;
         }
-        
+
         if ($request->type != null){
             $var = explode(",", $request->type);
             $col_name = $var[0];
@@ -111,7 +113,7 @@ class WholesaleProductController extends Controller
         return view('wholesale.products.index', compact('products','type', 'col_name', 'query', 'sort_search','seller_id'));
     }
 
-    // Wholesale Products list in Seller panel 
+    // Wholesale Products list in Seller panel
     public function wholesale_products_list_seller(Request $request)
     {
         $sort_search = null;
@@ -144,8 +146,12 @@ class WholesaleProductController extends Controller
             ->where('digital', 0)
             ->with('childrenCategories')
             ->get();
-        return view('wholesale.products.create', compact('categories'));
-   
+
+        $users = User::where('user_type', 'seller')
+            ->where('banned', 0)
+            ->get();
+
+        return view('wholesale.products.create', compact('categories', 'users'));
     }
 
     public function product_create_seller()
@@ -168,7 +174,7 @@ class WholesaleProductController extends Controller
             else{
                 return view('wholesale.frontend.seller_products.create', compact('categories'));
             }
-        }     
+        }
     }
 
     /**
@@ -178,7 +184,7 @@ class WholesaleProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function product_store_admin(Request $request)
-    { 
+    {
         (new WholesaleService)->store($request);
         return redirect()->route('wholesale_products.in_house');
     }
@@ -190,7 +196,7 @@ class WholesaleProductController extends Controller
                 flash(translate('Upload limit has been reached. Please upgrade your package.'))->warning();
                 return back();
             }
-        }  
+        }
 
         (new WholesaleService)->store($request);
         return redirect()->route('seller.wholesale_products_list');
@@ -213,7 +219,11 @@ class WholesaleProductController extends Controller
             ->with('childrenCategories')
             ->get();
 
-        return view('wholesale.products.edit', compact('product', 'categories', 'tags','lang'));
+        $users = User::where('user_type', 'seller')
+            ->where('banned', 0)
+            ->get();
+
+        return view('wholesale.products.edit', compact('product', 'categories', 'tags','lang', 'users'));
     }
 
     public function product_edit_seller(Request $request, $id)
@@ -229,11 +239,11 @@ class WholesaleProductController extends Controller
             ->where('digital', 0)
             ->with('childrenCategories')
             ->get();
-            
+
         return view('wholesale.frontend.seller_products.edit', compact('product', 'categories', 'tags','lang'));
     }
 
-   
+
     public function product_update_admin(Request $request, $id)
     {
         (new WholesaleService)->update($request, $id);

@@ -5,12 +5,12 @@
 <div class="aiz-titlebar text-left mt-2 mb-3">
     <div class="row align-items-center">
         <div class="col-auto">
-            <h1 class="h3">{{translate('All Wholesale Products')}}</h1>
+            <h1 class="h3">{{translate('All Products')}}</h1>
         </div>
         @if($type != 'Seller')
         <div class="col text-right">
             <a href="{{ route('wholesale_product_create.admin') }}" class="btn btn-circle btn-info">
-                <span>{{translate('Add New Wholesale Product')}}</span>
+                <span>{{translate('Add New Product')}}</span>
             </a>
         </div>
         @endif
@@ -22,9 +22,9 @@
     <form class="" id="sort_products" action="" method="GET">
         <div class="card-header row gutters-5">
             <div class="col">
-                <h5 class="mb-md-0 h6">{{ translate('All Wholesale Product') }}</h5>
+                <h5 class="mb-md-0 h6">{{ translate('All Product') }}</h5>
             </div>
-            
+
             <div class="dropdown mb-2 mb-md-0">
                 <button class="btn border dropdown-toggle" type="button" data-toggle="dropdown">
                     {{translate('Bulk Action')}}
@@ -33,7 +33,7 @@
                     <a class="dropdown-item" href="#" onclick="bulk_delete()"> {{translate('Delete selection')}}</a>
                 </div>
             </div>
-            
+
             @if($type != 'In House')
             <div class="col-md-2 ml-auto">
                 <select class="form-control form-control-sm aiz-selectpicker mb-2 mb-md-0" id="user_id" name="user_id" onchange="sort_products()">
@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="card-body">
             <table class="table aiz-table mb-0">
                 <thead>
@@ -200,21 +200,21 @@
 
 @section('script')
     <script type="text/javascript">
-        
+
         "use strict";
-        
+
         $(document).on("change", ".check-all", function() {
             if(this.checked) {
                 // Iterate each checkbox
                 $('.check-one:checkbox').each(function() {
-                    this.checked = true;                        
+                    this.checked = true;
                 });
             } else {
                 $('.check-one:checkbox').each(function() {
-                    this.checked = false;                       
+                    this.checked = false;
                 });
             }
-          
+
         });
 
         function update_todays_deal(el){
@@ -250,7 +250,7 @@
                 }
             });
         }
-        
+
         function update_approved(el){
             if(el.checked){
                 var approved = 1;
@@ -259,8 +259,8 @@
                 var approved = 0;
             }
             $.post('{{ route('products.approved') }}', {
-                _token      :   '{{ csrf_token() }}', 
-                id          :   el.value, 
+                _token      :   '{{ csrf_token() }}',
+                id          :   el.value,
                 approved    :   approved
             }, function(data){
                 if(data == 1){
@@ -292,7 +292,7 @@
         function sort_products(el){
             $('#sort_products').submit();
         }
-        
+
         function bulk_delete() {
             var data = new FormData($('#sort_products')[0]);
             $.ajax({
