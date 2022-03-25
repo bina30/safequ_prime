@@ -519,6 +519,20 @@ function remove_invalid_charcaters($str)
     return str_ireplace(array('"'), '\"', $str);
 }
 
+function calculateShippingCost($carts)
+{
+    $shipping = 0;
+    if ($carts && count($carts) > 0) {
+        foreach ($carts as $key => $cartItem) {
+            $cartItem['shipping_cost'] = getShippingCost($carts, $key);
+            $shipping += $cartItem['shipping_cost'];
+            $cartItem->save();
+        }
+    }
+
+    return $shipping;
+}
+
 function getShippingCost($carts, $index)
 {
     $admin_products = array();
