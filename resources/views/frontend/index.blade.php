@@ -251,7 +251,7 @@
             })
 
             $('.community-slider').owlCarousel({
-                loop: false,
+                loop: true,
                 autoplay: true,
                 autoplayTimeout: 4000,
                 autoplayHoverPause: false,
