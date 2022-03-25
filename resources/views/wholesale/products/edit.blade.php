@@ -56,7 +56,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row" id="brand">
+<!--                        <div class="form-group row" id="brand">
                             <label class="col-lg-3 col-from-label">{{translate('Brand')}}</label>
                             <div class="col-lg-8">
                                 <select class="form-control aiz-selectpicker" name="brand_id" id="brand_id" data-live-search="true">
@@ -66,7 +66,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group row">
                             <label class="col-lg-3 col-from-label">{{translate('Unit')}} <i class="las la-language text-danger" title="{{translate('Translatable')}}"></i> </label>
                             <div class="col-lg-8">
