@@ -51,7 +51,7 @@
                                 $shipping += $product_shipping_cost;
 
                                 $sub_total = ($cartItem['price'] + $cartItem['tax']) * $cartItem['quantity'];
-                                $total = $total + ($cartItem['price'] + $cartItem['tax']) * $cartItem['quantity'];
+                                $total = $total + ($cartItem['price'] + $cartItem['tax']) * $cartItem['quantity'] ;
                             @endphp
                             <div class="crtord-itm-card mb-4 p-3">
                                 <div class="img-name w-100">
@@ -103,7 +103,9 @@
                                 </div>
                             </div>
                         @endforeach
-
+                        @php
+                            $total += $shipping;
+                        @endphp
                         @if($total == 0)
                             <div class="row">
                                 <div class="col-xl-8 mx-auto">
@@ -130,7 +132,7 @@
                                 <div class="payings py-4">
                                     <hr class="b-1">
                                     <h6>
-                                        <ins class="fw500">Shipping Cost :</ins>
+                                        <ins class="fw500">Shipping cost :</ins>
                                         <ins class="fw500 text-right"> {!! single_price_web($shipping) !!} </ins>
                                     </h6>
                                     <h5>
