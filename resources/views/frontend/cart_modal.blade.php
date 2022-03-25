@@ -108,7 +108,7 @@
                 },
                 type:"POST",
                 url: '{{ route('products.variant_price') }}',
-                data: { id: $('#product_id').val(), qty: qty },
+                data: { id: $('#product_id').val(), quantity: qty },
                 success: function(data){
                     if (data.total_price != '') {
                         $('#total_price').html('');

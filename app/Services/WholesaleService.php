@@ -226,6 +226,7 @@ class WholesaleService
         $product->todays_deal = 0;
         $product->is_quantity_multiplied = 0;
         $product->manufacturer_location = $request->manufacturer_location;
+        $product->wholesale_product = 1;
 
         if ($request->purchase_date_range != null) {
             $purchase_date_var = explode(" TO ", $request->purchase_date_range);

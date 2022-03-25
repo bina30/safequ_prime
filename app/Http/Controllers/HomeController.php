@@ -508,8 +508,8 @@ class HomeController extends Controller
             'variation'   => $str,
             'max_limit'   => $max_limit,
             'in_stock'    => $in_stock,
-            'total_qty'   => $request->qty,
-            'total_price' => single_price_web($request->qty * $price)
+            'total_qty'   => $request->quantity,
+            'total_price' => single_price_web($request->quantity * $price)
         );
     }
 
