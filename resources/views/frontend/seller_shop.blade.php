@@ -91,21 +91,71 @@
                                         </div>
                                     </div>
 
-                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#orderListModal">
-                                        <div class="card-members">
-                                            <div class="mbr-img pr-3">
-                                                <img src="{{ static_asset('assets/img/user-2.webp') }}"
-                                                     alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-3.webp') }}"
-                                                     alt="Community Img">
-                                                <img src="{{ static_asset('assets/img/user-4.webp') }}"
-                                                     alt="Community Img">
+                                    @if(count($expired_product->orders->unique('user_id')) > 0)
+                                        <a href="javascript:void(0)" data-toggle="modal"
+                                           data-target="#orderListModal_{{$expired_product->id}}">
+                                            <div class="card-members">
+                                                <div class="mbr-img pr-3">
+                                                    @foreach ($expired_product->orders->unique('user_id') as $i => $order)
+                                                        @if($i < 5)
+                                                            <img src="{{ uploaded_asset($order->user->avatar_original) }}"
+                                                                 onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                                <div class="mbr-cnt pl-2">
+                                                    <p class="mb-0 text-primary fsize13">ordered</p>
+                                                </div>
                                             </div>
-                                            <div class="mbr-cnt pl-2">
-                                                <p class="mb-0 text-primary fsize13">ordered</p>
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+
+                            {{-- Users Order list Modal --}}
+                            <div class="modal fade orderListModal" id="orderListModal_{{ $expired_product->id }}"
+                                 tabindex="-1"
+                                 aria-labelledby="orderListModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Who Have Ordered</h5>
+                                            <div class="close-btn text-right">
+                                                <a href="javascript:void(0)" class="fw900"
+                                                   data-dismiss="modal">X</a>
                                             </div>
                                         </div>
-                                    </a>
+                                        <div class="modal-body">
+                                            @foreach ($expired_product->orderDetails as $orderDetail)
+                                                <div class="item-details px-sm-3">
+                                                    <div class="order-list">
+                                                        <div class="item-card p-3 mb-3">
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div class="pr-2">
+                                                                    <p class="fw600 fsize15 title-txt mb-1">
+                                                                        {{ $orderDetail->order->user->name }}</p>
+                                                                    <p class="mb-0 lh-17">
+                                                                        <span class="fsize13 body-txt ordered-qty">
+                                                                            {{ $orderDetail->quantity }}{{ $expired_product->unit }}
+                                                                        </span>
+                                                                        <span class="fsize13 body-txt ordered-qty">
+                                                                            &nbsp;&bull;&nbsp;
+                                                                            {{ date('d F, Y H:i', $orderDetail->order->date) }}
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="user-img-sm m-0">
+                                                                    <img src="{{ uploaded_asset($orderDetail->order->user->avatar_original) }}"
+                                                                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
