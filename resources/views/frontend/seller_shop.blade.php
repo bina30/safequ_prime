@@ -40,7 +40,7 @@
 
         <div class="breadcrumbs high">
             <div class="container">
-                <h5 class="mb-0 fw700 text-white text-uppercase">{{ $shop->name }} Community</h5>
+                <h5 class="mb-0 fw700 text-white text-uppercase">Your Community - {{ $shop->name }}</h5>
             </div>
         </div>
 
@@ -179,7 +179,7 @@
                                                  alt="{{ $product->name }}"/>
                                         </div>
                                         <div class="nxt-delivery">
-                                            <span class="text-white">Next Shipment</span>
+                                            <span class="text-white">Next Delivery</span>
                                             <h6 class="mb-0 mt-2 text-center mx-auto">
                                                 {{ date('d', strtotime($product->purchase_end_date)) }}
                                                 <br>
@@ -192,9 +192,9 @@
                                             <h6 class="pt-1 fw700 mb-1">{{ $product->name }}</h6>
                                             <p class="fw600f fsize13 body-txt mb-2">
                                                 Variety: {{ $product->category->name }}</p>
-                                            <p class="rating-stars">
-                                                {{ renderStarRating($product->rating) }}
-                                            </p>
+{{--                                            <p class="rating-stars">--}}
+{{--                                                {{ renderStarRating($product->rating) }}--}}
+{{--                                            </p>--}}
                                             <p class="body-txt fsize13 font-italic pb-1">
                                                 <i class="fas fa-map-marker-alt"></i>
                                                 {{ $product->manufacturer_location }}
@@ -225,10 +225,9 @@
                                         </div>
 
                                         <div class="order-progress text-center pt-3 px-2">
-                                            <p class="fw600 target-qty">Order
-                                                Target: {{ $product->min_qty }} {{ $product->unit }}&nbsp;
+                                            <p class="fw600 target-qty">Available Harvest: {{ $product->min_qty }} {{ $product->unit }}&nbsp;
                                                 <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top"
-                                                   title="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro beatae dolorem ea veritatis.">
+                                                   title="Unlock special community benefits when the available harvest is booked out by your community.">
                                                     <i class="fad fa-info-circle animated faa-tada align-middle"></i>
                                                 </a>
                                             </p>
