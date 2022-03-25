@@ -45,7 +45,7 @@
                                                 {{translate(' has been '. ucfirst(str_replace('_', ' ', $notification->data['status'])))}}
                                             </p>
                                             <p class="mb-0 fsize13 body-txt ordered-qty">
-                                                {{ date("d M, Y H:i", strtotime($notification->created_at)) }}
+                                                {{ date("d M Y H:i", strtotime($notification->created_at)) }}
                                             </p>
                                         </div>
                                     </div>
