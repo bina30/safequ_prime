@@ -68,7 +68,7 @@
                                 <tbody>
                                 @foreach ($order->orderDetails as $key => $orderDetail)
                                     <tr>
-                                        <td>&bull; {{ $orderDetail->product->getTranslation('name') }}</td>
+                                        <td>{{ $orderDetail->product->getTranslation('name') }}</td>
                                         <td class="text-center">{{ $orderDetail->quantity }} {{ $orderDetail->product->unit }}</td>
                                         <td class="text-right">{!! single_price_web($orderDetail->price) !!} </td>
                                     </tr>

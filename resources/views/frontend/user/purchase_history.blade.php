@@ -7,7 +7,7 @@
                 <div class="col-lg-5 col-md-7 col-sm-9 px-0">
 
                     <div class="flex-acenter-jbtw pb-4">
-                        <h5 class="fw700 title-txt mb-1">My orders</h5>
+                        <h5 class="fw700 title-txt mb-1">My Farm Orders</h5>
 
                         <form action="{{ route('purchase_history.index') }}" method="GET" id="order-filter-form">
                             <select name="dropdownFilter" id="dropdownFilter" class="form-control p-0 m-0" onchange="this.form.submit();">
@@ -56,7 +56,7 @@
                                                     @if ($detail->delivery_status == 'delivered')
                                                         {{ date('d M Y',strtotime($detail->updated_at)).' [Delivered]' }}
                                                     @else
-                                                        {{ date('d M Y',strtotime($detail->product->purchase_end_date . '+' . $detail->product->est_shipping_days . ' day')) }}
+                                                        {{ date('d M Y',strtotime($detail->product->purchase_end_date . '+' . intval($detail->product->est_shipping_days) . ' days')) }}
                                                     @endif
                                                 </td>
                                             </tr>

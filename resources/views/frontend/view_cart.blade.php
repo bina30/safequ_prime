@@ -15,7 +15,7 @@
             <div class="container py-4">
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-7 px-1">
-                        <h6 class="fw600 title-txt pb-2 mb-2">My Cart</h6>
+                        <h6 class="fw600 title-txt pb-2 mb-2">My Exotic Farm Fresh Order List</h6>
 
                         @if($user_data && $user_data->address != '')
                             <div class="delivery-addr p-3 flex-astart-jstart mb-3">
@@ -145,6 +145,8 @@
                                 <div class="pay-method pb-3">
 
                                     @if(Auth::user())
+                                        <p class="fsize12">Complete your payment easily using the below options to confirm your farm
+                                            fresh exotic order:</p>
                                         <div class="other-gatewy p-3 mb-3">
                                             <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
                                                 <input type="radio" id="pay-option2" name="payment_option"
