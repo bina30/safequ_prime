@@ -501,6 +501,7 @@ class HomeController extends Controller
         $price += $tax;
 
         return array(
+            'unit_price'  => single_price_web($price),
             'price'       => single_price_web($price * $request->quantity),
             'quantity'    => $quantity,
             'digital'     => $product->digital,

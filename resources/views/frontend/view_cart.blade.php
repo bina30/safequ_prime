@@ -1,9 +1,5 @@
 @extends('frontend.layouts.app', ['header_show' => true, 'header2' => true, 'footer' => false])
 
-@php
-    $total = 0;
-@endphp
-
 @section('content')
     <main class="main-tag mt-0">
 
@@ -24,7 +20,7 @@
                         @if($user_data && $user_data->address != '')
                             <div class="delivery-addr p-3 flex-astart-jstart mb-3">
                                 <input type="checkbox" name="delivery_address" id="delivery_address" class="mr-2"
-                                       checked />
+                                       checked/>
                                 <span class="check-box"></span>
 
                                 <label for="delivery_address" class="body-txt mb-0">
@@ -34,7 +30,7 @@
                         @else
                             <div class="text-center">
                                 <a href="{{ route('profile') }}">
-                                    <button class="btn primary-btn btn-round py-1"> Add Address </button>
+                                    <button class="btn primary-btn btn-round py-1"> Add Address</button>
                                 </a>
                             </div>
                             <hr>
@@ -42,10 +38,18 @@
                         <br>
                         <!-- Item Card -->
 
+                        @php
+                            $total = 0;
+                            $shipping = 0;
+                        @endphp
                         @foreach ($carts as $key => $cartItem)
                             @php
                                 $product = \App\Models\Product::find($cartItem['product_id']);
                                 $product_stock = $product->stocks->where('variant', $cartItem['variation'])->first();
+
+                                $product_shipping_cost = $cartItem['shipping_cost'];
+                                $shipping += $product_shipping_cost;
+
                                 $sub_total = ($cartItem['price'] + $cartItem['tax']) * $cartItem['quantity'];
                                 $total = $total + ($cartItem['price'] + $cartItem['tax']) * $cartItem['quantity'];
                             @endphp
@@ -53,7 +57,9 @@
                                 <div class="img-name w-100">
                                     <div class="p-0 mxw-85px">
                                         <div class="item-img text-center">
-                                            <img src="{{ uploaded_asset($product->photos) }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" alt="{{ $product->name }}" />
+                                            <img src="{{ uploaded_asset($product->photos) }}"
+                                                 onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                                 alt="{{ $product->name }}"/>
                                         </div>
                                     </div>
                                     <div class="pl-3 w-100">
@@ -63,26 +69,34 @@
                                         <span class="act-price fw700">
                                             {!! single_price_web($sub_total) !!}
                                         </span>
-                                                <i class="body-txt fsize12">&nbsp; <br class="sm" />
-                                                    ({!! single_price_web($product->unit_price) !!} / {{$product->unit}})
+                                                <i class="body-txt fsize12">&nbsp; <br class="sm"/>
+                                                    ({!! single_price_web($product->unit_price) !!} / {{$product->unit}}
+                                                    )
                                                 </i>
                                             </p>
                                             <div class="action">
                                                 <div class="item-count flex-acenter-jbtw">
                                                     <button class="btn"
                                                             onclick="this.parentNode.querySelector('input[type=number]').stepDown();"
-                                                            type="button" data-field="quantity[{{ $cartItem['id'] }}]" data-cart_id="{{ $cartItem['id'] }}">
+                                                            type="button" data-field="quantity[{{ $cartItem['id'] }}]"
+                                                            data-cart_id="{{ $cartItem['id'] }}">
                                                         <i class="fa fa-minus"></i>
                                                     </button>
-                                                    <input class="quantity" min="1" name="quantity[{{ $cartItem['id'] }}]" value="{{ $cartItem['quantity'] }}"
-                                                           type="number" id="quantity_{{ $cartItem['id'] }}" value="{{ $cartItem['quantity'] }}" min="1" max="{{ $product_stock->qty }}" readonly />
+                                                    <input class="quantity" min="1"
+                                                           name="quantity[{{ $cartItem['id'] }}]"
+                                                           value="{{ $cartItem['quantity'] }}"
+                                                           type="number" id="quantity_{{ $cartItem['id'] }}"
+                                                           value="{{ $cartItem['quantity'] }}" min="1"
+                                                           max="{{ $product_stock->qty }}" readonly/>
                                                     <button class="btn"
                                                             onclick="this.parentNode.querySelector('input[type=number]').stepUp();"
-                                                            type="button" data-field="quantity[{{ $cartItem['id'] }}]" data-cart_id="{{ $cartItem['id'] }}">
+                                                            type="button" data-field="quantity[{{ $cartItem['id'] }}]"
+                                                            data-cart_id="{{ $cartItem['id'] }}">
                                                         <i class="fa fa-plus"></i>
                                                     </button>
                                                 </div>
-                                                <h6 class="mb-0 text-danger fw700 p-2 ml-2" onclick="removeFromCartView(event, {{ $cartItem['id'] }})">X</h6>
+                                                <h6 class="mb-0 text-danger fw700 p-2 ml-2"
+                                                    onclick="removeFromCartView(event, {{ $cartItem['id'] }})">X</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -103,7 +117,8 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('payment.checkout') }}" class="form-default" role="form" method="POST" id="checkout-form">
+                        <form action="{{ route('payment.checkout') }}" class="form-default" role="form" method="POST"
+                              id="checkout-form">
                             @csrf
 
                             @if(count($carts) > 0)
@@ -111,11 +126,15 @@
                             @endif
 
                             @if($total > 0)
-                                <!-- Amount -->
+                            <!-- Amount -->
                                 <div class="payings py-4">
                                     <hr class="b-1">
+                                    <h6>
+                                        <ins class="fw500">Shipping Cost :</ins>
+                                        <ins class="fw500 text-right"> {!! single_price_web($shipping) !!} </ins>
+                                    </h6>
                                     <h5>
-                                        <ins class="fw700">Total : </ins>
+                                        <ins class="fw700">Total :</ins>
                                         <ins class="fw700 text-right"> {!! single_price_web($total) !!} </ins>
                                     </h5>
                                 </div>
@@ -126,8 +145,10 @@
                                     @if(Auth::user())
                                         <div class="other-gatewy p-3 mb-3">
                                             <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
-                                                <input type="radio" id="pay-option2" name="payment_option" value="wallet" tabindex="1"
-                                                       @if($total > Auth::user()->balance) disabled @else checked @endif />
+                                                <input type="radio" id="pay-option2" name="payment_option"
+                                                       value="wallet" tabindex="1"
+                                                       @if($total > Auth::user()->balance) disabled
+                                                       @else checked @endif />
                                                 <span class="align-middle body-txt">
                                                     SafeQu balance
                                                 </span>
@@ -143,7 +164,9 @@
 
                                     <div class="other-gatewy p-3 mb-3">
                                         <label for="pay-option1" class="label-radio mb-0 py-2 d-block">
-                                            <input type="radio" id="pay-option1" name="payment_option" tabindex="1" value="razorpay" @if($total > Auth::user()->balance) checked @endif />
+                                            <input type="radio" id="pay-option1" name="payment_option" tabindex="1"
+                                                   value="razorpay"
+                                                   @if($total > Auth::user()->balance) checked @endif />
                                             <span class="align-middle body-txt">
                                             Razorpay
                                         </span>
@@ -157,7 +180,11 @@
                                         <p class="fsize15 mb-1 body-txt">Total:</p>
                                         <h5 class="fw500 mb-0">{!! single_price_web($total) !!} </h5>
                                     </div>
-                                    <button type="button" id="btn_pay_now" class="btn primary-btn btn-round py-1" onclick="submitOrder(this)" @if(count($carts) == 0 || $user_data->address == '') disabled @endif >Pay Now</button>
+                                    <button type="button" id="btn_pay_now" class="btn primary-btn btn-round py-1"
+                                            onclick="submitOrder(this)"
+                                            @if(count($carts) == 0 || $user_data->address == '') disabled @endif >Pay
+                                        Now
+                                    </button>
                                 </div>
                             @endif
 
@@ -176,12 +203,12 @@
 @section('script')
 
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             updateNavCart($('#item_count').val());
 
-            $('.item-count button').on('click', function() {
+            $('.item-count button').on('click', function () {
                 let cart_id = $(this).data('cart_id');
-                let qty = parseInt($("#quantity_"+cart_id).val());
+                let qty = parseInt($("#quantity_" + cart_id).val());
 
                 $("#itm-cnt").text(qty);
 
@@ -195,41 +222,41 @@
                     $("#itm-cnt").addClass("d3");
                 }
 
-                (qty < 10) ? $("#itm-cnt").removeClass("d2 d3"): "";
+                (qty < 10) ? $("#itm-cnt").removeClass("d2 d3") : "";
 
                 $('#btn_pay_now').attr('disabled', 'disabled');
                 updateQuantity(cart_id, qty);
             })
         })
 
-        function submitOrder(el){
+        function submitOrder(el) {
             $(el).prop('disabled', true);
-            if($('#delivery_address').is(":checked")){
+            if ($('#delivery_address').is(":checked")) {
                 $('#checkout-form').submit();
-            }else{
-                AIZ.plugins.notify('danger','{{ translate('You need to select the address') }}');
+            } else {
+                AIZ.plugins.notify('danger', '{{ translate('You need to select the address') }}');
                 $(el).prop('disabled', false);
             }
         }
 
-        function updateQuantity(cart_id, qty){
+        function updateQuantity(cart_id, qty) {
             $.post('{{ route('cart.updateQuantity') }}', {
-                _token   :  AIZ.data.csrf,
-                id       :  cart_id,
-                quantity :  qty
-            }, function(data){
+                _token: AIZ.data.csrf,
+                id: cart_id,
+                quantity: qty
+            }, function (data) {
                 updateNavCart(data.cart_count);
                 $('#cart_summary').html('');
                 $('#cart_summary').html(data.cart_view);
             });
         }
 
-        function removeFromCartView(e, key){
+        function removeFromCartView(e, key) {
             e.preventDefault();
             $.post('{{ route('cart.removeFromCart') }}', {
-                _token  : AIZ.data.csrf,
-                id      :  key
-            }, function(data){
+                _token: AIZ.data.csrf,
+                id: key
+            }, function (data) {
                 updateNavCart(data.cart_count);
                 $('#cart_summary').html(data.cart_view);
                 AIZ.plugins.notify('success', "{{ translate('Item has been removed from cart') }}");

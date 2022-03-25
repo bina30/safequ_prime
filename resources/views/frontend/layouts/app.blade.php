@@ -233,7 +233,12 @@
         }
 
         function updateNavCart(count){
-            $('.cart-item-count').html(count);
+            if(count > 0){
+                $('.cart-item-count').show();
+                $('.cart-item-count').html(count);
+            } else {
+                $('.cart-item-count').hide();
+            }
         }
 
         function getCartCount(){

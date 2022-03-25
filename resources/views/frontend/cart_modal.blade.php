@@ -58,7 +58,7 @@
                                 {!! single_price_web($product->unit_price) !!}
                             </h4>
                             <i class="body-txt fsize15">
-                                ({!! single_price_web($product->unit_price) !!} / {{ $product->unit }})</i>
+                                (<span id="unit_price">{!! single_price_web($product->unit_price) !!}</span> / {{ $product->unit }})</i>
                            </div>
 
 <!--                        <a href="cart.html">-->
@@ -114,6 +114,7 @@
                         $('#total_price').html('');
                         $('#total_price').html(data.total_price);
                     }
+                    $('#unit_price').html(data.unit_price);
                 }
             });
         }
