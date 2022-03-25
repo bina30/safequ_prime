@@ -519,6 +519,10 @@ h4 .act-price.currency-symbol {
     justify-content: space-between;
 }
 
+.curser-pointer {
+    cursor: pointer;
+}
+
 /* ---------------- Common CSS END ---------------- */
 
 
@@ -1539,7 +1543,9 @@ button.btn-before-none::before,
 
 .iti .iti__flag-container {
     padding: 0;
+    pointer-events: none !important;
 }
+
 
 .iti .iti__flag-container,
 .iti .iti__flag-container .iti__selected-flag {
@@ -2267,6 +2273,19 @@ input[type=checkbox]:checked+.check-box::before,
     }
 }
 
+@media screen and (max-width: 368px) {
+    main {
+        min-height: calc(100vh - 73.3px - 212.45px);
+    }
+}
+
+@media screen and (min-width: 369px) {
+    main {
+        min-height: calc(100vh - 73.3px - 171.69px);
+    }
+
+}
+
 @media screen and (min-width: 360px) {
 
     .item-card .card-top .pricing span,
@@ -2781,7 +2800,8 @@ input[type=checkbox]:checked+.check-box::before,
 
 .cart_wallet_bal {
     font-size: 12px !important;
-    padding-left: 25px !important;;
+    padding-left: 25px !important;
+    ;
 }
 
 
