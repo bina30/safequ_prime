@@ -1,16 +1,26 @@
 @if (isset($footer) && $footer)
     <footer class="primary-color-bg">
         <div class="text-center py-3">
-            <a href="#"><i class="fab fa-facebook-f mx-1"></i></a>
-            <a href="#"><i class="fab fa-instagram mx-1"></i></a>
-            <a href="#"><i class="fab fa-whatsapp mx-1"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-facebook-f mx-1"></i></a>
+            <a href="https://www.instagram.com/safequ.india/" target="_blank"><i class="fab fa-instagram mx-1"></i></a>
+            <a href="https://wa.me/917498107182" target="_blank"><i class="fab fa-whatsapp mx-1"></i></a>
         </div>
         <div class="footer-nav text-center">
             <ul class="mb-0 d-flex justify-content-center flex-wrap">
-                <li><a href="/" class="py-2">Home</a></li>
-                <li><a href="/" class="py-2">Community</a></li>
-                <li><a href="/" class="py-2">Login</a></li>
-                <li><a href="/" class="py-2">Contact Us</a></li>
+                <li><a href="{{ route('home') }}" class="py-2">Home</a></li>
+                <li><a href="#communities" class="py-2">Community</a></li>
+                <li>
+                    <a href="{{ static_asset('assets/docs/TermsAndConditionsBuyer.pdf') }}" target="_blank"
+                        class="py-2">Terms & Conditions</a>
+                </li>
+                <li>
+                    <a href="{{ static_asset('assets/docs/PrivacyPolicy.pdf') }}" target="_blank"
+                        class="py-2">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="{{ static_asset('assets/docs/ReturnAndRefund.pdf') }}" target="_blank"
+                        class="py-2">Return & Refund Policy</a>
+                </li>
             </ul>
         </div>
         <hr class="mb-0">
