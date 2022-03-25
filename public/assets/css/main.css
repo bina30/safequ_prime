@@ -353,6 +353,10 @@ h6 {
     font-size: 18px !important;
 }
 
+.fsize20 {
+    font-size: 20px !important;
+}
+
 .fsize22 {
     font-size: 22px !important;
 }
@@ -727,6 +731,12 @@ footer .footer-nav a {
     text-align: center;
     top: -8px;
     right: -8px;
+}
+
+.navbar .cart-icon span {
+    font-size: 11px !important;
+    line-height: 18px !important;
+    top: -12px;
 }
 
 main.main-tag-mt {
@@ -1248,6 +1258,10 @@ button.btn-before-none::before,
     padding: 35px;
     border-radius: 15px;
     box-shadow: 0 0 15px -8px #b2c3ff;
+}
+
+.dropdownFilter .dropdown-menu {
+    transform: translate3d(-85%, 25px, 0px) !important;
 }
 
 .crtord-itm-card .d-flex {
@@ -2342,6 +2356,10 @@ input[type=checkbox]:checked+.check-box::before,
 
     .w-md-50 {
         width: 50%;
+    }
+
+    .navbar .cart-icon.crt-sm {
+        display: none;
     }
 }
 

@@ -6,7 +6,20 @@
             <div class="row justify-content-center py-4 py-md-5">
                 <div class="col-lg-5 col-md-7 col-sm-9 px-0">
 
-                    <h5 class="fw700 title-txt mb-4">My orders</h5>
+                    <div class="d-flex justify-content-between align-items-center pb-4">
+                        <h5 class="fw700 title-txt">My orders</h5>
+                        <div class="dropdown show dropdownFilter">
+                            <a href="#" role="button" id="dropdownFilter"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fad fa-bars fsize18 py-1 px-2"></i>
+                            </a>
+
+                            <div class="dropdown-menu p-0 my-2" aria-labelledby="dropdownFilter">
+                                <a class="dropdown-item py-2 my-1" href="#">Pending</a>
+                                <a class="dropdown-item py-2 my-1" href="#">Delivered</a>
+                            </div>
+                        </div>
+                    </div>
 
                     @foreach ($order_details as $detail)
                         <div class="ord-item-card p-3 mb-3">
@@ -15,17 +28,20 @@
                                     <div class="pr-2">
                                         <p class="fw600 fsize15 title-txt mb-1">Order # {{ $detail->order->code }}</p>
                                         <p class="mb-0 lh-17">
-                                            <span class="fsize13 body-txt ordered-qty"> {{ $detail->quantity . ' ' . $detail->product->unit }} </span>
+                                            <span class="fsize13 body-txt ordered-qty">
+                                                {{ $detail->quantity . ' ' . $detail->product->unit }} </span>
                                             <span class="fsize13 body-txt ordered-qty">
                                                 &nbsp;&bull;&nbsp;
-                                                {{ date("d F, Y H:i", $detail->order->date) }}
+                                                {{ date('d F, Y H:i', $detail->order->date) }}
                                             </span>
                                         </p>
                                     </div>
                                 </a>
                                 <div class="img-name">
                                     <div class="item-img item-img-sm text-center">
-                                        <img src="{{ uploaded_asset($detail->product->photos) }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" alt="{{ $detail->product->name }}" />
+                                        <img src="{{ uploaded_asset($detail->product->photos) }}"
+                                            onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                            alt="{{ $detail->product->name }}" />
                                     </div>
                                 </div>
                             </div>
@@ -38,17 +54,19 @@
 
                             <div class="delivery-status d-flex justify-content-between align-items-start pt-2">
                                 <p class="mb-0 fsize13 status text-success">
-                                    @if($detail->delivery_status == 'delivered')
-                                        Delivered on {{ date("d F", strtotime($detail->product->purchase_end_date. "+".$detail->product->est_shipping_days." day")) }}
+                                    @if ($detail->delivery_status == 'delivered')
+                                        Delivered on
+                                        {{ date('d F',strtotime($detail->product->purchase_end_date . '+' . $detail->product->est_shipping_days . ' day')) }}
                                     @else
-                                        Estimated delivery on {{ date("d F", strtotime($detail->product->purchase_end_date. "+".$detail->product->est_shipping_days." day")) }}
+                                        Estimated delivery on
+                                        {{ date('d F',strtotime($detail->product->purchase_end_date . '+' . $detail->product->est_shipping_days . ' day')) }}
                                     @endif
                                 </p>
-                                @if(Auth::check())
+                                @if (Auth::check())
                                     @php
                                         $commentable = false;
                                     @endphp
-                                    @if($detail->order != null && $detail->order->user_id == Auth::user()->id && $detail->delivery_status == 'delivered')
+                                    @if ($detail->order != null && $detail->order->user_id == Auth::user()->id && $detail->delivery_status == 'delivered')
                                         @php
                                             $commentable = true;
                                         @endphp
