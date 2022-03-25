@@ -236,8 +236,10 @@
             if(count > 0){
                 $('.cart-item-count').show();
                 $('.cart-item-count').html(count);
+                $("main.cart-main-tag").removeClass("withOnlyHdr");
             } else {
                 $('.cart-item-count').hide();
+                $("main.cart-main-tag").addClass("withOnlyHdr");
             }
         }
 

@@ -2297,14 +2297,32 @@ input[type=checkbox]:checked+.check-box::before,
 }
 
 @media screen and (max-width: 368px) {
+
     main {
         min-height: calc(100vh - 73.3px - 212.45px);
+    }
+
+    main.withOnlyFtr {
+        min-height: calc(100vh - 212.45px);
+    }
+
+    main.withOnlyHdr {
+        min-height: calc(100vh - 73.3px);
     }
 }
 
 @media screen and (min-width: 369px) {
+
     main {
         min-height: calc(100vh - 73.3px - 171.69px);
+    }
+
+    main.withOnlyFtr {
+        min-height: calc(100vh - 171.69px);
+    }
+
+    main.withOnlyHdr {
+        min-height: calc(100vh - 73.3px);
     }
 
 }

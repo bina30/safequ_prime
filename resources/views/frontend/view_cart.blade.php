@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app', ['header_show' => true, 'header2' => true, 'footer' => false])
 
 @section('content')
-    <main class="main-tag mt-0">
+    <main class="main-tag mt-0 cart-main-tag">
 
         <div class="breadcrumbs">
             <div class="container">
