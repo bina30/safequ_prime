@@ -94,7 +94,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 control-label" for="purchase_date_range">{{translate('Purchase Date Range')}} <span class="text-danger">*</span></label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control aiz-date-range" name="purchase_date_range" placeholder="{{translate('Purchase Date Range')}}" @if($product->purchase_start_date && $product->purchase_end_date) value="{{ $product->purchase_start_date.' TO '.$product->purchase_end_date }}" @endif data-time-picker="true" data-format="DD-MM-Y HH:mm:ss" data-separator=" TO " autocomplete="off" required>
+                                <input type="text" class="form-control aiz-date-range" name="purchase_date_range" placeholder="{{translate('Purchase Date Range')}}" @if($product->purchase_start_date && $product->purchase_end_date) value="{{ date('d-m-Y H:i:s', strtotime($product->purchase_start_date)).' TO '.date('d-m-Y H:i:s', strtotime($product->purchase_end_date)) }}" @endif data-time-picker="true" data-format="DD-MM-Y HH:mm:ss" data-separator=" TO " autocomplete="off" required>
                             </div>
                         </div>
 
