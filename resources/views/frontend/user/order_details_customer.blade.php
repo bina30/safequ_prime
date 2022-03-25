@@ -41,7 +41,7 @@
                                     #{{ $order->code }}</span></p>
 
                             <p class="text-white pb-1 mb-2">Time: <span class="text-white dateTime"> &nbsp;
-                                    {{ date('d M, Y H:i A', strtotime($order->created_at)) }}</span>
+                                    {{ date('d M Y H:i A', strtotime($order->created_at)) }}</span>
                             </p>
 
                             @if(json_decode($order->shipping_address))

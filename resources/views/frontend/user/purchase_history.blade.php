@@ -25,7 +25,7 @@
                                         <p class="fw600 fsize15 title-txt mb-1">Order # {{ $order->code }}</p>
                                         <p class="mb-0 lh-17">
                                             <span class="fsize13 body-txt ordered-qty">
-                                                {{ date('d F, Y H:i', $order->date) }}
+                                                {{ date('d M Y H:i', $order->date) }}
                                             </span>
                                         </p>
                                     </div>
@@ -63,15 +63,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-
-<!--                                <p class="mb-0 fsize13 status text-success">
-                                    @if ($order->delivery_status == 'delivered')
-                                        Delivered on
-                                        {{ date('d F',strtotime($order->updated_at . '+' . $detail->product->est_shipping_days . ' day')) }}
-                                    @endif
-                                </p>-->
-
-
 
                                 {{--@if (Auth::check())
                                     @php
