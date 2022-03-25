@@ -1260,8 +1260,17 @@ button.btn-before-none::before,
     box-shadow: 0 0 15px -8px #b2c3ff;
 }
 
-.dropdownFilter .dropdown-menu {
-    transform: translate3d(-85%, 25px, 0px) !important;
+#dropdownFilter {
+    height: 1.35rem;
+    line-height: 1.35rem !important;
+    max-width: 112px;
+    font-size: 0.85rem !important;
+    border: none;
+    border-bottom: 0.0325rem solid #eaeeff;
+}
+
+#dropdownFilter:focus {
+    box-shadow: none !important;
 }
 
 .crtord-itm-card .d-flex {

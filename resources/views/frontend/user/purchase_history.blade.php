@@ -6,19 +6,13 @@
             <div class="row justify-content-center py-4 py-md-5">
                 <div class="col-lg-5 col-md-7 col-sm-9 px-0">
 
-                    <div class="d-flex justify-content-between align-items-center pb-4">
-                        <h5 class="fw700 title-txt">My orders</h5>
-                        <div class="dropdown show dropdownFilter">
-                            <a href="#" role="button" id="dropdownFilter"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fad fa-bars fsize18 py-1 px-2"></i>
-                            </a>
-
-                            <div class="dropdown-menu p-0 my-2" aria-labelledby="dropdownFilter">
-                                <a class="dropdown-item py-2 my-1" href="#">Pending</a>
-                                <a class="dropdown-item py-2 my-1" href="#">Delivered</a>
-                            </div>
-                        </div>
+                    <div class="flex-acenter-jbtw pb-4">
+                        <h5 class="fw700 title-txt mb-1">My orders</h5>
+                        
+                        <select name="dropdownFilter" id="dropdownFilter" class="form-control p-0 m-0">
+                            <option value="pending" selected>Pending</option>
+                            <option value="delivered">Delivered</option>
+                        </select>
                     </div>
 
                     @foreach ($order_details as $detail)
