@@ -19,10 +19,18 @@
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <img src="{{ static_asset('assets/img/safequ-logo.png') }}" alt="SafeQu Logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <div class="flex-acenter-jbtw">
+                    <div class="cart-icon mr-3 crt-sm">
+                        <a href="{{ route('cart') }}">
+                            <i class="fad fa-shopping-cart fsize20 mr-2"></i> <span class="cart-item-count">0</span>
+                        </a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
 
                 <div class="collapse navbar-collapse disp-none-lg" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
@@ -52,7 +60,7 @@
                     </ul>
                     <div class="cart-icon pl-4">
                         <a href="{{ route('cart') }}">
-                            <i class="fad fa-shopping-cart"></i>
+                            <i class="fad fa-shopping-cart fsize20"></i>
                             <span class="cart-item-count">0</span>
                         </a>
                     </div>
@@ -83,7 +91,7 @@
                     <div class="pl-3">
                         <p class="fw500 title-txt mb-1">
                             {{ Auth::user()->name == 'Guest User' ? Auth::user()->phone : Auth::user()->name }}</p>
-<!--                        <p class="fsize13 body-txt mb-0">Community: Lodha Park</p>-->
+                        <!-- <p class="fsize13 body-txt mb-0">Community: Lodha Park</p> -->
                     </div>
                 @else
                     <a href="{{ route('user.login') }}" class="w-100">
