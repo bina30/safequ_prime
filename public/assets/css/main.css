@@ -353,6 +353,10 @@ h6 {
     font-size: 18px !important;
 }
 
+.fsize20 {
+    font-size: 20px !important;
+}
+
 .fsize22 {
     font-size: 22px !important;
 }
@@ -727,6 +731,12 @@ footer .footer-nav a {
     text-align: center;
     top: -8px;
     right: -8px;
+}
+
+.navbar .cart-icon span {
+    font-size: 11px !important;
+    line-height: 18px !important;
+    top: -12px;
 }
 
 main.main-tag-mt {
@@ -1248,6 +1258,19 @@ button.btn-before-none::before,
     padding: 35px;
     border-radius: 15px;
     box-shadow: 0 0 15px -8px #b2c3ff;
+}
+
+#dropdownFilter {
+    height: 1.35rem;
+    line-height: 1.35rem !important;
+    max-width: 112px;
+    font-size: 0.85rem !important;
+    border: none;
+    border-bottom: 0.0325rem solid #eaeeff;
+}
+
+#dropdownFilter:focus {
+    box-shadow: none !important;
 }
 
 .crtord-itm-card .d-flex {
@@ -2274,14 +2297,32 @@ input[type=checkbox]:checked+.check-box::before,
 }
 
 @media screen and (max-width: 368px) {
+
     main {
         min-height: calc(100vh - 73.3px - 212.45px);
+    }
+
+    main.withOnlyFtr {
+        min-height: calc(100vh - 212.45px);
+    }
+
+    main.withOnlyHdr {
+        min-height: calc(100vh - 73.3px);
     }
 }
 
 @media screen and (min-width: 369px) {
+
     main {
         min-height: calc(100vh - 73.3px - 171.69px);
+    }
+
+    main.withOnlyFtr {
+        min-height: calc(100vh - 171.69px);
+    }
+
+    main.withOnlyHdr {
+        min-height: calc(100vh - 73.3px);
     }
 
 }
@@ -2342,6 +2383,10 @@ input[type=checkbox]:checked+.check-box::before,
 
     .w-md-50 {
         width: 50%;
+    }
+
+    .navbar .cart-icon.crt-sm {
+        display: none;
     }
 }
 

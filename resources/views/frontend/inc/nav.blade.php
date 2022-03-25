@@ -19,10 +19,20 @@
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <img src="{{ static_asset('assets/img/safequ-logo.png') }}" alt="SafeQu Logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <div class="flex-acenter-jbtw">
+                    @auth
+                        <div class="cart-icon mr-3 crt-sm">
+                            <a href="{{ route('cart') }}">
+                                <i class="fad fa-shopping-cart fsize20 mr-2"></i> <span class="cart-item-count">0</span>
+                            </a>
+                        </div>
+                    @endauth
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
 
                 <div class="collapse navbar-collapse disp-none-lg" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
@@ -50,12 +60,14 @@
                             </li>
                         @endauth
                     </ul>
-                    <div class="cart-icon pl-4">
-                        <a href="{{ route('cart') }}">
-                            <i class="fad fa-shopping-cart"></i>
-                            <span class="cart-item-count">0</span>
-                        </a>
-                    </div>
+                    @auth
+                        <div class="cart-icon pl-4">
+                            <a href="{{ route('cart') }}">
+                                <i class="fad fa-shopping-cart fsize20"></i>
+                                <span class="cart-item-count">0</span>
+                            </a>
+                        </div>
+                    @endauth
                 </div>
             </div>
         </nav>
@@ -83,7 +95,7 @@
                     <div class="pl-3">
                         <p class="fw500 title-txt mb-1">
                             {{ Auth::user()->name == 'Guest User' ? Auth::user()->phone : Auth::user()->name }}</p>
-<!--                        <p class="fsize13 body-txt mb-0">Community: Lodha Park</p>-->
+                        <!-- <p class="fsize13 body-txt mb-0">Community: Lodha Park</p> -->
                     </div>
                 @else
                     <a href="{{ route('user.login') }}" class="w-100">
@@ -98,6 +110,9 @@
                 <a href="{{ route('home') }}">
                     <li class="p-2 mb-2"><i class="fad fa-home"></i> Home</li>
                 </a>
+                <a href="{{ route('products') }}">
+                    <li class="p-2 mb-2"><i class="fad fa-box-full"></i> Products</li>
+                </a>
                 @auth
                     <a href="{{ route('purchase_history.index') }}">
                         <li class="p-2 mb-2"><i class="fad fa-bags-shopping"></i> My Orders</li>
@@ -111,15 +126,15 @@
                     <a href="{{ route('all-notifications') }}">
                         <li class="p-2 mb-2"><i class="fad fa-bell-on"></i> Notifications</li>
                     </a>
+                    <a href="{{ route('cart') }}">
+                        <li class="p-2 mb-2">
+                            <div class="cart-icon">
+                                <i class="fad fa-shopping-cart mr-2"></i> <span class="cart-item-count">0</span>
+                                Cart
+                            </div>
+                        </li>
+                    </a>
                 @endauth
-                <a href="{{ route('cart') }}">
-                    <li class="p-2 mb-2">
-                        <div class="cart-icon">
-                            <i class="fad fa-shopping-cart mr-2"></i> <span class="cart-item-count">0</span>
-                            Cart
-                        </div>
-                    </li>
-                </a>
             </ul>
 
             @auth
