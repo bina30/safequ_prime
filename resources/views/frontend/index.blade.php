@@ -210,17 +210,14 @@
                         @csrf
                         <div class="modal-body">
                             <div class="item-details px-sm-3">
-                                <div class="order-list">
-                                    <div class="item-card">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="pr-2 text-center">
-                                                <h6> Are you sure you want to leave {{ session()->get('shop_name') }} community ? </h6>
-                                                <p class="mb-0">
-                                                    <i class="fa fa-exclamation-circle fsize12" aria-hidden="true"></i> <span class="fsize12 body-txt ordered-qty"> Cart items will get removed. </span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="order-list text-center py-3">
+                                    <h6> Are you sure you want to leave {{ session()->get('shop_name') }}
+                                        community ? </h6>
+                                    <p class="mb-0">
+                                        <i class="fad primary-color fa-exclamation-circle fsize14" aria-hidden="true"></i> <span
+                                            class="fsize12 body-txt ordered-qty"> Cart items will get removed.
+                                        </span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
