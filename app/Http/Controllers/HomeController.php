@@ -71,7 +71,7 @@ class HomeController extends Controller
         if (Auth::check()) {
             return redirect()->route('home');
         }
-        if ($request->has('referral_code') && addon_is_activated('affiliate_system')) {
+        /*if ($request->has('referral_code') && addon_is_activated('affiliate_system')) {
             try {
                 $affiliate_validation_time = AffiliateConfig::where('type', 'validation_time')->first();
                 $cookie_minute = 30 * 24;
@@ -87,7 +87,7 @@ class HomeController extends Controller
             } catch (\Exception $e) {
 
             }
-        }
+        }*/
         return view('frontend.user_registration');
     }
 
@@ -288,7 +288,7 @@ class HomeController extends Controller
     {
         if (!Auth::check()) {
             session(['link' => route('shop.visit', $slug)]);
-            return redirect()->route('user.login');
+            return redirect()->route('user.registration');
         }
         $shop = Shop::where('slug', $slug)->first();
 
@@ -508,8 +508,8 @@ class HomeController extends Controller
             'variation'   => $str,
             'max_limit'   => $max_limit,
             'in_stock'    => $in_stock,
-            'total_qty'   => $request->qty,
-            'total_price' => single_price_web($request->qty * $price)
+            'total_qty'   => $request->quantity,
+            'total_price' => single_price_web($request->quantity * $price)
         );
     }
 
