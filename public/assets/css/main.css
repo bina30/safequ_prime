@@ -46,6 +46,14 @@
     background-color: var(--primary-color);
 }
 
+.default-color-dark-bg {
+    background-color: var(--default-color-dark);
+}
+
+.bg-transparent {
+    background: #ffffff85 !important;
+}
+
 .default-color {
     color: var(--default-color);
 }
@@ -523,6 +531,10 @@ h4 .act-price.currency-symbol {
     justify-content: space-between;
 }
 
+.flex-no-wrap {
+    flex-wrap: nowrap;
+}
+
 .curser-pointer {
     cursor: pointer;
 }
@@ -535,6 +547,10 @@ header {
     width: 100%;
     z-index: 999;
     box-shadow: 0 3px 10px #00000014;
+}
+
+header.scrolled .bg-transparent {
+    background: #ffffff !important;
 }
 
 .home-header nav {
@@ -729,7 +745,7 @@ main.main-tag-mt-sm {
     background-image: url(../img/community-bg.png);
     background-position: right;
     background-repeat: no-repeat;
-    background-size: cover;    
+    background-size: cover;
 }
 
 .community-create button {
@@ -813,8 +829,45 @@ button.btn-before-none::before,
     border-color: #4d4d4d;
 }
 
+.testimonials .item i.fa-3x {
+    color: var(--secondary);
+}
+
+.testimonials .owl-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    top: calc(50% - 21px);
+}
+
+.testimonials .owl-nav button {
+    margin: 0;
+    background: var(--primary-color) !important;
+}
+
+.testimonials .owl-nav button i {
+    color: #ffffff;
+}
+
+.testimonials .owl-nav .owl-prev {
+    margin-left: -35px;
+}
+
+.testimonials .owl-nav .owl-next {
+    margin-right: -35px;
+}
+
 .testimonials p.body-txt {
     min-height: 60px;
+}
+
+.icons3D {
+    max-width: 100px;
 }
 
 /* Item Cards */
@@ -2589,7 +2642,23 @@ input[type=checkbox]:checked+.check-box::before,
     margin: 30px auto !important;
 }
 
-@media (min-width: 576px) {
+@media screen and (max-width: 575px) {
+    .testimonials .owl-nav button {
+        width: 1.8rem;
+        font-size: 0.7rem !important;
+        height: 1.5rem;
+    }
+
+    .testimonials .owl-nav .owl-prev {
+        margin-left: -25px;
+    }
+
+    .testimonials .owl-nav .owl-next {
+        margin-right: -25px;
+    }
+}
+
+@media screen and (min-width: 576px) {
 
     /*sm*/
     .modal-adaptive {
@@ -2598,6 +2667,11 @@ input[type=checkbox]:checked+.check-box::before,
 
     .aiz-file-box-wrap {
         width: 33.3333%;
+    }
+
+    .testimonials .owl-nav button {
+        width: 2.5rem;
+        height: 2rem;
     }
 }
 
