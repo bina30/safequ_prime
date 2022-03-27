@@ -586,39 +586,42 @@ header .cart-icon i {
     width: 42px;
 }
 
-.sideNav {
+.sideNav .backdropDiv {
     position: fixed;
-    z-index: 9999;
     top: 0;
     left: 0;
-    width: 0;
+    opacity: 0;
+    width: 100%;
     height: 100%;
     padding: 0 !important;
-    background: #00000080;
+    background: #00000091;
     overflow: hidden;
-    transition: all 0.8s ease-in-out;
+    z-index: -10;
+    transition: all 0.7s ease-in-out;
 }
 
-.sideNav.active {
-    width: 100%;
+.sideNav.active .backdropDiv {
+    opacity: 1;
+    z-index: 9999;
 }
 
 .sideNav .nav-menu {
+    position: fixed;
+    left: -300px;
+    z-index: 99999;
     background: #fff;
-    width: 0;
-    padding: 0;
+    padding: 0.5rem 1rem 1rem;
     overflow: hidden;
+    width: 100%;
     height: 100%;
     max-width: 300px;
     max-height: 100vh;
-    transition: all 2s ease-in-out;
+    transition: all 0.7s ease-in-out;
 }
 
 .sideNav.active .nav-menu {
-    width: 100%;
+    left: 0;
     overflow: auto;
-    padding: 0.5rem 1rem 1rem;
-    transition: all 0.7s ease-in-out;
 }
 
 .sideNav .user-profile img {

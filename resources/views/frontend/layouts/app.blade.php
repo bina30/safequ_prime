@@ -253,7 +253,7 @@
 
         $(document).ready(function() {
 
-            $(".close-sidenav").on('click', function() {
+            $(".close-sidenav, .sideNav .backdropDiv").on('click', function() {
                 $(".sideNav").removeClass("active");
             })
 
