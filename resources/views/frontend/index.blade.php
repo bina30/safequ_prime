@@ -13,7 +13,7 @@
                                     <div class="slider-content animate__animated animate__fadeInLeft 100vh pr-lg-5 py-4">
                                         <h1 class="fw600 mb-0">Exotic Fruits</h1>
                                         <h1 class="fw800 mb-3 primary-color">30%* cheaper.</h1>
-                                        <p class="mb-2 pr-md-4">Get your fresh exotic produce at fair prices,
+                                        <p class="mb-2 pr-md-4 fw500">Get your fresh exotic produce at fair prices,
                                             directly from a variety of local farms and sellers serving your community!</p>
 
                                         <a href="#communities">

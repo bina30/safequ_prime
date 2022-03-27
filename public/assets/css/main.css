@@ -2333,6 +2333,10 @@ input[type=checkbox]:checked+.check-box::before,
     main.withOnlyHdr {
         min-height: calc(100vh - 73.3px);
     }
+    
+    .slider-content h1 {
+        font-size: 1.98rem !important;
+    }
 }
 
 @media screen and (min-width: 369px) {
@@ -2380,7 +2384,7 @@ input[type=checkbox]:checked+.check-box::before,
     }
 
     .slider-content h1 {
-        font-size: 2rem;
+        font-size: 2.25rem;
     }
 }
 
@@ -2423,7 +2427,7 @@ input[type=checkbox]:checked+.check-box::before,
     }
 
     .home-slider {
-        padding: 80px 10px;
+        padding: 100px 0 60px;
     }
 
     .nxtdelivery-date {
@@ -2655,6 +2659,12 @@ input[type=checkbox]:checked+.check-box::before,
 
     .testimonials .owl-nav .owl-next {
         margin-right: -25px;
+    }
+
+    .slider-content {
+        padding: 0 25px;
+        background: #ffffff80;
+        border-radius: 15px;
     }
 }
 
