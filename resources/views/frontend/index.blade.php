@@ -223,7 +223,7 @@
                     </div>
 
                     <div class="col-md-4 px-md-4 pb-3 text-center">
-                        <img src="{{ static_asset('assets/img/fast-delivery.png') }}" alt="3D Icon"
+                        <img src="{{ static_asset('assets/img/coin-in-hand.png') }}" alt="3D Icon"
                             class="icons3D">
                         <p class="fw600 fsize16 my-2">Fair Pricing</p>
                         <p class="mb-0">Fair, dynamic pricing model to allow communities to avail group buying
