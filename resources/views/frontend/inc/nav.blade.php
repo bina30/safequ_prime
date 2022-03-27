@@ -14,7 +14,7 @@
     @endif
 
     <header class="header {{ $header2 ? 'header2' : '' }}">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light {{ $lightNav ? 'bg-transparent' : 'bg-light' }}">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <img src="{{ static_asset('assets/img/safequ-logo.png') }}" alt="SafeQu Logo">
