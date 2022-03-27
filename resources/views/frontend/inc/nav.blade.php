@@ -75,7 +75,9 @@
         </nav>
     </header>
 
-    <div class="sideNav disp-lg flex-astart-jbtw">
+    <div class="sideNav flex-astart-jbtw">
+        <div class="backdropDiv"></div>
+        
         <div class="nav-menu">
             <div class="text-right close-sidenav">
                 <i class="fad fa-times fsize18 px-3 py-1"></i>
