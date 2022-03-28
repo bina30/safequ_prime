@@ -53,6 +53,7 @@ Route::post('/send_otp', '\App\Http\Controllers\Auth\LoginController@send_otp')-
 
 //Home Page
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
 Route::post('/home/section/featured', 'HomeController@load_featured_section')->name('home.section.featured');
 Route::post('/home/section/best_selling', 'HomeController@load_best_selling_section')->name('home.section.best_selling');
 Route::post('/home/section/home_categories', 'HomeController@load_home_categories_section')->name('home.section.home_categories');

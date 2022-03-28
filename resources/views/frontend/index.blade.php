@@ -283,7 +283,7 @@
 
             $('.community-slider').owlCarousel({
                 loop: true,
-                autoplay: true,
+                autoplay: false,
                 autoplayTimeout: 4000,
                 autoplayHoverPause: false,
                 smartSpeed: 1500,
