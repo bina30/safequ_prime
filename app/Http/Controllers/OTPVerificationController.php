@@ -46,11 +46,17 @@ class OTPVerificationController extends Controller
             $user->email_verified_at = date('Y-m-d h:m:s');
             $user->save();
             $this->guard()->login($user);
-            flash('Login successfully')->success();
-            if (session('link') != null) {
-                return redirect(session('link'));
+            if ($user->email == null && session()->has('is_register') && session()->get('is_register') == 1) {
+                flash('Register successfully')->success();
+                flash('Please complete profile to begin with us.')->success();
+                return redirect('profile');
             } else {
-                return redirect()->route('home');
+                flash('Login successfully')->success();
+                if (session('link') != null) {
+                    return redirect(session('link'));
+                } else {
+                    return redirect()->route('home');
+                }
             }
         } else {
             flash('Invalid Code')->error();
