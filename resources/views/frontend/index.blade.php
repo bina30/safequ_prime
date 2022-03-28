@@ -13,11 +13,11 @@
                                     <div class="slider-content animate__animated animate__fadeInLeft 100vh pr-lg-5 py-4">
                                         <h1 class="fw600 mb-0">Exotic Fruits</h1>
                                         <h1 class="fw800 mb-3 primary-color">30%* cheaper.</h1>
-                                        <p class="mb-2 pr-md-4 fw500">Get your fresh exotic produce at fair prices,
+                                        <p class="mb-2 pr-md-4 fw500">Get fresh produce at fair prices,
                                             directly from a variety of local farms and sellers serving your community!</p>
 
                                         <a href="#communities">
-                                            <p class="explore-card my-4 fw500"> Get started now &nbsp;
+                                            <p class="explore-card my-4 fw500">Join your community now &nbsp;
                                                 <i class="fal fa-long-arrow-right fsize20 align-middle"></i>
                                             </p>
                                         </a>
@@ -39,10 +39,11 @@
             <div class="mt-2">
                 <div class="community-serve text-center">
                     <div class="py-md-5 py-4">
-                        <h4 class="fw700 title-txt">Our most popular communities </h4>
-                        <p class="w-75 mx-auto mb-0 body-txt">More than 500+ customers across South Mumbai's finest
-                            gated communities have signed up to the SafeQU experience. Choose your community and get
-                            started now
+                        <h4 class="fw700 title-txt">Our most <ins class="primary-color fw700">popular communities</ins></h4>
+                        <p class="w-75 mx-auto mb-0 body-txt">More than <ins class="primary-color fw600">500+ customers
+                            </ins> South Mumbai's finest gated communities have already signed up to the SafeQU experience.
+                            Choose
+                            your community and get started now
                         </p>
 
                         <div class="py-4">
@@ -116,13 +117,14 @@
                 <div class="row justify-content-center">
                     <div class="col-md-9 px-0">
                         <div class="px-4 py-5 text-center">
-                            <h4 class="text-white mb-3 fw600">Not able to find your community? Request to get started now.
-                            </h4>
+                            <h5 class="text-white mb-3 fw600">Not able to find your community? <br /> Request to get started
+                                now.
+                            </h5>
                             <p class="text-white fw500 mb-2">Would you like the SafeQU experience for your community?</p>
                             <p class="text-white fw500 mb-4">Ping us here and we will get your community setup in minutes.
                             </p>
                             <a href="https://uh19vww4t9p.typeform.com/to/ZuY8xtQq" target="_blank">
-                                <button type="button" class="btn">Create Community</button>
+                                <button type="button" class="btn mt-3">Create Community</button>
                             </a>
                         </div>
                     </div>
@@ -132,16 +134,16 @@
 
         <div class="py-5">
             <div class="container mb-3">
-                <h4 class="fw700 text-center">Why our communities love SafeQU?</h4>
-                <p class="text-center fw500">
-                    Over 5000+ people use SafeQu every month to save their time and money
-                </p>
+                <h4 class="fw700 text-center">Why communities love <i
+                        class="fa fa-heart animated faa-pulse primary-color"></i> SafeQU?</h4>
+
                 <div class="row justify-content-center pt-3">
                     <div class="col-md-7 light-bg">
                         <div class="testimonials owl-carousel owl-theme">
                             <div class="item p-4 px-md-5">
                                 <i class="fad fa-quote-left fa-3x mb-3"></i>
-                                <p class="body-txt text-center">SafeQU gives me a business class experience in my
+                                <p class="body-txt text-center font-italic">SafeQU gives me a business class experience in
+                                    my
                                     grocery shopping.</p>
 
                                 <p class="fw700 text-center">Resident
@@ -154,7 +156,8 @@
                             </div>
                             <div class="item p-4 px-md-5">
                                 <i class="fad fa-quote-left fa-3x mb-3"></i>
-                                <p class="body-txt text-center">Love all your produce….Avocados, Passion Fruits and
+                                <p class="body-txt text-center font-italic">Love all your produce….Avocados, Passion Fruits
+                                    and
                                     Strawberries. Most of all your customer attention to detail. Thanks!</p>
 
                                 <p class="fw700 text-center">Resident
@@ -167,7 +170,8 @@
                             </div>
                             <div class="item p-4 px-md-5">
                                 <i class="fad fa-quote-left fa-3x mb-3"></i>
-                                <p class="body-txt text-center">7 days in and my light pink roses are still fresh &
+                                <p class="body-txt text-center font-italic">7 days in and my light pink roses are still
+                                    fresh &
                                     beautiful. Thanks, SafeQU for sorting me out with my weekly flowers</p>
 
                                 <p class="fw700 text-center">Resident
@@ -180,9 +184,11 @@
                             </div>
                             <div class="item p-4 px-md-5">
                                 <i class="fad fa-quote-left fa-3x mb-3"></i>
-                                <p class="body-txt text-center">Thankyou @safequ.india for introducing me to the
-                                    brilliant farm fresh produce and the weekly salad subscription service. The
-                                    Romaine Lettuce particularly felt like it had been picked from my back garden</p>
+                                <p class="body-txt text-center font-italic">Thankyou <a
+                                        href="https://www.instagram.com/safequ.india/" target="_blank"><ins
+                                            class="primary-color">@safequ.india</ins></a> for introducing me to the
+                                    brilliant farm fresh produce and the weekly salad subscription service. The Romaine
+                                    Lettuce particularly felt like it had been picked from my back garden</p>
 
                                 <p class="fw700 text-center">Hema W, Resident
                                     <br>
@@ -201,8 +207,8 @@
 
         <div class="light-bg py-5 mt-4">
             <div class="container pt-3">
-                <h5 class="text-center fw700 pb-3   ">
-                    South Mumbai's only premium farm-to-home exotic produce delivery
+                <h5 class="text-center fw700 pb-3">
+                    We are South Mumbai's <ins class="fw700 primary-color">only farm-to-home exotic produce delivery</ins>
                 </h5>
 
                 <div class="row pt-3">
