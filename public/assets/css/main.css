@@ -608,6 +608,7 @@ header .cart-icon i {
 
 .sideNav .nav-menu {
     position: fixed;
+    top: 0;
     left: -300px;
     z-index: 99999;
     background: #fff;
@@ -2878,6 +2879,11 @@ input[type=checkbox]:checked+.check-box::before,
     ;
 }
 
+
+.btn-no {
+    padding: 9px 20px;
+}
+
 .item-tags {
     overflow-x: auto;
 }
@@ -2887,8 +2893,4 @@ input[type=checkbox]:checked+.check-box::before,
     padding: 5px 15px;
     white-space: nowrap;
     margin: auto;
-}
-
-.btn-no {
-    padding: 9px 20px;
 }
