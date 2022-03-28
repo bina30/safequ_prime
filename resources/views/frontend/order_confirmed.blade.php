@@ -34,8 +34,9 @@
                                                 <img src="{{ uploaded_asset($product->photos) }}" onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';" alt="{{ $product->name }}" />
                                             </div>
                                             <div class="pl-3">
-                                                <h6 class="fw700">{{ $product->name }}</h6>
-                                                <p class="fw600 body-txt mb-0">Variety: {{ $product->tags }}</p>
+                                                <h6 class="fw700 mb-1">{{ $product->name }}</h6>
+                                                <p class="fw500 fsize13 body-txt mb-1">Variety: &nbsp; {{ $product->tags }}</p>
+                                                <p class="fw500 fsize13 body-txt mb-0">Direct: &nbsp; {{ $product->manufacturer_location }}</p>
                                             </div>
                                         </div>
                                     </div>

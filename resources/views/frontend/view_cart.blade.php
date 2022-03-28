@@ -186,7 +186,7 @@
                                     </div>
                                     <div>
                                         <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top"
-                                            title="Unlock special community benefits when the available harvest is booked out by your community.">
+                                            title="Please complete your profile before attempting to make payment’ when a customer will not be able to pay because his/ her profile details are not completed">
                                             <i class="fad fa-info-circle primary-color-dark animated faa-tada align-middle"></i>
                                         </a>
                                         <button type="button" id="btn_pay_now" class="ml-2 btn primary-btn btn-round py-1"
