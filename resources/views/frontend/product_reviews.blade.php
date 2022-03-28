@@ -1,23 +1,6 @@
-@extends('frontend.layouts.app',['lightNav'=> false, 'header_show' => false, 'header2' => false, 'footer' => false])
+@extends('frontend.layouts.app',['header_show' => false, 'header2' => false, 'footer' => false])
 
 @section('content')
-    <header class="inner-header bg-white py-3">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-sm-8 px-0">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <a class="nav-logo" href="javascript:history.back()">
-                            <i class="fad fa-chevron-left pl-2 pr-3 py-2"></i>
-                        </a>
-                        <a class="nav-logo" href="{{ route('home') }}">
-                            <img src="{{ static_asset('assets/img/safequ-logo.png') }}" alt="SafeQu Logo">
-                        </a>
-                        <div class="empty-nav-div"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
 
     <main class="main-tag-mt-sm">
         <div class="container">

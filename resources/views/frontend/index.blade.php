@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app',['lightNav'=> true , 'header_show' => true, 'header2' => false, 'footer' => true])
+@extends('frontend.layouts.app',['header_show' => true, 'header2' => false, 'footer' => true])
 
 @section('content')
     <main>
@@ -311,7 +311,7 @@
                 nav: true,
                 dots: false,
                 margin: 10,
-                autoplay: false,
+                autoplay: true,
                 autoplayTimeout: 4000,
                 autoplayHoverPause: false,
                 smartSpeed: 1500,

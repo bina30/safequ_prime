@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app',['lightNav'=> false, 'header_show' => true, 'header2' => true, 'footer' => false])
+@extends('frontend.layouts.app',['header_show' => true, 'header2' => true, 'footer' => false])
 
 @section('content')
     <main class="main-tag mt-0 cart-main-tag">
@@ -18,14 +18,14 @@
                     <div class="col-lg-6 col-md-7 px-1">
                         <h6 class="fw600 title-txt pb-2 mb-2">My Exotic Farm Fresh Order List</h6>
 
-                        @if($user_data && $user_data->address != '')
+                        @if ($user_data && $user_data->address != '')
                             <div class="delivery-addr p-3 flex-astart-jstart mb-3">
                                 <input type="checkbox" name="delivery_address" id="delivery_address" class="mr-2"
-                                       checked/>
+                                    checked />
                                 <span class="check-box"></span>
 
                                 <label for="delivery_address" class="body-txt mb-0">
-                                    {{ $user_data->address." ".$user_data->city." ".$user_data->state." ".$user_data->postal_code }}
+                                    {{ $user_data->address . ' ' . $user_data->city . ' ' . $user_data->state . ' ' . $user_data->postal_code }}
                                 </label>
                             </div>
                         @else
@@ -47,52 +47,51 @@
                             @php
                                 $product = \App\Models\Product::find($cartItem['product_id']);
                                 $product_stock = $product->stocks->where('variant', $cartItem['variation'])->first();
-
+                                
                                 $product_shipping_cost = $cartItem['shipping_cost'];
                                 $shipping += $product_shipping_cost;
-
+                                
                                 $sub_total = ($cartItem['price'] + $cartItem['tax']) * $cartItem['quantity'];
-                                $total = $total + ($cartItem['price'] + $cartItem['tax']) * $cartItem['quantity'] ;
+                                $total = $total + ($cartItem['price'] + $cartItem['tax']) * $cartItem['quantity'];
                             @endphp
                             <div class="crtord-itm-card mb-4 p-3">
                                 <div class="img-name w-100">
                                     <div class="p-0 mxw-85px">
                                         <div class="item-img text-center">
                                             <img src="{{ uploaded_asset($product->photos) }}"
-                                                 onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
-                                                 alt="{{ $product->name }}"/>
+                                                onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                                alt="{{ $product->name }}" />
                                         </div>
                                     </div>
                                     <div class="pl-3 w-100">
                                         <h6 class="fw700">{{ $product->name }}</h6>
                                         <div class="pt-2 d-flex">
                                             <p class="body-txt mb-0">
-                                        <span class="act-price fw700">
-                                            {!! single_price_web($sub_total) !!}
-                                        </span>
-                                                <i class="body-txt fsize12">&nbsp; <br class="sm"/>
-                                                    ({!! single_price_web($cartItem['price']) !!} / {{$product->unit}}
-                                                    )
+                                                <span class="act-price fw700">
+                                                    {!! single_price_web($sub_total) !!}
+                                                </span>
+                                                <i class="body-txt fsize12">&nbsp; <br class="sm" />
+                                                    ({!! single_price_web($cartItem['price']) !!} / {{ $product->unit }})
                                                 </i>
                                             </p>
                                             <div class="action">
                                                 <div class="item-count flex-acenter-jbtw">
                                                     <button class="btn"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown();"
-                                                            type="button" data-field="quantity[{{ $cartItem['id'] }}]"
-                                                            data-cart_id="{{ $cartItem['id'] }}">
+                                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown();"
+                                                        type="button" data-field="quantity[{{ $cartItem['id'] }}]"
+                                                        data-cart_id="{{ $cartItem['id'] }}">
                                                         <i class="fa fa-minus"></i>
                                                     </button>
                                                     <input class="quantity" min="1"
-                                                           name="quantity[{{ $cartItem['id'] }}]"
-                                                           value="{{ $cartItem['quantity'] }}"
-                                                           type="number" id="quantity_{{ $cartItem['id'] }}"
-                                                           value="{{ $cartItem['quantity'] }}" min="1"
-                                                           max="{{ $product_stock->qty }}" readonly/>
+                                                        name="quantity[{{ $cartItem['id'] }}]"
+                                                        value="{{ $cartItem['quantity'] }}" type="number"
+                                                        id="quantity_{{ $cartItem['id'] }}"
+                                                        value="{{ $cartItem['quantity'] }}" min="1"
+                                                        max="{{ $product_stock->qty }}" readonly />
                                                     <button class="btn"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp();"
-                                                            type="button" data-field="quantity[{{ $cartItem['id'] }}]"
-                                                            data-cart_id="{{ $cartItem['id'] }}">
+                                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp();"
+                                                        type="button" data-field="quantity[{{ $cartItem['id'] }}]"
+                                                        data-cart_id="{{ $cartItem['id'] }}">
                                                         <i class="fa fa-plus"></i>
                                                     </button>
                                                 </div>
@@ -107,13 +106,13 @@
                         @php
                             $total += $shipping;
                         @endphp
-                        @if($total == 0)
+                        @if ($total == 0)
                             <div class="row">
                                 <div class="col-xl-8 mx-auto">
                                     <div class="shadow-sm bg-white p-4 rounded">
                                         <div class="text-center p-3">
                                             <i class="las la-frown la-3x opacity-60 mb-3"></i>
-                                            <h3 class="h4 fw-700">{{translate('Your Cart is empty')}}</h3>
+                                            <h3 class="h4 fw-700">{{ translate('Your Cart is empty') }}</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -121,15 +120,15 @@
                         @endif
 
                         <form action="{{ route('payment.checkout') }}" class="form-default" role="form" method="POST"
-                              id="checkout-form">
+                            id="checkout-form">
                             @csrf
 
-                            @if(count($carts) > 0)
-                                <input type="hidden" name="owner_id" value="{{  $carts[0]['owner_id'] }}">
+                            @if (count($carts) > 0)
+                                <input type="hidden" name="owner_id" value="{{ $carts[0]['owner_id'] }}">
                             @endif
 
-                            @if($total > 0)
-                            <!-- Amount -->
+                            @if ($total > 0)
+                                <!-- Amount -->
                                 <div class="payings py-4">
                                     <hr class="b-1">
                                     <h6>
@@ -145,14 +144,15 @@
                                 <!-- Payment Method -->
                                 <div class="pay-method pb-3">
 
-                                    @if(Auth::user())
-                                        <p class="fsize12">Complete your payment easily using the below options to confirm your farm
+                                    @if (Auth::user())
+                                        <p class="fsize12">Complete your payment easily using the below options to
+                                            confirm your farm
                                             fresh exotic order:</p>
                                         <div class="other-gatewy p-3 mb-3">
                                             <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
-                                                <input type="radio" id="pay-option2" name="payment_option"
-                                                       value="wallet" tabindex="1"
-                                                       @if($total > Auth::user()->balance) disabled
+                                                <input type="radio" id="pay-option2" name="payment_option" value="wallet"
+                                                    tabindex="1"
+                                                    @if ($total > Auth::user()->balance) disabled
                                                        @else checked @endif />
                                                 <span class="align-middle body-txt">
                                                     SafeQu balance
@@ -170,11 +170,10 @@
                                     <div class="other-gatewy p-3 mb-3">
                                         <label for="pay-option1" class="label-radio mb-0 py-2 d-block">
                                             <input type="radio" id="pay-option1" name="payment_option" tabindex="1"
-                                                   value="razorpay"
-                                                   @if($total > Auth::user()->balance) checked @endif />
+                                                value="razorpay" @if ($total > Auth::user()->balance) checked @endif />
                                             <span class="align-middle body-txt">
-                                            Razorpay
-                                        </span>
+                                                Razorpay
+                                            </span>
                                         </label>
                                     </div>
 
@@ -185,11 +184,17 @@
                                         <p class="fsize15 mb-1 body-txt">Total:</p>
                                         <h5 class="fw500 mb-0">{!! single_price_web($total) !!} </h5>
                                     </div>
-                                    <button type="button" id="btn_pay_now" class="btn primary-btn btn-round py-1"
+                                    <div>
+                                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top"
+                                            title="Please complete your profile before attempting to make payment’ when a customer will not be able to pay because his/ her profile details are not completed">
+                                            <i class="fad fa-info-circle primary-color-dark animated faa-tada align-middle"></i>
+                                        </a>
+                                        <button type="button" id="btn_pay_now" class="ml-2 btn primary-btn btn-round py-1"
                                             onclick="submitOrder(this)"
-                                            @if(count($carts) == 0 || $user_data->address == '') disabled @endif >Pay
-                                        Now
-                                    </button>
+                                            @if (count($carts) == 0 || $user_data->address == '') disabled @endif>Pay
+                                            Now
+                                        </button>
+                                    </div>
                                 </div>
                             @endif
 
@@ -206,12 +211,17 @@
 @endsection
 
 @section('script')
-
     <script type="text/javascript">
-        $(document).ready(function () {
+
+        // Tooltip
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+        $(document).ready(function() {
             updateNavCart($('#item_count').val());
 
-            $('.item-count button').on('click', function () {
+            $('.item-count button').on('click', function() {
                 let cart_id = $(this).data('cart_id');
                 let qty = parseInt($("#quantity_" + cart_id).val());
 
@@ -227,7 +237,7 @@
                     $("#itm-cnt").addClass("d3");
                 }
 
-                (qty < 10) ? $("#itm-cnt").removeClass("d2 d3") : "";
+                (qty < 10) ? $("#itm-cnt").removeClass("d2 d3"): "";
 
                 $('#btn_pay_now').attr('disabled', 'disabled');
                 updateQuantity(cart_id, qty);
@@ -249,7 +259,7 @@
                 _token: AIZ.data.csrf,
                 id: cart_id,
                 quantity: qty
-            }, function (data) {
+            }, function(data) {
                 updateNavCart(data.cart_count);
                 $('#cart_summary').html('');
                 $('#cart_summary').html(data.cart_view);
@@ -261,12 +271,11 @@
             $.post('{{ route('cart.removeFromCart') }}', {
                 _token: AIZ.data.csrf,
                 id: key
-            }, function (data) {
+            }, function(data) {
                 updateNavCart(data.cart_count);
                 $('#cart_summary').html(data.cart_view);
                 AIZ.plugins.notify('success', "{{ translate('Item has been removed from cart') }}");
             });
         }
     </script>
-
 @endsection

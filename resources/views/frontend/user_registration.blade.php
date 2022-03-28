@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app',['lightNav'=> false, 'header_show' => false, 'header2' => false, 'footer' => false])
+@extends('frontend.layouts.app',['header_show' => false, 'header2' => false, 'footer' => false])
 
 @section('content')
     <div class="login-screen container py-4">
