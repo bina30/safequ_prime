@@ -132,7 +132,7 @@
                 data: { id: productId, quantity: qty},
                 success: function(data){
                     if(data.status == 1){
-{{--                        AIZ.plugins.notify('success', "{{ translate('Item has been removed from cart') }}");--}}
+                        {{-- AIZ.plugins.notify('success', "{{ translate('Item has been removed from cart') }}");--}}
                         window.location.replace("{{ route('cart') }}");
                     } else {
                         AIZ.plugins.notify('danger', '{{ translate('Something went wrong') }}');
