@@ -8,3 +8,8 @@ ALTER TABLE `products` ADD COLUMN `purchase_end_date` datetime NULL AFTER `purch
 INSERT INTO `sms_templates`(`id`, `identifier`, `sms_body`, `template_id`, `status`, `created_at`, `updated_at`) VALUES (7, 'order_confirm', 'Confirm Order', NULL, 1, '2022-03-22 15:34:58', '2022-03-22 15:35:04');
 INSERT INTO `sms_templates`(`id`, `identifier`, `sms_body`, `template_id`, `status`, `created_at`, `updated_at`) VALUES (8, 'order_cancel', 'Cancel Order', NULL, 1, '2022-03-22 15:37:44', '2022-03-22 15:37:48');
 INSERT INTO `sms_templates`(`id`, `identifier`, `sms_body`, `template_id`, `status`, `created_at`, `updated_at`) VALUES (9, 'order_shipped', 'Order Shipped', NULL, 1, '2022-03-22 15:40:14', '2022-03-22 15:40:14');
+
+
+/* Dt: 28-03-22 */
+ALTER TABLE `users` ADD COLUMN `joined_community_id` int(11) NULL AFTER `remaining_uploads`;
+ALTER TABLE `users` MODIFY COLUMN `joined_community_id` int(11) NULL DEFAULT 0 AFTER `remaining_uploads`;

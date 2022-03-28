@@ -86,7 +86,7 @@
                                                 @endif
                                             </div>
 
-                                            @if (session()->has('shop_slug') && session()->get('shop_slug') != $community->slug)
+                                            @if (auth()->user() && intval(auth()->user()->joined_community_id) > 0 && auth()->user()->joined_community_id != $community->user_id)
                                                 <a href="javascript:void(0);"
                                                     class="btn primary-btn btn-block fw600 text-white"
                                                     onclick="confrimCommunityChange('{{ route('shop.visit', $community->slug) }}');">JOIN</a>

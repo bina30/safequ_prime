@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Shop;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\PasswordReset;
@@ -42,6 +43,7 @@ class OTPVerificationController extends Controller
     public function verify_phone(Request $request)
     {
         $user = User::findOrFail($request->user_id);
+
         if ($user->verification_code == $request->verification_code) {
             $user->email_verified_at = date('Y-m-d h:m:s');
             $user->save();
@@ -55,6 +57,13 @@ class OTPVerificationController extends Controller
                 if (session('link') != null) {
                     return redirect(session('link'));
                 } else {
+                    if (intval($user->joined_community_id) > 0) {
+                        $shop = Shop::where('user_id', $user->joined_community_id)->first();
+                        if ($shop) {
+                            return redirect()->route('shop.visit', $shop->slug);
+                        }
+                    }
+
                     return redirect()->route('home');
                 }
             }
