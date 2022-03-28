@@ -103,9 +103,9 @@
                             </div>
                         </div>
 
-                        @if (count($communities) > 5)
+                        {{--@if (count($communities) > 5)
                             <button class="btn fw700 view-more-btn px-4 mb-3 mb-md-0">View more</button>
-                        @endif
+                        @endif--}}
 
                     </div>
                 </div>

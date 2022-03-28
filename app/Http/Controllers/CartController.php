@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Shop;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
@@ -16,6 +17,7 @@ class CartController extends Controller
     public function index(Request $request)
     {
         $user_data = array();
+        $shop = array();
         if (auth()->user() != null) {
             $user_id = auth()->user()->id;
             $user_data = auth()->user();
@@ -31,13 +33,14 @@ class CartController extends Controller
                 Session::forget('temp_user_id');
             }
             $carts = Cart::where('user_id', $user_id)->get();
+            $shop = Shop::where('user_id', $user_data->joined_community_id)->first();
         } else {
             $temp_user_id = $request->session()->get('temp_user_id');
             // $carts = Cart::where('temp_user_id', $temp_user_id)->get();
             $carts = ($temp_user_id != null) ? Cart::where('temp_user_id', $temp_user_id)->get() : [];
         }
 
-        return view('frontend.view_cart', compact('carts', 'user_data'));
+        return view('frontend.view_cart', compact('carts', 'user_data', 'shop'));
     }
 
     public function showCartModal(Request $request)
