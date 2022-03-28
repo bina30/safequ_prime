@@ -50,13 +50,13 @@ class BusinessSettingsController extends Controller
         CoreComponentRepository::initializeCache();
         return view('backend.setup_configurations.google_configuration.google_recaptcha');
     }
-    
+
     public function google_map(Request $request) {
         CoreComponentRepository::instantiateShopRepository();
         CoreComponentRepository::initializeCache();
         return view('backend.setup_configurations.google_configuration.google_map');
     }
-    
+
     public function google_firebase(Request $request) {
         CoreComponentRepository::instantiateShopRepository();
         CoreComponentRepository::initializeCache();
@@ -116,6 +116,15 @@ class BusinessSettingsController extends Controller
 
         Artisan::call('cache:clear');
 
+        flash(translate("Settings updated successfully"))->success();
+        return back();
+    }
+
+    public function user_welcome_bonus_update(Request $request)
+    {
+        foreach ($request->types as $key => $type) {
+            $this->overWriteEnvFile($type, $request[$type]);
+        }
         flash(translate("Settings updated successfully"))->success();
         return back();
     }
@@ -361,7 +370,7 @@ class BusinessSettingsController extends Controller
         $business_settings->value = json_encode($form);
         if($business_settings->save()){
             Artisan::call('cache:clear');
-            
+
             flash(translate("Verification form updated successfully"))->success();
             return back();
         }

@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-lg-8 mx-auto">
+        <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
                     <h1 class="mb-0 h6">{{translate('General Settings')}}</h1>
@@ -79,6 +79,30 @@
                         <div class="text-right">
     						<button type="submit" class="btn btn-primary">{{ translate('Update') }}</button>
     					</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="mb-0 h6">{{translate('Customer Welcome Bonus')}}</h1>
+                </div>
+                <div class="card-body">
+                    <form class="form-horizontal" action="{{ route('user_welcome_bonus.update') }}" method="POST"
+                          enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group row">
+                            <input type="hidden" name="types[]" value="WELCOME_BONUS_AMOUNT">
+                            <label class="col-sm-6 col-from-label">{{translate('Bonus Amount')}}</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="WELCOME_BONUS_AMOUNT" class="form-control" value="{{ env('WELCOME_BONUS_AMOUNT') }}" required>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary">{{ translate('Update') }}</button>
+                        </div>
                     </form>
                 </div>
             </div>
