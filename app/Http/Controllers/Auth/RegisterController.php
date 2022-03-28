@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Customer;
 use App\Models\Cart;
 use App\Models\BusinessSetting;
+use App\Models\Wallet;
 use App\OtpConfiguration;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\OTPVerificationController;
@@ -90,17 +91,29 @@ class RegisterController extends Controller
                 if ($user != null) {
                     $user->verification_code = rand(1000, 9999);
                     $user->save();
+
+                    session()->put('is_register', 0);
                 } else {
                     $user = User::create([
                         'name'              => 'Guest User',
                         'phone'             => '+' . $data['country_code'] . $data['phone'],
                         'password'          => Hash::make(123456),
-                        'verification_code' => rand(1000, 9999)
+                        'verification_code' => rand(1000, 9999),
+                        'balance'           => env('WELCOME_BONUS_AMOUNT')
                     ]);
 
                     $customer = new Customer;
                     $customer->user_id = $user->id;
                     $customer->save();
+
+                    $wallet = new Wallet;
+                    $wallet->user_id = $user->id;
+                    $wallet->amount = env('WELCOME_BONUS_AMOUNT');
+                    $wallet->payment_method = 'bonus';
+                    $wallet->payment_details = json_encode(array('id' => $user->id, 'amount' => env('WELCOME_BONUS_AMOUNT'), 'method' => 'bonus'));
+                    $wallet->save();
+
+                    session()->put('is_register', 1);
                 }
 
                 $otpController = new OTPVerificationController;
