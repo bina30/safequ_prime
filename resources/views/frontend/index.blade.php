@@ -311,7 +311,7 @@
                 nav: true,
                 dots: false,
                 margin: 10,
-                autoplay: false,
+                autoplay: true,
                 autoplayTimeout: 4000,
                 autoplayHoverPause: false,
                 smartSpeed: 1500,
