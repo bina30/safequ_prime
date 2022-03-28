@@ -14,7 +14,7 @@
     @endif
 
     <header class="header {{ $header2 ? 'header2' : '' }}">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light {{ $lightNav ? 'bg-transparent' : 'bg-light' }}">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <img src="{{ static_asset('assets/img/safequ-logo.png') }}" alt="SafeQu Logo">
@@ -75,7 +75,9 @@
         </nav>
     </header>
 
-    <div class="sideNav disp-lg flex-astart-jbtw">
+    <div class="sideNav flex-astart-jbtw">
+        <div class="backdropDiv"></div>
+        
         <div class="nav-menu">
             <div class="text-right close-sidenav">
                 <i class="fad fa-times fsize18 px-3 py-1"></i>

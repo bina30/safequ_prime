@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app', ['header_show' => true, 'header2' => true, 'footer' => false])
+@extends('frontend.layouts.app',['lightNav'=> false, 'header_show' => true, 'header2' => true, 'footer' => false])
 
 @section('content')
     <main class="main-tag mt-0 cart-main-tag">
@@ -9,10 +9,9 @@
             </div>
         </div>
 
+        <input type="hidden" id="item_count" value="{{ count($carts) }}">
+
         <div class="content pb-5" id="cart_summary">
-
-            <input type="hidden" id="item_count" value="{{ count($carts) }}">
-
             <div class="container py-4">
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-7 px-1">
@@ -96,7 +95,7 @@
                                                         <i class="fa fa-plus"></i>
                                                     </button>
                                                 </div>
-                                                <h6 class="mb-0 text-danger curser-pointer fw700 p-2 ml-2"
+                                                <h6 class="mb-0 text-danger fw700 p-2 ml-2"
                                                     onclick="removeFromCartView(event, {{ $cartItem['id'] }})">X</h6>
                                             </div>
                                         </div>

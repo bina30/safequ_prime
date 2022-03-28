@@ -46,6 +46,14 @@
     background-color: var(--primary-color);
 }
 
+.default-color-dark-bg {
+    background-color: var(--default-color-dark);
+}
+
+.bg-transparent {
+    background: #ffffff85 !important;
+}
+
 .default-color {
     color: var(--default-color);
 }
@@ -136,6 +144,7 @@ html {
 
 body.modal-open {
     padding: 0 !important;
+    height: 100vh;
 }
 
 button:focus {
@@ -523,6 +532,10 @@ h4 .act-price.currency-symbol {
     justify-content: space-between;
 }
 
+.flex-no-wrap {
+    flex-wrap: nowrap;
+}
+
 .curser-pointer {
     cursor: pointer;
 }
@@ -535,6 +548,10 @@ header {
     width: 100%;
     z-index: 999;
     box-shadow: 0 3px 10px #00000014;
+}
+
+header.scrolled .bg-transparent {
+    background: #ffffff !important;
 }
 
 .home-header nav {
@@ -570,39 +587,42 @@ header .cart-icon i {
     width: 42px;
 }
 
-.sideNav {
+.sideNav .backdropDiv {
     position: fixed;
-    z-index: 9999;
     top: 0;
     left: 0;
-    width: 0;
+    opacity: 0;
+    width: 100%;
     height: 100%;
     padding: 0 !important;
-    background: #00000080;
+    background: #00000091;
     overflow: hidden;
-    transition: all 0.8s ease-in-out;
+    z-index: -10;
+    transition: all 0.7s ease-in-out;
 }
 
-.sideNav.active {
-    width: 100%;
+.sideNav.active .backdropDiv {
+    opacity: 1;
+    z-index: 9999;
 }
 
 .sideNav .nav-menu {
+    position: fixed;
+    left: -300px;
+    z-index: 99999;
     background: #fff;
-    width: 0;
-    padding: 0;
+    padding: 0.5rem 1rem 1rem;
     overflow: hidden;
+    width: 100%;
     height: 100%;
     max-width: 300px;
     max-height: 100vh;
-    transition: all 2s ease-in-out;
+    transition: all 0.7s ease-in-out;
 }
 
 .sideNav.active .nav-menu {
-    width: 100%;
+    left: 0;
     overflow: auto;
-    padding: 0.5rem 1rem 1rem;
-    transition: all 0.7s ease-in-out;
 }
 
 .sideNav .user-profile img {
@@ -729,7 +749,7 @@ main.main-tag-mt-sm {
     background-image: url(../img/community-bg.png);
     background-position: right;
     background-repeat: no-repeat;
-    background-size: cover;    
+    background-size: cover;
 }
 
 .community-create button {
@@ -813,8 +833,45 @@ button.btn-before-none::before,
     border-color: #4d4d4d;
 }
 
+.testimonials .item i.fa-3x {
+    color: var(--secondary);
+}
+
+.testimonials .owl-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    top: calc(50% - 21px);
+}
+
+.testimonials .owl-nav button {
+    margin: 0;
+    background: var(--primary-color) !important;
+}
+
+.testimonials .owl-nav button i {
+    color: #ffffff;
+}
+
+.testimonials .owl-nav .owl-prev {
+    margin-left: -35px;
+}
+
+.testimonials .owl-nav .owl-next {
+    margin-right: -35px;
+}
+
 .testimonials p.body-txt {
     min-height: 60px;
+}
+
+.icons3D {
+    max-width: 100px;
 }
 
 /* Item Cards */
@@ -2280,6 +2337,10 @@ input[type=checkbox]:checked+.check-box::before,
     main.withOnlyHdr {
         min-height: calc(100vh - 73.3px);
     }
+    
+    .slider-content h1 {
+        font-size: 1.98rem !important;
+    }
 }
 
 @media screen and (min-width: 369px) {
@@ -2327,7 +2388,7 @@ input[type=checkbox]:checked+.check-box::before,
     }
 
     .slider-content h1 {
-        font-size: 2rem;
+        font-size: 2.25rem;
     }
 }
 
@@ -2370,7 +2431,7 @@ input[type=checkbox]:checked+.check-box::before,
     }
 
     .home-slider {
-        padding: 80px 10px;
+        padding: 100px 0 60px;
     }
 
     .nxtdelivery-date {
@@ -2589,7 +2650,29 @@ input[type=checkbox]:checked+.check-box::before,
     margin: 30px auto !important;
 }
 
-@media (min-width: 576px) {
+@media screen and (max-width: 575px) {
+    .testimonials .owl-nav button {
+        width: 1.8rem;
+        font-size: 0.7rem !important;
+        height: 1.5rem;
+    }
+
+    .testimonials .owl-nav .owl-prev {
+        margin-left: -25px;
+    }
+
+    .testimonials .owl-nav .owl-next {
+        margin-right: -25px;
+    }
+
+    .slider-content {
+        padding: 0 25px;
+        background: #ffffff80;
+        border-radius: 15px;
+    }
+}
+
+@media screen and (min-width: 576px) {
 
     /*sm*/
     .modal-adaptive {
@@ -2598,6 +2681,11 @@ input[type=checkbox]:checked+.check-box::before,
 
     .aiz-file-box-wrap {
         width: 33.3333%;
+    }
+
+    .testimonials .owl-nav button {
+        width: 2.5rem;
+        height: 2rem;
     }
 }
 
@@ -2790,11 +2878,6 @@ input[type=checkbox]:checked+.check-box::before,
     ;
 }
 
-
-.btn-no {
-    padding: 9px 20px;
-}
-
 .item-tags {
     overflow-x: auto;
 }
@@ -2804,4 +2887,8 @@ input[type=checkbox]:checked+.check-box::before,
     padding: 5px 15px;
     white-space: nowrap;
     margin: auto;
+}
+
+.btn-no {
+    padding: 9px 20px;
 }

@@ -1,64 +1,110 @@
 @extends('frontend.layouts.app', ['header_show' => true, 'header2' => false, 'footer' => true])
 
 @section('content')
-    <main>
+    <main class="main-tag main-tag-mt">
+
         <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
 
-                    <div class="home-slider">
+                    <div class="home-slider slider-1">
                         <div class="container container2">
                             <div class="row">
-                                <div class="col-md-7 px-0">
-                                    <div class="slider-content animate__animated animate__fadeInLeft 100vh pr-lg-5 py-4">
-                                        <h1 class="fw600 mb-0">Exotic Fruits</h1>
-                                        <h1 class="fw800 mb-3 primary-color">30%* cheaper.</h1>
-                                        <p class="mb-2 pr-md-4">Get your fresh exotic produce at fair prices, directly
-                                            from a variety of local farms and sellers serving your community!</p>
+                                <div class="col-lg-6 px-0">
+                                    <div class="slider-content animate__animated animate__fadeInLeft 100vh pr-lg-5 p-4">
+                                        <h4 class="fw800 mb-3">All your everyday purchases in one place</h4>
+                                        <p class="mb-2 pr-4">Subscribe to anything. Tell us how you want your
+                                            day sorted and we will do the heavy lifting for you.</p>
 
-                                        <a href="#communities">
-                                            <p class="explore-card my-4 fw500"> Get started now &nbsp;
-                                                <i class="fal fa-long-arrow-right fsize20 align-middle"></i>
-                                            </p>
-                                        </a>
+                                        <div class="explore-card my-4">
+                                            <p class="mb-0 fw700">Explore SafeQu</p>
+                                            <i class="fal fa-long-arrow-right fa-2x"></i>
+                                        </div>
 
+                                        <div class="sl-social-icons pt-4">
+                                            <a href="#"><i class="fab fa-facebook-f mx-1"></i></a>
+                                            <a href="#"><i class="fab fa-instagram mx-1"></i></a>
+                                            <a href="#"><i class="fab fa-whatsapp mx-1"></i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div id="communities"></div>
+                </div>
+
+                <div class="carousel-item">
+
+                    <div class="home-slider slider-2">
+                        <div class="container container2">
+                            <div class="row">
+                                <div class="col-lg-6 px-0">
+                                    <div class="slider-content animate__animated animate__fadeInLeft 100vh pr-lg-5 p-4">
+                                        <h4 class="fw800 mb-3">Products straight from the source</h4>
+                                        <p class="mb-2 pr-4">SWe only work with premium independent or farm-to-table
+                                            brands committed to making food, drink & daily essentials to the highest
+                                            standard of quality and taste</p>
+
+                                        <div class="explore-card my-4">
+                                            <p class="mb-0 fw600">Explore SafeQu</p>
+                                            <i class="fal fa-long-arrow-right fa-2x"></i>
+                                        </div>
+
+                                        <div class="sl-social-icons pt-4">
+                                            <a href="#"><i class="fab fa-facebook-f mx-1"></i></a>
+                                            <a href="#"><i class="fab fa-instagram mx-1"></i></a>
+                                            <a href="#"><i class="fab fa-whatsapp mx-1"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
         </div>
 
         <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 col-md-8 px-0">
+                    <div class="community-creat primary-color-bg p-4 py-md-5 text-center">
+                        <h5 class="text-white fw700 mb-3">Build your own community</h5>
 
-            <div class="mt-2">
+                        <button class="btn mb-2">Create Community</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-5 mt-2">
                 <div class="community-serve text-center">
                     <div class="py-md-5 py-4">
-                        <h4 class="fw700 title-txt">Our most popular communities </h4>
-                        <p class="w-75 mx-auto mb-0 body-txt">More than 500+ customers across South Mumbai's finest gated
-                            communities have signed up to the SafeQU experience. Choose your community and get started now
-                        </p>
+                        <h4 class="fw700 title-txt">Communities we serve</h4>
+                        <p class="w-75 mx-auto mb-0 body-txt">Subscribe to anything. Tell us
+                            how you want your day started and we will do the heavy lifting for you.</p>
 
                         <div class="py-4">
                             <div class="community-slider owl-carousel owl-theme">
 
-                                @foreach ($communities as $community)
+                                @foreach($communities AS $community)
                                     <div class="item py-3 px-2">
                                         <div class="community-card mx-auto p-3 pt-4">
                                             <div class="card-img mb-1">
-                                                @if (isset($community->user->avatar_original))
+                                                @if(isset($community->user->avatar_original))
                                                     <img src="{{ uploaded_asset($community->user->avatar_original) }}"
-                                                        onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
-                                                        class="img-rounded" alt="{{ $community->name }}">
+                                                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                                         class="img-rounded"
+                                                         alt="{{ $community->name }}">
                                                 @else
                                                     <img src=""
-                                                        onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
-                                                        class="img-rounded" alt="{{ $community->name }}">
+                                                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                                         class="img-rounded"
+                                                         alt="{{ $community->name }}">
                                                 @endif
                                             </div>
                                             <div class="card-data pt-3 pb-4">
@@ -68,7 +114,7 @@
 
                                             <div class="card-members  @if(count($community->orders->unique('user_id')) > 0) pb-3 @else pb-5 @endif">
                                                 <div class="mbr-img">
-                                                    @foreach ($community->orders->unique('user_id') as $i => $order)
+                                                    @foreach($community->orders->unique('user_id') as $i => $order)
                                                         @if($i < 5)
                                                             <img src="{{ uploaded_asset($order->user->avatar_original) }}"
                                                                  onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
@@ -82,13 +128,13 @@
                                                 @endif
                                             </div>
 
-                                            @if (session()->has('shop_slug') && session()->get('shop_slug') != $community->slug)
+                                            @if(session()->has('shop_slug') && session()->get('shop_slug') != $community->slug)
                                                 <a href="javascript:void(0);"
                                                    class="btn primary-btn btn-block fw600 text-white"
                                                    onclick="confrimCommunityChange('{{ route('shop.visit', $community->slug) }}');">JOIN</a>
                                             @else
                                                 <a href="{{ route('shop.visit', $community->slug) }}"
-                                                    class="btn primary-btn btn-block fw600 text-white">JOIN</a>
+                                                   class="btn primary-btn btn-block fw600 text-white">JOIN</a>
                                             @endif
 
                                         </div>
@@ -98,69 +144,49 @@
                             </div>
                         </div>
 
-{{--                        @if (count($communities) > 5)--}}
-{{--                            <button class="btn fw700 view-more-btn px-4 mb-3 mb-md-0">View more</button>--}}
-{{--                        @endif--}}
+                        @if(count($communities) > 5)
+                            <button class="btn fw700 view-more-btn px-4 mb-3 mb-md-0">View more</button>
+                        @endif
 
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="primary-color-bg community-create">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 col-md-9 px-0">
-                        <div class="px-4 py-5 text-center">
-                            <h5 class="text-white mb-3 fw500">Not able to find your community? Request to get started now.
-                            </h5>
-                            <p class="text-white fw500 mb-2">Would you like the SafeQU experience for your community?</p>
-                            <p class="text-white fw500 mb-3">Ping us here and we will get your community setup in minutes.
-                            </p>
-                            <a href="https://uh19vww4t9p.typeform.com/to/ZuY8xtQq" target="_blank">
-                                <button type="button" class="btn mb-2">Create Community</button>
-                            </a>
+            <div class="pt-5 pb-3">
+                <h5 class="text-center fw700">Over 5000+ people use SafeQu every month to save their time and money</h5>
+
+                <div class="row justify-content-center pt-4">
+                    <div class="col-lg-5 col-md-6 primary-color-bg">
+                        <div class="p-4 w-100 h-100 d-flex align-items-center justify-content-center">
+                            <h4 class="text-white mb-1 fw700 text-center">What our customers say!</h4>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                    <div class="col-lg-7 col-md-6 light-bg">
+                        <div class="p-4 px-md-5">
+                            <div class="testimonials owl-carousel owl-theme">
+                                <div class="item">
+                                    <i class="fad fa-quote-left fa-3x body-txt mb-2"></i>
+                                    <p class="body-txt">Subscribe to anything. Tell us how you want your day
+                                        sorted and we will do the heavy lifting for you. Subscribe to anything. Tell us
+                                        how you want your day sorted and we will do the heavy lifting for you.</p>
 
-        <div class="py-5">
-            <h5 class="text-center fw700">Over 5000+ people use SafeQu every month to save their time and money</h5>
+                                    <p class="fw700 text-center">- Rahul Jain <span class="body-txt fsize12">CEO</span>
+                                    </p>
+                                </div>
+                                <div class="item">
+                                    <i class="fad fa-quote-left fa-3x body-txt mb-2"></i>
+                                    <p class="body-txt">Subscribe to anything. Tell us how you want your day
+                                        sorted and we will do the heavy lifting for you. Subscribe to anything. Tell us
+                                        how you want your day sorted and we will do the heavy lifting for you.</p>
 
-            <div class="row justify-content-center pt-4">
-                <div class="col-lg-5 col-md-6 primary-color-bg">
-                    <div class="p-4 w-100 h-100 d-flex align-items-center justify-content-center">
-                        <h4 class="text-white mb-1 fw700 text-center">What our customers say!</h4>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-md-6 light-bg">
-                    <div class="p-4 px-md-5">
-                        <div class="testimonials owl-carousel owl-theme">
-                            <div class="item">
-                                <i class="fad fa-quote-left fa-3x body-txt mb-2"></i>
-                                <p class="body-txt">Subscribe to anything. Tell us how you want your day
-                                    sorted and we will do the heavy lifting for you. Subscribe to anything. Tell us
-                                    how you want your day sorted and we will do the heavy lifting for you.</p>
-
-                                <p class="fw700 text-center">- Rahul Jain <span class="body-txt fsize12">CEO</span>
-                                </p>
-                            </div>
-                            <div class="item">
-                                <i class="fad fa-quote-left fa-3x body-txt mb-2"></i>
-                                <p class="body-txt">Subscribe to anything. Tell us how you want your day
-                                    sorted and we will do the heavy lifting for you. Subscribe to anything. Tell us
-                                    how you want your day sorted and we will do the heavy lifting for you.</p>
-
-                                <p class="fw700 text-center">- Karan DG <span class="body-txt fsize12">CEO</span>
-                                </p>
-                            </div>
-                            <div class="item">
-                                <i class="fad fa-quote-left fa-3x body-txt mb-2"></i>
-                                <p class="body-txt">Subscribe to anything. Tell us how you want your day
-                                    sorted and we will do the heavy lifting for you. Subscribe to anything. Tell us
-                                    how you want your day sorted and we will do the heavy lifting for you.</p>
+                                    <p class="fw700 text-center">- Karan DG <span class="body-txt fsize12">CEO</span>
+                                    </p>
+                                </div>
+                                <div class="item">
+                                    <i class="fad fa-quote-left fa-3x body-txt mb-2"></i>
+                                    <p class="body-txt">Subscribe to anything. Tell us how you want your day
+                                        sorted and we will do the heavy lifting for you. Subscribe to anything. Tell us
+                                        how you want your day sorted and we will do the heavy lifting for you.</p>
 
                                     <p class="fw700 text-center">- Vinod Shukla <span
                                                 class="body-txt fsize12">CEO</span>
@@ -176,7 +202,8 @@
 
         <!-- Change Community Modal Starts -->
         <div class="modal fade changeCommunityModal" id="changeCommunityModal" tabindex="-1"
-            aria-labelledby="changeCommunityModalLabel" aria-hidden="true">
+             aria-labelledby="changeCommunityModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -194,8 +221,8 @@
                                         community ? </h6>
                                     <p class="mb-0">
                                         <i class="fad primary-color fa-exclamation-circle fsize14"
-                                           aria-hidden="true"></i>
-                                               <span class="fsize12 body-txt ordered-qty"> Cart items will get removed.
+                                           aria-hidden="true"></i> <span
+                                                class="fsize12 body-txt ordered-qty"> Cart items will get removed.
                                         </span>
                                     </p>
                                 </div>
@@ -203,8 +230,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn primary-btn fw600 text-white">Yes</button>
-                            <button type="button" class="btn btn-secondary btn-no fw600 text"
-                                data-dismiss="modal">No
+                            <button type="button" class="btn btn-secondary btn-no fw600 text" data-dismiss="modal">No
                             </button>
                         </div>
                     </form>
@@ -218,7 +244,7 @@
 
 @section('script')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             $('.carousel').carousel({
                 interval: 7000,

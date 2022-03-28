@@ -1,5 +1,5 @@
 @if (isset($footer) && $footer)
-    <footer class="primary-color-bg">
+    <footer class="default-color-dark-bg pt-3 pb-2">
         <div class="text-center py-3">
             <a href="#" target="_blank"><i class="fab fa-facebook-f mx-1"></i></a>
             <a href="https://www.instagram.com/safequ.india/" target="_blank"><i class="fab fa-instagram mx-1"></i></a>
@@ -23,8 +23,8 @@
                 </li>
             </ul>
         </div>
-        <hr class="mb-0">
-        <div class="container py-3 text-center">
+        
+        <div class="container mt-3 py-3 text-center bt-1">
             <p class="mb-0 text-white">Copyright &copy; 2022. All rights reserved.</p>
         </div>
     </footer>
