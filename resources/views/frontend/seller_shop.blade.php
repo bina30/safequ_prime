@@ -370,7 +370,7 @@
 
 
         <!-- Item Modal -->
-        <a href="">
+        <a href="https://wa.me/917498107182" target="_blank">
             <div class="wp-help-btn flex-acenter-jbtw">
                 <span class="fw500"> Help </span> <i class="fab fa-whatsapp"></i>
             </div>
