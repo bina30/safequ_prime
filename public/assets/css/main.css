@@ -520,6 +520,12 @@ h4 .act-price.currency-symbol {
     justify-content: flex-start;
 }
 
+.flex-astart-jcenter {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
 .flex-astart-jbtw {
     display: flex;
     align-items: flex-start;
@@ -536,7 +542,7 @@ h4 .act-price.currency-symbol {
     flex-wrap: nowrap;
 }
 
-.curser-pointer {
+.cursor-pointer {
     cursor: pointer;
 }
 
@@ -1040,18 +1046,19 @@ button.btn-before-none::before,
 }
 
 .item-card .item-data .remaining-time .timing {
-    margin: 1px;
-    min-width: 80px;
+    margin: 3px;
+    min-width: 60px;
+    min-height: 55px;
 }
 
 .item-card .item-data .remaining-time .timing div {
     border-radius: 3px;
-    padding: 16px 0;
+    padding: 10px 0;
     background: var(--v-light-color);
 }
 
 .item-card .item-data .remaining-time .timing span {
-    font-size: 13px !important;
+    font-size: 0.7rem !important;
     color: #a2a2a2;
 }
 
@@ -1059,17 +1066,73 @@ button.btn-before-none::before,
     background: linear-gradient(45deg, #8c88fb, #4419ff);
 }
 
-.item-card .item-data .remaining-time div h2 {
+.item-card .item-data .remaining-time div h3 {
     color: var(--default-color-dark);
+    font-size: 1.65rem !important;
 }
 
-.item-card .item-data .remaining-time div.active h2 {
+.item-card .item-data .remaining-time div.active h3 {
     color: #fff;
 }
 
-.item-card .item-data .remaining-time div.disabled h2 {
+.item-card .item-data .remaining-time div.disabled h3 {
     color: #cfcfcf;
 }
+
+/* Timing Preloader */
+.item-card .item-data .preloader_div {
+    height: 5.515rem;
+}
+
+.item-card .item-data .preloader_div .timing {
+    margin: 3px;
+    min-width: 60px;
+    min-height: 55px;
+    border-radius: 3px;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: var(--light-color);
+    background: linear-gradient(to right, var(--light-color), #ddd, var(--light-color));
+    background-size: 60px;
+}
+
+.item-card .item-data .preloader_div p {
+    height: 0.65rem;
+    border-radius: 5px;
+    margin: 2px;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: var(--light-color);
+    background: linear-gradient(to right, var(--light-color), #ddd, var(--light-color));
+    background-size: 60px;
+}
+
+.item-card .item-data .preloader_div .timing div {
+    height: 0;
+    padding: 0;
+}
+
+.item-card .item-data .preloader_div div.disabled h3,
+.item-card .item-data .preloader_div h3 {
+    color: var(--light-color);
+}
+
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: 0;
+    }
+
+    100% {
+        background-position: 120px;
+    }
+}
+/* Timing preloader End */
 
 .item-card .item-data .order-progress i {
     font-size: 16px;
@@ -1790,7 +1853,7 @@ button.btn-before-none::before,
     justify-content: space-between;
     align-items: center;
     border-radius: 6px;
-    padding: 8px;
+    padding: 10px 8px;
     margin-bottom: 8px;
     box-shadow: 0 2px 12px 0px #eeeeee;
 }
@@ -1811,6 +1874,13 @@ button.btn-before-none::before,
     height: 40px;
     border-radius: 50%;
     background: #e4f1f2;
+}
+
+.transactions .amt i {
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    color: #ff8757;
 }
 
 .transactions .indicater i {
@@ -1854,6 +1924,11 @@ button.btn-before-none::before,
 
 .transactions .body-txt {
     font-size: 0.83rem !important;
+}
+
+.transDetails {
+    height: 0;
+    overflow: hidden;
 }
 
 #addMoneyModal .modal-dialog {
@@ -2338,7 +2413,7 @@ input[type=checkbox]:checked+.check-box::before,
     main.withOnlyHdr {
         min-height: calc(100vh - 73.3px);
     }
-    
+
     .slider-content h1 {
         font-size: 1.98rem !important;
     }
@@ -2893,4 +2968,24 @@ input[type=checkbox]:checked+.check-box::before,
     padding: 5px 15px;
     white-space: nowrap;
     margin: auto;
+}
+
+.wp-help-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25d366;
+    z-index: 999;
+    padding: 2px 10px;
+    border-radius: 1.5rem;
+    width: 82px;
+}
+
+.wp-help-btn span,
+.wp-help-btn i {
+    color: #ffffff;
+}
+
+.wp-help-btn i {
+    font-size: 1.45rem;
 }

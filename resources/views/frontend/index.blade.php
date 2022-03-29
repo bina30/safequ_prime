@@ -146,7 +146,7 @@
                                     my
                                     grocery shopping.</p>
 
-                                <p class="fw700 text-center">Resident
+                                <p class="fw700 text-center">NK
                                     <br>
                                     <span class="fsize13">Planet Godrej</span>
                                 </p>
@@ -160,7 +160,7 @@
                                     and
                                     Strawberries. Most of all your customer attention to detail. Thanks!</p>
 
-                                <p class="fw700 text-center">Resident
+                                <p class="fw700 text-center">SK
                                     <br>
                                     <span class="fsize13">Chaitanya Towers</span>
                                 </p>
@@ -174,7 +174,7 @@
                                     fresh &
                                     beautiful. Thanks, SafeQU for sorting me out with my weekly flowers</p>
 
-                                <p class="fw700 text-center">Resident
+                                <p class="fw700 text-center">Tarana.S
                                     <br>
                                     <span class="fsize13">Lodha Park</span>
                                 </p>
@@ -190,7 +190,7 @@
                                     brilliant farm fresh produce and the weekly salad subscription service. The Romaine
                                     Lettuce particularly felt like it had been picked from my back garden</p>
 
-                                <p class="fw700 text-center">Hema W, Resident
+                                <p class="fw700 text-center">Hema W
                                     <br>
                                     <span class="fsize13">Lodha Park</span>
                                 </p>

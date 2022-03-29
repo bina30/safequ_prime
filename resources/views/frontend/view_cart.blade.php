@@ -98,7 +98,7 @@
                                                         <i class="fa fa-plus"></i>
                                                     </button>
                                                 </div>
-                                                <h6 class="mb-0 text-danger curser-pointer fw700 p-2 ml-2"
+                                                <h6 class="mb-0 text-danger cursor-pointer fw700 p-2 ml-2"
                                                     onclick="removeFromCartView(event, {{ $cartItem['id'] }})">X</h6>
                                             </div>
                                         </div>
