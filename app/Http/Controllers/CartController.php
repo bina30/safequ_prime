@@ -284,10 +284,13 @@ class CartController extends Controller
     {
         Cart::destroy($request->id);
         $user_data = array();
+        $shop = array();
         if (auth()->user() != null) {
             $user_id = Auth::user()->id;
             $carts = Cart::where('user_id', $user_id)->get();
             $user_data = Auth::user();
+
+            $shop = Shop::where('user_id', intval($user_data->joined_community_id))->first();
         } else {
             $temp_user_id = $request->session()->get('temp_user_id');
             $carts = Cart::where('temp_user_id', $temp_user_id)->get();
@@ -297,7 +300,7 @@ class CartController extends Controller
 
         return array(
             'cart_count'    => count($carts),
-            'cart_view'     => view('frontend.partials.cart_details', compact('carts', 'user_data'))->render(),
+            'cart_view'     => view('frontend.partials.cart_details', compact('carts', 'user_data', 'shop'))->render(),
             'nav_cart_view' => view('frontend.partials.cart')->render(),
         );
     }

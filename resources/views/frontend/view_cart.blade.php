@@ -117,7 +117,7 @@
                                             <h3 class="h4 fw-700">{{ translate('Your Cart is empty') }}</h3>
                                         </div>
                                     </div>
-                                    @if(intval($user_data->joined_community_id) > 0)
+                                    @if($user_data && intval($user_data->joined_community_id) > 0)
                                         <a href="{{ route('shop.visit', $shop->slug) }}">Continue Shopping &nbsp;&nbsp; <i class="fal fa-long-arrow-right"></i></a>
                                     @else
                                         <a href="{{ route('home') }}">Continue Shopping &nbsp;&nbsp; <i class="fal fa-long-arrow-right"></i></a>
