@@ -152,6 +152,7 @@
         echo get_setting('header_script');
     @endphp
 
+    @laravelPWA
 </head>
 
 <body>

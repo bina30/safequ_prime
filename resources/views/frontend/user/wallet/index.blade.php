@@ -10,7 +10,7 @@
                         <i class="fad fa-wallet text-white fa-2x"></i>
                         <p class="mb-1 text-white fsize13">SafeQu Balance</p>
                         <h4 class="fw700 mb-3 text-white">
-                            {!! single_price(Auth::user()->balance) !!}
+                            {!! single_price_web(Auth::user()->balance) !!}
                         </h4>
                         @if (get_setting('razorpay') == 1)
                             <button class="btn btn-outline-light fsize14 fw500 px-4 btn-round btn-before-none"
@@ -47,7 +47,7 @@
                                         </div>
                                     </div>
                                     <h6 class="amount text-right mb-0">
-                                        {!! single_price(abs($wallet->amount)) !!}
+                                        {!! single_price_web(abs($wallet->amount)) !!}
                                     </h6>
                                 </div>
                             @empty

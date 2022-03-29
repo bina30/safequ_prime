@@ -90,7 +90,7 @@ class Handler extends ExceptionHandler
 //            $handler = new HtmlErrorRenderer();
 //            $css = $handler->getStylesheet();
             $content = $e->getMessage();
-            Mail::to('exception@yopmail.com')->send(new ExceptionOccurred($content));
+//            Mail::to('exception@yopmail.com')->send(new ExceptionOccurred($content));
         } catch (Throwable $ex) {
             Log::error($ex);
         }

@@ -2,24 +2,10 @@
 
 @section('content')
 
-    <form action="{!!route('payment.rozer')!!}" method="POST" id='rozer-pay' style="display: none;">
-        <!-- Note that the amount is in paise = 50 INR -->
-        <!--amount need to be in paisa-->
-        <script src="https://checkout.razorpay.com/v1/checkout.js"
-                data-key="{{ env('RAZOR_KEY') }}"
-                data-amount={{Session::get('payment_data')['amount']*100}}
-                data-buttontext=""
-                data-name="{{ env('APP_NAME') }}"
-                data-description="Wallet Payment"
-                data-image="{{ uploaded_asset(get_setting('header_logo')) }}"
-                data-prefill.name= "{{ Auth::user()->name}}"
-                data-prefill.email= "{{ Auth::user()->email}}"
-                data-prefill.contact= "{{ Auth::user()->phone}}"
-                data-modal.confirm_close= true
-                data-modal.escape= false
-                data-theme.color="#ff7529">
-        </script>
+    <form action="{!!route('payment.rozer')!!}" method="POST" id='razorpay' style="display: none;">
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <input type="hidden" name="_token" value="{!!csrf_token()!!}">
+        <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
     </form>
 
 @endsection
@@ -27,7 +13,53 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#rozer-pay').submit()
+            let options = {
+                "key": "{{ env('RAZOR_KEY') }}", // Enter the Key ID generated from the Dashboard
+                "amount": "{{Session::get('payment_data')['amount']*100}}", //amount need to be in multiple of 100
+                "name": "{{ env('APP_NAME') }}",
+                "description": "Wallet Payment",
+                "image": "{{ uploaded_asset(get_setting('header_logo')) }}",
+                "prefill": {
+                    "name": "{{ Auth::user()->name}}",
+                    "email": "{{ Auth::user()->email}}",
+                    "contact": "{{ Auth::user()->phone}}",
+                },
+                "theme": {
+                    "color": "#ff7529"
+                },
+                config: {
+                    display: {
+                        blocks: {
+                            banks: {
+                                name: "Pay using UPI",
+                                instruments: [
+                                    {
+                                        method: "upi",
+                                        flows: ["collect"],
+                                        apps: ["google_pay"]
+                                    },
+                                ]
+                            },
+                        },
+                        sequence: ['block.banks'],
+                        preferences: {
+                            show_default_blocks: true // Should Checkout show its default blocks?
+                        }
+                    }
+                },
+                "handler": function (response) {
+                    document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+                    document.getElementById('razorpay').submit();
+                },
+                "modal": {
+                    "ondismiss": function () {
+                        window.location.href = '{{ route('wallet.index') }}';
+                    }
+                }
+            };
+            let rzp = new Razorpay(options);
+            rzp.open();
+            e.preventDefault();
         });
     </script>
 @endsection
