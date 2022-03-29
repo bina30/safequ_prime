@@ -542,7 +542,7 @@ h4 .act-price.currency-symbol {
     flex-wrap: nowrap;
 }
 
-.curser-pointer {
+.cursor-pointer {
     cursor: pointer;
 }
 
@@ -1853,7 +1853,7 @@ button.btn-before-none::before,
     justify-content: space-between;
     align-items: center;
     border-radius: 6px;
-    padding: 8px;
+    padding: 10px 8px;
     margin-bottom: 8px;
     box-shadow: 0 2px 12px 0px #eeeeee;
 }
@@ -1874,6 +1874,13 @@ button.btn-before-none::before,
     height: 40px;
     border-radius: 50%;
     background: #e4f1f2;
+}
+
+.transactions .amt i {
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    color: #ff8757;
 }
 
 .transactions .indicater i {
@@ -1917,6 +1924,11 @@ button.btn-before-none::before,
 
 .transactions .body-txt {
     font-size: 0.83rem !important;
+}
+
+.transDetails {
+    height: 0;
+    overflow: hidden;
 }
 
 #addMoneyModal .modal-dialog {
