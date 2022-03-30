@@ -10,7 +10,7 @@
                         <i class="fad fa-wallet text-white fa-2x"></i>
                         <p class="mb-1 text-white fsize13">SafeQu Balance</p>
                         <h4 class="fw700 mb-3 text-white">
-                            {!! single_price_web(Auth::user()->balance) !!}
+                            {!! single_price(Auth::user()->balance) !!}
                         </h4>
                         @if (get_setting('razorpay') == 1)
                             <button class="btn btn-outline-light fsize14 fw500 px-4 btn-round btn-before-none"
@@ -29,8 +29,8 @@
 
                         <div class="pt-4">
                             @forelse ($wallets as $key => $wallet)
-                                <div class="transactions @if ($wallet->amount > 0) credit @else debit @endif">
-                                    <div class="d-flex justify-content-start align-items-center">
+                                <div class="transactions cursor-pointer flex-wrap @if ($wallet->amount > 0) credit @else debit @endif">
+                                    <div class="flex-acenter-jstart">
                                         <div class="indicater text-center">
                                             <i class="fad fa-long-arrow-left text-danger"></i>
                                             <i class="fad fa-long-arrow-right text-success"></i>
@@ -46,9 +46,38 @@
                                             <p class="mb-0 body-txt">{{ dateFormat($wallet->created_at) }}</p>
                                         </div>
                                     </div>
-                                    <h6 class="amount text-right mb-0">
-                                        {!! single_price_web(abs($wallet->amount)) !!}
-                                    </h6>
+
+                                    <div class="amt text-right">
+                                        <h6 class="amount mb-1">
+                                            {!! single_price(abs($wallet->amount)) !!}
+                                        </h6>
+
+                                        <i class="fad fa-caret-circle-right align-middle"></i>
+                                    </div>
+
+                                    <div class="w-100 transDetails">
+                                        <div class="pt-2 px-2">
+                                            @php
+                                                $payment_detail = json_decode($wallet->payment_details);
+                                            @endphp
+                                            @if ($wallet->payment_method == 'razorpay')
+                                                <p class="body-txt mb-1"><span
+                                                            class="fw500 fsize13">Payment method:</span>
+                                                    Razorpay</p>
+                                                <p class="body-txt mb-1"><span
+                                                            class="fw500 fsize13">Transaction id:</span> {{$payment_detail->id}}
+                                                </p>
+                                            @elseif ($wallet->payment_method == 'order')
+                                                <a href="{{ route('purchase_details', encrypt($payment_detail->id)) }}"><p class="body-txt mb-1"><span
+                                                            class="fw500 fsize13">Order No.:</span>
+                                                    #{{$payment_detail->code}}</p></a>
+                                            @else
+                                                <p class="body-txt mb-1"><span
+                                                            class="fw500 fsize13">Payment method:</span>
+                                                    Welcome Bonus</p>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                             @empty
                                 <div class="row">
@@ -56,7 +85,7 @@
                                         <div class="shadow-sm bg-white p-4 rounded">
                                             <div class="text-center p-3">
                                                 <i class="las la-frown la-3x opacity-60 mb-3"></i>
-                                                <h3 class="h4 fw-700">{{translate('No transactions found.!')}}</h3>
+                                                <h3 class="h4 fw-700">{{ translate('No transactions found.!') }}</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -135,27 +164,27 @@
                             <div class="form-group">
                                 <label for="from_date" class="fw500">From Date</label>
                                 <input type="date" class="form-control" name="from_date" id="from_date"
-                                       value="{{$request->from_date ?? ''}}"/>
+                                       value="{{ $request->from_date ?? '' }}"/>
                             </div>
                             <div class="form-group pb-3">
                                 <label for="from_date" class="fw500">To Date</label>
                                 <input type="date" class="form-control" name="to_date" id="to_date"
-                                       value="{{$request->to_date ?? ''}}"/>
+                                       value="{{ $request->to_date ?? '' }}"/>
                             </div>
                             <div class="form-group pb-3">
                                 <label for="from_date" class="fw500">Transaction Type</label>
 
                                 <div class="switch">
                                     <input type="radio" class="switch-input" name="view" value="all" id="all"
-                                           @if(isset($request->view) && $request->view == 'all') checked @endif>
+                                           @if (isset($request->view) && $request->view == 'all') checked @endif>
                                     <label for="all" class="switch-label switch-label-all mb-0">All</label>
 
                                     <input type="radio" class="switch-input" name="view" value="credit" id="credit"
-                                           @if(isset($request->view) && $request->view == 'credit') checked @endif/>
+                                           @if (isset($request->view) && $request->view == 'credit') checked @endif />
                                     <label for="credit" class="switch-label switch-label-in">Credit</label>
 
                                     <input type="radio" class="switch-input" name="view" value="debit" id="debit"
-                                           @if(isset($request->view) && $request->view == 'debit') checked @endif/>
+                                           @if (isset($request->view) && $request->view == 'debit') checked @endif />
                                     <label for="debit" class="switch-label switch-label-out">Debit</label>
 
                                     <span class="switch-selection"></span>
@@ -191,6 +220,15 @@
                 } else {
                     $('#btnAmt').text(0), $('#btnAmt').parent().addClass("disabled");
                 }
+            })
+
+            $(".transactions").on('click', function () {
+                let icn = $(this).find('i.fa-caret-circle-right');
+                let el = $(this).find('.transDetails');
+                let hght = el.children('.pt-2').outerHeight();
+
+                el.hasClass('active') ? (el.toggleClass('active').css('height', '0'), icn.css('transform', 'rotate(0deg)')) :
+                    (el.toggleClass('active').css('height', hght), icn.css('transform', 'rotate(90deg)'));
             })
         })
     </script>

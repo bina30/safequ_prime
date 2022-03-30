@@ -75,22 +75,26 @@
                                 @endforeach
                                 </tbody>
                                 <tfoot>
-{{--                                 <tr>--}}
-{{--                                    <th colspan="2">Sub Total</th>--}}
-{{--                                    <th class="text-right">{{$order->grand_total}}</th>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th colspan="2" class="bt-0">Discount</th>--}}
-{{--                                    <th class="text-right bt-0">- 200</th>--}}
-{{--                                </tr>--}}
+                                {{--                                 <tr>--}}
+                                {{--                                    <th colspan="2">Sub Total</th>--}}
+                                {{--                                    <th class="text-right">{{$order->grand_total}}</th>--}}
+                                {{--                                </tr>--}}
+                                {{--                                <tr>--}}
+                                {{--                                    <th colspan="2" class="bt-0">Discount</th>--}}
+                                {{--                                    <th class="text-right bt-0">- 200</th>--}}
+                                {{--                                </tr>--}}
                                 <tr>
                                     <th colspan="2" class="bt-0">Shipping cost</th>
                                     <th class="text-right bt-0"> {!! single_price_web($order->orderDetails->sum('shipping_cost')) !!}</th>
                                 </tr>
-{{--                                <tr>--}}
-{{--                                    <th colspan="2" class="bt-0">Service Tax</th>--}}
-{{--                                    <th class="text-right bt-0">80</th>--}}
-{{--                                </tr> --}}
+                                <tr>
+                                    <th colspan="2" class="bt-0">{{translate('Coupon Discount')}}</th>
+                                    <th class="text-right bt-0"> - {!! single_price_web($order->coupon_discount) !!}</th>
+                                </tr>
+                                {{--                                <tr>--}}
+                                {{--                                    <th colspan="2" class="bt-0">Service Tax</th>--}}
+                                {{--                                    <th class="text-right bt-0">80</th>--}}
+                                {{--                                </tr> --}}
                                 <tr class="bb-1">
                                     <th colspan="2" class="fw600 fsize15 py-2">Total</th>
                                     <th class="fw600 fsize15 text-right py-2">

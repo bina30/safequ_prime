@@ -55,7 +55,7 @@
     // Initialize the service worker
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('{{static_asset("assets/js/serviceworker.js")}}', {
-            scope: './public/assets/js/'
+            scope: '{{static_asset("assets/js")}}/'
         }).then(function (registration) {
             // Registration was successful
             console.log('Laravel PWA: ServiceWorker registration successful with scope: ', registration.scope);

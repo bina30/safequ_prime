@@ -108,6 +108,9 @@
                         @endforeach
                         @php
                             $total += $shipping;
+                            if ($carts->sum('discount') > 0){
+                                $total -= $carts->sum('discount');
+                            }
                         @endphp
                         @if ($total == 0)
                             <div class="row">
@@ -129,27 +132,69 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('payment.checkout') }}" class="form-default" role="form" method="POST"
-                              id="checkout-form">
-                            @csrf
+                        @if ($total > 0)
+                        <!-- Amount -->
+                            <div class="payings py-4">
+                                <hr class="b-1">
+                                <h6>
+                                    <ins class="fw500">Shipping cost :</ins>
+                                    <ins class="fw500 text-right"> {!! single_price_web($shipping) !!} </ins>
+                                </h6>
+                                @if ($carts->sum('discount') > 0)
+                                    <h6>
+                                        <ins class="fw500">{{translate('Coupon Discount')}} :</ins>
+                                        <ins class="fw500 text-right"> - {!! single_price_web($carts->sum('discount')) !!} </ins>
+                                    </h6>
+                                @endif
+                                <h5>
+                                    <ins class="fw700">Total :</ins>
+                                    <ins class="fw700 text-right"> {!! single_price_web($total) !!} </ins>
+                                </h5>
+                            </div>
 
-                            @if (count($carts) > 0)
-                                <input type="hidden" name="owner_id" value="{{ $carts[0]['owner_id'] }}">
+                            @if (Auth::check() && get_setting('coupon_system') == 1)
+                                @if ($carts[0]['discount'] > 0)
+                                    <div class="mb-3">
+                                        <form class="" id="remove-coupon-form" enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" name="owner_id" value="{{ $carts[0]['owner_id'] }}">
+                                            <div class="input-group">
+                                                <div class="form-control">{{ $carts[0]['coupon_code'] }}</div>
+                                                <div class="input-group-append">
+                                                    <button type="button" id="coupon-remove"
+                                                            class="btn btn-primary primary-color-bg b-0">{{translate('Change Coupon')}}</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                @else
+                                    <div class="mb-3">
+                                        <form class="" id="apply-coupon-form" enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" name="owner_id" value="{{ $carts[0]['owner_id'] }}">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="code"
+                                                       onkeydown="return event.key != 'Enter';"
+                                                       placeholder="{{translate('Have coupon code? Enter here')}}"
+                                                       required>
+                                                <div class="input-group-append">
+                                                    <button type="button" id="coupon-apply"
+                                                            class="btn btn-primary primary-color-bg b-0">{{translate('Apply')}}</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                @endif
                             @endif
 
-                            @if ($total > 0)
-                            <!-- Amount -->
-                                <div class="payings py-4">
-                                    <hr class="b-1">
-                                    <h6>
-                                        <ins class="fw500">Shipping cost :</ins>
-                                        <ins class="fw500 text-right"> {!! single_price_web($shipping) !!} </ins>
-                                    </h6>
-                                    <h5>
-                                        <ins class="fw700">Total :</ins>
-                                        <ins class="fw700 text-right"> {!! single_price_web($total) !!} </ins>
-                                    </h5>
-                                </div>
+                            <form action="{{ route('payment.checkout') }}" class="form-default" role="form"
+                                  method="POST"
+                                  id="checkout-form">
+                                @csrf
+
+                                @if (count($carts) > 0)
+                                    <input type="hidden" name="owner_id" value="{{ $carts[0]['owner_id'] }}">
+                                @endif
 
                                 <!-- Payment Method -->
                                 <div class="pay-method pb-3">
@@ -212,9 +257,9 @@
                                         </button>
                                     </div>
                                 </div>
-                            @endif
 
-                        </form>
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -293,5 +338,44 @@
                 AIZ.plugins.notify('success', "{{ translate('Item has been removed from cart') }}");
             });
         }
+
+        $(document).on("click", "#coupon-apply", function () {
+            var data = new FormData($('#apply-coupon-form')[0]);
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                method: "POST",
+                url: "{{route('checkout.apply_coupon_code')}}",
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data, textStatus, jqXHR) {
+                    AIZ.plugins.notify(data.response_message.response, data.response_message.message);
+                    $("#cart_summary").html(data.html);
+                }
+            })
+        });
+
+        $(document).on("click", "#coupon-remove",function() {
+            var data = new FormData($('#remove-coupon-form')[0]);
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                method: "POST",
+                url: "{{route('checkout.remove_coupon_code')}}",
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data, textStatus, jqXHR) {
+                    $("#cart_summary").html(data);
+                }
+            });
+        });
     </script>
 @endsection

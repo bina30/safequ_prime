@@ -88,7 +88,10 @@
                 </div>
             @endforeach
             @php
-            $total += $shipping;
+                $total += $shipping;
+                if ($carts->sum('discount') > 0){
+                    $total -= $carts->sum('discount');
+                }
             @endphp
 
             @if($total == 0)
@@ -101,37 +104,81 @@
                             </div>
                         </div>
                         @if($user_data && intval($user_data->joined_community_id) > 0)
-                            <a href="{{ route('shop.visit', $shop->slug) }}">Continue Shopping &nbsp;&nbsp; <i class="fal fa-long-arrow-right"></i></a>
+                            <a href="{{ route('shop.visit', $shop->slug) }}">Continue Shopping &nbsp;&nbsp; <i
+                                        class="fal fa-long-arrow-right"></i></a>
                         @else
-                            <a href="{{ route('home') }}">Continue Shopping &nbsp;&nbsp; <i class="fal fa-long-arrow-right"></i></a>
+                            <a href="{{ route('home') }}">Continue Shopping &nbsp;&nbsp; <i
+                                        class="fal fa-long-arrow-right"></i></a>
                         @endif
                     </div>
                 </div>
             @endif
 
-            <form action="{{ route('payment.checkout') }}" class="form-default" role="form" method="POST"
-                  id="checkout-form">
-                @csrf
 
-                @if(count($carts) > 0)
-                    <input type="hidden" name="owner_id" value="{{  $carts[0]['owner_id'] }}">
+            @if($total > 0)
+            <!-- Amount -->
+                <div class="payings py-4">
+                    <hr class="b-1">
+                    <h6>
+                        <ins class="fw500">Shipping cost :</ins>
+                        <ins class="fw500 text-right"> {!! single_price_web($shipping) !!} </ins>
+                    </h6>
+                    @if ($carts->sum('discount') > 0)
+                        <h6>
+                            <ins class="fw500">{{translate('Coupon Discount')}} :</ins>
+                            <ins class="fw500 text-right">- {!! single_price_web($carts->sum('discount')) !!} </ins>
+                        </h6>
+                    @endif
+                    <h5>
+                        <ins class="fw700">Total :</ins>
+                        <ins class="fw700 text-right"> {!! single_price_web($total) !!} </ins>
+                    </h5>
+                </div>
+
+                @if (Auth::check() && get_setting('coupon_system') == 1)
+                    @if ($carts[0]['discount'] > 0)
+                        <div class="mb-3">
+                            <form class="" id="remove-coupon-form" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="owner_id" value="{{ $carts[0]['owner_id'] }}">
+                                <div class="input-group">
+                                    <div class="form-control">{{ $carts[0]['coupon_code'] }}</div>
+                                    <div class="input-group-append">
+                                        <button type="button" id="coupon-remove"
+                                                class="btn btn-primary primary-color-bg b-0">{{translate('Change Coupon')}}</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    @else
+                        <div class="mb-3">
+                            <form class="" id="apply-coupon-form" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="owner_id" value="{{ $carts[0]['owner_id'] }}">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="code"
+                                           onkeydown="return event.key != 'Enter';"
+                                           placeholder="{{translate('Have coupon code? Enter here')}}"
+                                           required>
+                                    <div class="input-group-append">
+                                        <button type="button" id="coupon-apply"
+                                                class="btn btn-primary primary-color-bg b-0">{{translate('Apply')}}</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
                 @endif
 
-                @if($total > 0)
-                <!-- Amount -->
-                    <div class="payings py-4">
-                        <hr class="b-1">
-                        <h6>
-                            <ins class="fw500">Shipping cost :</ins>
-                            <ins class="fw500 text-right"> {!! single_price_web($shipping) !!} </ins>
-                        </h6>
-                        <h5>
-                            <ins class="fw700">Total :</ins>
-                            <ins class="fw700 text-right"> {!! single_price_web($total) !!} </ins>
-                        </h5>
-                    </div>
+                <form action="{{ route('payment.checkout') }}" class="form-default" role="form" method="POST"
+                      id="checkout-form">
+                    @csrf
 
-                    <!-- Payment Method -->
+                    @if(count($carts) > 0)
+                        <input type="hidden" name="owner_id" value="{{  $carts[0]['owner_id'] }}">
+                @endif
+
+                <!-- Payment Method -->
                     <div class="pay-method pb-3">
 
                         @if(Auth::user())
@@ -174,9 +221,9 @@
                                 @if(count($carts) == 0 || $user_data->address == '') disabled @endif >Pay Now
                         </button>
                     </div>
-                @endif
 
-            </form>
+                </form>
+            @endif
         </div>
     </div>
 </div>

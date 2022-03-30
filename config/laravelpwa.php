@@ -60,7 +60,7 @@ return [
         'shortcuts' => [
             [
                 'name' =>  env('APP_NAME', 'SafeQU'),
-                'description' => '',
+                'description' => 'Product straight from the source',
                 'url' => '/',
                 'icons' => [
                     "src" => static_asset("/assets/img/pwa/icon-128x128.png"),
