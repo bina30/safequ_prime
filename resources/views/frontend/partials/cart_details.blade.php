@@ -105,10 +105,10 @@
                         </div>
                         @if($user_data && intval($user_data->joined_community_id) > 0)
                             <a href="{{ route('shop.visit', $shop->slug) }}">Continue Shopping &nbsp;&nbsp; <i
-                                        class="fal fa-long-arrow-right"></i></a>
+                                    class="fal fa-long-arrow-right"></i></a>
                         @else
                             <a href="{{ route('home') }}">Continue Shopping &nbsp;&nbsp; <i
-                                        class="fal fa-long-arrow-right"></i></a>
+                                    class="fal fa-long-arrow-right"></i></a>
                         @endif
                     </div>
                 </div>
@@ -119,10 +119,12 @@
             <!-- Amount -->
                 <div class="payings py-4">
                     <hr class="b-1">
-                    <h6>
-                        <ins class="fw500">Shipping cost :</ins>
-                        <ins class="fw500 text-right"> {!! single_price_web($shipping) !!} </ins>
-                    </h6>
+                    @if($shipping > 0)
+                        <h6>
+                            <ins class="fw500">Shipping cost :</ins>
+                            <ins class="fw500 text-right"> {!! single_price_web($shipping) !!} </ins>
+                        </h6>
+                    @endif
                     @if ($carts->sum('discount') > 0)
                         <h6>
                             <ins class="fw500">{{translate('Coupon Discount')}} :</ins>
@@ -193,7 +195,8 @@
                                     <br>
                                     <span class="align-middle body-txt cart_wallet_bal">
                                         Available
-                                        <ins class="fw600 body-txt">{!! single_price_web(Auth::user()->balance) !!} </ins>
+                                        <ins
+                                            class="fw600 body-txt">{!! single_price_web(Auth::user()->balance) !!} </ins>
                                         for Payment
                                     </span>
                                 </label>

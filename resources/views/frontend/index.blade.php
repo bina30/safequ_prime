@@ -41,7 +41,7 @@
                     <div class="py-md-5 py-4">
                         <h4 class="fw700 title-txt">Our most <ins class="primary-color fw700">popular communities</ins></h4>
                         <p class="w-75 mx-auto mb-0 body-txt">More than <ins class="primary-color fw600">500+ customers
-                            </ins> South Mumbai's finest gated communities have already signed up to the SafeQU experience.
+                            </ins> across South Mumbai's finest gated communities have already signed up to the SafeQU experience.
                             Choose
                             your community and get started now
                         </p>

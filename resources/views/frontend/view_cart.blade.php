@@ -126,7 +126,7 @@
                                             <i class="fal fa-long-arrow-right"></i></a>
                                     @else
                                         <a href="{{ route('home') }}">Continue Shopping &nbsp;&nbsp; <i
-                                                    class="fal fa-long-arrow-right"></i></a>
+                                                class="fal fa-long-arrow-right"></i></a>
                                     @endif
                                 </div>
                             </div>
@@ -136,14 +136,17 @@
                         <!-- Amount -->
                             <div class="payings py-4">
                                 <hr class="b-1">
-                                <h6>
-                                    <ins class="fw500">Shipping cost :</ins>
-                                    <ins class="fw500 text-right"> {!! single_price_web($shipping) !!} </ins>
-                                </h6>
+                                @if($shipping > 0)
+                                    <h6>
+                                        <ins class="fw500">Shipping cost :</ins>
+                                        <ins class="fw500 text-right"> {!! single_price_web($shipping) !!} </ins>
+                                    </h6>
+                                @endif
                                 @if ($carts->sum('discount') > 0)
                                     <h6>
                                         <ins class="fw500">{{translate('Coupon Discount')}} :</ins>
-                                        <ins class="fw500 text-right"> - {!! single_price_web($carts->sum('discount')) !!} </ins>
+                                        <ins class="fw500 text-right">
+                                            - {!! single_price_web($carts->sum('discount')) !!} </ins>
                                     </h6>
                                 @endif
                                 <h5>
@@ -194,15 +197,14 @@
 
                                 @if (count($carts) > 0)
                                     <input type="hidden" name="owner_id" value="{{ $carts[0]['owner_id'] }}">
-                                @endif
+                            @endif
 
-                                <!-- Payment Method -->
+                            <!-- Payment Method -->
                                 <div class="pay-method pb-3">
 
                                     @if (Auth::user())
                                         <p class="fsize12">Complete your payment easily using the below options to
-                                            confirm your farm
-                                            fresh exotic order:</p>
+                                            confirm your farm fresh order:</p>
                                         <div class="other-gatewy p-3 mb-3">
                                             <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
                                                 <input type="radio" id="pay-option2" name="payment_option"
@@ -216,7 +218,8 @@
                                                 <br>
                                                 <span class="align-middle body-txt cart_wallet_bal">
                                                     Available
-                                                    <ins class="fw600 body-txt">{!! single_price_web(Auth::user()->balance) !!} </ins>
+                                                    <ins
+                                                        class="fw600 body-txt">{!! single_price_web(Auth::user()->balance) !!} </ins>
                                                     for Payment
                                                 </span>
                                             </label>
@@ -359,7 +362,7 @@
             })
         });
 
-        $(document).on("click", "#coupon-remove",function() {
+        $(document).on("click", "#coupon-remove", function () {
             var data = new FormData($('#remove-coupon-form')[0]);
 
             $.ajax({
