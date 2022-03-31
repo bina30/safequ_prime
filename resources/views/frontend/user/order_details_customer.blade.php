@@ -83,14 +83,19 @@
                                 {{--                                    <th colspan="2" class="bt-0">Discount</th>--}}
                                 {{--                                    <th class="text-right bt-0">- 200</th>--}}
                                 {{--                                </tr>--}}
-                                <tr>
-                                    <th colspan="2" class="bt-0">Shipping cost</th>
-                                    <th class="text-right bt-0"> {!! single_price_web($order->orderDetails->sum('shipping_cost')) !!}</th>
-                                </tr>
-                                <tr>
-                                    <th colspan="2" class="bt-0">{{translate('Coupon Discount')}}</th>
-                                    <th class="text-right bt-0"> - {!! single_price_web($order->coupon_discount) !!}</th>
-                                </tr>
+                                @if($order->orderDetails->sum('shipping_cost') > 0)
+                                    <tr>
+                                        <th colspan="2" class="bt-0">Shipping cost</th>
+                                        <th class="text-right bt-0"> {!! single_price_web($order->orderDetails->sum('shipping_cost')) !!}</th>
+                                    </tr>
+                                @endif
+                                @if($order->coupon_discount > 0)
+                                    <tr>
+                                        <th colspan="2" class="bt-0">{{translate('Coupon Discount')}}</th>
+                                        <th class="text-right bt-0">
+                                            - {!! single_price_web($order->coupon_discount) !!}</th>
+                                    </tr>
+                                @endif
                                 {{--                                <tr>--}}
                                 {{--                                    <th colspan="2" class="bt-0">Service Tax</th>--}}
                                 {{--                                    <th class="text-right bt-0">80</th>--}}

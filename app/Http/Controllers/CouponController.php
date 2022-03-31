@@ -202,12 +202,14 @@ class CouponController extends Controller
     public function get_coupon_form(Request $request)
     {
         if($request->coupon_type == "product_base") {
-            if(Auth::user()->user_type == 'seller') {
+            $products = filter_products(\App\Models\Product::where('approved', 1))->get();
+
+            /*if(Auth::user()->user_type == 'seller') {
                 $products = filter_products(\App\Models\Product::where('user_id', Auth::user()->id))->get();
             } else {
                 $admin_id = \App\Models\User::where('user_type', 'admin')->first()->id;
                 $products = filter_products(\App\Models\Product::where('user_id', $admin_id))->get();
-            }
+            }*/
 
             return view('partials.coupons.product_base_coupon', compact('products'));
         }
@@ -221,12 +223,14 @@ class CouponController extends Controller
         if($request->coupon_type == "product_base") {
             $coupon = Coupon::findOrFail($request->id);
 
-            if(Auth::user()->user_type == 'seller') {
+            $products = filter_products(\App\Models\Product::where('approved', 1))->get();
+
+            /*if(Auth::user()->user_type == 'seller') {
                 $products = filter_products(\App\Models\Product::where('user_id', Auth::user()->id))->get();
             } else {
                 $admin_id = \App\Models\User::where('user_type', 'admin')->first()->id;
                 $products = filter_products(\App\Models\Product::where('user_id', $admin_id))->get();
-            }
+            }*/
 
             return view('partials.coupons.product_base_coupon_edit',compact('coupon', 'products'));
         }
