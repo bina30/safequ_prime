@@ -154,8 +154,8 @@
                                     <ins class="fw700 text-right"> {!! single_price_web($total) !!} </ins>
                                 </h5>
                             </div>
-                            
-                            
+
+
                             <div class="mb-3">
                                 <form class="" id="apply-coupon-form" enctype="multipart/form-data">
                                     @csrf
@@ -251,7 +251,7 @@
                                                    value="razorpay"
                                                    @if ($total > Auth::user()->balance) checked @endif />
                                             <span class="align-middle body-txt">
-                                                Razorpay
+                                                PayTM / G-Pay / UPI / Net Banking
                                             </span>
                                         </label>
                                     </div>
