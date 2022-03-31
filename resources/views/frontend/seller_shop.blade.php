@@ -182,7 +182,7 @@
                                             <h6 class="mb-0 mt-2 text-center mx-auto">
                                                 {{ date('d', strtotime($product->purchase_end_date)) }}
                                                 <br>
-                                                <ins>{{ date('F', strtotime($product->purchase_end_date)) }}</ins>
+                                                <ins>{{ date('M', strtotime($product->purchase_end_date)) }}</ins>
                                             </h6>
                                         </div>
                                     </div>
