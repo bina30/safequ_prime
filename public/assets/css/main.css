@@ -237,49 +237,53 @@ h6 {
 .bt-1,
 .b-1,
 .by-1 {
-    border-top: 1px solid var(--default-border-color);
+    border-top: 1px solid var(--default-border-color) !important;
 }
 
 .bb-1,
 .b-1,
 .by-1 {
-    border-bottom: 1px solid var(--default-border-color);
+    border-bottom: 1px solid var(--default-border-color) !important;
 }
 
 .bl-1,
 .b-1,
 .bx-1 {
-    border-left: 1px solid var(--default-border-color);
+    border-left: 1px solid var(--default-border-color) !important;
 }
 
 .br-1,
 .b-1,
 .bx-1 {
-    border-right: 1px solid var(--default-border-color);
+    border-right: 1px solid var(--default-border-color) !important;
 }
 
 .bt-2,
 .b-2,
 .by-2 {
-    border-top: 2px solid var(--default-border-color);
+    border-top: 2px solid var(--default-border-color) !important;
 }
 
 .bb-2,
 .b-2,
 .by-2 {
-    border-bottom: 2px solid var(--default-border-color);
+    border-bottom: 2px solid var(--default-border-color) !important;
 }
 
 .bl-2,
 .b-2,
 .bx-2 {
-    border-left: 2px solid var(--default-border-color);
+    border-left: 2px solid var(--default-border-color) !important;
 }
 
 .br-2,
 .b-2,
 .bx-2 {
-    border-right: 2px solid var(--default-border-color);
+    border-right: 2px solid var(--default-border-color) !important;
+}
+
+.border-primary {
+    border-color: var(--primary-color) !important;
 }
 
 .b-r-3 {
@@ -1132,6 +1136,7 @@ button.btn-before-none::before,
         background-position: 120px;
     }
 }
+
 /* Timing preloader End */
 
 .item-card .item-data .order-progress i {
@@ -1433,6 +1438,12 @@ button.btn-before-none::before,
 .payings ins.text-right {
     font-weight: 500;
     font-size: 0.92rem;
+}
+
+#apply-coupon-form input:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: var(--primary-color);
 }
 
 .user-data,
@@ -1847,11 +1858,17 @@ button.btn-before-none::before,
     font-weight: 400;
 }
 
-.transactions,
 .notify-crd {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 6px;
+    padding: 10px 8px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 12px 0px #eeeeee;
+}
+
+.transactions {
     border-radius: 6px;
     padding: 10px 8px;
     margin-bottom: 8px;
@@ -1890,31 +1907,31 @@ button.btn-before-none::before,
     transform: rotate(135deg);
 }
 
-.transactions.credit .amount ins,
-.transactions.credit .amount {
+.transactions .credit .amount ins,
+.transactions .credit .amount {
     color: #28a745;
     min-width: 112px;
 }
 
-.transactions.debit .amount ins,
-.transactions.debit .amount {
+.transactions .debit .amount ins,
+.transactions .debit .amount {
     color: #dc3545;
     min-width: 112px;
 }
 
-.transactions.credit i.text-success {
+.transactions .credit i.text-success {
     display: block;
 }
 
-.transactions.credit i.text-danger {
+.transactions .credit i.text-danger {
     display: none;
 }
 
-.transactions.debit i.text-success {
+.transactions .debit i.text-success {
     display: none;
 }
 
-.transactions.debit i.text-danger {
+.transactions .debit i.text-danger {
     display: block;
 }
 
@@ -1929,6 +1946,23 @@ button.btn-before-none::before,
 .transDetails {
     height: 0;
     overflow: hidden;
+}
+
+.walletDetails .pagination {
+    justify-content: center;
+    margin: 0;
+}
+
+.walletDetails .page-item {
+    margin: 2px;
+}
+
+.walletDetails .page-item.active .page-link {
+    font-weight: 600;
+    z-index: 3;
+    color: #fff;
+    background-color: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
 }
 
 #addMoneyModal .modal-dialog {
