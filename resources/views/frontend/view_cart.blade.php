@@ -184,7 +184,7 @@
                                                 <div class="form-control">{{ $carts[0]['coupon_code'] }}</div>
                                                 <div class="input-group-append">
                                                     <button type="button" id="coupon-remove"
-                                                            class="btn btn-primary primary-color-bg b-0">{{translate('Change Coupon')}}</button>
+                                                            class="btn text-white primary-color-bg b-1 border-primary">{{translate('Change Coupon')}}</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -201,7 +201,7 @@
                                                        required>
                                                 <div class="input-group-append">
                                                     <button type="button" id="coupon-apply"
-                                                            class="btn btn-primary primary-color-bg b-0">{{translate('Apply')}}</button>
+                                                            class="btn text-white primary-color-bg b-1 border-primary">{{translate('Apply')}}</button>
                                                 </div>
                                             </div>
                                         </form>
