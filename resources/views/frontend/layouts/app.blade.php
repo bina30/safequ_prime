@@ -311,9 +311,9 @@
                 utilsScript: "{{ static_asset('assets/js/intlTelutils.js') }}?1590403638580",
                 onlyCountries: ['in'],
                 customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
-                    if (selectedCountryData.iso2 == 'bd') {
-                        return "01xxxxxxxxx";
-                    }
+                    // if (selectedCountryData.iso2 == 'bd') {
+                        return "81234 56789";
+                    // }
                     return selectedCountryPlaceholder;
                 }
             });

@@ -11,7 +11,7 @@
                     </a>
                 </div>
 
-                <h5 class="fw700 pt-3 px-2">Sign-Up</h5>
+                <h5 class="fw700 pt-3 px-2">Get Started</h5>
                 <p class="pb-3 px-2"></p>
 
                 <form method="POST" class="login-form pt-2 px-2" action="{{ route('register') }}">
