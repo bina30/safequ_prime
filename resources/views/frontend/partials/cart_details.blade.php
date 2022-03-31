@@ -208,7 +208,7 @@
                                 <input type="radio" id="pay-option1" name="payment_option" tabindex="1" value="razorpay"
                                        @if($total > Auth::user()->balance) checked @endif />
                                 <span class="align-middle body-txt">
-                                        Razorpay
+                                        PayTM / G-Pay / UPI / Net Banking
                                     </span>
                             </label>
                         </div>
