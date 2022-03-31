@@ -42,7 +42,7 @@ class SmsUtility
         $sms_body = $sms_template->sms_body;
         $sms_body = str_replace('[[order_code]]', $order->code, $sms_body);
         $template_id = $sms_template->template_id;
-        $variables = array('name' => env('APP_NAME'), 'orderID' => 'OrderNo: ' . $order->code);
+        $variables = array('orderID' => 'OrderNo: ' . $order->code);
         try {
             sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
         } catch (\Exception $e) {
@@ -68,7 +68,7 @@ class SmsUtility
             $template_id = $sms_template->template_id;
             $variables = array('name' => $order->user->name, 'orderId' => 'OrderNo: ' . $order->code);
             try {
-                sendSMS($phone, env('APP_NAME'), $sms_body, $template_id);
+                sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
                 Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
             } catch (\Exception $e) {
 
@@ -92,9 +92,9 @@ class SmsUtility
              $sms_body = str_replace('[[delivery_status]]', $delivery_status, $sms_body);
              $sms_body = str_replace('[[order_code]]', $order->code, $sms_body);
              $template_id = $sms_template->template_id;
-
+             $variables = array('orderId' => 'OrderNo: ' . $order->code);
              try {
-                 sendSMS($phone, env('APP_NAME'), $sms_body, $template_id);
+                 sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
                  Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
              } catch (\Exception $e) {
 
@@ -142,6 +142,22 @@ class SmsUtility
             try {
                 sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
                 Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
+            } catch (\Exception $e) {
+
+            }
+        }
+    }
+
+    public static function wallet_recharge_sms($phone = '', $wallet)
+    {
+        $sms_template = SmsTemplate::where('identifier', 'wallet_recharge')->where('status', 1)->first();
+        if ($sms_template) {
+            $sms_body = $sms_template->sms_body;
+            $sms_body = str_replace('[[WalletAmount]]', $wallet->amount, $sms_body);
+            $template_id = $sms_template->template_id;
+            $variables = array('WalletAmount' => $wallet->amount);
+            try {
+                sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
             } catch (\Exception $e) {
 
             }

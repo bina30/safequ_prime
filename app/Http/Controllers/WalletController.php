@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SmsTemplate;
 use App\Utility\PayfastUtility;
+use App\Utility\SmsUtility;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\StripePaymentController;
@@ -140,6 +142,14 @@ class WalletController extends Controller
         $wallet->payment_method = $payment_data['payment_method'];
         $wallet->payment_details = $payment_details;
         $wallet->save();
+
+        if (SmsTemplate::where('identifier', 'wallet_recharge')->first()->status == 1) {
+            try {
+                SmsUtility::wallet_recharge_sms($user->phone, $wallet);
+            } catch (\Exception $e) {
+
+            }
+        }
 
         Session::forget('payment_data');
         Session::forget('payment_type');
