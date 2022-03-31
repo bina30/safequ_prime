@@ -605,7 +605,7 @@ class OrderController extends Controller
                 if ($order->delivery_status == 'on_the_way') {
                     SmsUtility::order_shipped(json_decode($order->shipping_address)->phone, $order);
                 } else if ($order->delivery_status == 'confirmed') {
-                    SmsUtility::order_placement(json_decode($order->shipping_address)->phone, $order);
+                    SmsUtility::order_confirmed_sms(json_decode($order->shipping_address)->phone, $order);
                 } else if ($order->delivery_status == 'cancelled') {
                     SmsUtility::order_cancelled(json_decode($order->shipping_address)->phone, $order);
                 } else {

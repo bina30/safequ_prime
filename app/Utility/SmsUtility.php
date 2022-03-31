@@ -15,7 +15,7 @@ class SmsUtility
         $sms_body = str_replace('[[code]]', $user->verification_code, $sms_body);
         $sms_body = str_replace('[[site_name]]', env('APP_NAME'), $sms_body);
         $template_id = $sms_template->template_id;
-        $variables = array('name' => env('APP_NAME'), 'orderId' => $user->verification_code);
+        $variables = array('name' => env('APP_NAME'), 'otp' => $user->verification_code);
         try {
             sendSMS($user->phone, env('APP_NAME'), $sms_body, $template_id, $variables);
         } catch (\Exception $e) {
@@ -42,11 +42,37 @@ class SmsUtility
         $sms_body = $sms_template->sms_body;
         $sms_body = str_replace('[[order_code]]', $order->code, $sms_body);
         $template_id = $sms_template->template_id;
-        $variables = array('name' => env('APP_NAME'), 'orderId' => 'OrderNo: ' . $order->code);
+        $variables = array('name' => env('APP_NAME'), 'orderID' => 'OrderNo: ' . $order->code);
         try {
             sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
         } catch (\Exception $e) {
 
+        }
+    }
+
+    public static function order_confirmed_sms($phone = '', $order)
+    {
+        //sends email to customer with the invoice details
+        $array['view'] = 'emails.invoice';
+        $array['subject'] = translate('Order has been delivered') . ' - ' . $order->code;
+        $array['from'] = env('MAIL_FROM_ADDRESS');
+        $array['order'] = $order;
+
+        $sms_template = SmsTemplate::where('identifier', 'order_confirm')->where('status',1)->first();
+        if($sms_template) {
+            $sms_body = $sms_template->sms_body;
+            $delivery_status = translate(ucfirst(str_replace('_', ' ', $order->delivery_status)));
+
+            $sms_body = str_replace('[[delivery_status]]', $delivery_status, $sms_body);
+            $sms_body = str_replace('[[order_code]]', $order->code, $sms_body);
+            $template_id = $sms_template->template_id;
+            $variables = array('name' => $order->user->name, 'orderId' => 'OrderNo: ' . $order->code);
+            try {
+                sendSMS($phone, env('APP_NAME'), $sms_body, $template_id);
+                Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
+            } catch (\Exception $e) {
+
+            }
         }
     }
 
