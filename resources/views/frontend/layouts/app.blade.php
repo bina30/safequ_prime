@@ -252,6 +252,16 @@
             });
         }
 
+        function referFriend(referLink) {
+            navigator.share({
+                title: 'Invite to join SafeQu Community.',
+                text: 'Hello, to join SafeQu Community please click shared link and Sign-Up',
+                url: referLink
+            })
+            .then(() => console.log('Share was successful.'))
+            .catch((error) => console.log('Sharing failed', error));
+        }
+
         $(document).ready(function() {
 
             $(".close-sidenav, .sideNav .backdropDiv").on('click', function() {

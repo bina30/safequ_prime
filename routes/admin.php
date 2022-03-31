@@ -89,6 +89,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::post('/env_key_update', 'BusinessSettingsController@env_key_update')->name('env_key_update.update');
     Route::post('/payment_method_update', 'BusinessSettingsController@payment_method_update')->name('payment_method.update');
     Route::post('/user_welcome_bonus_update', 'BusinessSettingsController@user_welcome_bonus_update')->name('user_welcome_bonus.update');
+    Route::post('/user_referral_bonus', 'BusinessSettingsController@user_referral_bonus')->name('user_referral_bonus.update');
     Route::post('/google_analytics', 'BusinessSettingsController@google_analytics_update')->name('google_analytics.update');
     Route::post('/google_recaptcha', 'BusinessSettingsController@google_recaptcha_update')->name('google_recaptcha.update');
     Route::post('/google-map', 'BusinessSettingsController@google_map_update')->name('google-map.update');
