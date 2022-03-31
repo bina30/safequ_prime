@@ -2,7 +2,7 @@
 
 @section('content')
     <main class="main-tag main-tag-mt">
-        <div class="container">
+        <div class="container walletDetails">
             <div class="row justify-content-center py-4">
                 <div class="col-lg-5 col-md-6 col-sm-8 py-2 px-1">
 
@@ -29,30 +29,32 @@
 
                         <div class="pt-4">
                             @forelse ($wallets as $key => $wallet)
-                                <div class="transactions cursor-pointer flex-wrap @if ($wallet->amount > 0) credit @else debit @endif">
-                                    <div class="flex-acenter-jstart">
-                                        <div class="indicater text-center">
-                                            <i class="fad fa-long-arrow-left text-danger"></i>
-                                            <i class="fad fa-long-arrow-right text-success"></i>
+                                <div class="transactions">
+                                    <div class="flex-acenter-jbtw viewDetails cursor-pointer flex-wrap @if ($wallet->amount > 0) credit @else debit @endif">
+                                        <div class="flex-acenter-jstart">
+                                            <div class="indicater text-center">
+                                                <i class="fad fa-long-arrow-left text-danger"></i>
+                                                <i class="fad fa-long-arrow-right text-success"></i>
+                                            </div>
+                                            <div class="pl-2">
+                                                <h6 class="mb-0 title-txt">
+                                                    @if ($wallet->amount > 0)
+                                                        Credit
+                                                    @else
+                                                        Debit
+                                                    @endif
+                                                </h6>
+                                                <p class="mb-0 body-txt">{{ dateFormat($wallet->created_at) }}</p>
+                                            </div>
                                         </div>
-                                        <div class="pl-2">
-                                            <h6 class="mb-0 title-txt">
-                                                @if ($wallet->amount > 0)
-                                                    Credit
-                                                @else
-                                                    Debit
-                                                @endif
+
+                                        <div class="amt text-right">
+                                            <h6 class="amount mb-1">
+                                                {!! single_price(abs($wallet->amount)) !!}
                                             </h6>
-                                            <p class="mb-0 body-txt">{{ dateFormat($wallet->created_at) }}</p>
+
+                                            <i class="fad fa-caret-circle-right align-middle"></i>
                                         </div>
-                                    </div>
-
-                                    <div class="amt text-right">
-                                        <h6 class="amount mb-1">
-                                            {!! single_price(abs($wallet->amount)) !!}
-                                        </h6>
-
-                                        <i class="fad fa-caret-circle-right align-middle"></i>
                                     </div>
 
                                     <div class="w-100 transDetails">
@@ -93,7 +95,7 @@
                             @endforelse
                         </div>
                     </div>
-                    <div class="aiz-pagination">
+                    <div class="aiz-pagination pt-4">
                         {{ $wallets->links() }}
                     </div>
                 </div>
@@ -222,9 +224,9 @@
                 }
             })
 
-            $(".transactions").on('click', function () {
+            $(".viewDetails").on('click', function () {
                 let icn = $(this).find('i.fa-caret-circle-right');
-                let el = $(this).find('.transDetails');
+                let el = $(this).parent().find('.transDetails');
                 let hght = el.children('.pt-2').outerHeight();
 
                 el.hasClass('active') ? (el.toggleClass('active').css('height', '0'), icn.css('transform', 'rotate(0deg)')) :
