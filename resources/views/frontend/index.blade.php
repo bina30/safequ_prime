@@ -40,9 +40,8 @@
                     <div class="py-md-5 py-4">
                         <h4 class="fw700 title-txt">Our most <ins class="primary-color fw700">popular communities</ins></h4>
                         <p class="w-75 mx-auto mb-0 body-txt">More than <ins class="primary-color fw600">500+ customers
-                            </ins> across South Mumbai's finest gated communities have already signed up to the SafeQU experience.
-                            Choose
-                            your community and get started now
+                            </ins> across South Mumbai's finest gated communities have already signed up to the SafeQU
+                            experience. Choose your community and get started now
                         </p>
 
                         <div class="py-4">
@@ -102,9 +101,9 @@
                             </div>
                         </div>
 
-                        {{--@if (count($communities) > 5)
+                        {{-- @if (count($communities) > 5)
                             <button class="btn fw700 view-more-btn px-4 mb-3 mb-md-0">View more</button>
-                        @endif--}}
+                        @endif --}}
 
                     </div>
                 </div>
@@ -142,8 +141,7 @@
                             <div class="item p-4 px-md-5">
                                 <i class="fad fa-quote-left fa-3x mb-3"></i>
                                 <p class="body-txt text-center font-italic">SafeQU gives me a business class experience in
-                                    my
-                                    grocery shopping.</p>
+                                    my grocery shopping.</p>
 
                                 <p class="fw700 text-center">NK
                                     <br>
@@ -156,8 +154,7 @@
                             <div class="item p-4 px-md-5">
                                 <i class="fad fa-quote-left fa-3x mb-3"></i>
                                 <p class="body-txt text-center font-italic">Love all your produce….Avocados, Passion Fruits
-                                    and
-                                    Strawberries. Most of all your customer attention to detail. Thanks!</p>
+                                    and Strawberries. Most of all your customer attention to detail. Thanks!</p>
 
                                 <p class="fw700 text-center">SK
                                     <br>
@@ -170,8 +167,7 @@
                             <div class="item p-4 px-md-5">
                                 <i class="fad fa-quote-left fa-3x mb-3"></i>
                                 <p class="body-txt text-center font-italic">7 days in and my light pink roses are still
-                                    fresh &
-                                    beautiful. Thanks, SafeQU for sorting me out with my weekly flowers</p>
+                                    fresh & beautiful. Thanks, SafeQU for sorting me out with my weekly flowers</p>
 
                                 <p class="fw700 text-center">Tarana.S
                                     <br>
@@ -183,11 +179,12 @@
                             </div>
                             <div class="item p-4 px-md-5">
                                 <i class="fad fa-quote-left fa-3x mb-3"></i>
-                                <p class="body-txt text-center font-italic">Thankyou <a
-                                        href="https://www.instagram.com/safequ.india/" target="_blank"><ins
-                                            class="primary-color">@safequ.india</ins></a> for introducing me to the
+                                <p class="body-txt text-center font-italic">Thankyou
+                                    <a href="https://www.instagram.com/safequ.india/" target="_blank">
+                                        <ins class="primary-color">@safequ.india</ins></a> for introducing me to the
                                     brilliant farm fresh produce and the weekly salad subscription service. The Romaine
-                                    Lettuce particularly felt like it had been picked from my back garden</p>
+                                    Lettuce particularly felt like it had been picked from my back garden
+                                </p>
 
                                 <p class="fw700 text-center">Hema W
                                     <br>
@@ -205,34 +202,52 @@
         </div>
 
         <div class="light-bg py-5 mt-4">
-            <div class="container pt-3">
+            <div class="container pt-3 services">
                 <h5 class="text-center fw700 pb-3">
                     We are South Mumbai's <ins class="fw700 primary-color">only farm-to-home exotic produce delivery</ins>
                 </h5>
 
                 <div class="row pt-3">
-                    <div class="col-md-4 px-md-4 pb-3 text-center">
-                        <img src="{{ static_asset('assets/img/fast-delivery.png') }}" alt="3D Icon"
-                            class="icons3D">
-                        <p class="fw600 fsize16 my-2">Choice of local farms & sellers</p>
-                        <p class="mb-0">Your produce is delivered to your doorstep straight from the farm you
-                            choose to buy from. Everything is harvested fresh as per demand.</p>
+                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                        <div class="icons3D">
+                            <img src="{{ static_asset('assets/img/fast-delivery.png') }}" alt="3D Icon" />
+                        </div>
+                        <h6 class="fw700 my-2">Choice of local farms & sellers</h6>
+                        <p class="mb-0">Order what you consume directly from a choice of farms serving your
+                            community. Your order will be harvested fresh, as per community demand.</p>
                     </div>
 
-                    <div class="col-md-4 px-md-4 pb-3 text-center">
-                        <img src="{{ static_asset('assets/img/grocery-bag.png') }}" alt="3D Icon" class="icons3D">
-                        <p class="fw600 fsize16 my-2">Fresh, peak flavour produce</p>
-                        <p class="mb-0">Your produce is pesticide free and full of flavour. Our warehousing team
-                            works hard to deliver to your doorstep the freshest & safest produce within 12 hrs of harvest
-                            &nbsp; **For most products.</p>
+                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                        <div class="icons3D">
+                            <img src="{{ static_asset('assets/img/grocery-bag.png') }}" alt="3D Icon" />
+                        </div>
+
+                        <h6 class="fw700 fsize16 my-2">Buy fresh, consume like it's from your back garden</h6>
+                        <p class="mb-0">Buying fresh doesn't always mean eating fresh. Order only what you need
+                            and we will deliver it to your doorstep fresh directly from the farm!</p>
                     </div>
 
-                    <div class="col-md-4 px-md-4 pb-3 text-center">
-                        <img src="{{ static_asset('assets/img/coin-in-hand.png') }}" alt="3D Icon"
-                            class="icons3D">
-                        <p class="fw600 fsize16 my-2">Fair Pricing</p>
-                        <p class="mb-0">Fair, dynamic pricing model to allow communities to avail group buying
-                            benefits.</p>
+                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                        <div class="icons3D">
+                            <img src="{{ static_asset('assets/img/fruits-vector-graphic.png') }}" alt="3D Icon" />
+                        </div>
+
+                        <h6 class="fw700 fsize16 my-2">Peak flavour, safe produce</h6>
+                        <p class="mb-0">Whether an apple or an avocado we're committed to ensure that you consume
+                            only the best variety of the produce from the best source. Our warehousing team will work hard
+                            to ensure your order is delivered to you within 12 hrs of harvest **For most products.</p>
+                    </div>
+
+                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                        <div class="icons3D">
+                            <img src="{{ static_asset('assets/img/coin-in-hand.png') }}" alt="3D Icon" />
+                        </div>
+
+                        <h6 class="fw700 fsize16 my-2">Fair Pricing</h6>
+                        <p class="mb-0">Eating better doesn't mean paying more! As we cut out the middlemen and
+                            use a dynamic pricing model, the farms are able to price your produce fairly based on your
+                            community orders! So the more orders the farms receive the lower your farm fresh fruit bills
+                            get! </p>
                     </div>
                 </div>
             </div>

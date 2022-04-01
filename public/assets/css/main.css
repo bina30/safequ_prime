@@ -879,10 +879,20 @@ button.btn-before-none::before,
 
 .testimonials p.body-txt {
     min-height: 60px;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+}
+
+.services h6 {
+    font-size: 1.15rem;
 }
 
 .icons3D {
-    max-width: 100px;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    display: flex;
+    align-items: center;
 }
 
 /* Item Cards */
