@@ -723,8 +723,8 @@ footer .footer-nav a {
     color: var(--primary-color);
 }
 
-.home-slider i.fa-smile-wink {
-    font-size: 1.25rem;
+.home-slider i.smiley {
+    font-size: 1.35rem;
 }
 
 .home-slider p.sub-txt {
@@ -2851,6 +2851,10 @@ input[type=checkbox]:checked+.check-box::before,
 
     .aiz-file-box-wrap {
         width: 20%;
+    }
+
+    .services h6 {
+        min-height: 48px;
     }
 }
 

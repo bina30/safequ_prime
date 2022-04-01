@@ -17,7 +17,8 @@
                                             avocados delivered to your doorstep, <span
                                                 class="fw700 fsize17 primary-color">DIRECTLY</span> from your choice of
                                             local farms serving your community. ~30% cheaper than halls of food or baskets
-                                            of nature <i class="fas fa-smile-wink primary-color-dark align-middle"></i></p>
+                                            of nature <i
+                                                class="fas fa-smile-wink smiley primary-color-dark align-middle"></i></p>
 
                                         <a href="#communities">
                                             <p class="explore-card my-4 fw500">Join your community now &nbsp;
@@ -40,7 +41,7 @@
         <div class="light-bg py-5">
             <div class="container pt-3 services">
                 <div class="row">
-                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                    <div class="col-lg-3 col-sm-6 px-lg-4 pt-2 pb-3 text-center">
                         <div class="icons3D">
                             <img src="{{ static_asset('assets/img/fast-delivery.png') }}" alt="3D Icon" />
                         </div>
@@ -49,7 +50,7 @@
                             Mahabaleshwar. Your choice!</p>
                     </div>
 
-                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                    <div class="col-lg-3 col-sm-6 px-lg-4 pt-2 pb-3 text-center">
                         <div class="icons3D">
                             <img src="{{ static_asset('assets/img/fruits-vector-graphic.png') }}" alt="3D Icon" />
                         </div>
@@ -59,7 +60,7 @@
                             harvest! **For most products</p>
                     </div>
 
-                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                    <div class="col-lg-3 col-sm-6 px-lg-4 pt-2 pb-3 text-center">
                         <div class="icons3D">
                             <img src="{{ static_asset('assets/img/india-flag.png') }}" alt="3D Icon" />
                         </div>
@@ -68,7 +69,7 @@
                         <p class="mb-0">Support farmers across India by cutting out the middlemen.</p>
                     </div>
 
-                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                    <div class="col-lg-3 col-sm-6 px-lg-4 pt-2 pb-3 text-center">
                         <div class="icons3D">
                             <img src="{{ static_asset('assets/img/fair-pricing.png') }}" alt="3D Icon" />
                         </div>
@@ -296,6 +297,11 @@
             $('.carousel').carousel({
                 interval: 7000,
             })
+
+            setInterval(() => {
+                $(".smiley").hasClass("fa-smile-wink") ? $(".smiley").removeClass("fa-smile-wink").addClass(
+                    "fa-smile") : $(".smiley").removeClass("fa-smile").addClass("fa-smile-wink");
+            }, 1000);
 
             $('.community-slider').owlCarousel({
                 loop: true,
