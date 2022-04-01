@@ -41,7 +41,7 @@
                             <input type="email" name="email" id="email" value="{{ Auth::user()->email }}" required/>
                         </div>
                         <div class="form-group">
-                            <label for="address">Flat/House No.</label>
+                            <label for="address">Flat / House No.</label>
                             <input type="text" name="address" id="address" value="{{ Auth::user()->address }}" required/>
                         </div>
                         <div class="row">
