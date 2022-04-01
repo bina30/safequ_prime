@@ -13,3 +13,7 @@ INSERT INTO `sms_templates`(`id`, `identifier`, `sms_body`, `template_id`, `stat
 /* Dt: 28-03-22 */
 ALTER TABLE `users` ADD COLUMN `joined_community_id` int(11) NULL AFTER `remaining_uploads`;
 ALTER TABLE `users` MODIFY COLUMN `joined_community_id` int(11) NULL DEFAULT 0 AFTER `remaining_uploads`;
+
+
+/* Dt: 01-04-22 */
+ALTER TABLE `users` ADD COLUMN `referral_key` varchar(255) NULL AFTER `joined_community_id`;

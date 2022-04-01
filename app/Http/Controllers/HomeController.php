@@ -97,9 +97,10 @@ class HomeController extends Controller
         if (Auth::check()) {
             return redirect()->route('home');
         }
-        $referer_user_id = ($userKey ? base64_decode($userKey) : 0);
-        $refer_user = User::where('id', intval($referer_user_id))->first();
+        $referer_user = ($userKey ? $userKey : 0);
+        $refer_user = User::where('referral_key', $referer_user)->first();
         if ($refer_user) {
+            $referer_user_id = $refer_user->id;
             return view('frontend.user_registration', compact('referer_user_id'));
         } else {
             return redirect()->route('home');

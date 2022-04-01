@@ -116,6 +116,9 @@ class RegisterController extends Controller
                         'joined_community_id' => $joined_community_id
                     ]);
 
+                    $user->referral_key = md5($user->id);
+                    $user->save();
+
                     $customer = new Customer;
                     $customer->user_id = $user->id;
                     $customer->save();
