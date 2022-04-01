@@ -149,7 +149,7 @@
                     </a>
                     @if(auth()->user()->joined_community_id > 0)
                         <a href="javascript:void(0)" onclick="referFriend('{{ route('referral.registration', base64_encode(auth()->user()->id)) }}')">
-                            <li class="p-2 mb-2"><i class="fad fa-user-plus"></i> Invite Friend</li>
+                            <li class="p-2 mb-2"><i class="fad fa-user-plus"></i> Refer & Earn</li>
                         </a>
                     @endif
                 @endauth
