@@ -252,6 +252,16 @@
             });
         }
 
+        function referFriend(referLink) {
+            navigator.share({
+                title: 'Join SafeQU!',
+                text: 'Hey! Check out this amazing app through which you can get farm fresh produce like strawberries, avocados & mangoes DIRECTLY from your choice of local farms serving your community! The produce is ~30% cheaper than halls of food or baskets of nature 😉 and is delivered to your doorstep.',
+                url: referLink
+            })
+            .then(() => console.log('Share was successful.'))
+            .catch((error) => console.log('Sharing failed', error));
+        }
+
         $(document).ready(function() {
 
             $(".close-sidenav, .sideNav .backdropDiv").on('click', function() {
@@ -301,9 +311,9 @@
                 utilsScript: "{{ static_asset('assets/js/intlTelutils.js') }}?1590403638580",
                 onlyCountries: ['in'],
                 customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
-                    if (selectedCountryData.iso2 == 'bd') {
-                        return "01xxxxxxxxx";
-                    }
+                    // if (selectedCountryData.iso2 == 'bd') {
+                        return "81234 56789";
+                    // }
                     return selectedCountryPlaceholder;
                 }
             });

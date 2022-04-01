@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Shop;
 use App\Models\User;
 use App\Models\Customer;
 use App\Models\Cart;
@@ -94,12 +95,25 @@ class RegisterController extends Controller
 
                     session()->put('is_register', 0);
                 } else {
+                    $referer_user = array();
+                    $joined_community_id = 0;
+                    if (isset($data['referer_user_id']) && intval($data['referer_user_id']) > 0) {
+                        $referer_user = User::where('id', $data['referer_user_id'])->first();
+                        $joined_community_id = $referer_user->joined_community_id;
+
+                        if ($joined_community_id > 0) {
+                            $shop = Shop::where('user_id', $joined_community_id)->first();
+                            session(['link' => route('shop.visit', $shop->slug)]);
+                        }
+                    }
+
                     $user = User::create([
-                        'name'              => 'Guest User',
-                        'phone'             => '+' . $data['country_code'] . $data['phone'],
-                        'password'          => Hash::make(123456),
-                        'verification_code' => rand(1000, 9999),
-                        'balance'           => env('WELCOME_BONUS_AMOUNT')
+                        'name'                => 'Guest User',
+                        'phone'               => '+' . $data['country_code'] . $data['phone'],
+                        'password'            => Hash::make(123456),
+                        'verification_code'   => rand(1000, 9999),
+                        'balance'             => env('WELCOME_BONUS_AMOUNT'),
+                        'joined_community_id' => $joined_community_id
                     ]);
 
                     $customer = new Customer;
@@ -112,6 +126,18 @@ class RegisterController extends Controller
                     $wallet->payment_method = 'bonus';
                     $wallet->payment_details = json_encode(array('id' => $user->id, 'amount' => env('WELCOME_BONUS_AMOUNT'), 'method' => 'bonus'));
                     $wallet->save();
+
+                    if (!empty($referer_user)) {
+                        $wallet = new Wallet;
+                        $wallet->user_id = $referer_user->id;
+                        $wallet->amount = env('REFERRAL_BONUS_AMOUNT');
+                        $wallet->payment_method = 'referral_bonus';
+                        $wallet->payment_details = json_encode(array('id' => $referer_user->id, 'amount' => env('REFERRAL_BONUS_AMOUNT'), 'method' => 'referral_bonus'));
+                        $wallet->save();
+
+                        $referer_user->balance = floatval($referer_user->balance) + env('REFERRAL_BONUS_AMOUNT');
+                        $referer_user->save();
+                    }
 
                     session()->put('is_register', 1);
                 }

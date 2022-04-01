@@ -106,6 +106,28 @@
                     </form>
                 </div>
             </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="mb-0 h6">{{translate('Referral Bonus')}}</h1>
+                </div>
+                <div class="card-body">
+                    <form class="form-horizontal" action="{{ route('user_referral_bonus.update') }}" method="POST"
+                          enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group row">
+                            <input type="hidden" name="types[]" value="REFERRAL_BONUS_AMOUNT">
+                            <label class="col-sm-6 col-from-label">{{translate('Bonus Amount')}}</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="REFERRAL_BONUS_AMOUNT" class="form-control" value="{{ env('REFERRAL_BONUS_AMOUNT') }}" required>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary">{{ translate('Update') }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 

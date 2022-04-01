@@ -88,7 +88,22 @@ class HomeController extends Controller
 
             }
         }*/
-        return view('frontend.user_registration');
+        $referer_user_id = 0;
+        return view('frontend.user_registration', compact('referer_user_id'));
+    }
+
+    public function referral_user_register($userKey)
+    {
+        if (Auth::check()) {
+            return redirect()->route('home');
+        }
+        $referer_user_id = ($userKey ? base64_decode($userKey) : 0);
+        $refer_user = User::where('id', intval($referer_user_id))->first();
+        if ($refer_user) {
+            return view('frontend.user_registration', compact('referer_user_id'));
+        } else {
+            return redirect()->route('home');
+        }
     }
 
     public function cart_login(Request $request)
@@ -198,7 +213,11 @@ class HomeController extends Controller
         $user->save();
 
         flash(translate('Your Profile has been updated successfully!'))->success();
-        return back();
+        if (session('link') != null) {
+            return redirect(session('link'));
+        } else {
+            return back();
+        }
     }
 
     public function flash_deal_details($slug)

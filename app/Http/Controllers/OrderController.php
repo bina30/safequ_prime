@@ -600,12 +600,12 @@ class OrderController extends Controller
                 }
             }
         }
-        if (addon_is_activated('otp_system') && SmsTemplate::where('identifier', 'delivery_status_change')->first()->status == 1) {
+        if (addon_is_activated('otp_system')) {
             try {
                 if ($order->delivery_status == 'on_the_way') {
                     SmsUtility::order_shipped(json_decode($order->shipping_address)->phone, $order);
                 } else if ($order->delivery_status == 'confirmed') {
-                    SmsUtility::order_placement(json_decode($order->shipping_address)->phone, $order);
+                    SmsUtility::order_confirmed_sms(json_decode($order->shipping_address)->phone, $order);
                 } else if ($order->delivery_status == 'cancelled') {
                     SmsUtility::order_cancelled(json_decode($order->shipping_address)->phone, $order);
                 } else {

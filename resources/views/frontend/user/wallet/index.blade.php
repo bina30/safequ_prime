@@ -73,10 +73,14 @@
                                                 <a href="{{ route('purchase_details', encrypt($payment_detail->id)) }}"><p class="body-txt mb-1"><span
                                                             class="fw500 fsize13">Order No.:</span>
                                                     #{{$payment_detail->code}}</p></a>
-                                            @else
+                                            @elseif ($wallet->payment_method == 'bonus')
                                                 <p class="body-txt mb-1"><span
                                                             class="fw500 fsize13">Payment method:</span>
                                                     Welcome Bonus</p>
+                                            @else
+                                                <p class="body-txt mb-1"><span
+                                                        class="fw500 fsize13">Payment method:</span>
+                                                    Referral Bonus</p>
                                             @endif
                                         </div>
                                     </div>

@@ -12,10 +12,9 @@ class SmsUtility
     {
         $sms_template = SmsTemplate::where('identifier', 'phone_number_verification')->first();
         $sms_body = $sms_template->sms_body;
-        $sms_body = str_replace('[[code]]', $user->verification_code, $sms_body);
-        $sms_body = str_replace('[[site_name]]', env('APP_NAME'), $sms_body);
+        $sms_body = str_replace('[[otp]]', $user->verification_code, $sms_body);
         $template_id = $sms_template->template_id;
-        $variables = array('name' => env('APP_NAME'), 'orderId' => $user->verification_code);
+        $variables = array('otp' => $user->verification_code);
         try {
             sendSMS($user->phone, env('APP_NAME'), $sms_body, $template_id, $variables);
         } catch (\Exception $e) {
@@ -42,11 +41,37 @@ class SmsUtility
         $sms_body = $sms_template->sms_body;
         $sms_body = str_replace('[[order_code]]', $order->code, $sms_body);
         $template_id = $sms_template->template_id;
-        $variables = array('name' => env('APP_NAME'), 'orderId' => 'OrderNo: '.$order->code);
+        $variables = array('orderID' => 'OrderNo: ' . $order->code);
         try {
             sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
         } catch (\Exception $e) {
 
+        }
+    }
+
+    public static function order_confirmed_sms($phone = '', $order)
+    {
+        //sends email to customer with the invoice details
+        $array['view'] = 'emails.invoice';
+        $array['subject'] = translate('Order has been delivered') . ' - ' . $order->code;
+        $array['from'] = env('MAIL_FROM_ADDRESS');
+        $array['order'] = $order;
+
+        $sms_template = SmsTemplate::where('identifier', 'order_confirm')->where('status',1)->first();
+        if($sms_template) {
+            $sms_body = $sms_template->sms_body;
+            $delivery_status = translate(ucfirst(str_replace('_', ' ', $order->delivery_status)));
+
+            $sms_body = str_replace('[[delivery_status]]', $delivery_status, $sms_body);
+            $sms_body = str_replace('[[order_code]]', $order->code, $sms_body);
+            $template_id = $sms_template->template_id;
+            $variables = array('name' => $order->user->name, 'orderId' => 'OrderNo: ' . $order->code);
+            try {
+                sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
+                Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
+            } catch (\Exception $e) {
+
+            }
         }
     }
 
@@ -58,20 +83,22 @@ class SmsUtility
         $array['from'] = env('MAIL_FROM_ADDRESS');
         $array['order'] = $order;
 
-        $sms_template = SmsTemplate::where('identifier', 'delivery_status_change')->first();
-        $sms_body = $sms_template->sms_body;
-        $delivery_status = translate(ucfirst(str_replace('_', ' ', $order->delivery_status)));
+        $sms_template = SmsTemplate::where('identifier', 'delivery_status_change')->where('status',1)->first();
+         if($sms_template) {
+             $sms_body = $sms_template->sms_body;
+             $delivery_status = translate(ucfirst(str_replace('_', ' ', $order->delivery_status)));
 
-        $sms_body = str_replace('[[delivery_status]]', $delivery_status, $sms_body);
-        $sms_body = str_replace('[[order_code]]', $order->code, $sms_body);
-        $template_id = $sms_template->template_id;
+             $sms_body = str_replace('[[delivery_status]]', $delivery_status, $sms_body);
+             $sms_body = str_replace('[[order_code]]', $order->code, $sms_body);
+             $template_id = $sms_template->template_id;
+             $variables = array('orderId' => 'OrderNo: ' . $order->code);
+             try {
+                 sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
+                 Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
+             } catch (\Exception $e) {
 
-        try {
-            sendSMS($phone, env('APP_NAME'), $sms_body, $template_id);
-            Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
-        } catch (\Exception $e) {
-
-        }
+             }
+         }
     }
 
     public static function order_shipped($phone = '', $order)
@@ -82,16 +109,18 @@ class SmsUtility
         $array['from'] = env('MAIL_FROM_ADDRESS');
         $array['order'] = $order;
 
-        $sms_template = SmsTemplate::where('identifier', 'order_shipped')->first();
-        $sms_body = $sms_template->sms_body;
-        $sms_body = str_replace('[[order_code]]', $order->code, $sms_body);
-        $template_id = $sms_template->template_id;
-        $variables = array('name' => env('APP_NAME'), 'orderId' => 'OrderNo: '.$order->code);
-        try {
-            sendSMS($phone, env('APP_NAME'), $sms_body, $template_id);
-            Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
-        } catch (\Exception $e) {
+        $sms_template = SmsTemplate::where('identifier', 'order_shipped')->where('status', 1)->first();
+        if ($sms_template) {
+            $sms_body = $sms_template->sms_body;
+            $sms_body = str_replace('[[order_code]]', $order->code, $sms_body);
+            $template_id = $sms_template->template_id;
+            $variables = array('name' => env('APP_NAME'), 'orderId' => 'OrderNo: ' . $order->code);
+            try {
+                sendSMS($phone, env('APP_NAME'), $sms_body, $template_id);
+                Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
+            } catch (\Exception $e) {
 
+            }
         }
     }
 
@@ -103,16 +132,34 @@ class SmsUtility
         $array['from'] = env('MAIL_FROM_ADDRESS');
         $array['order'] = $order;
 
-        $sms_template = SmsTemplate::where('identifier', 'order_cancel')->first();
-        $sms_body = $sms_template->sms_body;
-        $sms_body = str_replace('[[order_code]]', $order->code, $sms_body);
-        $template_id = $sms_template->template_id;
-        $variables = array('name' => env('APP_NAME'), 'orderId' => 'OrderNo: '.$order->code);
-        try {
-            sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
-            Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
-        } catch (\Exception $e) {
+        $sms_template = SmsTemplate::where('identifier', 'order_cancel')->where('status', 1)->first();
+        if ($sms_template) {
+            $sms_body = $sms_template->sms_body;
+            $sms_body = str_replace('[[order_code]]', $order->code, $sms_body);
+            $template_id = $sms_template->template_id;
+            $variables = array('name' => env('APP_NAME'), 'orderId' => 'OrderNo: ' . $order->code);
+            try {
+                sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
+                Mail::to($order->user->email)->queue(new InvoiceEmailManager($array));
+            } catch (\Exception $e) {
 
+            }
+        }
+    }
+
+    public static function wallet_recharge_sms($phone = '', $wallet)
+    {
+        $sms_template = SmsTemplate::where('identifier', 'wallet_recharge')->where('status', 1)->first();
+        if ($sms_template) {
+            $sms_body = $sms_template->sms_body;
+            $sms_body = str_replace('[[WalletAmount]]', $wallet->amount, $sms_body);
+            $template_id = $sms_template->template_id;
+            $variables = array('WalletAmount' => $wallet->amount);
+            try {
+                sendSMS($phone, env('APP_NAME'), $sms_body, $template_id, $variables);
+            } catch (\Exception $e) {
+
+            }
         }
     }
 

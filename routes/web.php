@@ -47,6 +47,7 @@ Route::get('/social-login/redirect/{provider}', 'Auth\LoginController@redirectTo
 Route::get('/social-login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('social.callback');
 Route::get('/users/login', 'HomeController@login')->name('user.login');
 Route::get('/users/registration', 'HomeController@registration')->name('user.registration');
+Route::get('/r/{key}', 'HomeController@referral_user_register')->name('referral.registration');
 //Route::post('/users/login', 'HomeController@user_login')->name('user.login.submit');
 Route::post('/users/login/cart', 'HomeController@cart_login')->name('cart.login.submit');
 Route::post('/send_otp', '\App\Http\Controllers\Auth\LoginController@send_otp')->name('user.send_otp');

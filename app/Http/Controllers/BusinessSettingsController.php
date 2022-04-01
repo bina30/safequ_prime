@@ -129,6 +129,15 @@ class BusinessSettingsController extends Controller
         return back();
     }
 
+    public function user_referral_bonus(Request $request)
+    {
+        foreach ($request->types as $key => $type) {
+            $this->overWriteEnvFile($type, $request[$type]);
+        }
+        flash(translate("Settings updated successfully"))->success();
+        return back();
+    }
+
     /**
      * Update the API key's for GOOGLE analytics.
      * @param  \Illuminate\Http\Request  $request

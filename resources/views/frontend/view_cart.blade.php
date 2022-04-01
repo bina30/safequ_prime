@@ -154,25 +154,6 @@
                                     <ins class="fw700 text-right"> {!! single_price_web($total) !!} </ins>
                                 </h5>
                             </div>
-                            
-                            
-                            <div class="mb-3">
-                                <form class="" id="apply-coupon-form" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" name="owner_id" value="">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="code"
-                                               onkeydown="return event.key != 'Enter';"
-                                               placeholder="{{translate('Have coupon code? Enter here')}}"
-                                               required>
-                                        <div class="input-group-append">
-                                            <button type="button" id="coupon-apply"
-                                                    class="btn text-white primary-color-bg b-1 border-primary">{{translate('Apply')}}</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
 
                             @if (Auth::check() && get_setting('coupon_system') == 1)
                                 @if ($carts[0]['discount'] > 0)
@@ -251,7 +232,7 @@
                                                    value="razorpay"
                                                    @if ($total > Auth::user()->balance) checked @endif />
                                             <span class="align-middle body-txt">
-                                                Razorpay
+                                                PayTM / G-Pay / UPI / Net Banking
                                             </span>
                                         </label>
                                     </div>

@@ -114,35 +114,34 @@
                                                 <p class="mb-0 body-txt">{{ $community->address }}</p>
                                             </div>
 
-                                            <div class="crd-footer">
-                                                <div
-                                                    class="card-members @if (count($community->orders->unique('user_id')) > 0) pb-3 @else pb-5 @endif">
-                                                    <div class="mbr-img">
-                                                        @foreach ($community->orders->unique('user_id') as $i => $order)
-                                                            @if ($i < 5)
-                                                                <img src="{{ uploaded_asset($order->user->avatar_original) }}"
-                                                                    onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                    @if (count($community->orders->unique('user_id')) > 0)
-                                                        <div class="mbr-cnt">
-                                                            <p class="mb-0 body-txt">
-                                                                {{ count($community->orders->unique('user_id')) > 1? count($community->orders->unique('user_id')) . ' Members': count($community->orders->unique('user_id')) . ' Member' }}
-                                                            </p>
-                                                        </div>
-                                                    @endif
-                                                </div>
+                                            {{-- <div --}}
+                                            {{-- class="card-members  @if (count($community->orders->unique('user_id')) > 0) pb-3 @else pb-5 @endif"> --}}
+                                            {{-- <div class="mbr-img"> --}}
+                                            {{-- @foreach ($community->orders->unique('user_id') as $i => $order) --}}
+                                            {{-- @if ($i < 5) --}}
+                                            {{-- <img src="{{ uploaded_asset($order->user->avatar_original) }}" --}}
+                                            {{-- onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';"> --}}
+                                            {{-- @endif --}}
+                                            {{-- @endforeach --}}
+                                            {{-- </div> --}}
+                                            {{-- @if (count($community->orders->unique('user_id')) > 0) --}}
+                                            {{-- <div class="mbr-cnt"> --}}
+                                            {{-- <p class="mb-0 body-txt"> --}}
+                                            {{-- {{ count($community->orders->unique('user_id')) > 1? count($community->orders->unique('user_id')) . ' Members': count($community->orders->unique('user_id')) . ' Member' }} --}}
+                                            {{-- </p> --}}
+                                            {{-- </div> --}}
+                                            {{-- @endif --}}
+                                            {{-- </div> --}}
 
-                                                @if (auth()->user() && intval(auth()->user()->joined_community_id) > 0 && auth()->user()->joined_community_id != $community->user_id)
-                                                    <a href="javascript:void(0);"
-                                                        class="btn primary-btn btn-block fw600 text-white"
-                                                        onclick="confrimCommunityChange('{{ route('shop.visit', $community->slug) }}');">JOIN</a>
-                                                @else
-                                                    <a href="{{ route('shop.visit', $community->slug) }}"
-                                                        class="btn primary-btn btn-block fw600 text-white">JOIN</a>
-                                                @endif
-                                            </div>
+                                            @if (auth()->user() && intval(auth()->user()->joined_community_id) > 0 && auth()->user()->joined_community_id != $community->user_id)
+                                                <a href="javascript:void(0);"
+                                                    class="btn primary-btn btn-block fw600 text-white"
+                                                    onclick="confrimCommunityChange('{{ route('shop.visit', $community->slug) }}');">JOIN</a>
+                                            @else
+                                                <a href="{{ route('shop.visit', $community->slug) }}"
+                                                    class="btn primary-btn btn-block fw600 text-white">JOIN</a>
+                                            @endif
+
                                         </div>
                                     </div>
                                 @endforeach
