@@ -254,8 +254,8 @@
 
         function referFriend(referLink) {
             navigator.share({
-                title: 'Invite to join SafeQu Community.',
-                text: 'Hello, to join SafeQu Community please click shared link and Sign-Up',
+                title: 'Join SafeQU!',
+                text: 'Hey! Check out this amazing app through which you can get farm fresh produce like strawberries, avocados & mangoes DIRECTLY from your choice of local farms serving your community! The produce is ~30% cheaper than halls of food or baskets of nature 😉 and is delivered to your doorstep.',
                 url: referLink
             })
             .then(() => console.log('Share was successful.'))
