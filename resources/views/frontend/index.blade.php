@@ -13,7 +13,11 @@
                                     <div class="slider-content animate__animated animate__fadeInLeft 100vh pr-lg-5 py-4">
                                         <h1 class="fw600 mb-0">Exotic Fruits</h1>
                                         <h1 class="fw800 mb-3 primary-color">30%* cheaper.</h1>
-                                        <p class="mb-2 pr-md-4 fw500">Get super fresh exotic produce like strawberries, avocados, passion fruits etc delivered to your doorstep, directly from a variety of local farms and sellers serving your community!</p>
+                                        <p class="mb-2 pr-md-4 fw500 sub-txt">Farm fresh produce like strawberries &
+                                            avocados delivered to your doorstep, <span
+                                                class="fw700 fsize17 primary-color">DIRECTLY</span> from your choice of
+                                            local farms serving your community. ~30% cheaper than halls of food or baskets
+                                            of nature <i class="fas fa-smile-wink primary-color-dark align-middle"></i></p>
 
                                         <a href="#communities">
                                             <p class="explore-card my-4 fw500">Join your community now &nbsp;
@@ -33,6 +37,50 @@
             </div>
         </div>
 
+        <div class="light-bg py-5">
+            <div class="container pt-3 services">
+                <div class="row">
+                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                        <div class="icons3D">
+                            <img src="{{ static_asset('assets/img/fast-delivery.png') }}" alt="3D Icon" />
+                        </div>
+                        <h6 class="fw700 my-2">Direct from farms of your choice</h6>
+                        <p class="mb-0">Love strawberries? Order them directly from a farm in Nashik or
+                            Mahabaleshwar. Your choice!</p>
+                    </div>
+
+                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                        <div class="icons3D">
+                            <img src="{{ static_asset('assets/img/fruits-vector-graphic.png') }}" alt="3D Icon" />
+                        </div>
+
+                        <h6 class="fw700 fsize16 my-2">Fresh, like it's from your back garden</h6>
+                        <p class="mb-0">Order only what you need and get it fresh from the farm within 12hrs** of
+                            harvest! **For most products</p>
+                    </div>
+
+                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                        <div class="icons3D">
+                            <img src="{{ static_asset('assets/img/india-flag.png') }}" alt="3D Icon" />
+                        </div>
+
+                        <h6 class="fw700 fsize16 my-2">Atmanirbhar India</h6>
+                        <p class="mb-0">Support farmers across India by cutting out the middlemen.</p>
+                    </div>
+
+                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                        <div class="icons3D">
+                            <img src="{{ static_asset('assets/img/fair-pricing.png') }}" alt="3D Icon" />
+                        </div>
+
+                        <h6 class="fw700 fsize16 my-2">Fair Pricing</h6>
+                        <p class="mb-0">Without middlemen and a dynamic community pricing model at play, the farms
+                            are able to offer you produce at lower prices.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="container py-5">
 
             <div class="mt-2">
@@ -40,9 +88,8 @@
                     <div class="py-md-5 py-4">
                         <h4 class="fw700 title-txt">Our most <ins class="primary-color fw700">popular communities</ins></h4>
                         <p class="w-75 mx-auto mb-0 body-txt">More than <ins class="primary-color fw600">500+ customers
-                            </ins> across South Mumbai's finest gated communities have already signed up to the SafeQU experience.
-                            Choose
-                            your community and get started now
+                            </ins> across South Mumbai's finest gated communities have already signed up to the SafeQU
+                            experience. Choose your community and get started now
                         </p>
 
                         <div class="py-4">
@@ -67,24 +114,24 @@
                                                 <p class="mb-0 body-txt">{{ $community->address }}</p>
                                             </div>
 
-{{--                                            <div--}}
-{{--                                                class="card-members  @if (count($community->orders->unique('user_id')) > 0) pb-3 @else pb-5 @endif">--}}
-{{--                                                <div class="mbr-img">--}}
-{{--                                                    @foreach ($community->orders->unique('user_id') as $i => $order)--}}
-{{--                                                        @if ($i < 5)--}}
-{{--                                                            <img src="{{ uploaded_asset($order->user->avatar_original) }}"--}}
-{{--                                                                onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">--}}
-{{--                                                        @endif--}}
-{{--                                                    @endforeach--}}
-{{--                                                </div>--}}
-{{--                                                @if (count($community->orders->unique('user_id')) > 0)--}}
-{{--                                                    <div class="mbr-cnt">--}}
-{{--                                                        <p class="mb-0 body-txt">--}}
-{{--                                                            {{ count($community->orders->unique('user_id')) > 1? count($community->orders->unique('user_id')) . ' Members': count($community->orders->unique('user_id')) . ' Member' }}--}}
-{{--                                                        </p>--}}
-{{--                                                    </div>--}}
-{{--                                                @endif--}}
-{{--                                            </div>--}}
+                                            {{-- <div --}}
+                                            {{-- class="card-members  @if (count($community->orders->unique('user_id')) > 0) pb-3 @else pb-5 @endif"> --}}
+                                            {{-- <div class="mbr-img"> --}}
+                                            {{-- @foreach ($community->orders->unique('user_id') as $i => $order) --}}
+                                            {{-- @if ($i < 5) --}}
+                                            {{-- <img src="{{ uploaded_asset($order->user->avatar_original) }}" --}}
+                                            {{-- onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';"> --}}
+                                            {{-- @endif --}}
+                                            {{-- @endforeach --}}
+                                            {{-- </div> --}}
+                                            {{-- @if (count($community->orders->unique('user_id')) > 0) --}}
+                                            {{-- <div class="mbr-cnt"> --}}
+                                            {{-- <p class="mb-0 body-txt"> --}}
+                                            {{-- {{ count($community->orders->unique('user_id')) > 1? count($community->orders->unique('user_id')) . ' Members': count($community->orders->unique('user_id')) . ' Member' }} --}}
+                                            {{-- </p> --}}
+                                            {{-- </div> --}}
+                                            {{-- @endif --}}
+                                            {{-- </div> --}}
 
                                             @if (auth()->user() && intval(auth()->user()->joined_community_id) > 0 && auth()->user()->joined_community_id != $community->user_id)
                                                 <a href="javascript:void(0);"
@@ -102,9 +149,9 @@
                             </div>
                         </div>
 
-                        {{--@if (count($communities) > 5)
+                        {{-- @if (count($communities) > 5)
                             <button class="btn fw700 view-more-btn px-4 mb-3 mb-md-0">View more</button>
-                        @endif--}}
+                        @endif --}}
 
                     </div>
                 </div>
@@ -116,10 +163,10 @@
                 <div class="row justify-content-center">
                     <div class="col-md-9 px-0">
                         <div class="px-4 py-5 text-center">
-                            <h5 class="text-white mb-3 fw600">Not able to find your community? <br /> Request to get started
-                                now.
+                            <h5 class="text-white mb-3 fw600">Not able to find your community? <br />
+                                Request to get started now.
                             </h5>
-                            <p class="text-white fw500 mb-2">Would you like the SafeQU experience for your community?</p>
+
                             <p class="text-white fw500 mb-4">Ping us here and we will get your community setup in minutes.
                             </p>
                             <a href="https://uh19vww4t9p.typeform.com/to/ZuY8xtQq" target="_blank">
@@ -142,8 +189,7 @@
                             <div class="item p-4 px-md-5">
                                 <i class="fad fa-quote-left fa-3x mb-3"></i>
                                 <p class="body-txt text-center font-italic">SafeQU gives me a business class experience in
-                                    my
-                                    grocery shopping.</p>
+                                    my grocery shopping.</p>
 
                                 <p class="fw700 text-center">NK
                                     <br>
@@ -156,8 +202,7 @@
                             <div class="item p-4 px-md-5">
                                 <i class="fad fa-quote-left fa-3x mb-3"></i>
                                 <p class="body-txt text-center font-italic">Love all your produce….Avocados, Passion Fruits
-                                    and
-                                    Strawberries. Most of all your customer attention to detail. Thanks!</p>
+                                    and Strawberries. Most of all your customer attention to detail. Thanks!</p>
 
                                 <p class="fw700 text-center">SK
                                     <br>
@@ -170,8 +215,7 @@
                             <div class="item p-4 px-md-5">
                                 <i class="fad fa-quote-left fa-3x mb-3"></i>
                                 <p class="body-txt text-center font-italic">7 days in and my light pink roses are still
-                                    fresh &
-                                    beautiful. Thanks, SafeQU for sorting me out with my weekly flowers</p>
+                                    fresh & beautiful. Thanks, SafeQU for sorting me out with my weekly flowers</p>
 
                                 <p class="fw700 text-center">Tarana.S
                                     <br>
@@ -183,11 +227,12 @@
                             </div>
                             <div class="item p-4 px-md-5">
                                 <i class="fad fa-quote-left fa-3x mb-3"></i>
-                                <p class="body-txt text-center font-italic">Thankyou <a
-                                        href="https://www.instagram.com/safequ.india/" target="_blank"><ins
-                                            class="primary-color">@safequ.india</ins></a> for introducing me to the
+                                <p class="body-txt text-center font-italic">Thankyou
+                                    <a href="https://www.instagram.com/safequ.india/" target="_blank">
+                                        <ins class="primary-color">@safequ.india</ins></a> for introducing me to the
                                     brilliant farm fresh produce and the weekly salad subscription service. The Romaine
-                                    Lettuce particularly felt like it had been picked from my back garden</p>
+                                    Lettuce particularly felt like it had been picked from my back garden
+                                </p>
 
                                 <p class="fw700 text-center">Hema W
                                     <br>
@@ -202,40 +247,6 @@
                 </div>
             </div>
 
-        </div>
-
-        <div class="light-bg py-5 mt-4">
-            <div class="container pt-3">
-                <h5 class="text-center fw700 pb-3">
-                    We are South Mumbai's <ins class="fw700 primary-color">only farm-to-home exotic produce delivery</ins>
-                </h5>
-
-                <div class="row pt-3">
-                    <div class="col-md-4 px-md-4 pb-3 text-center">
-                        <img src="{{ static_asset('assets/img/fast-delivery.png') }}" alt="3D Icon"
-                            class="icons3D">
-                        <p class="fw600 fsize16 my-2">Choice of local farms & sellers</p>
-                        <p class="mb-0">Your produce is delivered to your doorstep straight from the farm you
-                            choose to buy from. Everything is harvested fresh as per demand.</p>
-                    </div>
-
-                    <div class="col-md-4 px-md-4 pb-3 text-center">
-                        <img src="{{ static_asset('assets/img/grocery-bag.png') }}" alt="3D Icon" class="icons3D">
-                        <p class="fw600 fsize16 my-2">Fresh, peak flavour produce</p>
-                        <p class="mb-0">Your produce is pesticide free and full of flavour. Our warehousing team
-                            works hard to deliver to your doorstep the freshest & safest produce within 12 hrs of harvest
-                            &nbsp; **For most products.</p>
-                    </div>
-
-                    <div class="col-md-4 px-md-4 pb-3 text-center">
-                        <img src="{{ static_asset('assets/img/coin-in-hand.png') }}" alt="3D Icon"
-                            class="icons3D">
-                        <p class="fw600 fsize16 my-2">Fair Pricing</p>
-                        <p class="mb-0">Fair, dynamic pricing model to allow communities to avail group buying
-                            benefits.</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Change Community Modal Starts -->
