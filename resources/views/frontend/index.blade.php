@@ -13,8 +13,11 @@
                                     <div class="slider-content animate__animated animate__fadeInLeft 100vh pr-lg-5 py-4">
                                         <h1 class="fw600 mb-0">Exotic Fruits</h1>
                                         <h1 class="fw800 mb-3 primary-color">30%* cheaper.</h1>
-                                        <p class="mb-2 pr-md-4 fw500">Get fresh produce at fair prices,
-                                            directly from a variety of local farms and sellers serving your community!</p>
+                                        <p class="mb-2 pr-md-4 fw500 sub-txt">Farm fresh produce like strawberries &
+                                            avocados delivered to your doorstep, <span
+                                                class="fw700 fsize17 primary-color">DIRECTLY</span> from your choice of
+                                            local farms serving your community. ~30% cheaper than halls of food or baskets
+                                            of nature <i class="fas fa-smile-wink primary-color-dark align-middle"></i></p>
 
                                         <a href="#communities">
                                             <p class="explore-card my-4 fw500">Join your community now &nbsp;
@@ -30,6 +33,50 @@
 
                     <div id="communities"></div>
 
+                </div>
+            </div>
+        </div>
+
+        <div class="light-bg py-5">
+            <div class="container pt-3 services">
+                <div class="row">
+                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                        <div class="icons3D">
+                            <img src="{{ static_asset('assets/img/fast-delivery.png') }}" alt="3D Icon" />
+                        </div>
+                        <h6 class="fw700 my-2">Direct from farms of your choice</h6>
+                        <p class="mb-0">Love strawberries? Order them directly from a farm in Nashik or
+                            Mahabaleshwar. Your choice!</p>
+                    </div>
+
+                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                        <div class="icons3D">
+                            <img src="{{ static_asset('assets/img/fruits-vector-graphic.png') }}" alt="3D Icon" />
+                        </div>
+
+                        <h6 class="fw700 fsize16 my-2">Fresh, like it's from your back garden</h6>
+                        <p class="mb-0">Order only what you need and get it fresh from the farm within 12hrs** of
+                            harvest! **For most products</p>
+                    </div>
+
+                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                        <div class="icons3D">
+                            <img src="{{ static_asset('assets/img/india-flag.png') }}" alt="3D Icon" />
+                        </div>
+
+                        <h6 class="fw700 fsize16 my-2">Atmanirbhar India</h6>
+                        <p class="mb-0">Support farmers across India by cutting out the middlemen.</p>
+                    </div>
+
+                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
+                        <div class="icons3D">
+                            <img src="{{ static_asset('assets/img/fair-pricing.png') }}" alt="3D Icon" />
+                        </div>
+
+                        <h6 class="fw700 fsize16 my-2">Fair Pricing</h6>
+                        <p class="mb-0">Without middlemen and a dynamic community pricing model at play, the farms
+                            are able to offer you produce at lower prices.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,34 +114,35 @@
                                                 <p class="mb-0 body-txt">{{ $community->address }}</p>
                                             </div>
 
-                                            <div
-                                                class="card-members  @if (count($community->orders->unique('user_id')) > 0) pb-3 @else pb-5 @endif">
-                                                <div class="mbr-img">
-                                                    @foreach ($community->orders->unique('user_id') as $i => $order)
-                                                        @if ($i < 5)
-                                                            <img src="{{ uploaded_asset($order->user->avatar_original) }}"
-                                                                onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
-                                                        @endif
-                                                    @endforeach
-                                                </div>
-                                                @if (count($community->orders->unique('user_id')) > 0)
-                                                    <div class="mbr-cnt">
-                                                        <p class="mb-0 body-txt">
-                                                            {{ count($community->orders->unique('user_id')) > 1? count($community->orders->unique('user_id')) . ' Members': count($community->orders->unique('user_id')) . ' Member' }}
-                                                        </p>
+                                            <div class="crd-footer">
+                                                <div
+                                                    class="card-members @if (count($community->orders->unique('user_id')) > 0) pb-3 @else pb-5 @endif">
+                                                    <div class="mbr-img">
+                                                        @foreach ($community->orders->unique('user_id') as $i => $order)
+                                                            @if ($i < 5)
+                                                                <img src="{{ uploaded_asset($order->user->avatar_original) }}"
+                                                                    onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                            @endif
+                                                        @endforeach
                                                     </div>
+                                                    @if (count($community->orders->unique('user_id')) > 0)
+                                                        <div class="mbr-cnt">
+                                                            <p class="mb-0 body-txt">
+                                                                {{ count($community->orders->unique('user_id')) > 1? count($community->orders->unique('user_id')) . ' Members': count($community->orders->unique('user_id')) . ' Member' }}
+                                                            </p>
+                                                        </div>
+                                                    @endif
+                                                </div>
+
+                                                @if (auth()->user() && intval(auth()->user()->joined_community_id) > 0 && auth()->user()->joined_community_id != $community->user_id)
+                                                    <a href="javascript:void(0);"
+                                                        class="btn primary-btn btn-block fw600 text-white"
+                                                        onclick="confrimCommunityChange('{{ route('shop.visit', $community->slug) }}');">JOIN</a>
+                                                @else
+                                                    <a href="{{ route('shop.visit', $community->slug) }}"
+                                                        class="btn primary-btn btn-block fw600 text-white">JOIN</a>
                                                 @endif
                                             </div>
-
-                                            @if (auth()->user() && intval(auth()->user()->joined_community_id) > 0 && auth()->user()->joined_community_id != $community->user_id)
-                                                <a href="javascript:void(0);"
-                                                    class="btn primary-btn btn-block fw600 text-white"
-                                                    onclick="confrimCommunityChange('{{ route('shop.visit', $community->slug) }}');">JOIN</a>
-                                            @else
-                                                <a href="{{ route('shop.visit', $community->slug) }}"
-                                                    class="btn primary-btn btn-block fw600 text-white">JOIN</a>
-                                            @endif
-
                                         </div>
                                     </div>
                                 @endforeach
@@ -116,10 +164,10 @@
                 <div class="row justify-content-center">
                     <div class="col-md-9 px-0">
                         <div class="px-4 py-5 text-center">
-                            <h5 class="text-white mb-3 fw600">Not able to find your community? <br /> Request to get started
-                                now.
+                            <h5 class="text-white mb-3 fw600">Not able to find your community? <br />
+                                Request to get started now.
                             </h5>
-                            <p class="text-white fw500 mb-2">Would you like the SafeQU experience for your community?</p>
+
                             <p class="text-white fw500 mb-4">Ping us here and we will get your community setup in minutes.
                             </p>
                             <a href="https://uh19vww4t9p.typeform.com/to/ZuY8xtQq" target="_blank">
@@ -200,58 +248,6 @@
                 </div>
             </div>
 
-        </div>
-
-        <div class="light-bg py-5 mt-4">
-            <div class="container pt-3 services">
-                <h5 class="text-center fw700 pb-3">
-                    We are South Mumbai's <ins class="fw700 primary-color">only farm-to-home exotic produce delivery</ins>
-                </h5>
-
-                <div class="row pt-3">
-                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
-                        <div class="icons3D">
-                            <img src="{{ static_asset('assets/img/fast-delivery.png') }}" alt="3D Icon" />
-                        </div>
-                        <h6 class="fw700 my-2">Choice of local farms & sellers</h6>
-                        <p class="mb-0">Order what you consume directly from a choice of farms serving your
-                            community. Your order will be harvested fresh, as per community demand.</p>
-                    </div>
-
-                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
-                        <div class="icons3D">
-                            <img src="{{ static_asset('assets/img/grocery-bag.png') }}" alt="3D Icon" />
-                        </div>
-
-                        <h6 class="fw700 fsize16 my-2">Buy fresh, consume like it's from your back garden</h6>
-                        <p class="mb-0">Buying fresh doesn't always mean eating fresh. Order only what you need
-                            and we will deliver it to your doorstep fresh directly from the farm!</p>
-                    </div>
-
-                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
-                        <div class="icons3D">
-                            <img src="{{ static_asset('assets/img/fruits-vector-graphic.png') }}" alt="3D Icon" />
-                        </div>
-
-                        <h6 class="fw700 fsize16 my-2">Peak flavour, safe produce</h6>
-                        <p class="mb-0">Whether an apple or an avocado we're committed to ensure that you consume
-                            only the best variety of the produce from the best source. Our warehousing team will work hard
-                            to ensure your order is delivered to you within 12 hrs of harvest **For most products.</p>
-                    </div>
-
-                    <div class="col-md-3 px-md-4 pt-2 pb-3 text-center">
-                        <div class="icons3D">
-                            <img src="{{ static_asset('assets/img/coin-in-hand.png') }}" alt="3D Icon" />
-                        </div>
-
-                        <h6 class="fw700 fsize16 my-2">Fair Pricing</h6>
-                        <p class="mb-0">Eating better doesn't mean paying more! As we cut out the middlemen and
-                            use a dynamic pricing model, the farms are able to price your produce fairly based on your
-                            community orders! So the more orders the farms receive the lower your farm fresh fruit bills
-                            get! </p>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Change Community Modal Starts -->
