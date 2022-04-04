@@ -16,8 +16,9 @@
                                         <p class="mb-2 pr-md-4 fw500 sub-txt">Farm fresh produce like strawberries &
                                             avocados delivered to your doorstep, <span
                                                 class="fw700 fsize17 primary-color">DIRECTLY</span> from your choice of
-                                            local farms serving your community. ~30% cheaper than halls of food or baskets
-                                            of nature <i
+                                            local farms serving your community. ~30% cheaper than those expensive <u
+                                                class="fw500 text-underline">halls of food</u> or <u
+                                                class="fw500 text-underline">baskets of nature</u> <i
                                                 class="fas fa-smile-wink smiley primary-color-dark align-middle"></i></p>
 
                                         <a href="#communities">
@@ -75,8 +76,8 @@
                         </div>
 
                         <h6 class="fw700 fsize16 my-2">Fair Pricing</h6>
-                        <p class="mb-0">Without middlemen and a dynamic community pricing model at play, the farms
-                            are able to offer you produce at lower prices.</p>
+                        <p class="mb-0">Without middlemen and a dynamic community model at play, the local farms
+                            are able to offer you fresh produce at lower prices compared to high street retailers.</p>
                     </div>
                 </div>
             </div>
