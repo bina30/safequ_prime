@@ -5,6 +5,7 @@
     <form action="{!!route('payment.rozer')!!}" method="POST" id='razorpay' style="display: none;">
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <input type="hidden" name="_token" value="{!!csrf_token()!!}">
+        <input type="hidden" name="wallet_amount" value="{{$wallet_amount}}">
         <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
     </form>
 
@@ -15,7 +16,7 @@
         $(document).ready(function () {
             let options = {
                 "key": "{{ env('RAZOR_KEY') }}", // Enter the Key ID generated from the Dashboard
-                "amount": "{{round($combined_order->grand_total) * 100}}", //amount need to be in multiple of 100
+                "amount": "{{round($combined_order->grand_total - $wallet_amount) * 100}}", //amount need to be in multiple of 100
                 "name": "{{ env('APP_NAME') }}",
                 "description": "Cart Payment",
                 "image": "{{ uploaded_asset(get_setting('header_logo')) }}",
@@ -53,7 +54,7 @@
                 },
                 "modal": {
                     "ondismiss": function () {
-                       window.location.href = '{{ route('cart') }}';
+                        window.location.href = '{{ route('cart') }}';
                     }
                 }
             };

@@ -155,8 +155,8 @@ class CheckoutController extends Controller
         }
     }
 
-    //redirects to this method after a successfull checkout
-    public function checkout_done($combined_order_id, $payment)
+    //redirects to this method after a successful checkout
+    public function checkout_done($combined_order_id, $payment, $wallet_amount = 0)
     {
         $combined_order = CombinedOrder::findOrFail($combined_order_id);
 
@@ -167,12 +167,16 @@ class CheckoutController extends Controller
             $order->save();
 
             // If Order is done from Wallet then make transaction entry in Wallet of Debit
-            if ($order->payment_type == "wallet") {
+            if ($key == 0 && ($order->payment_type == "wallet" || $wallet_amount > 0)) {
+                $amount = $order->grand_total;
+                if ($wallet_amount > 0) {
+                    $amount = $wallet_amount;
+                }
                 $wallet = new Wallet;
                 $wallet->user_id = $order->user_id;
-                $wallet->amount = '-' . $order->grand_total;
+                $wallet->amount = '-' . $amount;
                 $wallet->payment_method = 'order';
-                $wallet->payment_details = json_encode(array('id' => $order->id, 'code' => $order->code, 'amount' => $order->grand_total, 'method' => 'order'));
+                $wallet->payment_details = json_encode(array('id' => $order->id, 'code' => $order->code, 'amount' => $amount, 'method' => 'order'));
                 $wallet->save();
             }
 

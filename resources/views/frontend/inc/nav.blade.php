@@ -1,13 +1,13 @@
 @if (isset($header_show) && $header_show)
     @if (get_setting('topbar_banner') != null)
         <div class="position-relative top-banner removable-session z-1035 d-none" data-key="top-banner"
-            data-value="removed">
+             data-value="removed">
             <a href="{{ get_setting('topbar_banner_link') }}" class="d-block text-reset">
                 <img src="{{ uploaded_asset(get_setting('topbar_banner')) }}"
-                    class="w-100 mw-100 h-50px h-lg-auto img-fit">
+                     class="w-100 mw-100 h-50px h-lg-auto img-fit">
             </a>
             <button class="btn text-white absolute-top-right set-session" data-key="top-banner" data-value="removed"
-                data-toggle="remove-parent" data-parent=".top-banner">
+                    data-toggle="remove-parent" data-parent=".top-banner">
                 <i class="la la-close la-2x"></i>
             </button>
         </div>
@@ -24,26 +24,23 @@
                         <div class="cart-icon mr-3 crt-sm">
                             <a href="{{ route('cart') }}">
                                 <i class="fad fa-shopping-cart fsize20 mr-2"></i> <span class="cart-item-count"
-                                    style="display: none;"></span>
+                                                                                        style="display: none;"></span>
                             </a>
                         </div>
                     @endauth
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
 
                 <div class="collapse navbar-collapse disp-none-lg" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ route('home') }}">Home</a>
-                        </li>
                         @if (session()->has('shop_slug'))
                             <li class="nav-item">
                                 <a class="nav-link"
-                                    href="{{ route('shop.visit', session()->get('shop_slug')) }}">Products</a>
+                                   href="{{ route('shop.visit', session()->get('shop_slug')) }}">Products</a>
                             </li>
                         @endif
                         @auth
@@ -63,6 +60,9 @@
                                 <a class="nav-link" href="{{ route('logout') }}">Logout</a>
                             </li>
                         @else
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ route('home') }}">Home</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user.login') }}">Login</a>
                             </li>
@@ -94,11 +94,11 @@
                 @if (Auth::user())
                     <a href="{{ route('profile') }}">
                         <img src="{{ uploaded_asset(Auth::user()->avatar_original) }}"
-                            onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                             onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
                     </a>
                 @else
                     <img src="{{ static_asset('assets/img/avatar-default.webp') }}"
-                        onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
                 @endif
 
                 @auth
@@ -117,9 +117,6 @@
             </div>
 
             <ul class="side-nav-links bt-1 mb-0 py-2">
-                <a href="{{ route('home') }}">
-                    <li class="p-2 mb-2"><i class="fad fa-home"></i> Home</li>
-                </a>
                 @if (session()->has('shop_slug'))
                     <a href="{{ route('shop.visit', session()->get('shop_slug')) }}">
                         <li class="p-2 mb-2"><i class="fad fa-box-full"></i> Products</li>
@@ -142,16 +139,21 @@
                         <li class="p-2 mb-2">
                             <div class="cart-icon">
                                 <i class="fad fa-shopping-cart mr-2"></i> <span class="cart-item-count"
-                                    style="display: none;"></span>
+                                                                                style="display: none;"></span>
                                 Cart
                             </div>
                         </li>
                     </a>
                     @if(auth()->user()->joined_community_id > 0)
-                        <a href="javascript:void(0)" onclick="referFriend('{{ route('referral.registration', auth()->user()->referral_key) }}')">
+                        <a href="javascript:void(0)"
+                           onclick="referFriend('{{ route('referral.registration', auth()->user()->referral_key) }}')">
                             <li class="p-2 mb-2"><i class="fad fa-user-plus"></i> Refer & Earn</li>
                         </a>
                     @endif
+                @else
+                    <a href="{{ route('home') }}">
+                        <li class="p-2 mb-2"><i class="fad fa-home"></i> Home</li>
+                    </a>
                 @endauth
             </ul>
 

@@ -126,7 +126,7 @@
                                             <i class="fal fa-long-arrow-right"></i></a>
                                     @else
                                         <a href="{{ route('home') }}">Continue Shopping &nbsp;&nbsp; <i
-                                                class="fal fa-long-arrow-right"></i></a>
+                                                    class="fal fa-long-arrow-right"></i></a>
                                     @endif
                                 </div>
                             </div>
@@ -205,38 +205,46 @@
                                     @if (Auth::user())
                                         <p class="fsize12">Complete your payment easily using the below options to
                                             confirm your farm fresh order:</p>
+                                        @if ($total > Auth::user()->balance)
+                                            <div class="delivery-addr p-3 flex-astart-jstart mb-3">
+                                                <input type="checkbox" name="partial_payment" id="partial_payment"
+                                                       class="mr-2"
+                                                       checked/>
+                                                <span class="check-box"></span>
+
+                                                <label for="partial_payment" class="body-txt mb-0">
+                                                    <span class="align-middle body-txt">Use SafeQu balance <ins
+                                                                class="fw600 body-txt">{!! single_price_web(Auth::user()->balance) !!} </ins></span>
+                                                </label>
+                                            </div>
+                                        @else
+                                            <div class="other-gatewy p-3 mb-3">
+                                                <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
+                                                    <input type="radio" id="pay-option2" name="payment_option"
+                                                           value="wallet"
+                                                           tabindex="1"
+                                                           checked/>
+                                                    <span class="align-middle body-txt">SafeQu balance</span>
+                                                    <br>
+                                                    <span class="align-middle body-txt cart_wallet_bal">
+                                                    Available <ins
+                                                                class="fw600 body-txt">{!! single_price_web(Auth::user()->balance) !!} </ins> for Payment
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        @endif
+
                                         <div class="other-gatewy p-3 mb-3">
-                                            <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
-                                                <input type="radio" id="pay-option2" name="payment_option"
-                                                       value="wallet"
-                                                       tabindex="1"
-                                                       @if ($total > Auth::user()->balance) disabled
-                                                       @else checked @endif />
+                                            <label for="pay-option1" class="label-radio mb-0 py-2 d-block">
+                                                <input type="radio" id="pay-option1" name="payment_option" tabindex="1"
+                                                       value="razorpay"
+                                                       @if ($total > Auth::user()->balance) checked @endif />
                                                 <span class="align-middle body-txt">
-                                                    SafeQu balance
-                                                </span>
-                                                <br>
-                                                <span class="align-middle body-txt cart_wallet_bal">
-                                                    Available
-                                                    <ins
-                                                        class="fw600 body-txt">{!! single_price_web(Auth::user()->balance) !!} </ins>
-                                                    for Payment
-                                                </span>
+                                                PayTM / G-Pay / UPI / Net Banking
+                                            </span>
                                             </label>
                                         </div>
                                     @endif
-
-                                    <div class="other-gatewy p-3 mb-3">
-                                        <label for="pay-option1" class="label-radio mb-0 py-2 d-block">
-                                            <input type="radio" id="pay-option1" name="payment_option" tabindex="1"
-                                                   value="razorpay"
-                                                   @if ($total > Auth::user()->balance) checked @endif />
-                                            <span class="align-middle body-txt">
-                                                PayTM / G-Pay / UPI / Net Banking
-                                            </span>
-                                        </label>
-                                    </div>
-
                                 </div>
 
                                 <div class="p-3 pay-btn bt-1 flex-acenter-jbtw">
@@ -255,8 +263,7 @@
                                                 class="ml-2 btn primary-btn btn-round py-1"
                                                 onclick="submitOrder(this)"
                                                 @if (count($carts) == 0 || $user_data->address == '') disabled @endif>
-                                            Pay
-                                            Now
+                                            Pay Now
                                         </button>
                                     </div>
                                 </div>
