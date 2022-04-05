@@ -200,7 +200,7 @@
                             @endif
 
                             <!-- Payment Method -->
-                                <div class="pay-method pb-3">
+                                <div class="pay-method pb-4">
 
                                     @if (Auth::user())
                                         <p class="fsize12">Complete your payment easily using the below options to
@@ -249,8 +249,12 @@
 
                                 <div class="p-3 pay-btn bt-1 flex-acenter-jbtw">
                                     <div class="total">
-                                        <p class="fsize15 mb-1 body-txt">Total:</p>
-                                        <h5 class="fw500 mb-0">{!! single_price_web($total) !!} </h5>
+                                        <p class="fsize15 mb-1 body-txt w-100">Total:</p>
+                                        <h5 class="fw500 mb-0">
+                                            {!! single_price_web($total) !!} 
+                                            &nbsp;
+                                            <span class="fw500 mb-0 strikethrough">{!! single_price_web($total) !!} </span>
+                                        </h5>
                                     </div>
                                     <div>
                                         @if ($user_data && $user_data->address == '')

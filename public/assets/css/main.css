@@ -3058,3 +3058,16 @@ input[type=checkbox]:checked+.check-box::before,
 .wp-help-btn i {
     font-size: 1.45rem;
 }
+
+.strikethrough {
+    text-decoration: line-through;
+}
+
+.total h5 {
+    font-size: 1.15rem;
+}
+
+.total .strikethrough {
+    font-size: 0.87rem !important;
+    color: var(--default-color-light);
+}
