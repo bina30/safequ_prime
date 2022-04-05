@@ -3063,8 +3063,8 @@ input[type=checkbox]:checked+.check-box::before,
     text-decoration: line-through;
 }
 
-.total h5 {
-    font-size: 1.15rem;
+.total span.h5 {
+    font-size: 1.15rem !important;
 }
 
 .total .strikethrough {

@@ -151,7 +151,7 @@
                                 @endif
                                 <h5>
                                     <ins class="fw700">Total :</ins>
-                                    <ins class="fw700 text-right"> {!! single_price_web($total) !!} </ins>
+                                    <ins class="fw700 text-right" id="basic_amount"> {!! single_price_web($total) !!} </ins>
                                 </h5>
                             </div>
 
@@ -217,6 +217,8 @@
                                                                 class="fw600 body-txt">{!! single_price_web(Auth::user()->balance) !!} </ins></span>
                                                 </label>
                                             </div>
+                                            <input type="hidden" id="payable_amount"
+                                                   value='{!! single_price_web($total - Auth::user()->balance) !!}'>
                                         @else
                                             <div class="other-gatewy p-3 mb-3">
                                                 <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
@@ -250,10 +252,11 @@
                                 <div class="p-3 pay-btn bt-1 flex-acenter-jbtw">
                                     <div class="total">
                                         <p class="fsize15 mb-1 body-txt w-100">Total:</p>
-                                        <h5 class="fw500 mb-0">
-                                            {!! single_price_web($total) !!} 
+                                        <h5 class="mb-0">
+                                            <span class="fw500 h5"
+                                                  id="total_amount">{!! single_price_web($total) !!}</span>
                                             &nbsp;
-                                            <span class="fw500 mb-0 strikethrough">{!! single_price_web($total) !!} </span>
+
                                         </h5>
                                     </div>
                                     <div>
@@ -390,6 +393,21 @@
                     $("#cart_summary").html(data);
                 }
             });
+        });
+
+        if ($('#partial_payment').is(':checked')) {
+            $('.total h5').append('<span class="fw500 mb-0 strikethrough">' + $('#total_amount').html() + '</span>');
+            $('#total_amount').html($('#payable_amount').val());
+        }
+
+        $('#partial_payment').on('change',function (){
+            if(this.checked == true){
+                $('.total h5').append('<span class="fw500 mb-0 strikethrough">' + $('#total_amount').html() + '</span>');
+                $('#total_amount').html($('#payable_amount').val());
+            } else {
+                $('.total h5 .strikethrough').remove();
+                $('#total_amount').html($('#basic_amount').html());
+            }
         });
     </script>
 @endsection

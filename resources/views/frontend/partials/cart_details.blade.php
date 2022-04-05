@@ -105,10 +105,10 @@
                         </div>
                         @if($user_data && intval($user_data->joined_community_id) > 0)
                             <a href="{{ route('shop.visit', $shop->slug) }}">Continue Shopping &nbsp;&nbsp; <i
-                                    class="fal fa-long-arrow-right"></i></a>
+                                        class="fal fa-long-arrow-right"></i></a>
                         @else
                             <a href="{{ route('home') }}">Continue Shopping &nbsp;&nbsp; <i
-                                    class="fal fa-long-arrow-right"></i></a>
+                                        class="fal fa-long-arrow-right"></i></a>
                         @endif
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                     @endif
                     <h5>
                         <ins class="fw700">Total :</ins>
-                        <ins class="fw700 text-right"> {!! single_price_web($total) !!} </ins>
+                        <ins class="fw700 text-right" id="basic_amount"> {!! single_price_web($total) !!} </ins>
                     </h5>
                 </div>
 
@@ -184,41 +184,62 @@
                     <div class="pay-method pb-3">
 
                         @if(Auth::user())
-                            <div class="other-gatewy p-3 mb-3">
-                                <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
-                                    <input type="radio" id="pay-option2" name="payment_option" value="wallet"
-                                           tabindex="1"
-                                           @if($total > Auth::user()->balance) disabled @else checked @endif />
-                                    <span class="align-middle body-txt">
+                            <p class="fsize12">Complete your payment easily using the below options to
+                                confirm your farm fresh order:</p>
+                            @if ($total > Auth::user()->balance)
+                                <div class="delivery-addr p-3 flex-astart-jstart mb-3">
+                                    <input type="checkbox" name="partial_payment" id="partial_payment"
+                                           class="mr-2"
+                                           checked/>
+                                    <span class="check-box"></span>
+
+                                    <label for="partial_payment" class="body-txt mb-0">
+                                                    <span class="align-middle body-txt">Use SafeQu balance <ins
+                                                                class="fw600 body-txt">{!! single_price_web(Auth::user()->balance) !!} </ins></span>
+                                    </label>
+                                </div>
+                                <input type="hidden" id="payable_amount"
+                                       value='{!! single_price_web($total - Auth::user()->balance) !!}'>
+                            @else
+                                <div class="other-gatewy p-3 mb-3">
+                                    <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
+                                        <input type="radio" id="pay-option2" name="payment_option" value="wallet"
+                                               tabindex="1"
+                                               @if($total > Auth::user()->balance) disabled @else checked @endif />
+                                        <span class="align-middle body-txt">
                                         SafeQu balance
                                     </span>
-                                    <br>
-                                    <span class="align-middle body-txt cart_wallet_bal">
+                                        <br>
+                                        <span class="align-middle body-txt cart_wallet_bal">
                                         Available
                                         <ins
-                                            class="fw600 body-txt">{!! single_price_web(Auth::user()->balance) !!} </ins>
+                                                class="fw600 body-txt">{!! single_price_web(Auth::user()->balance) !!} </ins>
                                         for Payment
+                                    </span>
+                                    </label>
+                                </div>
+                            @endif
+
+                            <div class="other-gatewy p-3 mb-3">
+                                <label for="pay-option1" class="label-radio mb-0 py-2 d-block">
+                                    <input type="radio" id="pay-option1" name="payment_option" tabindex="1"
+                                           value="razorpay"
+                                           @if($total > Auth::user()->balance) checked @endif />
+                                    <span class="align-middle body-txt">
+                                        PayTM / G-Pay / UPI / Net Banking
                                     </span>
                                 </label>
                             </div>
                         @endif
-
-                        <div class="other-gatewy p-3 mb-3">
-                            <label for="pay-option1" class="label-radio mb-0 py-2 d-block">
-                                <input type="radio" id="pay-option1" name="payment_option" tabindex="1" value="razorpay"
-                                       @if($total > Auth::user()->balance) checked @endif />
-                                <span class="align-middle body-txt">
-                                        PayTM / G-Pay / UPI / Net Banking
-                                    </span>
-                            </label>
-                        </div>
-
                     </div>
 
                     <div class="p-3 pay-btn bt-1 flex-acenter-jbtw">
                         <div class="total">
                             <p class="fsize15 mb-1 body-txt">Total:</p>
-                            <h5 class="fw500 mb-0">{!! single_price_web($total) !!} </h5>
+                            <h5 class="mb-0">
+                                <span class="fw500 h5" id="total_amount">{!! single_price_web($total) !!}</span>
+                                &nbsp;
+                            </h5>
                         </div>
                         <button id="btn_pay_now" class="btn primary-btn btn-round py-1" onclick="submitOrder(this)"
                                 @if(count($carts) == 0 || $user_data->address == '') disabled @endif >Pay Now
@@ -267,5 +288,20 @@
                 // $('#btn_pay_now').removeAttr('disabled');
             });
         }
-    })
+    });
+
+    if ($('#partial_payment').is(':checked')) {
+        $('.total h5').append('<span class="fw500 mb-0 strikethrough">' + $('#total_amount').html() + '</span>');
+        $('#total_amount').html($('#payable_amount').val());
+    }
+
+    $('#partial_payment').on('change',function (){
+        if(this.checked == true){
+            $('.total h5').append('<span class="fw500 mb-0 strikethrough">' + $('#total_amount').html() + '</span>');
+            $('#total_amount').html($('#payable_amount').val());
+        } else {
+            $('.total h5 .strikethrough').remove();
+            $('#total_amount').html($('#basic_amount').html());
+        }
+    });
 </script>
