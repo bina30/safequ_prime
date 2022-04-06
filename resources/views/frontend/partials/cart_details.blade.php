@@ -190,7 +190,7 @@
                                 <div class="delivery-addr p-3 flex-astart-jstart mb-3">
                                     <input type="checkbox" name="partial_payment" id="partial_payment"
                                            class="mr-2"
-                                           checked/>
+                                           @if(Auth::user()->balance == 0) disabled @else checked @endif/>
                                     <span class="check-box"></span>
 
                                     <label for="partial_payment" class="body-txt mb-0">
@@ -204,8 +204,7 @@
                                 <div class="other-gatewy p-3 mb-3">
                                     <label for="pay-option2" class="label-radio mb-0 py-2 d-block">
                                         <input type="radio" id="pay-option2" name="payment_option" value="wallet"
-                                               tabindex="1"
-                                               @if($total > Auth::user()->balance) disabled @else checked @endif />
+                                               tabindex="1" checked/>
                                         <span class="align-middle body-txt">
                                         SafeQu balance
                                     </span>
@@ -295,8 +294,8 @@
         $('#total_amount').html($('#payable_amount').val());
     }
 
-    $('#partial_payment').on('change',function (){
-        if(this.checked == true){
+    $('#partial_payment').on('change', function () {
+        if (this.checked == true) {
             $('.total h5').append('<span class="fw500 mb-0 strikethrough">' + $('#total_amount').html() + '</span>');
             $('#total_amount').html($('#payable_amount').val());
         } else {

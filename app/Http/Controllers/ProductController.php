@@ -866,8 +866,12 @@ class ProductController extends Controller
                     return redirect()->route('products.admin');
                 elseif ($request->type == 'Seller')
                     return redirect()->route('products.seller');
-                elseif ($request->type == 'All')
+                elseif ($request->type == 'All') {
+                    if ($product->wholesale_product) {
+                        return redirect()->route('wholesale_products.all');
+                    }
                     return redirect()->route('products.all');
+                }
             } else {
                 if (addon_is_activated('seller_subscription')) {
                     $seller = Auth::user()->seller;

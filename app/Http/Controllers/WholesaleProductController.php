@@ -186,7 +186,7 @@ class WholesaleProductController extends Controller
     public function product_store_admin(Request $request)
     {
         (new WholesaleService)->store($request);
-        return redirect()->route('wholesale_products.in_house');
+        return redirect()->route('wholesale_products.all');
     }
 
     public function product_store_seller(Request $request)
