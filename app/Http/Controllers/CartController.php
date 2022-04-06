@@ -316,6 +316,13 @@ class CartController extends Controller
             $quantity = $product_stock->qty;
             $price = $product_stock->price;
 
+            if ($product->wholesale_product) {
+                $wholesalePrice = $product_stock->wholesalePrices->where('min_qty', '<=', $request->quantity)->where('max_qty', '>=', $request->quantity)->first();
+                if ($wholesalePrice) {
+                    $price = $wholesalePrice->price;
+                }
+            }
+
             //discount calculation
             $discount_applicable = false;
 

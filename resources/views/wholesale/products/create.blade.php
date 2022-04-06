@@ -45,21 +45,27 @@
                                 </select>
                             </div>
                         </div>
-<!--                        <div class="form-group row" id="brand">
-                            <label class="col-md-3 col-from-label">{{translate('Brand')}}</label>
-                            <div class="col-md-8">
-                                <select class="form-control aiz-selectpicker" name="brand_id" id="brand_id" data-live-search="true">
-                                    <option value="">{{ translate('Select Brand') }}</option>
-                                    @foreach (\App\Models\Brand::all() as $brand)
-                                    <option value="{{ $brand->id }}">{{ $brand->getTranslation('name') }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>-->
+{{--                        <div class="form-group row" id="brand">--}}
+{{--                            <label class="col-md-3 col-from-label">{{translate('Brand')}}</label>--}}
+{{--                            <div class="col-md-8">--}}
+{{--                                <select class="form-control aiz-selectpicker" name="brand_id" id="brand_id" data-live-search="true">--}}
+{{--                                    <option value="">{{ translate('Select Brand') }}</option>--}}
+{{--                                    @foreach (\App\Models\Brand::all() as $brand)--}}
+{{--                                    <option value="{{ $brand->id }}">{{ $brand->getTranslation('name') }}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">{{translate('Unit')}}</label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="unit" placeholder="{{ translate('Unit (e.g. KG, Pc etc)') }}" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-from-label">Secondary Unit</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" name="secondary_unit" placeholder="Secondary Unit (e.g. KG, Pc etc)" value="{{$product->getTranslation('secondary_unit', $lang)}}" required>
                             </div>
                         </div>
                         <div class="form-group row">

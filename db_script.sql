@@ -17,3 +17,8 @@ ALTER TABLE `users` MODIFY COLUMN `joined_community_id` int(11) NULL DEFAULT 0 A
 
 /* Dt: 01-04-22 */
 ALTER TABLE `users` ADD COLUMN `referral_key` varchar(255) NULL AFTER `joined_community_id`;
+
+/* Dt: 06-04-22 */
+ALTER TABLE `safequ_prime`.`products`
+ADD COLUMN `secondary_unit` varchar(20) NULL AFTER `unit`,
+MODIFY COLUMN `min_qty` double(20, 3) NOT NULL DEFAULT 1 AFTER `unit`;

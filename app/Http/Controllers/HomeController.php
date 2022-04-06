@@ -468,6 +468,15 @@ class HomeController extends Controller
             }
         }
 
+        $qty_unit = $product->unit;
+        if (floatval($product->min_qty) < 1) {
+            if($request->quantity * floatval($product->min_qty) < 1){
+                $qty_unit = '(' . (1000 * floatval($product->min_qty)) . ' ' . $product->secondary_unit . ')';
+            } else {
+                $qty_unit = '(' . ($request->quantity * floatval($product->min_qty)) . ' ' . $product->unit . ')';
+            }
+        }
+
         $product_stock = $product->stocks->where('variant', $str)->first();
         $price = $product_stock->price;
 
@@ -529,6 +538,7 @@ class HomeController extends Controller
             'unit_price'  => single_price_web($price),
             'price'       => single_price_web($price * $request->quantity),
             'quantity'    => $quantity,
+            'qty_unit'    => $qty_unit,
             'digital'     => $product->digital,
             'variation'   => $str,
             'max_limit'   => $max_limit,

@@ -67,9 +67,16 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($order->orderDetails as $key => $orderDetail)
+                                    @php
+                                        if($orderDetail->quantity * floatval($orderDetail->product->min_qty) < 1){
+                                            $qty_unit =  (1000 * floatval($orderDetail->product->min_qty)) . ' ' . $orderDetail->product->secondary_unit;
+                                        } else {
+                                            $qty_unit = ($orderDetail->quantity * floatval($orderDetail->product->min_qty)) . ' ' . $orderDetail->product->unit;
+                                        }
+                                    @endphp
                                     <tr>
                                         <td>{{ $orderDetail->product->getTranslation('name') }}</td>
-                                        <td class="text-center">{{ $orderDetail->quantity }} {{ $orderDetail->product->unit }}</td>
+                                        <td class="text-center">{{ $qty_unit }}</td>
                                         <td class="text-right">{!! single_price_web($orderDetail->price) !!} </td>
                                     </tr>
                                 @endforeach

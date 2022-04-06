@@ -38,6 +38,9 @@
                     $shipping += $product_shipping_cost;
                     $sub_total = ($cartItem['price'] + $cartItem['tax']) * $cartItem['quantity'];
                     $total = $total + ($cartItem['price'] + $cartItem['tax']) * $cartItem['quantity'];
+                    if(floatval($product->min_qty) < 1){
+                        $product->unit = floatval($product->min_qty) * 1000 .' '.$product->secondary_unit;
+                    }
                 @endphp
                 <div class="crtord-itm-card mb-4 p-3">
                     <div class="img-name w-100">
@@ -56,7 +59,7 @@
                                         {!! single_price_web($sub_total) !!}
                                     </span>
                                     <i class="body-txt fsize12">&nbsp; <br class="sm"/>
-                                        ({!! single_price_web($product->unit_price) !!} / {{ $product->unit }})
+                                        ({!! single_price_web($cartItem['price']) !!} / {{ $product->unit }})
                                     </i>
                                 </p>
                                 <div class="action">

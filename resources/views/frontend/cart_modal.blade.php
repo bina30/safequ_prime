@@ -31,7 +31,11 @@
                         </div>
                     </div>
                     <hr>
-
+                    @php
+                        if(floatval($product->min_qty) < 1){
+                            $product->unit = floatval($product->min_qty) * 1000 .' '.$product->secondary_unit;
+                        }
+                    @endphp
                     <div class="qty-select text-center pb-3">
                         <h6 class="fw600 mb-3">Select Quantity</h6>
                         <div class="d-flex justify-content-center">
@@ -42,10 +46,10 @@
 
                                 <input class="quantity form-control" min="1" name="quantity" value="1"
                                        type="number" id="quantity" readonly
-                                       onchange="this.value = this.value.replace(/[^0-9]/g, '')" />
+                                       onchange="this.value = this.value.replace(/[^0-9]/g, '')"/>
 
-                                <span class="itm-unit fw500" id="itm-cnt">1</span>
-                                <span class="itm-unit fw500">&nbsp;{{ $product->unit }}</span>
+                                <span class="itm-unit fw500" id="itm-cnt">1</span>&nbsp;
+                                <span class="itm-unit fw500" id="qty_unit">({{ $product->unit }})</span>
 
                                 <button class="btn ml-2"
                                         onclick="this.parentNode.querySelector('input[type=number]').stepUp();"
@@ -58,15 +62,16 @@
                                 {!! single_price_web($product->unit_price) !!}
                             </h4>
                             <i class="body-txt fsize15">
-                                (<span id="unit_price">{!! single_price_web($product->unit_price) !!}</span> / {{ $product->unit }})</i>
-                           </div>
+                                (<span id="unit_price">{!! single_price_web($product->unit_price) !!}</span>
+                                / {{ $product->unit }})</i>
+                        </div>
 
-<!--                        <a href="cart.html">-->
-                            <button class="btn primary-btn text-uppercase" onclick="addProductToCart({{ $product->id }})">
-                                <i class="fas fa-shopping-cart text-white fsize18"></i>
-                                &nbsp; Add to Cart
-                            </button>
-<!--                        </a>-->
+                        <!--                        <a href="cart.html">-->
+                        <button class="btn primary-btn text-uppercase" onclick="addProductToCart({{ $product->id }})">
+                            <i class="fas fa-shopping-cart text-white fsize18"></i>
+                            &nbsp; Add to Cart
+                        </button>
+                        <!--                        </a>-->
                     </div>
                 </div>
             </div>
@@ -76,9 +81,9 @@
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
-        $('.item-count button').on('click', function() {
+        $('.item-count button').on('click', function () {
             let qty = $("#quantity").val();
             $("#itm-cnt").text(qty);
 
@@ -92,7 +97,7 @@
                 $("#itm-cnt").addClass("d3");
             }
 
-            (qty < 10) ? $("#itm-cnt").removeClass("d2 d3"): "";
+            (qty < 10) ? $("#itm-cnt").removeClass("d2 d3") : "";
 
             getVariantPrice(qty);
 
@@ -100,38 +105,39 @@
 
     })
 
-    function getVariantPrice(qty){
-        if(qty > 0 && $('#product_id').val() > 0){
+    function getVariantPrice(qty) {
+        if (qty > 0 && $('#product_id').val() > 0) {
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                type:"POST",
+                type: "POST",
                 url: '{{ route('products.variant_price') }}',
-                data: { id: $('#product_id').val(), quantity: qty },
-                success: function(data){
+                data: {id: $('#product_id').val(), quantity: qty},
+                success: function (data) {
                     if (data.total_price != '') {
                         $('#total_price').html('');
                         $('#total_price').html(data.total_price);
                     }
                     $('#unit_price').html(data.unit_price);
+                    $('#qty_unit').html(data.qty_unit);
                 }
             });
         }
     }
 
-    function addProductToCart(productId){
+    function addProductToCart(productId) {
         let qty = $("#quantity").val();
-        if(productId > 0 && qty > 0) {
+        if (productId > 0 && qty > 0) {
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                type:"POST",
+                type: "POST",
                 url: '{{ route('cart.addToCart') }}',
-                data: { id: productId, quantity: qty},
-                success: function(data){
-                    if(data.status == 1){
+                data: {id: productId, quantity: qty},
+                success: function (data) {
+                    if (data.status == 1) {
                         {{-- AIZ.plugins.notify('success', "{{ translate('Item has been removed from cart') }}");--}}
                         window.location.replace("{{ route('cart') }}");
                     } else {
@@ -139,8 +145,7 @@
                     }
                 }
             });
-        }
-        else{
+        } else {
             AIZ.plugins.notify('warning', "{{ translate('Something went wrong. Please try again') }}");
         }
     }

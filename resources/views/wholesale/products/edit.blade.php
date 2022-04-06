@@ -73,10 +73,17 @@
                                 <input type="text" class="form-control" name="unit" placeholder="{{ translate('Unit (e.g. KG, Pc etc)') }}" value="{{$product->getTranslation('unit', $lang)}}" required>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-from-label">Secondary Unit</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" name="secondary_unit" placeholder="Secondary Unit (e.g. KG, Pc etc)" value="{{$product->secondary_unit}}" required>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-from-label">{{translate('Minimum Purchase Qty')}}</label>
                             <div class="col-lg-8">
-                                <input type="number" lang="en" class="form-control" name="min_qty" value="@if($product->min_qty <= 1){{1}}@else{{$product->min_qty}}@endif" min="1" required>
+                                <input type="number" lang="en" class="form-control" name="min_qty" value="{{$product->min_qty}}" min="0.1" step=".001" required>
                             </div>
                         </div>
                         <div class="form-group row">

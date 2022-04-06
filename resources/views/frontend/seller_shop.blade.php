@@ -247,7 +247,7 @@
                                         </div>
 
                                         <div class="order-progress text-center pt-3 px-2">
-                                            <p class="fw600 target-qty">Available Harvest: {{ $product->min_qty }}
+                                            <p class="fw600 target-qty">Available Harvest: {{ $product->stocks()->first()->qty }}
                                                 {{ $product->unit }}&nbsp;
                                                 <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top"
                                                     title="Unlock special community benefits when the available harvest is booked out by your community.">
@@ -257,8 +257,8 @@
                                         </div>
                                         <div class="progress-div mb-4">
                                             <div class="progress">
-                                                <div class="progress-bar" data-target="{{ $product->min_qty }}"
-                                                    data-progress="{{ $product->orderDetails->sum('quantity') }}"
+                                                <div class="progress-bar" data-target="{{ $product->stocks()->first()->qty }}"
+                                                    data-progress="{{ $product->orderDetails->sum('quantity')*0.5 }}"
                                                     data-unit="{{ $product->unit }}">
                                                 </div>
                                             </div>

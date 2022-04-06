@@ -55,6 +55,9 @@
 
                                 $sub_total = ($cartItem['price'] + $cartItem['tax']) * $cartItem['quantity'];
                                 $total = $total + ($cartItem['price'] + $cartItem['tax']) * $cartItem['quantity'];
+                                if(floatval($product->min_qty) < 1){
+                                    $product->unit = floatval($product->min_qty) * 1000 .' '.$product->secondary_unit;
+                                }
                             @endphp
                             <div class="crtord-itm-card mb-4 p-3">
                                 <div class="img-name w-100">
