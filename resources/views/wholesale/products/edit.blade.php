@@ -77,7 +77,7 @@
                         <div class="form-group row">
                             <label class="col-lg-3 col-from-label">Secondary Unit</label>
                             <div class="col-lg-8">
-                                <input type="text" class="form-control" name="secondary_unit" placeholder="Secondary Unit (e.g. KG, Pc etc)" value="{{$product->secondary_unit}}" required>
+                                <input type="text" class="form-control" name="secondary_unit" placeholder="Secondary Unit (e.g. gm, ml etc)" value="{{$product->secondary_unit}}" required>
                             </div>
                         </div>
                         <div class="form-group row">

@@ -65,13 +65,13 @@
                         <div class="form-group row">
                             <label class="col-lg-3 col-from-label">Secondary Unit</label>
                             <div class="col-lg-8">
-                                <input type="text" class="form-control" name="secondary_unit" placeholder="Secondary Unit (e.g. KG, Pc etc)" value="{{$product->getTranslation('secondary_unit', $lang)}}" required>
+                                <input type="text" class="form-control" name="secondary_unit" placeholder="Secondary Unit (e.g. gm, ml etc)" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">{{translate('Minimum Purchase Qty')}} <span class="text-danger">*</span></label>
                             <div class="col-md-8">
-                                <input type="number" lang="en" class="form-control" name="min_qty" value="1" min="1" required>
+                                <input type="number" lang="en" class="form-control" name="min_qty" value="1" min="0.1" step="0.001" required>
                             </div>
                         </div>
                         <div class="form-group row">
