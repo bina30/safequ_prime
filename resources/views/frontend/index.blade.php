@@ -332,12 +332,12 @@
             $('.testimonials').owlCarousel({
                 loop: true,
                 nav: true,
-                dots: false,
+                dots: true,
                 margin: 10,
-                autoplay: true,
-                autoplayTimeout: 4000,
+                // autoplay: true,
+                // autoplayTimeout: 4000,
                 autoplayHoverPause: false,
-                smartSpeed: 1500,
+                smartSpeed: 700,
                 items: 1,
                 navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"]
             })

@@ -3032,11 +3032,30 @@ input[type=checkbox]:checked+.check-box::before,
     overflow-x: auto;
 }
 
+.item-tags::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.item-tags {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
 .item-tags li {
     margin: 0;
-    padding: 5px 15px;
+    padding: 5px 8px;
     white-space: nowrap;
     margin: auto;
+    border-radius: 20px;
+    background: var(--light-color);
+    cursor: pointer;
+}
+
+.item-tags li i {
+    color: var(--success);
 }
 
 .wp-help-btn {
