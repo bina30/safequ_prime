@@ -286,11 +286,14 @@
                                         @if ($product->tags)
                                             @php
                                                 $tagsAry = explode(',', $product->tags);
+                                                $cnt = count($tagsAry);
                                             @endphp
 
                                             <ul class="item-tags pb-3 mb-0 flex-acenter-jbtw">
                                                 @foreach ($tagsAry as $tag)
-                                                    <li class="fsize13">{{ $tag }}</li>
+                                                    <li class="fsize13 {{$cnt > 1 ? 'mr-1': ''}}"> 
+                                                        <i class="fas fsize15 fa-check-circle mr-1"></i> {{ $tag }}
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         @endif
