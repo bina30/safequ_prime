@@ -72,7 +72,7 @@
                                         <div>
                                             <p class="fw500 fsize14 title-txt mb-1">{{ $expired_product->name }}</p>
                                             <p class="mb-0 fsize12 body-txt ordered-qty">
-                                                <i class="fad fa-tractor"></i> <b> Farm location: </b>
+                                                <i class="fad fa-tractor fsize16"></i> <b> Farm location: </b>
                                                 {{ $expired_product->manufacturer_location }}
                                             </p>
                                         </div>
@@ -195,7 +195,7 @@
                                             {{-- {{ renderStarRating($product->rating) }} --}}
                                             {{-- </p> --}}
                                             <p class="body-txt fsize13 font-italic pb-1">
-                                                <i class="fad fa-tractor"></i> <b> Farm location: </b>
+                                                <i class="fad fa-tractor fsize16"></i> <b> Farm location: </b>
                                                 {{ $product->manufacturer_location }}
                                             </p>
                                             <hr>

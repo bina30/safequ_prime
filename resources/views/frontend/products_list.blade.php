@@ -363,7 +363,7 @@
                                 </div>
                                 <div class="display-table">
                                     <div class="table-cell">
-                                        <i class="fad fa-tractor fsize18"></i>
+                                        <i class="fad fa-map-marker-alt fsize18"></i>
                                     </div>
                                     <div class="table-cell">
                                         <h6 class="mb-1">Farm location: </h6>
