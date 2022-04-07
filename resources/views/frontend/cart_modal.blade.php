@@ -23,10 +23,10 @@
                 <div class="distributor pt-2">
                     <div class="display-table">
                         <div class="table-cell">
-                            <i class="fas fa-user-tie fsize18"></i>
+                            <i class="fad fa-tractor fsize18"></i>
                         </div>
                         <div class="table-cell">
-                            <h6 class="mb-1">Producer</h6>
+                            <h6 class="mb-1">Farm location:</h6>
                             <p class="mb-0">{{ $product->manufacturer_location }}</p>
                         </div>
                     </div>
