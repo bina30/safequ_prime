@@ -2567,7 +2567,8 @@ input[type=checkbox]:checked+.check-box::before,
         max-width: 100px !important;
     }
 
-    header {
+    header,
+    .bg-transparent {
         background: #f8f9fa !important;
     }
 
@@ -3089,4 +3090,23 @@ input[type=checkbox]:checked+.check-box::before,
 .total .strikethrough {
     font-size: 0.87rem !important;
     color: var(--default-color-light);
+}
+
+.pwaPopup {
+    padding: 0.5rem 0;
+    background: #7f37fa;
+}
+
+.pwaPopup p {
+    min-width: calc(100% - 110px);
+}
+
+.pwaPopup button {
+    min-width: 80px
+}
+
+@media screen and (max-width:480px) {
+    .pwaPopup {
+        justify-content: ;
+    }
 }
