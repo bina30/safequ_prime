@@ -23,7 +23,7 @@
                     @auth
                         <div class="cart-icon mr-3 crt-sm">
                             <a href="{{ route('cart') }}">
-                                <i class="fad fa-shopping-cart fsize20 mr-2"></i> 
+                                <i class="fad fa-shopping-cart fsize20 mr-2"></i>
                                 <span class="cart-item-count" style="display: none;"></span>
                             </a>
                         </div>
@@ -80,13 +80,13 @@
             </div>
         </nav>
 
-        <div class="pwaPopup">
+        <div class="pwaPopup" id="pwaPopup" style="display: none;">
             <div class="container flex-acenter-jbtw">
-                <i class="far fa-times text-white fsize20 lh-1 p-2"></i>
-                <p class="mb-0 fw600 text-white px-2">Your site <br> 
+                <i class="far fa-times text-white fsize20 lh-1 p-2" onclick="hideInstallPromotion(); localStorage.setItem('lastDismiss', new Date().getDate());"></i>
+                <p class="mb-0 fw600 text-white px-2">SafeQu<br>
                     <span class="text-white fsize12">Get our free app. It won't takeup space on your phone.</span>
                 </p>
-                <button class="btn primary-btn btn-small btn-round py-1 px-3 fsize13">Install</button>
+                <button class="btn primary-btn btn-small btn-round py-1 px-3 fsize13" id="installPWA">Install</button>
             </div>
         </div>
     </header>
@@ -176,6 +176,16 @@
                     </ul>
                 </div>
             @endauth
+            <br/>
+            <div class="pwaPopup" style="display: none;">
+                <div class="container flex-acenter-jbtw">
+                    <p class="mb-0 fw600 text-white px-2">SafeQu<br>
+                        <span class="text-white fsize12">Install our free app</span>
+                    </p>
+                    <button class="btn primary-btn btn-small btn-round py-1 px-3 fsize13" id="installPWAMenu">Install
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 @endif

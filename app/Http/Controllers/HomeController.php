@@ -187,10 +187,10 @@ class HomeController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->address = $request->address;
-        $user->city = $request->city;
-        $user->state = $request->state;
-        $user->country = $request->country;
-        $user->postal_code = $request->postal_code;
+//        $user->city = $request->city;
+//        $user->state = $request->state;
+//        $user->country = $request->country;
+//        $user->postal_code = $request->postal_code;
 
         // if($request->new_password != null && ($request->new_password == $request->confirm_password)){
         //     $user->password = Hash::make($request->new_password);

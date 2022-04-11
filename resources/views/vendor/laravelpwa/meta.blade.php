@@ -58,10 +58,68 @@
             scope: '.'
         }).then(function (registration) {
             // Registration was successful
-            console.log('Laravel PWA: ServiceWorker registration successful with scope: ', registration.scope);
+            // console.log('Laravel PWA: ServiceWorker registration successful with scope: ', registration.scope);
         }, function (err) {
             // registration failed :(
-            console.log('Laravel PWA: ServiceWorker registration failed: ', err);
+            // console.log('Laravel PWA: ServiceWorker registration failed: ', err);
         });
     }
+
+    function showInstallPromotion() {
+        $('.pwaPopup').show();
+    }
+
+    function hideInstallPromotion() {
+        $('#pwaPopup').hide();
+    }
+
+    async function installEvent(){
+        // Hide the app provided install promotion
+        hideInstallPromotion();
+        // Show the install prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        const {outcome} = await deferredPrompt.userChoice;
+
+        if (outcome === 'dismissed') {
+            localStorage.setItem('lastDismiss', new Date().getDate())
+        }
+        // Optionally, send analytics event with outcome of user choice
+        // console.log(`User response to the install prompt: ${outcome}`);
+        // We've used the prompt, and can't use it again, throw it away
+        deferredPrompt = null;
+    }
+
+    // Initialize deferredPrompt for use later to show browser install prompt.
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent the mini-info bar from appearing on mobile
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+        // Update UI notify the user they can install the PWA
+        showInstallPromotion();
+        // Optionally, send analytics event that PWA install promo was shown.
+        // console.log(`'beforeinstallprompt' event was fired.`);
+
+        let buttonInstall = document.getElementById('installPWA');
+
+        buttonInstall.addEventListener('click', async () => {
+            installEvent();
+        });
+
+        let menuButtonInstall = document.getElementById('installPWAMenu');
+
+        menuButtonInstall.addEventListener('click', async () => {
+            installEvent();
+        });
+
+        if (localStorage.getItem('lastDismiss') && localStorage.getItem('lastDismiss') == new Date().getDate()) {
+            hideInstallPromotion();
+        }
+    });
 </script>
+
+
+

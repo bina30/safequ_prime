@@ -155,4 +155,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(AuctionProductBid::class);
     }
+
+    public function community()
+    {
+        return $this->hasOne(User::class,'id','joined_community_id');
+    }
 }

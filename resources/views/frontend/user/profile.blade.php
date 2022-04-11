@@ -44,27 +44,6 @@
                             <label for="address">Flat / House No.</label>
                             <input type="text" name="address" id="address" value="{{ Auth::user()->address }}" required/>
                         </div>
-                        <div class="row">
-                            <div class="form-group col-6 pl-0 pr-1">
-                                <label for="city">City</label>
-                                <input type="text" name="city" id="city" value="{{ Auth::user()->city }}" required/>
-                            </div>
-                            <div class="form-group col-6 pr-0 pl-1">
-                                <label for="state">State</label>
-                                <input type="text" name="state" id="state" value="{{ Auth::user()->state }}" required/>
-                            </div>
-                            <div class="form-group col-6 pl-0 pr-1">
-                                <label for="country">Country</label>
-                                <input type="text" name="country" id="country"
-                                       value="{{ Auth::user()->country ?? 'India' }}" required/>
-                            </div>
-                            <div class="form-group col-6 pr-0 pl-1">
-                                <label for="postal_code">Postal code</label>
-                                <input type="text" name="postal_code" id="postal_code"
-                                       value="{{ Auth::user()->postal_code }}" required/>
-                            </div>
-                        </div>
-
                         <button type="submit" class="btn primary-btn mt-4 btn-block">Save</button>
                     </form>
                 </div>
