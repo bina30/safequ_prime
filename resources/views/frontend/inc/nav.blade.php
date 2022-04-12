@@ -84,7 +84,7 @@
             <div class="container flex-acenter-jbtw">
                 <i class="far fa-times text-white fsize20 lh-1 p-2" onclick="hideInstallPromotion(); localStorage.setItem('lastDismiss', new Date().getDate());"></i>
                 <p class="mb-0 fw600 text-white px-2">SafeQu<br>
-                    <span class="text-white fsize12">Get our free app. It won't takeup space on your phone.</span>
+                    <span class="text-white fsize12" id="msg">Get our free app. It won't takeup space on your phone.</span>
                 </p>
                 <button class="btn primary-btn btn-small btn-round py-1 px-3 fsize13" id="installPWA">Install</button>
             </div>
@@ -180,7 +180,7 @@
             <div class="pwaPopup" style="display: none;">
                 <div class="container flex-acenter-jbtw">
                     <p class="mb-0 fw600 text-white px-2">SafeQu<br>
-                        <span class="text-white fsize12">Install our free app</span>
+                        <span class="text-white fsize12" id="msg">Install our free app</span>
                     </p>
                     <button class="btn primary-btn btn-small btn-round py-1 px-3 fsize13" id="installPWAMenu">Install
                     </button>

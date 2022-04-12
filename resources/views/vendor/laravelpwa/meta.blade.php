@@ -73,9 +73,10 @@
         $('#pwaPopup').hide();
     }
 
-    async function installEvent(){
+    async function installEvent() {
         // Hide the app provided install promotion
         hideInstallPromotion();
+        $('.pwaPopup').hide();
         // Show the install prompt
         deferredPrompt.prompt();
         // Wait for the user to respond to the prompt
@@ -119,6 +120,27 @@
             hideInstallPromotion();
         }
     });
+
+    window.onload = function () {
+        // Detects if device is on iOS
+        const isIos = () => {
+            const userAgent = window.navigator.userAgent.toLowerCase();
+            return /iphone|ipad|ipod/.test(userAgent);
+        }
+        // Detects if device is in standalone mode
+        const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
+        // Checks if should display install popup notification:
+        if (isIos() && !isInStandaloneMode()) {
+            if (localStorage.getItem('lastDismiss') && localStorage.getItem('lastDismiss') == new Date().getDate()) {
+                hideInstallPromotion();
+            } else {
+                $('.pwaPopup #msg').html('Install this webapp on your iPhone: tap on share and then Add to homescreen.');
+                $('.pwaPopup button').remove();
+                showInstallPromotion();
+            }
+        }
+    }
 </script>
 
 
