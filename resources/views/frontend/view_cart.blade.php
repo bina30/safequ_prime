@@ -124,13 +124,23 @@
                                             <h3 class="h4 fw-700">{{ translate('Your Cart is empty') }}</h3>
                                         </div>
                                     </div>
-                                    @if($user_data && intval($user_data->joined_community_id) > 0)
-                                        <a href="{{ route('shop.visit', $shop->slug) }}">Continue Shopping &nbsp;&nbsp;
-                                            <i class="fal fa-long-arrow-right"></i></a>
-                                    @else
-                                        <a href="{{ route('home') }}">Continue Shopping &nbsp;&nbsp; <i
-                                                    class="fal fa-long-arrow-right"></i></a>
-                                    @endif
+                                    <div class="pt-4 text-center">
+                                        @if($user_data && intval($user_data->joined_community_id) > 0)
+                                            <a href="{{ route('shop.visit', $shop->slug) }}">
+                                                <button class="btn primary-btn btn-round px-5">
+                                                    Continue Shopping &nbsp;&nbsp;
+                                                    <i class="fal fa-long-arrow-right text-white"></i>
+                                                </button>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('home') }}">
+                                                <button class="btn primary-btn btn-round px-5">
+                                                    Continue Shopping &nbsp;&nbsp;
+                                                    <i class="fal fa-long-arrow-right text-white"></i>
+                                                </button>
+                                            </a>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         @endif

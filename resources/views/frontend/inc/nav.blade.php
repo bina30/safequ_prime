@@ -22,6 +22,14 @@
                 <div class="flex-acenter-jbtw">
                     @auth
                         <div class="cart-icon mr-3 crt-sm">
+                            <a href="{{ route('all-notifications') }}">
+                                <i class="fad fa-bell-on fsize20 mr-2"></i>
+                                @if(count(Auth::user()->unreadNotifications) > 0)
+                                    <span>{{count(Auth::user()->unreadNotifications)}}</span>
+                                @endif
+                            </a>
+                        </div>
+                        <div class="cart-icon mr-3 crt-sm">
                             <a href="{{ route('cart') }}">
                                 <i class="fad fa-shopping-cart fsize20 mr-2"></i>
                                 <span class="cart-item-count" style="display: none;"></span>
@@ -54,9 +62,6 @@
                                 <a class="nav-link" href="{{ route('wallet.index') }}">Wallet</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('all-notifications') }}">Notification</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}">Logout</a>
                             </li>
                         @else
@@ -70,6 +75,14 @@
                     </ul>
                     @auth
                         <div class="cart-icon pl-4">
+                            <a href="{{ route('all-notifications') }}">
+                                <i class="fad fa-bell-on fsize20"></i>
+                                @if(count(Auth::user()->unreadNotifications) > 0)
+                                    <span>{{count(Auth::user()->unreadNotifications)}}</span>
+                                @endif
+                            </a>
+                        </div>
+                        <div class="cart-icon pl-4">
                             <a href="{{ route('cart') }}">
                                 <i class="fad fa-shopping-cart fsize20"></i>
                                 <span class="cart-item-count" style="display: none;"></span>
@@ -82,9 +95,11 @@
 
         <div class="pwaPopup" id="pwaPopup" style="display: none;">
             <div class="container flex-acenter-jbtw">
-                <i class="far fa-times text-white fsize20 lh-1 p-2" onclick="hideInstallPromotion(); localStorage.setItem('lastDismiss', new Date().getDate());"></i>
+                <i class="far fa-times text-white fsize20 lh-1 p-2"
+                   onclick="hideInstallPromotion(); localStorage.setItem('lastDismiss', new Date().getDate());"></i>
                 <p class="mb-0 fw600 text-white px-2">SafeQu<br>
-                    <span class="text-white fsize12" id="msg">Get our free app. It won't takeup space on your phone.</span>
+                    <span class="text-white fsize12"
+                          id="msg">Get our free app. It won't takeup space on your phone.</span>
                 </p>
                 <button class="btn primary-btn btn-small btn-round py-1 px-3 fsize13" id="installPWA">Install</button>
             </div>
@@ -143,7 +158,12 @@
                         <li class="p-2 mb-2"><i class="fad fa-user"></i> Account</li>
                     </a>
                     <a href="{{ route('all-notifications') }}">
-                        <li class="p-2 mb-2"><i class="fad fa-bell-on"></i> Notifications</li>
+                        <li class="p-2 mb-2">
+                            <div class="cart-icon">
+                                <i class="fad fa-bell-on"></i> @if(count(Auth::user()->unreadNotifications) > 0)
+                                    <span>{{count(Auth::user()->unreadNotifications)}}</span> @endif Notifications
+                            </div>
+                        </li>
                     </a>
                     <a href="{{ route('cart') }}">
                         <li class="p-2 mb-2">

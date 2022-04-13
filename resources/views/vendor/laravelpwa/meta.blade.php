@@ -125,8 +125,8 @@
         // Detects if device is on iOS
         const isIos = () => {
             const userAgent = window.navigator.userAgent.toLowerCase();
-            var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-            return /iphone|ipad|ipod/.test(userAgent) && isSafari;
+            var criOS = userAgent.indexOf('crios/') > -1;
+            return /iphone|ipad|ipod/.test(userAgent) && !criOS;
         }
         // Detects if device is in standalone mode
         const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
