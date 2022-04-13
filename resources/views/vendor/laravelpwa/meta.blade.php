@@ -125,7 +125,8 @@
         // Detects if device is on iOS
         const isIos = () => {
             const userAgent = window.navigator.userAgent.toLowerCase();
-            return /iphone|ipad|ipod/.test(userAgent);
+            var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            return /iphone|ipad|ipod/.test(userAgent) && isSafari;
         }
         // Detects if device is in standalone mode
         const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
@@ -135,7 +136,7 @@
             if (localStorage.getItem('lastDismiss') && localStorage.getItem('lastDismiss') == new Date().getDate()) {
                 hideInstallPromotion();
             } else {
-                $('.pwaPopup #msg').html('Install this webapp on your iPhone: tap on share and then Add to homescreen.');
+                $('.pwaPopup #msg').html('Install this webapp on your iPhone: tap <img src="{{static_asset('assets/img/safari-share.svg')}}" class="safari_share">  and then Add to homescreen.');
                 $('.pwaPopup button').remove();
                 showInstallPromotion();
             }

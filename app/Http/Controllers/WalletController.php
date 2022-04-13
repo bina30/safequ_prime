@@ -197,4 +197,20 @@ class WalletController extends Controller
         }
         return 0;
     }
+
+    public function admin_wallet_recharge(Request $request){
+        $wallet = new Wallet;
+        $wallet->user_id = decrypt($request->user_id);
+        $wallet->amount = $request->amount;
+        $wallet->payment_method = 'admin_recharge';
+        $wallet->payment_details = json_encode(array('amount' => $request->amount, 'method' => 'admin_recharge', 'reason' => $request->reason));
+        $wallet->save();
+
+        $user = $wallet->user;
+        $user->balance = $user->balance + $wallet->amount;
+        $user->save();
+
+        flash(translate('Recharge has been done.'))->success();
+        return redirect()->route('customers.index');
+    }
 }

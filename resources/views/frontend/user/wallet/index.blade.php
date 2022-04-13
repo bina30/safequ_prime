@@ -77,10 +77,18 @@
                                                 <p class="body-txt mb-1"><span
                                                             class="fw500 fsize13">Payment method:</span>
                                                     Welcome Bonus</p>
+                                            @elseif ($wallet->payment_method == 'admin_recharge')
+                                                <p class="body-txt mb-1"><span
+                                                            class="fw500 fsize13">Payment method:</span>
+                                                    Offline Recharge</p>
+                                                <p class="body-txt mb-1"><span
+                                                            class="fw500 fsize13">Reason:</span> {{$payment_detail->reason}}
+                                                </p>
                                             @else
                                                 <p class="body-txt mb-1"><span
                                                         class="fw500 fsize13">Payment method:</span>
                                                     Referral Bonus</p>
+
                                             @endif
                                         </div>
                                     </div>

@@ -32,6 +32,7 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 Route::post('/purchase_history/make_payment', 'ManualPaymentMethodController@show_payment_modal')->name('checkout.make_payment');
 Route::post('/purchase_history/make_payment/submit', 'ManualPaymentMethodController@submit_offline_payment')->name('purchase_history.make_payment');
 Route::post('/offline-wallet-recharge-modal', 'ManualPaymentMethodController@offline_recharge_modal')->name('offline_wallet_recharge_modal');
+Route::post('/admin-wallet-recharge', 'WalletController@admin_wallet_recharge')->name('admin_wallet_recharge');
 
 Route::group(['middleware' => ['user', 'verified']], function(){
 	Route::post('/offline-wallet-recharge', 'WalletController@offline_recharge')->name('wallet_recharge.make_payment');
