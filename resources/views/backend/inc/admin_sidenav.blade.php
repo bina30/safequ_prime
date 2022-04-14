@@ -71,6 +71,16 @@
                                     <span class="aiz-side-nav-text">{{ translate('All Products') }}</span>
                                 </a>
                             </li>
+                            <li class="aiz-side-nav-item">
+                                <a class="aiz-side-nav-link" href="{{route('wholesale_product_create.admin')}}">
+                                    <span class="aiz-side-nav-text">{{translate('Add Community Product')}}</span>
+                                </a>
+                            </li>
+                            <li class="aiz-side-nav-item">
+                                <a href="{{route('community_products')}}" class="aiz-side-nav-link {{ areActiveRoutes(['community_products']) }}">
+                                    <span class="aiz-side-nav-text">{{ translate('Community Products') }}</span>
+                                </a>
+                            </li>
 <!--                            <li class="aiz-side-nav-item">
                                 <a class="aiz-side-nav-link" href="{{route('products.create')}}">
                                     <span class="aiz-side-nav-text">{{translate('Add New product')}}</span>

@@ -70,6 +70,8 @@ class RouteServiceProvider extends ServiceProvider
     
      $this->mapWebRoutes();
 
+     $this->mapCommunityRoutes();
+
     // $this->mapInstallRoutes();
 
     //$this->mapUpdateRoutes();
@@ -325,6 +327,20 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(600)->by(optional($request->user())->id ?: $request->ip());
         });
+    }
+
+    /**
+     * Define the "b2b" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapCommunityRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/community.php'));
     }
 
 }

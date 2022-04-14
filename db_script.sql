@@ -22,3 +22,11 @@ ALTER TABLE `users` ADD COLUMN `referral_key` varchar(255) NULL AFTER `joined_co
 ALTER TABLE `products`
 ADD COLUMN `secondary_unit` varchar(20) NULL AFTER `unit`,
 MODIFY COLUMN `min_qty` double(20, 3) NOT NULL DEFAULT 1 AFTER `unit`;
+
+/* Dt: 14-04-22 */
+ALTER TABLE `product_stocks`
+ADD COLUMN `target_qty` double(20, 3) NOT NULL DEFAULT 1.000 AFTER `qty`;
+ADD COLUMN `seller_id` int(11) NULL AFTER `image`;
+ADD COLUMN `est_shipping_days` int(11) NULL DEFAULT NULL AFTER `seller_id`,
+ADD COLUMN `purchase_start_date` datetime(0) NULL DEFAULT NULL AFTER `est_shipping_days`,
+ADD COLUMN `purchase_end_date` datetime(0) NULL DEFAULT NULL AFTER `purchase_start_date`;
