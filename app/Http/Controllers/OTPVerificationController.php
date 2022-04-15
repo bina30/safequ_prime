@@ -27,6 +27,10 @@ class OTPVerificationController extends Controller
     {
 //        if (Auth::check() && Auth::user()->email_verified_at == null) {
         if (Auth::check() && Auth::user()) {
+            if (intval(Auth::user()->joined_community_id) > 0) {
+                $shop = Shop::where('user_id', Auth::user()->joined_community_id)->first();
+                return redirect()->route('shop.visit', $shop->slug);
+            }
             return redirect()->route('home');
         } else {
             return view('otp_systems.frontend.user_verification', array('user' => $user));
