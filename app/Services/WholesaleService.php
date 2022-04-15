@@ -77,7 +77,7 @@ class WholesaleService
         $product->description = $request->description;
         $product->video_provider = $request->video_provider;
         $product->video_link = $request->video_link;
-        $product->unit_price = $request->unit_price;
+        $product->unit_price = $request->unit_price ?? 0;
 
         $product->shipping_type = $request->shipping_type;
         $product->est_shipping_days = $request->est_shipping_days;
@@ -153,25 +153,6 @@ class WholesaleService
 
         $product->wholesale_product = 1;
         $product->save();
-
-        $product_stock = new ProductStock;
-        $product_stock->product_id = $product->id;
-        $product_stock->variant = '';
-        $product_stock->price = $request->unit_price;
-        $product_stock->sku = $request->sku;
-        $product_stock->qty = $request->current_stock;
-        $product_stock->save();
-
-        if ($request->has('wholesale_price')) {
-            foreach ($request->wholesale_price as $key => $price) {
-                $wholesale_price = new WholesalePrice;
-                $wholesale_price->product_stock_id = $product_stock->id;
-                $wholesale_price->min_qty = $request->wholesale_min_qty[$key];
-                $wholesale_price->max_qty = $request->wholesale_max_qty[$key];
-                $wholesale_price->price = $price;
-                $wholesale_price->save();
-            }
-        }
 
         //VAT & Tax
         if ($request->tax_id) {
@@ -274,7 +255,7 @@ class WholesaleService
 
         $product->video_provider = $request->video_provider;
         $product->video_link = $request->video_link;
-        $product->unit_price = $request->unit_price;
+        $product->unit_price = $request->unit_price ?? 0;
         $product->discount = $request->discount;
         $product->discount_type = $request->discount_type;
 
@@ -341,29 +322,8 @@ class WholesaleService
 
         $choice_options = array();
         $product->choice_options = json_encode($choice_options, JSON_UNESCAPED_UNICODE);
-
-        $product_stock = $product->stocks->first();
-        $product_stock->price = $request->unit_price;
-        $product_stock->sku = $request->sku;
-        $product_stock->qty = $request->current_stock;
-        $product_stock->save();
-
         $product->save();
 
-        foreach ($product->stocks->first()->wholesalePrices as $key => $wholesalePrice) {
-            $wholesalePrice->delete();
-        }
-
-        if ($request->has('wholesale_price')) {
-            foreach ($request->wholesale_price as $key => $price) {
-                $wholesale_price = new WholesalePrice;
-                $wholesale_price->product_stock_id = $product_stock->id;
-                $wholesale_price->min_qty = $request->wholesale_min_qty[$key];
-                $wholesale_price->max_qty = $request->wholesale_max_qty[$key];
-                $wholesale_price->price = $price;
-                $wholesale_price->save();
-            }
-        }
 
         //Flash Deal
         if ($request->flash_deal_id) {
@@ -421,6 +381,103 @@ class WholesaleService
         }
 
         if (Product::destroy($id)) {
+            Cart::where('product_id', $id)->delete();
+
+            flash(translate('Product has been deleted successfully'))->success();
+
+            Artisan::call('view:clear');
+            Artisan::call('cache:clear');
+        } else {
+            flash(translate('Something went wrong'))->error();
+        }
+    }
+
+    public function stock_add(Request $request)
+    {
+        $product_stock = new ProductStock;
+        $product_stock->product_id = $request->product_id;
+        $product_stock->variant = '';
+        $product_stock->price = $request->unit_price;
+        $product_stock->sku = $request->sku;
+        $product_stock->qty = $request->current_stock;
+        $product_stock->est_shipping_days = $request->est_shipping_days;
+
+        if (intval($request->seller_id) > 0) {
+            $product_stock->seller_id = $request->seller_id;
+        }
+
+        if ($request->purchase_date_range != null) {
+            $purchase_date_var = explode(" TO ", $request->purchase_date_range);
+            $product_stock->purchase_start_date = date('Y-m-d H:i:s', strtotime($purchase_date_var[0]));
+            $product_stock->purchase_end_date = date('Y-m-d H:i:s', strtotime($purchase_date_var[1]));
+        }
+
+        $product_stock->save();
+
+        if ($request->has('wholesale_price')) {
+            foreach ($request->wholesale_price as $key => $price) {
+                $wholesale_price = new WholesalePrice;
+                $wholesale_price->product_stock_id = $product_stock->id;
+                $wholesale_price->min_qty = $request->wholesale_min_qty[$key];
+                $wholesale_price->max_qty = $request->wholesale_max_qty[$key];
+                $wholesale_price->price = $price;
+                $wholesale_price->save();
+            }
+        }
+
+        flash(translate('Product has been inserted successfully'))->success();
+
+        Artisan::call('view:clear');
+        Artisan::call('cache:clear');
+    }
+
+    public function stock_update(Request $request, $id)
+    {
+        $product_stock = ProductStock::findOrFail($id);
+
+        if (intval($request->seller_id) > 0) {
+            $product_stock->seller_id = $request->seller_id;
+        }
+
+        if ($request->purchase_date_range != null) {
+            $purchase_date_var = explode(" TO ", $request->purchase_date_range);
+            $product_stock->purchase_start_date = date('Y-m-d H:i:s', strtotime($purchase_date_var[0]));
+            $product_stock->purchase_end_date = date('Y-m-d H:i:s', strtotime($purchase_date_var[1]));
+        }
+        $product_stock->est_shipping_days = $request->est_shipping_days;
+
+        $product_stock->save();
+
+        foreach ($product_stock->wholesalePrices as $key => $wholesalePrice) {
+            $wholesalePrice->delete();
+        }
+
+        if ($request->has('wholesale_price')) {
+            foreach ($request->wholesale_price as $key => $price) {
+                $wholesale_price = new WholesalePrice;
+                $wholesale_price->product_stock_id = $product_stock->id;
+                $wholesale_price->min_qty = $request->wholesale_min_qty[$key];
+                $wholesale_price->max_qty = $request->wholesale_max_qty[$key];
+                $wholesale_price->price = $price;
+                $wholesale_price->save();
+            }
+        }
+
+        flash(translate('Product has been updated successfully'))->success();
+
+        Artisan::call('view:clear');
+        Artisan::call('cache:clear');
+    }
+
+    public function stock_destroy($id)
+    {
+        $product_stock = ProductStock::findOrFail($id);
+
+        if (ProductStock::destroy($id)) {
+            foreach ($product_stock->wholesalePrices as $key => $wholesalePrice) {
+                $wholesalePrice->delete();
+            }
+
             Cart::where('product_id', $id)->delete();
 
             flash(translate('Product has been deleted successfully'))->success();
