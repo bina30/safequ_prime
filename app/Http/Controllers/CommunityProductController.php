@@ -24,7 +24,7 @@ class CommunityProductController extends Controller
         $products = ProductStock::with('product')->orderBy('created_at', 'desc');
 
         if ($request->has('user_id') && $request->user_id != null) {
-            $products = $products->where('user_id', $request->user_id);
+            $products = $products->where('seller_id', $request->user_id);
             $seller_id = $request->user_id;
         }
 
@@ -36,8 +36,15 @@ class CommunityProductController extends Controller
             $sort_type = $request->type;
         }
         if ($request->search != null) {
-            $products = $products
-                ->where('name', 'like', '%' . $request->search . '%');
+            $master_product = Product::where('name', 'like', '%' . $request->search . '%')->get();
+            $masterProductId = [];
+            foreach ($master_product AS $item) {
+                $masterProductId[] = $item->id;
+            }
+            if (!empty($masterProductId)) {
+                $products = $products
+                    ->whereIn('product_id', $masterProductId);
+            }
             $sort_search = $request->search;
         }
 
@@ -100,5 +107,16 @@ class CommunityProductController extends Controller
     {
         (new WholesaleService)->stock_destroy($id);
         return back();
+    }
+
+    public function bulk_product_delete(Request $request)
+    {
+        if ($request->id) {
+            foreach ($request->id as $product_id) {
+                $this->product_destroy($product_id);
+            }
+        }
+
+        return 1;
     }
 }

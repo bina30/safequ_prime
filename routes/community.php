@@ -13,7 +13,7 @@
 
 //Admin
 
-Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function(){   
+Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function(){
 
     Route::get('/community/all-products', 'CommunityProductController@community_products')->name('community_products');
 
@@ -22,5 +22,6 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
     Route::get('/community-product/{id}/edit', 'CommunityProductController@product_edit')->name('community_product_edit');
     Route::post('/community-product/update/{id}', 'CommunityProductController@product_update')->name('community_product_update');
     Route::get('/community-product/destroy/{id}', 'CommunityProductController@product_destroy')->name('community_product_destroy');
+    Route::post('/bulk-community-product-delete', 'CommunityProductController@bulk_product_delete')->name('bulk-community-product-delete');
 
 });

@@ -402,23 +402,23 @@
                                     @if($sellers > 0)<span class="badge badge-info">{{ $sellers }}</span> @endif
                                 </a>
                             </li>
-                            <li class="aiz-side-nav-item">
+<!--                            <li class="aiz-side-nav-item">
                                 <a href="{{ route('sellers.payment_histories') }}" class="aiz-side-nav-link">
                                     <span class="aiz-side-nav-text">{{ translate('Payouts') }}</span>
                                 </a>
-                            </li>
-                            <li class="aiz-side-nav-item">
+                            </li>-->
+<!--                            <li class="aiz-side-nav-item">
                                 <a href="{{ route('withdraw_requests_all') }}" class="aiz-side-nav-link">
                                     <span class="aiz-side-nav-text">{{ translate('Payout Requests') }}</span>
                                 </a>
-                            </li>
-                            <li class="aiz-side-nav-item">
+                            </li>-->
+<!--                            <li class="aiz-side-nav-item">
                                 <a href="{{ route('business_settings.vendor_commission') }}" class="aiz-side-nav-link">
                                     <span class="aiz-side-nav-text">{{ translate('Seller Commission') }}</span>
                                 </a>
-                            </li>
+                            </li>-->
 
-                            @if (addon_is_activated('seller_subscription'))
+                            {{--@if (addon_is_activated('seller_subscription'))
                                 <li class="aiz-side-nav-item">
                                     <a href="{{ route('seller_packages.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['seller_packages.index', 'seller_packages.create', 'seller_packages.edit'])}}">
                                         <span class="aiz-side-nav-text">{{ translate('Seller Packages') }}</span>
@@ -427,12 +427,12 @@
                                         @endif
                                     </a>
                                 </li>
-                            @endif
-                            <li class="aiz-side-nav-item">
+                            @endif--}}
+<!--                            <li class="aiz-side-nav-item">
                                 <a href="{{ route('seller_verification_form.index') }}" class="aiz-side-nav-link">
                                     <span class="aiz-side-nav-text">{{ translate('Seller Verification Form') }}</span>
                                 </a>
-                            </li>
+                            </li>-->
                         </ul>
                     </li>
                 @endif
@@ -453,36 +453,36 @@
                             <span class="aiz-side-nav-arrow"></span>
                         </a>
                         <ul class="aiz-side-nav-list level-2">
-                            <li class="aiz-side-nav-item">
+<!--                            <li class="aiz-side-nav-item">
                                 <a href="{{ route('in_house_sale_report.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['in_house_sale_report.index'])}}">
                                     <span class="aiz-side-nav-text">{{ translate('In House Product Sale') }}</span>
                                 </a>
-                            </li>
+                            </li>-->
                             <li class="aiz-side-nav-item">
                                 <a href="{{ route('seller_sale_report.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['seller_sale_report.index'])}}">
                                     <span class="aiz-side-nav-text">{{ translate('Seller Products Sale') }}</span>
                                 </a>
                             </li>
-                            <li class="aiz-side-nav-item">
+<!--                            <li class="aiz-side-nav-item">
                                 <a href="{{ route('stock_report.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['stock_report.index'])}}">
                                     <span class="aiz-side-nav-text">{{ translate('Products Stock') }}</span>
                                 </a>
-                            </li>
-                            <li class="aiz-side-nav-item">
+                            </li>-->
+<!--                            <li class="aiz-side-nav-item">
                                 <a href="{{ route('wish_report.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['wish_report.index'])}}">
                                     <span class="aiz-side-nav-text">{{ translate('Products wishlist') }}</span>
                                 </a>
-                            </li>
-                            <li class="aiz-side-nav-item">
+                            </li>-->
+<!--                            <li class="aiz-side-nav-item">
                                 <a href="{{ route('user_search_report.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['user_search_report.index'])}}">
                                     <span class="aiz-side-nav-text">{{ translate('User Searches') }}</span>
                                 </a>
-                            </li>
-                            <li class="aiz-side-nav-item">
+                            </li>-->
+<!--                            <li class="aiz-side-nav-item">
                                 <a href="{{ route('commission-log.index') }}" class="aiz-side-nav-link">
                                     <span class="aiz-side-nav-text">{{ translate('Commission History') }}</span>
                                 </a>
-                            </li>
+                            </li>-->
                             <li class="aiz-side-nav-item">
                                 <a href="{{ route('wallet-history.index') }}" class="aiz-side-nav-link">
                                     <span class="aiz-side-nav-text">{{ translate('Wallet Recharge History') }}</span>
