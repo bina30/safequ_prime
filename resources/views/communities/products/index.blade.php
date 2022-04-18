@@ -8,7 +8,7 @@
                 <h1 class="h3">{{translate('Community Products')}}</h1>
             </div>
             <div class="col text-right">
-                <a href="{{ route('wholesale_product_create.admin') }}" class="btn btn-circle btn-info">
+                <a href="{{ route('community_product_create') }}" class="btn btn-circle btn-info">
                     <span>{{translate('Add New Product')}}</span>
                 </a>
             </div>
@@ -46,7 +46,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-2 ml-auto">
+                <div class="col-md-2 ml-auto " style="display: none;">
                     <select class="form-control form-control-sm aiz-selectpicker mb-2 mb-md-0" name="type" id="type"
                             onchange="sort_products()">
                         <option value="">{{ translate('Sort By') }}</option>
@@ -283,7 +283,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: "{{route('bulk-product-delete')}}",
+                url: "{{route('bulk-community-product-delete')}}",
                 type: 'POST',
                 data: data,
                 cache: false,

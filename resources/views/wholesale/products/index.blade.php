@@ -35,7 +35,7 @@
                 </div>
 
                 @if($type != 'In House')
-                    <div class="col-md-2 ml-auto">
+                    <div class="col-md-2 ml-auto" style="display: none;">
                         <select class="form-control form-control-sm aiz-selectpicker mb-2 mb-md-0" id="user_id"
                                 name="user_id" onchange="sort_products()">
                             <option value="">{{ translate('All Sellers') }}</option>

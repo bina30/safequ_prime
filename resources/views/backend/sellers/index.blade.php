@@ -113,28 +113,28 @@
                                         <a href="#" onclick="show_seller_profile('{{$seller->id}}');"  class="dropdown-item">
                                           {{translate('Profile')}}
                                         </a>
-                                        <a href="{{route('sellers.login', encrypt($seller->id))}}" class="dropdown-item">
+<!--                                        <a href="{{route('sellers.login', encrypt($seller->id))}}" class="dropdown-item">
                                           {{translate('Log in as this Seller')}}
-                                        </a>
-                                        <a href="#" onclick="show_seller_payment_modal('{{$seller->id}}');" class="dropdown-item">
+                                        </a>-->
+<!--                                        <a href="#" onclick="show_seller_payment_modal('{{$seller->id}}');" class="dropdown-item">
                                           {{translate('Go to Payment')}}
-                                        </a>
-                                        <a href="{{route('sellers.payment_history', encrypt($seller->id))}}" class="dropdown-item">
+                                        </a>-->
+<!--                                        <a href="{{route('sellers.payment_history', encrypt($seller->id))}}" class="dropdown-item">
                                           {{translate('Payment History')}}
-                                        </a>
+                                        </a>-->
                                         <a href="{{route('sellers.edit', encrypt($seller->id))}}" class="dropdown-item">
                                           {{translate('Edit')}}
                                         </a>
                                         @if($seller->user->banned != 1)
-                                          <a href="#" onclick="confirm_ban('{{route('sellers.ban', $seller->id)}}');" class="dropdown-item">
+<!--                                          <a href="#" onclick="confirm_ban('{{route('sellers.ban', $seller->id)}}');" class="dropdown-item">
                                             {{translate('Ban this seller')}}
                                             <i class="fa fa-ban text-danger" aria-hidden="true"></i>
-                                          </a>
+                                          </a>-->
                                         @else
-                                          <a href="#" onclick="confirm_unban('{{route('sellers.ban', $seller->id)}}');" class="dropdown-item">
+<!--                                          <a href="#" onclick="confirm_unban('{{route('sellers.ban', $seller->id)}}');" class="dropdown-item">
                                             {{translate('Unban this seller')}}
                                             <i class="fa fa-check text-success" aria-hidden="true"></i>
-                                          </a>
+                                          </a>-->
                                         @endif
                                         <a href="#" class="dropdown-item confirm-delete" data-href="{{route('sellers.destroy', $seller->id)}}" class="">
                                           {{translate('Delete')}}

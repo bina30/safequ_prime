@@ -40,6 +40,9 @@
                             <p class="text-white fw600 pb-1 mb-2">Order Id: &nbsp; <span class="text-white orderId">
                                     #{{ $order->code }}</span></p>
 
+                            <p class="text-white fw600 pb-1 mb-2">Order Status: &nbsp; <span class="text-white orderId">
+                                    {{ ucfirst(str_replace('_', ' ', $order->delivery_status)) }}</span></p>
+
                             <p class="text-white pb-1 mb-2">Time: <span class="text-white dateTime"> &nbsp;
                                     {{ date('d M Y H:i A', strtotime($order->created_at)) }}</span>
                             </p>
