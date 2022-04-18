@@ -265,12 +265,12 @@
                                             </div>
                                         </div>
 
-                                        @if (count($product->product->orders->unique('user_id')) > 0)
+                                        @if (count($product->product->orders->where('payment_status','paid')->unique('user_id')) > 0)
                                             <a href="javascript:void(0)" data-toggle="modal"
                                                data-target="#orderListModal_{{ $product->product->id }}">
                                                 <div class="card-members pb-3">
                                                     <div class="mbr-img pr-3">
-                                                        @foreach ($product->product->orders->unique('user_id') as $i => $order)
+                                                        @foreach ($product->product->orders->where('payment_status','paid')->unique('user_id') as $i => $order)
                                                             @if ($i < 5)
                                                                 <img src="{{ uploaded_asset($order->user->avatar_original) }}"
                                                                      onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">

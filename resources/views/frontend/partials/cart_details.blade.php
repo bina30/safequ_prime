@@ -82,7 +82,7 @@
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </div>
-                                    <h6 class="mb-0 text-danger fw700 p-2 ml-2"
+                                    <h6 class="mb-0 text-danger cursor-pointer fw700 p-2 ml-2"
                                         onclick="removeFromCartView(event, {{ $cartItem['id'] }})">X</h6>
                                 </div>
                             </div>
@@ -106,13 +106,23 @@
                                 <h3 class="h4 fw-700">{{translate('Your Cart is empty')}}</h3>
                             </div>
                         </div>
-                        @if($user_data && intval($user_data->joined_community_id) > 0)
-                            <a href="{{ route('shop.visit', $shop->slug) }}">Continue Shopping &nbsp;&nbsp; <i
-                                        class="fal fa-long-arrow-right"></i></a>
-                        @else
-                            <a href="{{ route('home') }}">Continue Shopping &nbsp;&nbsp; <i
-                                        class="fal fa-long-arrow-right"></i></a>
-                        @endif
+                        <div class="pt-4 text-center">
+                            @if($user_data && intval($user_data->joined_community_id) > 0)
+                                <a href="{{ route('shop.visit', $shop->slug) }}">
+                                    <button class="btn primary-btn btn-round px-5">
+                                        Continue Shopping &nbsp;&nbsp;
+                                        <i class="fal fa-long-arrow-right text-white"></i>
+                                    </button>
+                                </a>
+                            @else
+                                <a href="{{ route('home') }}">
+                                    <button class="btn primary-btn btn-round px-5">
+                                        Continue Shopping &nbsp;&nbsp;
+                                        <i class="fal fa-long-arrow-right text-white"></i>
+                                    </button>
+                                </a>
+                            @endif
+                        </div>
                     </div>
                 </div>
             @endif
@@ -243,9 +253,17 @@
                                 &nbsp;
                             </h5>
                         </div>
-                        <button id="btn_pay_now" class="btn primary-btn btn-round py-1" onclick="submitOrder(this)"
-                                @if(count($carts) == 0 || $user_data->address == '') disabled @endif >Pay Now
-                        </button>
+                        <div>
+                            @if ($user_data && $user_data->address == '')
+                                <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top"
+                                   title="Please complete your profile before attempting to make payment">
+                                    <i class="fad fa-info-circle primary-color-dark animated faa-tada align-middle"></i>
+                                </a>
+                            @endif
+                            <button id="btn_pay_now" class="btn primary-btn btn-round py-1" onclick="submitOrder(this)"
+                                    @if(count($carts) == 0 || $user_data->address == '') disabled @endif >Pay Now
+                            </button>
+                        </div>
                     </div>
 
                 </form>

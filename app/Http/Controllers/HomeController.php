@@ -475,8 +475,8 @@ class HomeController extends Controller
 
         $qty_unit = '(' . $product->unit . ')';
         if (floatval($product->min_qty) < 1) {
-            if ($request->quantity * floatval($product->min_qty) < 1) {
-                $qty_unit = '(' . (1000 * floatval($product->min_qty)) . ' ' . $product->secondary_unit . ')';
+            if (($request->quantity * floatval($product->min_qty)) < 1) {
+                $qty_unit = '(' . (1000 * $request->quantity * floatval($product->min_qty)) . ' ' . $product->secondary_unit . ')';
             } else {
                 $qty_unit = '(' . ($request->quantity * floatval($product->min_qty)) . ' ' . $product->unit . ')';
             }
