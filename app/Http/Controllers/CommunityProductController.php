@@ -46,18 +46,16 @@ class CommunityProductController extends Controller
         return view('communities.products.index', compact('products', 'type', 'col_name', 'query', 'sort_search', 'seller_id'));
     }
 
-    public function product_create_admin()
+    public function product_create()
     {
-        $categories = Category::where('parent_id', 0)
-            ->where('digital', 0)
-            ->with('childrenCategories')
+        $products = Product::where('wholesale_product', 1)
             ->get();
 
         $users = User::where('user_type', 'seller')
             ->where('banned', 0)
             ->get();
 
-        return view('wholesale.products.create', compact('categories', 'users'));
+        return view('communities.products.create', compact('products', 'users'));
     }
 
     /**
@@ -66,36 +64,29 @@ class CommunityProductController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function product_store_admin(Request $request)
+    public function product_store(Request $request)
     {
-        (new WholesaleService)->store($request);
-        return redirect()->route('wholesale_products.all');
+        (new WholesaleService)->stock_add($request);
+        return redirect()->route('community_products');
     }
 
-    public function product_edit_admin(Request $request, $id)
+    public function product_edit(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
-        if ($product->digital == 1) {
-            return redirect('digitalproducts/' . $id . '/edit');
-        }
+        $product_stock = ProductStock::findOrFail($id);
 
-        $lang = $request->lang;
-        $tags = json_decode($product->tags);
-        $categories = Category::where('parent_id', 0)
-            ->where('digital', 0)
-            ->with('childrenCategories')
+        $products = Product::where('wholesale_product', 1)
             ->get();
 
         $users = User::where('user_type', 'seller')
             ->where('banned', 0)
             ->get();
 
-        return view('wholesale.products.edit', compact('product', 'categories', 'tags', 'lang', 'users'));
+        return view('communities.products.edit', compact('product_stock', 'products', 'users'));
     }
 
-    public function product_update_admin(Request $request, $id)
+    public function product_update(Request $request, $id)
     {
-        (new WholesaleService)->update($request, $id);
+        (new WholesaleService)->stock_update($request, $id);
         return back();
     }
 
@@ -105,9 +96,9 @@ class CommunityProductController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function product_destroy_admin($id)
+    public function product_destroy($id)
     {
-        (new WholesaleService)->destroy($id);
+        (new WholesaleService)->stock_destroy($id);
         return back();
     }
 }

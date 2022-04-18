@@ -72,7 +72,7 @@
                                 </a>
                             </li>
                             <li class="aiz-side-nav-item">
-                                <a class="aiz-side-nav-link" href="{{route('wholesale_product_create.admin')}}">
+                                <a class="aiz-side-nav-link" href="{{route('community_product_create')}}">
                                     <span class="aiz-side-nav-text">{{translate('Add Community Product')}}</span>
                                 </a>
                             </li>
