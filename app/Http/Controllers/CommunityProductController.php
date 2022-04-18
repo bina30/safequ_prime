@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductStock;
+use App\Models\Seller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use CoreComponentRepository;
@@ -51,11 +52,9 @@ class CommunityProductController extends Controller
         $products = Product::where('wholesale_product', 1)
             ->get();
 
-        $users = User::where('user_type', 'seller')
-            ->where('banned', 0)
-            ->get();
+        $sellers = Seller::get();
 
-        return view('communities.products.create', compact('products', 'users'));
+        return view('communities.products.create', compact('products', 'sellers'));
     }
 
     /**
@@ -77,11 +76,9 @@ class CommunityProductController extends Controller
         $products = Product::where('wholesale_product', 1)
             ->get();
 
-        $users = User::where('user_type', 'seller')
-            ->where('banned', 0)
-            ->get();
+        $sellers = Seller::get();
 
-        return view('communities.products.edit', compact('product_stock', 'products', 'users'));
+        return view('communities.products.edit', compact('product_stock', 'products', 'sellers'));
     }
 
     public function product_update(Request $request, $id)

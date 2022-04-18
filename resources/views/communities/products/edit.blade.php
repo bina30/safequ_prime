@@ -35,10 +35,10 @@
                                     <select class="form-control aiz-selectpicker" name="seller_id" id="seller_id"
                                             data-live-search="true" required>
                                         <option value="">{{ translate('Select Community') }}</option>
-                                        @foreach ($users as $user)
-                                            <option value="{{ $user->id }}"
-                                                    @if($product_stock->seller_id == $user->id) selected @endif>
-                                                {{ $user->name }}
+                                        @foreach ($sellers as $seller)
+                                            <option value="{{ $seller->id }}"
+                                                    @if($product_stock->seller_id == $seller->id) selected @endif>
+                                                {{ $seller->user->name }}
                                             </option>
                                         @endforeach
                                     </select>

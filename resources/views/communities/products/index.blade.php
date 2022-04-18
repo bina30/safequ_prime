@@ -116,7 +116,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>{{ $product->product->user->name }}</td>
+                            <td>{{ $product->seller->user->name }}</td>
                             <td>
                                 <strong>{{translate('Num of Sale')}}
                                     :</strong> {{ $product->product->num_of_sale }} {{translate('times')}} </br>

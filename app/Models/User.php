@@ -66,16 +66,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Product::class);
     }
 
-    public function products_purchase_started()
-    {
-        return $this->hasMany(Product::class)->where('purchase_start_date', '<=', date('Y-m-d H:i:s'))->where('purchase_end_date', '>=', date('Y-m-d H:i:s'))->where('published', 1);
-    }
-
-    public function products_purchase_expired()
-    {
-        return $this->hasMany(Product::class)->where('purchase_end_date', '<=', date('Y-m-d H:i:s'))->whereDate('purchase_end_date', date('Y-m-d'))->where('published', 1);
-    }
-
     public function shop()
     {
         return $this->hasOne(Shop::class);

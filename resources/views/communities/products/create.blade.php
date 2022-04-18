@@ -31,8 +31,8 @@
                             <div class="col-md-8">
                                 <select class="form-control aiz-selectpicker" name="seller_id" id="seller_id" data-live-search="true" required>
                                     <option value="">{{ translate('Select Community') }}</option>
-                                    @foreach ($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @foreach ($sellers as $seller)
+                                        <option value="{{ $seller->id }}">{{ $seller->user->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

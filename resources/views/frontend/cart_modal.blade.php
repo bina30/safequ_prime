@@ -33,7 +33,7 @@
                     <hr>
                     @php
                         if(floatval($product->min_qty) < 1){
-                            $product->unit = '('.floatval($product->min_qty) * 1000 .' '.$product->secondary_unit.')';
+                            $product->unit = floatval($product->min_qty) * 1000 .' '.$product->secondary_unit;
                         }
                     @endphp
                     <div class="qty-select text-center pb-3">
@@ -49,7 +49,7 @@
                                        onchange="this.value = this.value.replace(/[^0-9]/g, '')"/>
 
                                 <span class="itm-unit fw500" id="itm-cnt">1</span>&nbsp;
-                                <span class="itm-unit fw500" id="qty_unit">{{ $product->unit }}</span>
+                                <span class="itm-unit fw500" id="qty_unit">({{ $product->unit }})</span>
 
                                 <button class="btn ml-2"
                                         onclick="this.parentNode.querySelector('input[type=number]').stepUp();"

@@ -15,4 +15,8 @@ class ProductStock extends Model
     public function wholesalePrices() {
         return $this->hasMany(WholesalePrice::class);
     }
+
+    public function seller() {
+        return $this->belongsTo(Seller::class);
+    }
 }

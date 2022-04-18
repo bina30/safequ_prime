@@ -332,8 +332,8 @@ class HomeController extends Controller
             request()->session()->put('shop_name', $shop->name);
 
             $seller = Seller::where('user_id', $shop->user_id)->first();
-            $products_purchase_started = isset($seller->user->products_purchase_started) ? $seller->user->products_purchase_started : [];
-            $products_purchase_expired = isset($seller->user->products_purchase_expired) ? $seller->user->products_purchase_expired : [];
+            $products_purchase_started = isset($seller->products_purchase_started) ? $seller->products_purchase_started : [];
+            $products_purchase_expired = isset($seller->products_purchase_expired) ? $seller->products_purchase_expired : [];
 
             /*if ($seller->verification_status != 0) {
                 return view('frontend.seller_shop', compact('shop', 'products_purchase_started', 'products_purchase_expired'));
@@ -473,9 +473,9 @@ class HomeController extends Controller
             }
         }
 
-        $qty_unit = $product->unit;
+        $qty_unit = '(' . $product->unit . ')';
         if (floatval($product->min_qty) < 1) {
-            if($request->quantity * floatval($product->min_qty) < 1){
+            if ($request->quantity * floatval($product->min_qty) < 1) {
                 $qty_unit = '(' . (1000 * floatval($product->min_qty)) . ' ' . $product->secondary_unit . ')';
             } else {
                 $qty_unit = '(' . ($request->quantity * floatval($product->min_qty)) . ' ' . $product->unit . ')';

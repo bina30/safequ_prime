@@ -44,12 +44,12 @@ class Product extends Model
 
     public function orders()
     {
-        return $this->hasManyThrough(Order::class,OrderDetail::class,'product_id', 'id','id','order_id');
+        return $this->hasManyThrough(Order::class, OrderDetail::class, 'product_id', 'id', 'id', 'order_id');
     }
 
     public function orderDetails()
     {
-        return $this->hasMany(OrderDetail::class);
+        return $this->hasMany(OrderDetail::class)->where('payment_status', 'paid');
     }
 
     public function reviews()

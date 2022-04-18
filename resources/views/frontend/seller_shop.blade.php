@@ -30,8 +30,8 @@
     <meta name="twitter:description" content="{{ $meta_description }}">
 
     <!-- Open Graph data -->
-    <meta property="og:title" content="{{ $meta_title }}" />
-    <meta property="og:description" content="{{ $meta_description }}" />
+    <meta property="og:title" content="{{ $meta_title }}"/>
+    <meta property="og:description" content="{{ $meta_description }}"/>
 @endsection
 
 @section('content')
@@ -65,15 +65,15 @@
                                         <div class="img-name pr-2">
                                             <div class="item-img item-img-sm text-center">
                                                 <img src="{{ uploaded_asset($expired_product->photos) }}"
-                                                    onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
-                                                    alt="{{ $expired_product->name }}" />
+                                                     onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                                     alt="{{ $expired_product->name }}"/>
                                             </div>
                                         </div>
                                         <div>
                                             <p class="fw500 fsize14 title-txt mb-1">{{ $expired_product->name }}</p>
                                             <p class="mb-0 fsize12 body-txt ordered-qty">
                                                 <i class="fad fa-tractor fsize16"></i> <b> Farm location: </b>
-                                                {{ $expired_product->manufacturer_location }}
+                                                {{ $expired_product->product->manufacturer_location }}
                                             </p>
                                         </div>
                                     </div>
@@ -84,22 +84,22 @@
                                                 <p class="mb-0 fsize13 text-white">
                                                     Ran out of time
                                                     <span
-                                                        class="fsize13 text-white">({{ $expired_product->orderDetails->sum('quantity') }}{{ $expired_product->unit }}
+                                                            class="fsize13 text-white">({{ $expired_product->product->orderDetails->sum('quantity') }}{{ $expired_product->unit }}
                                                         ordered)</span>
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    @if (count($expired_product->orders->unique('user_id')) > 0)
+                                    @if (count($expired_product->product->orders->unique('user_id')) > 0)
                                         <a href="javascript:void(0)" data-toggle="modal"
-                                            data-target="#orderListModal_{{ $expired_product->id }}">
+                                           data-target="#orderListModal_{{ $expired_product->id }}">
                                             <div class="card-members">
                                                 <div class="mbr-img pr-3">
-                                                    @foreach ($expired_product->orders->unique('user_id') as $i => $order)
+                                                    @foreach ($expired_product->product->orders->unique('user_id') as $i => $order)
                                                         @if ($i < 5)
                                                             <img src="{{ uploaded_asset($order->user->avatar_original) }}"
-                                                                onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                                 onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
                                                         @endif
                                                     @endforeach
                                                 </div>
@@ -113,19 +113,20 @@
                             </div>
 
                             {{-- Users Order list Modal --}}
-                            <div class="modal fade orderListModal" id="orderListModal_{{ $expired_product->id }}"
-                                tabindex="-1" aria-labelledby="orderListModalLabel" aria-hidden="true">
+                            <div class="modal fade orderListModal"
+                                 id="orderListModal_{{ $expired_product->product->id }}"
+                                 tabindex="-1" aria-labelledby="orderListModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">Who Have Ordered</h5>
                                             <div class="close-btn text-right">
                                                 <a href="javascript:void(0)" class="fw900"
-                                                    data-dismiss="modal">X</a>
+                                                   data-dismiss="modal">X</a>
                                             </div>
                                         </div>
                                         <div class="modal-body">
-                                            @foreach ($expired_product->orderDetails as $orderDetail)
+                                            @foreach ($expired_product->product->orderDetails as $orderDetail)
                                                 <div class="item-details px-sm-3">
                                                     <div class="order-list">
                                                         <div class="item-card p-3 mb-3">
@@ -145,7 +146,7 @@
                                                                 </div>
                                                                 <div class="user-img-sm m-0">
                                                                     <img src="{{ uploaded_asset($orderDetail->order->user->avatar_original) }}"
-                                                                        onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -167,15 +168,15 @@
                                 <div class="item-card">
                                     <div class="card-top">
                                         <div class="pricing text-center">
-                                            <span class="text-white">Price / {{ $product->unit }}</span>
+                                            <span class="text-white">Price / {{ $product->product->unit }}</span>
                                             <h6 class="mb-0 mt-2 mx-auto">
-                                                {!! single_price_web($product->unit_price) !!}
+                                                {!! single_price_web($product->price) !!}
                                             </h6>
                                         </div>
                                         <div class="item-img text-center">
-                                            <img src="{{ uploaded_asset($product->photos) }}"
-                                                onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
-                                                alt="{{ $product->name }}" />
+                                            <img src="{{ uploaded_asset($product->product->photos) }}"
+                                                 onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                                 alt="{{ $product->product->name }}"/>
                                         </div>
                                         <div class="nxt-delivery">
                                             <span class="text-white">Next Delivery</span>
@@ -188,15 +189,15 @@
                                     </div>
                                     <div class="item-data text-center pt-5 px-3">
                                         <div class="px-2">
-                                            <h6 class="pt-1 fw700 mb-1">{{ $product->name }}</h6>
+                                            <h6 class="pt-1 fw700 mb-1">{{ $product->product->name }}</h6>
                                             <p class="fw600f fsize13 body-txt mb-2">
-                                                Variety: {{ $product->category->name }}</p>
+                                                Variety: {{ $product->product->category->name }}</p>
                                             {{-- <p class="rating-stars"> --}}
                                             {{-- {{ renderStarRating($product->rating) }} --}}
                                             {{-- </p> --}}
                                             <p class="body-txt fsize13 font-italic pb-1">
                                                 <i class="fad fa-tractor fsize16"></i> <b> Farm location: </b>
-                                                {{ $product->manufacturer_location }}
+                                                {{ $product->product->manufacturer_location }}
                                             </p>
                                             <hr>
                                         </div>
@@ -218,8 +219,8 @@
                                         <!-- Preloader -->
 
                                         <div class="remaining-time pb-2 px-2"
-                                            data-time="{{ date('m-d-Y H:i:s', strtotime($product->purchase_end_date)) }}"
-                                            style="display: none">
+                                             data-time="{{ date('m-d-Y H:i:s', strtotime($product->purchase_end_date)) }}"
+                                             style="display: none">
                                             <div class="timing">
                                                 <div class="cnt">
                                                     <h3 class="mb-0 days ">00</h3>
@@ -247,32 +248,32 @@
                                         </div>
 
                                         <div class="order-progress text-center pt-3 px-2">
-                                            <p class="fw600 target-qty">Available Harvest: {{ $product->stocks()->first()->qty }}
-                                                {{ $product->unit }}&nbsp;
+                                            <p class="fw600 target-qty">Available Harvest: {{ $product->qty }}
+                                                {{ $product->product->unit }}&nbsp;
                                                 <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top"
-                                                    title="Unlock special community benefits when the available harvest is booked out by your community.">
+                                                   title="Unlock special community benefits when the available harvest is booked out by your community.">
                                                     <i class="fad fa-info-circle animated faa-tada align-middle"></i>
                                                 </a>
                                             </p>
                                         </div>
                                         <div class="progress-div mb-4">
                                             <div class="progress">
-                                                <div class="progress-bar" data-target="{{ $product->stocks()->first()->qty }}"
-                                                    data-progress="{{ $product->orderDetails->sum('quantity')*0.5 }}"
-                                                    data-unit="{{ $product->unit }}">
+                                                <div class="progress-bar" data-target="{{ $product->qty }}"
+                                                     data-progress="{{ $product->product->orderDetails->sum('quantity')*$product->product->min_qty }}"
+                                                     data-unit="{{ $product->product->unit }}">
                                                 </div>
                                             </div>
                                         </div>
 
-                                        @if (count($product->orders->unique('user_id')) > 0)
+                                        @if (count($product->product->orders->unique('user_id')) > 0)
                                             <a href="javascript:void(0)" data-toggle="modal"
-                                                data-target="#orderListModal_{{ $product->id }}">
+                                               data-target="#orderListModal_{{ $product->product->id }}">
                                                 <div class="card-members pb-3">
                                                     <div class="mbr-img pr-3">
-                                                        @foreach ($product->orders->unique('user_id') as $i => $order)
+                                                        @foreach ($product->product->orders->unique('user_id') as $i => $order)
                                                             @if ($i < 5)
                                                                 <img src="{{ uploaded_asset($order->user->avatar_original) }}"
-                                                                    onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                                     onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
                                                             @endif
                                                         @endforeach
                                                     </div>
@@ -291,7 +292,7 @@
 
                                             <ul class="item-tags pb-3 mb-0 flex-acenter-jbtw">
                                                 @foreach ($tagsAry as $tag)
-                                                    <li class="fsize13 {{$cnt > 1 ? 'mr-1': ''}}"> 
+                                                    <li class="fsize13 {{$cnt > 1 ? 'mr-1': ''}}">
                                                         <i class="fas fsize15 fa-check-circle mr-1"></i> {{ $tag }}
                                                     </li>
                                                 @endforeach
@@ -301,7 +302,7 @@
                                     </div>
                                     <div class="card-bottom">
                                         <button class="btn text-uppercase text-white fw600 w-100"
-                                            onclick="addToCart('{{ route('products-details', $product->id) }}');">
+                                                onclick="addToCart('{{ route('products-details', $product->product->id) }}');">
                                             <i class="fas fa-shopping-cart text-white fsize18"></i>
                                             &nbsp; Add to cart
                                         </button>
@@ -309,32 +310,38 @@
                                 </div>
                             </div>
 
-                            @if (count($product->orders->unique('user_id')) > 0)
+                            @if (count($product->product->orders->unique('user_id')) > 0)
                                 {{-- Users Order list Modal --}}
-                                <div class="modal fade orderListModal" id="orderListModal_{{ $product->id }}"
-                                    tabindex="-1" aria-labelledby="orderListModalLabel" aria-hidden="true">
+                                <div class="modal fade orderListModal" id="orderListModal_{{ $product->product->id }}"
+                                     tabindex="-1" aria-labelledby="orderListModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Who Have Ordered</h5>
                                                 <div class="close-btn text-right">
                                                     <a href="javascript:void(0)" class="fw900"
-                                                        data-dismiss="modal">X</a>
+                                                       data-dismiss="modal">X</a>
                                                 </div>
                                             </div>
                                             <div class="modal-body">
-                                                @foreach ($product->orderDetails as $orderDetail)
+                                                @foreach ($product->product->orderDetails as $orderDetail)
                                                     <div class="item-details px-sm-3">
                                                         <div class="order-list">
                                                             <div class="item-card p-3 mb-3">
                                                                 <div
-                                                                    class="d-flex justify-content-between align-items-center">
+                                                                        class="d-flex justify-content-between align-items-center">
                                                                     <div class="pr-2">
                                                                         <p class="fw600 fsize15 title-txt mb-1">
                                                                             {{ $orderDetail->order->user->name }}</p>
                                                                         <p class="mb-0 lh-17">
                                                                             <span class="fsize13 body-txt ordered-qty">
-                                                                                {{ $orderDetail->quantity }}{{ $product->unit }}
+                                                                                @php
+                                                                                    $qty_unit = ($orderDetail->quantity * floatval($product->product->min_qty)) . ' ' . $product->product->unit;
+                                                                                    if($orderDetail->quantity * floatval($product->product->min_qty) < 1){
+                                                                                        $qty_unit = (1000 * floatval($product->product->min_qty)) . ' ' . $product->product->secondary_unit;
+                                                                                    }
+                                                                                @endphp
+                                                                                {{ $qty_unit }}
                                                                             </span>
                                                                             <span class="fsize13 body-txt ordered-qty">
                                                                                 &nbsp;&bull;&nbsp;
@@ -344,7 +351,7 @@
                                                                     </div>
                                                                     <div class="user-img-sm m-0">
                                                                         <img src="{{ uploaded_asset($orderDetail->order->user->avatar_original) }}"
-                                                                            onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                                             onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -368,7 +375,7 @@
 
         <!-- Item Modal -->
         <div class="modal fade itemModal" id="itemModal" data-backdrop="static" tabindex="-1"
-            aria-labelledby="itemModalLabel" aria-hidden="true">
+             aria-labelledby="itemModalLabel" aria-hidden="true">
         </div>
 
 
@@ -398,7 +405,7 @@
                 cache: false,
                 contentType: false,
                 processData: false,
-                success: function(response) {
+                success: function (response) {
                     $('#itemModal').html('');
                     $('#itemModal').html(response);
                     $('#itemModal').modal('show');
@@ -407,14 +414,14 @@
         }
 
         // Tooltip
-        $(function() {
+        $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
 
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             // Remaining time
-            $(".remaining-time").each(function() {
+            $(".remaining-time").each(function () {
 
                 const currDiv = $(this);
 
@@ -422,7 +429,7 @@
                 var countDownDate = new Date(currDiv.data("time")).getTime();
 
                 // Update the count down every 1 second
-                var x = setInterval(function() {
+                var x = setInterval(function () {
 
                     // Get today's date and time
                     var now = new Date().getTime();
@@ -468,7 +475,7 @@
             });
 
 
-            $(".progress-bar").each(function() {
+            $(".progress-bar").each(function () {
                 let width = 0;
                 let progressCnt = 0;
                 let target = $(this).data("target");
@@ -482,7 +489,7 @@
                         width++;
                         progressCnt++;
                         $(this).css("opacity", "1");
-                        (width <= 100) ? $(this).css("width", width + "%"): '';
+                        (width <= 100) ? $(this).css("width", width + "%") : '';
                         $(this).text(progress + ' ' + unit);
                         /*if (progressCnt <= progress) {
                             $(this).text(progress + ' ' + unit);
