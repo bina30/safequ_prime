@@ -1,4 +1,4 @@
-<input type="hidden" id="product_id" value="{{ $product->id }}">
+<input type="hidden" id="product_id" value="{{ $product->product->id }}">
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-body">
@@ -9,13 +9,13 @@
                 <div class="d-flex justify-content-between align-items-center pb-3">
                     <div class="img-name">
                         <div class="item-img text-center">
-                            <img src="{{ uploaded_asset($product->photos) }}"
+                            <img src="{{ uploaded_asset($product->product->photos) }}"
                                  onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
-                                 alt="{{ $product->name }}"/>
+                                 alt="{{ $product->product->name }}"/>
                         </div>
                         <div class="pl-3">
-                            <h6 class="fw700">{{ $product->name }}</h6>
-                            <p class="fw600 body-txt mb-0">Variety: {{ $product->category->name }}</p>
+                            <h6 class="fw700">{{ $product->product->name }}</h6>
+                            <p class="fw600 body-txt mb-0">Variety: {{ $product->product->category->name }}</p>
                         </div>
                     </div>
                 </div>
@@ -27,13 +27,13 @@
                         </div>
                         <div class="table-cell">
                             <h6 class="mb-1">Farm location:</h6>
-                            <p class="mb-0">{{ $product->manufacturer_location }}</p>
+                            <p class="mb-0">{{ $product->product->manufacturer_location }}</p>
                         </div>
                     </div>
                     <hr>
                     @php
-                        if(floatval($product->min_qty) < 1){
-                            $product->unit = floatval($product->min_qty) * 1000 .' '.$product->secondary_unit;
+                        if(floatval($product->product->min_qty) < 1){
+                            $product->product->unit = floatval($product->product->min_qty) * 1000 .' '.$product->product->secondary_unit;
                         }
                     @endphp
                     <div class="qty-select text-center pb-3">
@@ -49,7 +49,7 @@
                                        onchange="this.value = this.value.replace(/[^0-9]/g, '')"/>
 
                                 <span class="itm-unit fw500" id="itm-cnt">1</span>&nbsp;
-                                <span class="itm-unit fw500" id="qty_unit">({{ $product->unit }})</span>
+                                <span class="itm-unit fw500" id="qty_unit">({{ $product->product->unit }})</span>
 
                                 <button class="btn ml-2"
                                         onclick="this.parentNode.querySelector('input[type=number]').stepUp();"
@@ -59,15 +59,15 @@
 
                         <div class="py-4">
                             <h4 class="fw700 act-price mb-1 lh-1" id="total_price">
-                                {!! single_price_web($product->unit_price) !!}
+                                {!! single_price_web($product->price) !!}
                             </h4>
                             <i class="body-txt fsize15">
-                                (<span id="unit_price">{!! single_price_web($product->unit_price) !!}</span>
-                                / {{ $product->unit }})</i>
+                                (<span id="unit_price">{!! single_price_web($product->price) !!}</span>
+                                / {{ $product->product->unit }})</i>
                         </div>
 
                         <!--                        <a href="cart.html">-->
-                        <button class="btn primary-btn text-uppercase" onclick="addProductToCart({{ $product->id }})">
+                        <button class="btn primary-btn text-uppercase" onclick="addProductToCart({{ $product->product->id }})">
                             <i class="fas fa-shopping-cart text-white fsize18"></i>
                             &nbsp; Add to Cart
                         </button>

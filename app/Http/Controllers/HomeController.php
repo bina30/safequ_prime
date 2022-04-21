@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\ProductStock;
 use Illuminate\Http\Request;
 use Auth;
 use Hash;
@@ -404,7 +405,7 @@ class HomeController extends Controller
 
     public function show_product_details($id)
     {
-        $product = Product::findOrFail($id);
+        $product = ProductStock::with('product')->where('product_id', $id)->first();
         return view('frontend.cart_modal', compact('product'));
     }
 
