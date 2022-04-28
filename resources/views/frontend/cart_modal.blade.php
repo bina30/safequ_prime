@@ -67,7 +67,8 @@
                         </div>
 
                         <!--                        <a href="cart.html">-->
-                        <button class="btn primary-btn text-uppercase" onclick="addProductToCart({{ $product->product->id }})">
+                        <button class="btn primary-btn text-uppercase"
+                                onclick="addProductToCart({{ $product->product->id }}, {{$product->id}})">
                             <i class="fas fa-shopping-cart text-white fsize18"></i>
                             &nbsp; Add to Cart
                         </button>
@@ -126,7 +127,7 @@
         }
     }
 
-    function addProductToCart(productId) {
+    function addProductToCart(productId, productStockId) {
         let qty = $("#quantity").val();
         if (productId > 0 && qty > 0) {
             $.ajax({
@@ -135,7 +136,7 @@
                 },
                 type: "POST",
                 url: '{{ route('cart.addToCart') }}',
-                data: {id: productId, quantity: qty},
+                data: {id: productId, productStockId: productStockId, quantity: qty},
                 success: function (data) {
                     if (data.status == 1) {
                         {{-- AIZ.plugins.notify('success', "{{ translate('Item has been removed from cart') }}");--}}

@@ -84,19 +84,19 @@
                                                 <p class="mb-0 fsize13 text-white">
                                                     Ran out of time
                                                     <span
-                                                            class="fsize13 text-white">({{ $expired_product->product->orderDetails->sum('quantity') }}{{ $expired_product->unit }}
+                                                            class="fsize13 text-white">({{ $expired_product->orderDetails->sum('quantity') }}{{ $expired_product->unit }}
                                                         ordered)</span>
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    @if (count($expired_product->product->orders->unique('user_id')) > 0)
+                                    @if (count($expired_product->orders->unique('user_id')) > 0)
                                         <a href="javascript:void(0)" data-toggle="modal"
                                            data-target="#orderListModal_{{ $expired_product->id }}">
                                             <div class="card-members">
                                                 <div class="mbr-img pr-3">
-                                                    @foreach ($expired_product->product->orders->unique('user_id') as $i => $order)
+                                                    @foreach ($expired_product->orders->unique('user_id') as $i => $order)
                                                         @if ($i < 5)
                                                             <img src="{{ uploaded_asset($order->user->avatar_original) }}"
                                                                  onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
@@ -114,7 +114,7 @@
 
                             {{-- Users Order list Modal --}}
                             <div class="modal fade orderListModal"
-                                 id="orderListModal_{{ $expired_product->product->id }}"
+                                 id="orderListModal_{{ $expired_product->id }}"
                                  tabindex="-1" aria-labelledby="orderListModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                     <div class="modal-content">
@@ -126,7 +126,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-body">
-                                            @foreach ($expired_product->product->orderDetails as $orderDetail)
+                                            @foreach ($expired_product->orderDetails as $orderDetail)
                                                 <div class="item-details px-sm-3">
                                                     <div class="order-list">
                                                         <div class="item-card p-3 mb-3">
@@ -259,15 +259,15 @@
                                         <div class="progress-div mb-4">
                                             <div class="progress">
                                                 <div class="progress-bar" data-target="{{ $product->qty }}"
-                                                     data-progress="{{ $product->product->orderDetails->sum('quantity')*$product->product->min_qty }}"
+                                                     data-progress="{{ $product->orderDetails->sum('quantity')*$product->product->min_qty }}"
                                                      data-unit="{{ $product->product->unit }}">
                                                 </div>
                                             </div>
                                         </div>
 
-                                        @if (count($product->product->orders->where('payment_status','paid')->unique('user_id')) > 0)
+                                        @if (count($product->orders->where('payment_status','paid')->unique('user_id')) > 0)
                                             <a href="javascript:void(0)" data-toggle="modal"
-                                               data-target="#orderListModal_{{ $product->product->id }}">
+                                               data-target="#orderListModal_{{ $product->id }}">
                                                 <div class="card-members pb-3">
                                                     <div class="mbr-img pr-3">
                                                         @foreach ($product->product->orders->where('payment_status','paid')->unique('user_id') as $i => $order)
@@ -310,9 +310,9 @@
                                 </div>
                             </div>
 
-                            @if (count($product->product->orders->unique('user_id')) > 0)
+                            @if (count($product->orders->unique('user_id')) > 0)
                                 {{-- Users Order list Modal --}}
-                                <div class="modal fade orderListModal" id="orderListModal_{{ $product->product->id }}"
+                                <div class="modal fade orderListModal" id="orderListModal_{{ $product->id }}"
                                      tabindex="-1" aria-labelledby="orderListModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                         <div class="modal-content">
@@ -324,7 +324,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-body">
-                                                @foreach ($product->product->orderDetails as $orderDetail)
+                                                @foreach ($product->orderDetails as $orderDetail)
                                                     <div class="item-details px-sm-3">
                                                         <div class="order-list">
                                                             <div class="item-card p-3 mb-3">

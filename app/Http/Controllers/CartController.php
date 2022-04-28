@@ -77,6 +77,7 @@ class CartController extends Controller
         }
 
         $data['product_id'] = $product->id;
+        $data['product_stock_id'] = $request->productStockId;
         $data['owner_id'] = $product->user_id;
 
         $str = '';
@@ -189,7 +190,7 @@ class CartController extends Controller
                         );
                     }
 
-                    if ($cartItem['product_id'] == $request->id) {
+                    if ($cartItem['product_id'] == $request->id && $cartItem['product_stock_id'] == $request->productStockId) {
                         $product_stock = $cart_product->stocks->where('variant', $str)->first();
                         $quantity = $product_stock->qty;
                         /*if($quantity < $cartItem['quantity'] + $request['quantity']){

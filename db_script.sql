@@ -29,3 +29,7 @@ ADD COLUMN `seller_id` int(11) NULL AFTER `image`,
 ADD COLUMN `est_shipping_days` int(11) NULL DEFAULT NULL AFTER `seller_id`,
 ADD COLUMN `purchase_start_date` datetime(0) NULL DEFAULT NULL AFTER `est_shipping_days`,
 ADD COLUMN `purchase_end_date` datetime(0) NULL DEFAULT NULL AFTER `purchase_start_date`;
+
+/* Dt: 28-04-22 */
+ALTER TABLE `carts` ADD COLUMN `product_stock_id` int(11) NULL AFTER `product_id`;
+ALTER TABLE `order_details` ADD COLUMN `product_stock_id` int(11) NULL AFTER `product_id`;

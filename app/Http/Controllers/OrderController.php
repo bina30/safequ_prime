@@ -381,6 +381,7 @@ class OrderController extends Controller
                 $order_detail->order_id = $order->id;
                 $order_detail->seller_id = $product->user_id;
                 $order_detail->product_id = $product->id;
+                $order_detail->product_stock_id = $cartItem['product_stock_id'];
                 $order_detail->variation = $product_variation;
                 $order_detail->price = $cartItem['price'] * $cartItem['quantity'];
                 $order_detail->tax = $cartItem['tax'] * $cartItem['quantity'];
