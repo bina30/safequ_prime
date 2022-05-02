@@ -181,9 +181,9 @@
                                         <div class="nxt-delivery">
                                             <span class="text-white">Next Delivery</span>
                                             <h6 class="mb-0 mt-2 text-center mx-auto">
-                                                {{ date('d', strtotime($product->purchase_end_date)) }}
+                                                {{ date('d', strtotime($product->purchase_end_date. '+' . intval($product->est_shipping_days) . ' days')) }}
                                                 <br>
-                                                <ins>{{ date('M', strtotime($product->purchase_end_date)) }}</ins>
+                                                <ins>{{ date('M', strtotime($product->purchase_end_date. '+' . intval($product->est_shipping_days) . ' days')) }}</ins>
                                             </h6>
                                         </div>
                                     </div>
