@@ -292,6 +292,7 @@ class CheckoutController extends Controller
         if ($coupon != null) {
             if (strtotime(date('d-m-Y')) >= $coupon->start_date && strtotime(date('d-m-Y')) <= $coupon->end_date) {
                 if (CouponUsage::where('user_id', Auth::user()->id)->where('coupon_id', $coupon->id)->first() == null) {
+                    $flag = true;
                     $coupon_details = json_decode($coupon->details);
 
                     $carts = Cart::where('user_id', Auth::user()->id)
@@ -320,6 +321,10 @@ class CheckoutController extends Controller
                                 $coupon_discount = $coupon->discount;
                             }
 
+                        } else {
+                            $flag = false;
+                            $response_message['response'] = 'warning';
+                            $response_message['message'] = translate('Minimum cart value should be ' . $coupon_details->min_buy . ' to apply this coupon.');
                         }
                     } elseif ($coupon->type == 'product_base') {
                         foreach ($carts as $key => $cartItem) {
@@ -335,18 +340,20 @@ class CheckoutController extends Controller
                         }
                     }
 
-                    Cart::where('user_id', Auth::user()->id)
-                        ->where('owner_id', $request->owner_id)
-                        ->update(
-                            [
-                                'discount'       => $coupon_discount / count($carts),
-                                'coupon_code'    => $request->code,
-                                'coupon_applied' => 1
-                            ]
-                        );
+                    if ($flag) {
+                        Cart::where('user_id', Auth::user()->id)
+                            ->where('owner_id', $request->owner_id)
+                            ->update(
+                                [
+                                    'discount'       => $coupon_discount / count($carts),
+                                    'coupon_code'    => $request->code,
+                                    'coupon_applied' => 1
+                                ]
+                            );
 
-                    $response_message['response'] = 'success';
-                    $response_message['message'] = translate('Coupon has been applied');
+                        $response_message['response'] = 'success';
+                        $response_message['message'] = translate('Coupon has been applied');
+                    }
                 } else {
                     $response_message['response'] = 'warning';
                     $response_message['message'] = translate('You already used this coupon!');
