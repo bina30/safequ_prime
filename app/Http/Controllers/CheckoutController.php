@@ -324,7 +324,7 @@ class CheckoutController extends Controller
                         } else {
                             $flag = false;
                             $response_message['response'] = 'warning';
-                            $response_message['message'] = translate('Minimum cart value should be ' . $coupon_details->min_buy . ' to apply this coupon.');
+                            $response_message['message'] = translate('Minimum cart value should be ' . single_price_web($coupon_details->min_buy) . ' to apply this coupon.');
                         }
                     } elseif ($coupon->type == 'product_base') {
                         foreach ($carts as $key => $cartItem) {
