@@ -176,7 +176,7 @@
                     </a>
                     @if(auth()->user()->joined_community_id > 0)
                         <a href="javascript:void(0)"
-                           onclick="referFriend('{{ route('referral.registration', auth()->user()->referral_key) }}')">
+                           onclick="referFriend('{{ route('referral.registration', auth()->user()->referral_key) }}', '{{auth()->user()->name}}','{{single_price(env('REFERRAL_BONUS_AMOUNT'))}}')">
                             <li class="p-2 mb-2"><i class="fad fa-user-plus"></i> Refer & Earn</li>
                         </a>
                     @endif
