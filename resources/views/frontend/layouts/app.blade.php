@@ -252,10 +252,10 @@
             });
         }
 
-        function referFriend(referLink) {
+        function referFriend(referLink, name, amount) {
             navigator.share({
                 title: 'Join SafeQU!',
-                text: 'Hey! Check out this amazing app through which you can get farm fresh produce like strawberries, avocados & mangoes DIRECTLY from your choice of local farms serving your community! The produce is ~30% cheaper than halls of food or baskets of nature 😉 and is delivered to your doorstep. Get free credit to redeem against fresh produce of your choice from the farm of your choice.',
+                text: name + ' has sent you '+ amount + ' to get started with SafeQU!\n\nYou can get a choice of farm fresh produce like strawberries, avocados & mangoes DIRECTLY from a variety of local farms at ~30% cheaper than halls of food or baskets of nature 😉.\n',
                 url: referLink
             })
             .then(() => console.log('Share was successful.'))
