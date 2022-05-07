@@ -117,6 +117,9 @@ class RegisterController extends Controller
                     ]);
 
                     $user->referral_key = md5($user->id);
+                    if (!empty($referer_user)) {
+                        $user->referred_by = $referer_user->id;
+                    }
                     $user->save();
 
                     $customer = new Customer;
