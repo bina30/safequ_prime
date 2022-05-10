@@ -49,15 +49,27 @@
             <div class="container">
                 <div class="row justify-content-center">
 
-                    <div class="col-12 pb-md-5 pb-4 px-2">
-                        <div class="srch-fltr-card p-4 mb-md-0 mb-2">
-                            <h5 class="fw700 mb-0" id="filter_name">Items</h5>
+                    @if ($categories)
+                        <div class="col-12 pb-md-5 pb-4 px-2">
+                            <div class="srch-fltr-card mb-md-0 mb-2">
+                                <!--<h5 class="fw700 mb-0" id="filter_name">Items</h5>-->
+{{--                                <ul class="item-tags pb-3 mb-0 flex-acenter-jbtw">--}}
+                                <ul class="item-tags pb-3 mb-0 flex-acenter-jbtw">
+                                    <li class="active_filter filter-button" data-filter="all"> All </li>
+
+                                    @foreach ($categories as $key => $cat)
+                                        <li class="filter-button mr-1" data-filter="{{ $key }}">
+                                            {{ $cat }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     @if (count($products_purchase_expired) > 0)
                         @foreach ($products_purchase_expired as $expired_product)
-                            <div class="col-lg-4 col-md-6 col-sm-8 px-2 pb-4 timeout-card">
+                            <div class="col-lg-4 col-md-6 col-sm-8 px-2 pb-4 timeout-card filter {{ $expired_product->product->category->slug }} ">
                                 <!-- Item Cards -->
                                 <div class="item-card p-3">
 
@@ -163,7 +175,7 @@
 
                     @if (count($products_purchase_started) > 0)
                         @foreach ($products_purchase_started as $product)
-                            <div class="col-lg-4 col-md-6 col-sm-8 px-2 pb-4">
+                            <div class="col-lg-4 col-md-6 col-sm-8 px-2 pb-4 filter {{ $product->product->category->slug }} ">
                                 <!-- Item Cards -->
                                 <div class="item-card">
                                     <div class="card-top">
@@ -284,9 +296,9 @@
                                             </a>
                                         @endif
 
-                                        @if ($product->tags)
+                                        @if ($product->product->tags)
                                             @php
-                                                $tagsAry = explode(',', $product->tags);
+                                                $tagsAry = explode(',', $product->product->tags);
                                                 $cnt = count($tagsAry);
                                             @endphp
 
@@ -498,6 +510,25 @@
                         clearInterval(count);
                     }
                 }, 15);
+            });
+
+            $(".filter-button").click(function(){
+                $('.filter-button').removeClass('active_filter');
+                $(this).addClass('active_filter');
+                var value = $(this).attr('data-filter');
+
+                if(value == "all")
+                {
+                    //$('.filter').removeClass('hidden');
+                    $('.filter').show();
+                }
+                else
+                {
+//            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+//            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+                    $(".filter").not('.'+value).hide();
+                    $('.filter').filter('.'+value).show();
+                }
             });
 
         })

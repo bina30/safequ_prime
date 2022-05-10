@@ -336,13 +336,22 @@ class HomeController extends Controller
             $products_purchase_started = isset($seller->products_purchase_started) ? $seller->products_purchase_started : [];
             $products_purchase_expired = isset($seller->products_purchase_expired) ? $seller->products_purchase_expired : [];
 
+            $categories = [];
+            if (isset($seller->user) && isset($seller->user->products)) {
+                foreach ($seller->user->products AS $product) {
+                    if (!empty($product->category)) {
+                        $categories[$product->category->slug] = $product->category->name;
+                    }
+                }
+            }
+
             /*if ($seller->verification_status != 0) {
                 return view('frontend.seller_shop', compact('shop', 'products_purchase_started', 'products_purchase_expired'));
             } else {
                 return view('frontend.seller_shop_without_verification', compact('shop', 'seller'));
             }*/
 
-            return view('frontend.seller_shop', compact('shop', 'products_purchase_started', 'products_purchase_expired'));
+            return view('frontend.seller_shop', compact('shop', 'products_purchase_started', 'products_purchase_expired', 'categories'));
         }
         abort(404);
     }
