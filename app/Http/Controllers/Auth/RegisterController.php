@@ -113,13 +113,11 @@ class RegisterController extends Controller
                         'password'            => Hash::make(123456),
                         'verification_code'   => rand(1000, 9999),
                         'balance'             => env('WELCOME_BONUS_AMOUNT'),
-                        'joined_community_id' => $joined_community_id
+                        'joined_community_id' => $joined_community_id,
+                        'referred_by'         => (!empty($referer_user) ? $referer_user->id : '')
                     ]);
 
                     $user->referral_key = md5($user->id);
-                    if (!empty($referer_user)) {
-                        $user->referred_by = $referer_user->id;
-                    }
                     $user->save();
 
                     $customer = new Customer;
@@ -163,14 +161,14 @@ class RegisterController extends Controller
             Session::forget('temp_user_id');
         }
 
-        if (Cookie::has('referral_code')) {
+        /*if (Cookie::has('referral_code')) {
             $referral_code = Cookie::get('referral_code');
             $referred_by_user = User::where('referral_code', $referral_code)->first();
             if ($referred_by_user != null) {
                 $user->referred_by = $referred_by_user->id;
                 $user->save();
             }
-        }
+        }*/
 
         return $user;
     }
