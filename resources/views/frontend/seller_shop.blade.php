@@ -64,13 +64,13 @@
                                     <div class="d-flex justify-content-start align-items-center">
                                         <div class="img-name pr-2">
                                             <div class="item-img item-img-sm text-center">
-                                                <img src="{{ uploaded_asset($expired_product->photos) }}"
+                                                <img src="{{ uploaded_asset($expired_product->product->photos) }}"
                                                      onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
-                                                     alt="{{ $expired_product->name }}"/>
+                                                     alt="{{ $expired_product->product->name }}"/>
                                             </div>
                                         </div>
                                         <div>
-                                            <p class="fw500 fsize14 title-txt mb-1">{{ $expired_product->name }}</p>
+                                            <p class="fw500 fsize14 title-txt mb-1">{{ $expired_product->product->name }}</p>
                                             <p class="mb-0 fsize12 body-txt ordered-qty">
                                                 <i class="fad fa-tractor fsize16"></i> <b> Farm location: </b>
                                                 {{ $expired_product->product->manufacturer_location }}
