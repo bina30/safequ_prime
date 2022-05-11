@@ -58,8 +58,8 @@
                                     <li class="active_filter filter-button" data-filter="all"> All </li>
 
                                     @foreach ($categories as $key => $cat)
-                                        <li class="filter-button mr-1" data-filter="{{ $key }}">
-                                            {{ $cat }}
+                                        <li class="filter-button mr-1" data-filter="{{ $cat['filter'] }}">
+                                            {{ $cat['name'] }}
                                         </li>
                                     @endforeach
                                 </ul>

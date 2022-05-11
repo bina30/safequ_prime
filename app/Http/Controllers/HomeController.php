@@ -337,14 +337,26 @@ class HomeController extends Controller
             $products_purchase_expired = isset($seller->products_purchase_expired) ? $seller->products_purchase_expired : [];
 
             $categories = [];
-            $sellerProducts = Product::select('id','category_id', 'user_id')->where('user_id', $seller->user->id)->orderBy('category_id', 'asc')->get();
-            if ($sellerProducts) {
-                foreach ($sellerProducts AS $category) {
-                    $prodStock = ProductStock::where('product_id', $category->id)->orderBy('id', 'desc')->first();
-                    if ($category->category_id > 0 && $prodStock->purchase_end_date > date('Y-m-d H:i:s')) {
-                        $catData = Category::where('id', $category->category_id)->first();
-                        $categories[$catData->slug] = $catData->name;
+            $parentCategories = Category::where('parent_id', 0)
+                ->with('childrenCategories')
+                ->get();
+            if ($parentCategories) {
+                foreach ($parentCategories AS $parCat) {
+                    $catFilter = [];
+                    $catFilter[$parCat->slug] = $parCat->slug;
+                    if (!empty($parCat->childrenCategories)) {
+                        foreach ($parCat->childrenCategories AS $childCat) {
+                            $catFilter[$childCat->slug] = $childCat->slug;
+
+                            if (!empty($childCat->categories)) {
+                                foreach ($childCat->categories AS $chilCat2) {
+                                    $catFilter[$chilCat2->slug] = $chilCat2->slug;
+                                }
+                            }
+                        }
                     }
+                    $categories[$parCat->slug]['name'] = $parCat->name;
+                    $categories[$parCat->slug]['filter'] = implode(",.", $catFilter);
                 }
             }
 
