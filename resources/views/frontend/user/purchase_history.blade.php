@@ -56,7 +56,7 @@
                                                     @if ($detail->delivery_status == 'delivered')
                                                         {{ date('d M Y',strtotime($detail->updated_at)).' [Delivered]' }}
                                                     @else
-                                                        {{ date('d M Y',strtotime($detail->product->purchase_end_date . '+' . intval($detail->product->est_shipping_days) . ' days')) }}
+                                                        {{ date('d M Y',strtotime($detail->product_stock->purchase_end_date . '+' . intval($detail->product_stock->est_shipping_days) . ' days')) }}
                                                     @endif
                                                 </td>
                                             </tr>

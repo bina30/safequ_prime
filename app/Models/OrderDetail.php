@@ -16,6 +16,11 @@ class OrderDetail extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function product_stock()
+    {
+        return $this->belongsTo(ProductStock::class, 'product_id', 'product_id');
+    }
+
     public function pickup_point()
     {
         return $this->belongsTo(PickupPoint::class);

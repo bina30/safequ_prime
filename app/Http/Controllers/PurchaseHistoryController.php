@@ -22,10 +22,10 @@ class PurchaseHistoryController extends Controller
         $dropdownFilter = '';
         if (isset($request->dropdownFilter) && $request->dropdownFilter == "delivered") {
             $dropdownFilter = 'delivered';
-            $orders = $user->orders->where('delivery_status', '=', 'delivered')->all();
+            $orders = $user->orders->where('delivery_status', '=', 'delivered')->where('payment_status', 'paid')->all();
         } else {
             $dropdownFilter = 'pending';
-            $orders = $user->orders->where('delivery_status', '!=', 'delivered')->all();
+            $orders = $user->orders->where('delivery_status', '!=', 'delivered')->where('payment_status', 'paid')->all();
         }
         return view('frontend.user.purchase_history', compact('orders', 'user', 'dropdownFilter'));
     }
