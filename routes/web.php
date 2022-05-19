@@ -282,6 +282,9 @@ Route::group(['middleware' => ['auth']], function() {
     //Product Export
     Route::get('/product-bulk-export', 'ProductBulkUploadController@export')->name('product_bulk_export.index');
 
+    //Sales Order Export
+    Route::get('/sales-order-export', 'OrderController@export')->name('order_export.excel');
+
     Route::resource('digitalproducts', 'DigitalProductController');
     Route::get('/digitalproducts/edit/{id}', 'DigitalProductController@edit')->name('digitalproducts.edit');
     Route::get('/digitalproducts/destroy/{id}', 'DigitalProductController@destroy')->name('digitalproducts.destroy');

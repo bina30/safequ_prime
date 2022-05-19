@@ -74,8 +74,9 @@
                 <div class="col-lg-2">
                     <div class="form-group mb-0">
                         <input type="text" class="aiz-date-range form-control" value="{{ $date }}" name="date"
-                               placeholder="{{ translate('Filter by date') }}" data-format="DD-MM-Y"
-                               data-separator=" to " data-advanced-range="true" autocomplete="off">
+                               id="filter_date" placeholder="{{ translate('Filter by date') }}"
+                               data-format="DD-MM-Y" data-separator=" to " data-advanced-range="true"
+                               autocomplete="off">
                     </div>
                 </div>
                 <div class="col-lg-2">
@@ -88,6 +89,7 @@
                 <div class="col-auto">
                     <div class="form-group mb-0">
                         <button type="submit" class="btn btn-primary">{{ translate('Filter') }}</button>
+                        <button type="button" class="btn btn-primary" onclick="exportExcel()">{{ translate('Export') }}</button>
                     </div>
                 </div>
             </div>
@@ -267,6 +269,18 @@
                     }
                 }
             });
+        }
+
+        function exportExcel() {
+            let delivery_status = $('#delivery_status').val();
+            let filter_date = $('#filter_date').val();
+            let search = $('#search').val();
+            let url = "{{route('order_export.excel', ':delivery_status:filter_date:search')}}"
+            url = url.replace(':delivery_status', 'delivery_status='+delivery_status);
+            url = url.replace(':filter_date', '&filter_date='+filter_date);
+            url = url.replace(':search', '&search='+search);
+
+            window.location.href = url;
         }
     </script>
 @endsection

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\AffiliateController;
 use App\Http\Controllers\OTPVerificationController;
+use App\Models\OrdersExport;
+use App\Models\ProductsExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ClubPointController;
 use App\Models\Order;
@@ -22,6 +24,7 @@ use App\Models\BusinessSetting;
 use App\Models\CombinedOrder;
 use App\Models\SmsTemplate;
 use Auth;
+use Maatwebsite\Excel\Excel;
 use Session;
 use DB;
 use Mail;
@@ -76,7 +79,7 @@ class OrderController extends Controller
     // All Orders
     public function all_orders(Request $request)
     {
-        
+
 
         $date = $request->date;
         $sort_search = null;
@@ -112,7 +115,7 @@ class OrderController extends Controller
     // Inhouse Orders
     public function admin_orders(Request $request)
     {
-        
+
 
         $date = $request->date;
         $payment_status = null;
@@ -158,7 +161,7 @@ class OrderController extends Controller
     // Seller Orders
     public function seller_orders(Request $request)
     {
-        
+
 
         $date = $request->date;
         $seller_id = $request->seller_id;
@@ -756,5 +759,26 @@ class OrderController extends Controller
         }
 
         return 1;
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new OrdersExport($request), 'orders.xlsx');
+        $date = null;
+        $sort_search = null;
+        $delivery_status = null;
+
+        $orders = Order::orderBy('id', 'desc');
+        if ($request->search != null) {
+            $sort_search = $request->search;
+            $orders = $orders->where('code', 'like', '%' . $sort_search . '%');
+        }
+        if ($request->delivery_status != null) {
+            $orders = $orders->where('delivery_status', $request->delivery_status);
+            $delivery_status = $request->delivery_status;
+        }
+        if ($request->filter_date != null) {
+            $orders = $orders->where('created_at', '>=', date('Y-m-d', strtotime(explode(" to ", $request->filter_date)[0])))->where('created_at', '<=', date('Y-m-d', strtotime(explode(" to ", $request->filter_date)[1])));
+        }
     }
 }
