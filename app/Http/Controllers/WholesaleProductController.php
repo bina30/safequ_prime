@@ -135,16 +135,23 @@ class WholesaleProductController extends Controller
 
     public function product_create_admin()
     {
-        $categories = Category::where('parent_id', 0)
+        /*$categories = Category::where('parent_id', 0)
             ->where('digital', 0)
             ->with('childrenCategories')
+            ->get();*/
+
+        $categories = Category::where('parent_id', 0)
+            ->where('digital', 0)
             ->get();
+
+        $sub_categories = [];
+        $cat_variants = [];
 
         $users = User::where('user_type', 'seller')
             ->where('banned', 0)
             ->get();
 
-        return view('wholesale.products.create', compact('categories', 'users'));
+        return view('wholesale.products.create', compact('categories', 'users', 'sub_categories', 'cat_variants'));
     }
 
     public function product_create_seller()
@@ -205,16 +212,28 @@ class WholesaleProductController extends Controller
 
         $lang = $request->lang;
         $tags = json_decode($product->tags);
+
         $categories = Category::where('parent_id', 0)
             ->where('digital', 0)
             ->with('childrenCategories')
             ->get();
 
+        $sub_categories = Category::where('parent_id', $product->parent_category_id)
+            ->where('digital', 0)
+            ->get();
+
+        $cat_variants = [];
+        if ($product->sub_category_id != $product->category_id) {
+            $cat_variants = Category::where('parent_id', $product->sub_category_id)
+                ->where('digital', 0)
+                ->get();
+        }
+
         $users = User::where('user_type', 'seller')
             ->where('banned', 0)
             ->get();
 
-        return view('wholesale.products.edit', compact('product', 'categories', 'tags','lang', 'users'));
+        return view('wholesale.products.edit', compact('product', 'categories', 'tags','lang', 'users', 'sub_categories', 'cat_variants'));
     }
 
     public function product_edit_seller(Request $request, $id)
@@ -263,5 +282,34 @@ class WholesaleProductController extends Controller
     {
         (new WholesaleService)->destroy($id);
         return back();
+    }
+
+    public function load_subcategory(Request $request)
+    {
+        $categories = [];
+        if ($request->id > 0) {
+            $categories = Category::where('parent_id', $request->id)
+                ->where('digital', 0)
+                ->get();
+        }
+
+        return array(
+            'subcategory' => view('wholesale.products.partials.subcategory', compact('categories'))->render()
+        );
+    }
+
+    public function load_category_variant(Request $request)
+    {
+        $categories = [];
+        if ($request->id > 0) {
+            $categories = Category::where('parent_id', $request->id)
+                ->where('digital', 0)
+                ->get();
+        }
+
+        return array(
+            'result' => (!empty($categories) ? 1 : 0),
+            'subcategory' => view('wholesale.products.partials.variants', compact('categories'))->render()
+        );
     }
 }

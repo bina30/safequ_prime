@@ -40,7 +40,9 @@ class WholesaleService
             $product->user_id = User::where('user_type', 'admin')->first()->id;
         }
         $product->added_by = $added_by;
-        $product->category_id = $request->category_id;
+        $product->parent_category_id = $request->parent_category_id;
+        $product->sub_category_id = $request->sub_category_id;
+        $product->category_id = (intval($request->category_id) == 0 ? $request->sub_category_id : $request->category_id);
         $product->brand_id = $request->brand_id;
         $product->barcode = $request->barcode;
         $product->manufacturer_location = $request->manufacturer_location;
@@ -198,6 +200,9 @@ class WholesaleService
             $product->added_by = 'admin';
         }
 
+        $request->category_id = (intval($request->category_id) == 0 ? $request->sub_category_id : $request->category_id);
+        $product->parent_category_id = $request->parent_category_id;
+        $product->sub_category_id = $request->sub_category_id;
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
         $product->barcode = $request->barcode;
@@ -221,6 +226,8 @@ class WholesaleService
                 $product->refundable = 0;
             }
         }
+
+        $request->lang = ($request->lang != null && $request->lang != '' ? $request->lang : env("DEFAULT_LANGUAGE"));
 
         if ($request->lang == env("DEFAULT_LANGUAGE")) {
             $product->name = $request->name;

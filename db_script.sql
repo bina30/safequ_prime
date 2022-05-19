@@ -33,3 +33,7 @@ ADD COLUMN `purchase_end_date` datetime(0) NULL DEFAULT NULL AFTER `purchase_sta
 /* Dt: 28-04-22 */
 ALTER TABLE `carts` ADD COLUMN `product_stock_id` int(11) NULL AFTER `product_id`;
 ALTER TABLE `order_details` ADD COLUMN `product_stock_id` int(11) NULL AFTER `product_id`;
+
+/* Dt: 19-05-22 */
+ALTER TABLE `products` ADD COLUMN `parent_category_id` int(11) NOT NULL AFTER `user_id`;
+ALTER TABLE `products` ADD COLUMN `sub_category_id` int(11) NOT NULL AFTER `parent_category_id`;

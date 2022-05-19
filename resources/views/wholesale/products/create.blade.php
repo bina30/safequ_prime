@@ -25,7 +25,7 @@
                                            required>
                                 </div>
                             </div>
-                            <div class="form-group row" id="category">
+<!--                            <div class="form-group row" id="category">
                                 <label class="col-md-3 col-from-label">{{translate('Category')}} <span
                                             class="text-danger">*</span></label>
                                 <div class="col-md-8">
@@ -36,6 +36,42 @@
                                             @foreach ($category->childrenCategories as $childCategory)
                                                 @include('categories.child_category', ['child_category' => $childCategory])
                                             @endforeach
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>-->
+                            <div class="form-group row" id="category">
+                                <label class="col-md-3 col-from-label">{{translate('Category')}} <span
+                                        class="text-danger">*</span></label>
+                                <div class="col-md-8">
+                                    <select class="form-control aiz-selectpicker" name="parent_category_id" id="parent_category_id"
+                                            data-live-search="true" required>
+                                        <option value=""></option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->getTranslation('name') }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row" id="sub_category">
+                                <label class="col-md-3 col-from-label">{{translate('Sub Category')}} <span
+                                        class="text-danger">*</span></label>
+                                <div class="col-md-8" id="sub_category_select">
+                                    <select class="form-control aiz-selectpicker" name="sub_category_id" id="sub_category_id"
+                                            data-live-search="true" required>
+                                        @foreach ($sub_categories as $sub_category)
+                                            <option value="{{ $sub_category->id }}">{{ $sub_category->getTranslation('name') }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row" id="cat_variant">
+                                <label class="col-md-3 col-from-label">{{translate('Varieties')}} </label>
+                                <div class="col-md-8" id="cat_variant_select">
+                                    <select class="form-control aiz-selectpicker" name="category_id" id="category_id"
+                                            data-live-search="true" required>
+                                        @foreach ($cat_variants as $cat_variant)
+                                            <option value="{{ $cat_variant->id }}">{{ $cat_variant->getTranslation('name') }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -542,8 +578,53 @@
             if ($(this).val() == 'flat_rate') {
                 $(".flat_rate_shipping_div").show();
             }
-
         });
+
+        $("#parent_category_id").on("change", function () {
+            if ($(this).val() > 0) {
+                $.post('{{ route('wholesale_products.load_subcategory') }}', {
+                    _token: AIZ.data.csrf,
+                    id: $(this).val()
+                }, function (data) {
+                    $('#sub_category_select').html('');
+                    $('#sub_category_select').html(data.subcategory);
+
+                    $("select[name=sub_category_id]").selectpicker("refresh");
+                });
+            }
+        });
+
+        $("#sub_category_id").on("change", function () {
+            if ($(this).val() > 0) {
+                $.post('{{ route('wholesale_products.load_category_variant') }}', {
+                    _token: AIZ.data.csrf,
+                    id: $(this).val()
+                }, function (data) {
+                    $('#cat_variant_select').html('');
+                    $('#cat_variant_select').html(data.subcategory);
+
+                    $("select[name=category_id]").selectpicker("refresh");
+                });
+            }
+        });
+
+        function loadCatVarieties(obj) {
+            $.post('{{ route('wholesale_products.load_category_variant') }}', {
+                _token: AIZ.data.csrf,
+                id: $(obj).val()
+            }, function (data) {
+                $('#cat_variant_select').html('');
+                $('#cat_variant_select').html(data.subcategory);
+
+                $("select[name=category_id]").selectpicker("refresh");
+
+                if (data.result == 0) {
+                    $("select[name=category_id]").removeAttr('required');
+                } else {
+                    $("select[name=category_id]").attr('required');
+                }
+            });
+        }
 
     </script>
 

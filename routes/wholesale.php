@@ -13,7 +13,7 @@
 
 //Admin
 
-Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function(){   
+Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function(){
 
     Route::get('/wholesale/all-products', 'WholesaleProductController@all_wholesale_products')->name('wholesale_products.all');
     Route::get('/wholesale/inhouse-products', 'WholesaleProductController@in_house_wholesale_products')->name('wholesale_products.in_house');
@@ -24,6 +24,8 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
     Route::get('/wholesale-product/{id}/edit', 'WholesaleProductController@product_edit_admin')->name('wholesale_product_edit.admin');
     Route::post('/wholesale-product/update/{id}', 'WholesaleProductController@product_update_admin')->name('wholesale_product_update.admin');
     Route::get('/wholesale-product/destroy/{id}', 'WholesaleProductController@product_destroy_admin')->name('wholesale_product_destroy.admin');
+    Route::post('/wholesale-product/load-subcategory', 'WholesaleProductController@load_subcategory')->name('wholesale_products.load_subcategory');
+    Route::post('/wholesale-product/load-category-variant', 'WholesaleProductController@load_category_variant')->name('wholesale_products.load_category_variant');
 
 });
 
