@@ -31,7 +31,7 @@ class ProductController extends Controller
      */
     public function admin_products(Request $request)
     {
-        
+
 
         $type = 'In House';
         $col_name = null;
@@ -846,17 +846,23 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         if (Auth::user()->id == $product->user_id || Auth::user()->user_type == 'staff' || Auth::user()->user_type == 'admin') {
+
             $product_new = $product->replicate();
             $product_new->slug = $product_new->slug . '-' . Str::random(5);
             $product_new->save();
 
             foreach ($product->stocks as $key => $stock) {
-                $product_stock              = new ProductStock;
-                $product_stock->product_id  = $product_new->id;
-                $product_stock->variant     = $stock->variant;
-                $product_stock->price       = $stock->price;
-                $product_stock->sku         = $stock->sku;
-                $product_stock->qty         = $stock->qty;
+                $product_stock                      = new ProductStock;
+                $product_stock->product_id          = $product_new->id;
+                $product_stock->variant             = $stock->variant;
+                $product_stock->price               = $stock->price;
+                $product_stock->sku                 = $stock->sku;
+                $product_stock->qty                 = $stock->qty;
+                $product_stock->image               = $stock->image;
+                $product_stock->seller_id           = $stock->seller_id;
+                $product_stock->est_shipping_days   = $stock->est_shipping_days;
+                $product_stock->purchase_start_date = $stock->purchase_start_date;
+                $product_stock->purchase_end_date   = $stock->purchase_end_date;
                 $product_stock->save();
             }
 

@@ -150,7 +150,7 @@
                                     <i class="las la-edit"></i>
                                 </a>
                                 <a class="btn btn-soft-warning btn-icon btn-circle btn-sm"
-                                   href="{{route('products.duplicate', ['id'=>$product->id, 'type'=>$type]  )}}"
+                                   href="{{route('community_product_duplicate', ['id'=>$product->id] )}}"
                                    title="{{ translate('Duplicate') }}">
                                     <i class="las la-copy"></i>
                                 </a>

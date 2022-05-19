@@ -116,4 +116,26 @@ class CommunityProductController extends Controller
 
         return 1;
     }
+
+    /**
+     * Duplicates the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function duplicate(Request $request, $id)
+    {
+        $product_stock = ProductStock::find($id);
+
+        if ($product_stock) {
+            $product_stock_new = $product_stock->replicate();
+            $product_stock_new->save();
+
+            flash(translate('Product has been duplicated successfully'))->success();
+            return redirect()->route('community_products');
+        } else {
+            flash(translate('Something went wrong'))->error();
+            return back();
+        }
+    }
 }
