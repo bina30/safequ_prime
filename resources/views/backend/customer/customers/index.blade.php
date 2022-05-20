@@ -50,10 +50,9 @@
                             </div>
                         </th>
                         <th>{{translate('Name')}}</th>
-                        <th data-breakpoints="lg">{{translate('Email Address')}}</th>
-                        <th data-breakpoints="lg">{{translate('Phone')}}</th>
-                        <th data-breakpoints="lg">{{translate('Package')}}</th>
-                        <th data-breakpoints="lg">{{translate('Wallet Balance')}}</th>
+                        <th>{{translate('Email Address')}}</th>
+                        <th>{{translate('Phone')}}</th>
+                        <th>{{translate('Wallet Balance')}}</th>
                         <th>{{translate('Options')}}</th>
                     </tr>
                     </thead>
@@ -77,13 +76,13 @@
                                                                aria-hidden="true"></i> @endif {{$user->name}}</td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->phone}}</td>
-                                <td>
-                                    @if ($user->customer_package != null)
-                                        {{$user->customer_package->getTranslation('name')}}
-                                    @endif
-                                </td>
                                 <td>{{single_price($user->balance)}}</td>
                                 <td class="text-right">
+                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                       href="{{route('customers.detail', ['id'=> $user->id] )}}"
+                                       title="{{ translate('Edit') }}">
+                                        <i class="las la-eye"></i>
+                                    </a>
                                     <a onclick="show_make_wallet_recharge_modal('{{encrypt($user->id)}}')"
                                        class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                        title="{{ translate('Wallet') }}">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Seller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\User;
@@ -51,16 +52,16 @@ class CustomerController extends Controller
             'email'         => 'required|unique:users|email',
             'phone'         => 'required|unique:users',
         ]);
-        
+
         $response['status'] = 'Error';
-        
+
         $user = User::create($request->all());
-        
+
         $customer = new Customer;
-        
+
         $customer->user_id = $user->id;
         $customer->save();
-        
+
         if (isset($user->id)) {
             $html = '';
             $html .= '<option value="">
@@ -73,11 +74,11 @@ class CustomerController extends Controller
                             </option>';
                 }
             }
-            
+
             $response['status'] = 'Success';
             $response['html'] = $html;
         }
-        
+
         echo json_encode($response);
     }
 
@@ -127,14 +128,14 @@ class CustomerController extends Controller
         flash(translate('Customer has been deleted successfully'))->success();
         return redirect()->route('customers.index');
     }
-    
+
     public function bulk_customer_delete(Request $request) {
         if($request->id) {
             foreach ($request->id as $customer_id) {
                 $this->destroy($customer_id);
             }
         }
-        
+
         return 1;
     }
 
@@ -159,7 +160,21 @@ class CustomerController extends Controller
         }
 
         $user->save();
-        
+
         return back();
+    }
+
+    public function customer_detail($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user) {
+            $order_details = $user->order_details;
+            $wallet_history = $user->wallets;
+
+            return view('backend.customer.customers.details', compact('user', 'order_details', 'wallet_history'));
+        } else {
+            return back();
+        }
     }
 }

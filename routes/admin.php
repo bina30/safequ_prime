@@ -55,6 +55,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::get('/seller/payments/show/{id}', 'PaymentController@show')->name('sellers.payment_history');
 
     Route::resource('customers', 'CustomerController');
+    Route::get('customer/detail/{id}', 'CustomerController@customer_detail')->name('customers.detail');
     Route::get('customers_ban/{customer}', 'CustomerController@ban')->name('customers.ban');
     Route::get('/customers/login/{id}', 'CustomerController@login')->name('customers.login');
     Route::get('/customers/destroy/{id}', 'CustomerController@destroy')->name('customers.destroy');
