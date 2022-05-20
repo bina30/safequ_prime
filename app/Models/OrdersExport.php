@@ -22,26 +22,35 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
 
     public function collection()
     {
-        return Order::all();
+        $orders = Order::orderBy('id', 'desc');
+        if ($this->search != null) {
+            $sort_search = $this->search;
+            $orders = $orders->where('code', 'like', '%' . $sort_search . '%');
+        }
+        if ($this->delivery_status != null) {
+            $orders = $orders->where('delivery_status', $this->delivery_status);
+        }
+        if ($this->filter_date != null) {
+            $orders = $orders->where('created_at', '>=', date('Y-m-d', strtotime(explode(" to ", $this->filter_date)[0])))->where('created_at', '<=', date('Y-m-d', strtotime(explode(" to ", $this->filter_date)[1])));
+        }
+
+        return $orders->get();
     }
 
     public function headings(): array
     {
         return [
-            'name',
-            'description',
-            'added_by',
-            'user_id',
-            'category_id',
-            'brand_id',
-            'video_provider',
-            'video_link',
-            'unit_price',
-            'purchase_price',
-            'unit',
-            'current_stock',
-            'meta_title',
-            'meta_description',
+            'SrNo',
+            'OrderCode',
+            'Date',
+            'User',
+            'Seller',
+            'ShippingAddress',
+            'DeliveryStatus',
+            'PaymentType',
+            'PaymentStatus',
+            'PaymentDetails',
+            'GrandTotal',
         ];
     }
 
@@ -50,24 +59,21 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
     */
     public function map($order): array
     {
-        dd($order);
-        $qty = 0;
-        /*foreach ($product->stocks as $key => $stock) {
-            $qty += $stock->qty;
-        }
+        $userName = isset($order->user) ? $order->user->name : $order->user_id;
+        $sellerName = isset($order->seller) ? $order->seller->name : $order->seller_id;
+
         return [
-            $product->name,
-            $product->description,
-            $product->added_by,
-            $product->user_id,
-            $product->category_id,
-            $product->brand_id,
-            $product->video_provider,
-            $product->video_link,
-            $product->unit_price,
-            $product->purchase_price,
-            $product->unit,
-            $qty,
-        ];*/
+            $order->id,
+            $order->code,
+            $order->created_at,
+            $userName,
+            $sellerName,
+            $order->shipping_address,
+            $order->delivery_status,
+            $order->payment_type,
+            $order->payment_status,
+            $order->payment_details,
+            $order->grand_total,
+        ];
     }
 }
