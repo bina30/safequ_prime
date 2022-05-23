@@ -56,6 +56,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
 
     Route::resource('customers', 'CustomerController');
     Route::get('customer/detail/{id}', 'CustomerController@customer_detail')->name('customers.detail');
+    Route::get('customer/add-product/{id}', 'CustomerController@add_customer_product')->name('customers.add_product');
+    Route::post('customer/add-customer-order', 'CustomerController@add_customer_order')->name('customers.add_customer_order');
     Route::get('customers_ban/{customer}', 'CustomerController@ban')->name('customers.ban');
     Route::get('/customers/login/{id}', 'CustomerController@login')->name('customers.login');
     Route::get('/customers/destroy/{id}', 'CustomerController@destroy')->name('customers.destroy');

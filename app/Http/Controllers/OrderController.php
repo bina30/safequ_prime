@@ -444,6 +444,46 @@ class OrderController extends Controller
         $request->session()->put('combined_order_id', $combined_order->id);
     }
 
+    public function save_order_from_backend(Request $request)
+    {
+        $user = User::findOrFail($request->user_id);
+
+        $shippingAddress = [];
+        $shippingAddress['name']        = $user->name;
+        $shippingAddress['email']       = $user->email;
+        $shippingAddress['address']     = $user->address;
+        $shippingAddress['country']     = $user->country;
+        $shippingAddress['state']       = $user->state;
+        $shippingAddress['city']        = $user->city;
+        $shippingAddress['postal_code'] = $user->postal_code;
+        $shippingAddress['phone']       = $user->phone;
+
+        $combined_order = new CombinedOrder;
+        $combined_order->user_id = $user->id;
+        $combined_order->shipping_address = json_encode($shippingAddress);
+        $combined_order->save();
+        dd($request->proudct_id);
+
+        $product = Product::find($request->proudct_id);
+        $product_stock = ProductStock::find($request->proudct_id);
+
+        $order = new Order;
+        $order->combined_order_id = $combined_order->id;
+        $order->user_id = Auth::user()->id;
+        $order->shipping_address = $combined_order->shipping_address;
+        $order->shipping_type = $carts[0]['shipping_type'];
+        if ($carts[0]['shipping_type'] == 'pickup_point') {
+            $order->pickup_point_id = $cartItem['pickup_point'];
+        }
+        $order->payment_type = $request->payment_option;
+        $order->delivery_viewed = '0';
+        $order->payment_status_viewed = '0';
+        $order->code = date('Ymd-His') . rand(10, 99);
+        $order->date = strtotime('now');
+        $order->save();
+
+    }
+
     /**
      * Display the specified resource.
      *

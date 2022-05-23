@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Seller;
+use App\Models\Shop;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\User;
@@ -176,5 +177,41 @@ class CustomerController extends Controller
         } else {
             return back();
         }
+    }
+
+    public function add_customer_product($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user) {
+            $shop = Shop::where('user_id', $user->joined_community_id)->first();
+
+            if ($shop != null) {
+                $seller = Seller::where('user_id', $shop->user_id)->first();
+                $products_purchase_started = isset($seller->products_purchase_started) ? $seller->products_purchase_started : [];
+                $products_purchase_expired = isset($seller->products_purchase_expired) ? $seller->products_purchase_expired : [];
+
+                $active_products = [];
+                /*if (!$products_purchase_expired->isEmpty() && !$products_purchase_started->isEmpty()) {
+                    $active_products = array_merge($products_purchase_started, $products_purchase_expired);
+                } else {
+                    $active_products = (!$products_purchase_started->isEmpty() ? $products_purchase_started : $products_purchase_expired);
+                }*/
+
+                $active_products = $products_purchase_started;
+
+                return view('backend.customer.customers.add_product', compact('user', 'shop', 'seller', 'active_products'));
+            } else {
+                return back();
+            }
+        } else {
+            return back();
+        }
+    }
+
+    public function add_customer_order(Request $request)
+    {
+        (new OrderController)->save_order_from_backend($request);
+        dd($request);
     }
 }

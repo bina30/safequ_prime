@@ -49,11 +49,9 @@
             <div class="container">
                 <div class="row justify-content-center">
 
-                    @if ($categories)
+                    @if ($categories && (count($products_purchase_expired) > 0 || count($products_purchase_started) > 0))
                         <div class="col-12 pb-md-5 pb-4 px-2">
                             <div class="srch-fltr-card mb-md-0 mb-2">
-                                <!--<h5 class="fw700 mb-0" id="filter_name">Items</h5>-->
-{{--                                <ul class="item-tags pb-3 mb-0 flex-acenter-jbtw">--}}
                                 <ul class="item-tags pb-3 mb-0 flex-acenter-jbtw">
                                     <li class="active_filter filter-button" data-filter="all"> All </li>
 
@@ -148,7 +146,13 @@
                                                                         {{ $orderDetail->order->user->name }}</p>
                                                                     <p class="mb-0 lh-17">
                                                                         <span class="fsize13 body-txt ordered-qty">
-                                                                            {{ $orderDetail->quantity }}{{ $expired_product->unit }}
+                                                                            @php
+                                                                                $qty_unit = ($orderDetail->quantity * floatval($expired_product->product->min_qty)) . ' ' . $expired_product->product->unit;
+                                                                                if($orderDetail->quantity * floatval($expired_product->product->min_qty) < 1){
+                                                                                    $qty_unit = (1000 * floatval($expired_product->product->min_qty)) . ' ' . $expired_product->product->secondary_unit;
+                                                                                }
+                                                                            @endphp
+                                                                            {{ $qty_unit }}
                                                                         </span>
                                                                         <span class="fsize13 body-txt ordered-qty">
                                                                             &nbsp;&bull;&nbsp;
@@ -175,12 +179,18 @@
 
                     @if (count($products_purchase_started) > 0)
                         @foreach ($products_purchase_started as $product)
+                            @php
+                                $qty_unit_main = $product->product->unit;
+                                if (floatval($product->product->min_qty) < 1) {
+                                        $qty_unit_main = (1000 * floatval($product->product->min_qty)) . ' ' . $product->product->secondary_unit;
+                                    }
+                            @endphp
                             <div class="col-lg-4 col-md-6 col-sm-8 px-2 pb-4 filter {{ $product->product->category->slug }} ">
                                 <!-- Item Cards -->
                                 <div class="item-card">
                                     <div class="card-top">
                                         <div class="pricing text-center">
-                                            <span class="text-white">Price / {{ $product->product->unit }}</span>
+                                            <span class="text-white">Price / {{ $qty_unit_main }}</span>
                                             <h6 class="mb-0 mt-2 mx-auto">
                                                 {!! single_price_web($product->price) !!}
                                             </h6>

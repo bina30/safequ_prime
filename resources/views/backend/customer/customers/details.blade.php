@@ -8,14 +8,11 @@
                 <div class="card-header">
                     <h6 class="mb-0 fs-14">{{ translate('Information') }}</h6>
                 </div>
-                <div class="card-body" style="height: 275px;">
+                <div class="card-body">
                     <p><b>Name: </b> {{ $user->name }}</p>
                     <p><b>Email: </b> {{ $user->email }}</p>
                     <p><b>Phone: </b> {{ $user->phone }}</p>
                     <p><b>Address: </b> {{ $user->address }}</p>
-                    <p><b>City: </b> {{ $user->city }}</p>
-                    <p><b>State: </b> {{ $user->state }}</p>
-                    <p><b>Country: </b> {{ $user->country }}</p>
                 </div>
             </div>
         </div>
@@ -43,7 +40,7 @@
                         <div class="px-3 pt-3">
                             <div class="opacity-50">
                                 <span class="fs-12 d-block">{{ translate('Total') }}</span>
-                                {{ translate('Order') }}
+                                {{ translate('Orders') }}
                             </div>
                             <div class="h3 fw-700 mb-3">{{ $user->orders->count() }}</div>
                         </div>
@@ -60,7 +57,7 @@
     <div class="aiz-titlebar text-left mt-2 mb-3">
         <div class="align-items-center">
             <div class="text-md-right">
-                <a href="{{ route('languages.create') }}" class="btn btn-circle btn-info">
+                <a href="{{ route('customers.add_product', $user->id) }}" class="btn btn-circle btn-info">
                     <span>{{translate('Add New Order')}}</span>
                 </a>
             </div>
