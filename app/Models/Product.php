@@ -27,6 +27,16 @@ class Product extends Model
         return $this->hasMany(ProductTranslation::class);
     }
 
+    public function parent_category()
+    {
+        return $this->belongsTo(Category::class, 'parent_category_id');
+    }
+
+    public function sub_category()
+    {
+        return $this->belongsTo(Category::class, 'sub_category_id');
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

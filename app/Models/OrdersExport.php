@@ -22,10 +22,11 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
 
     public function collection()
     {
-        $orders = Order::orderBy('id', 'desc');
+        $orders = OrderDetail::orderBy('id', 'desc');
         if ($this->search != null) {
-            $sort_search = $this->search;
-            $orders = $orders->where('code', 'like', '%' . $sort_search . '%');
+            $orders = $orders->whereHas('order', function ($query) {
+                $query->where('code', 'like', '%' . $this->search . '%');
+            });
         }
         if ($this->delivery_status != null) {
             $orders = $orders->where('delivery_status', $this->delivery_status);
@@ -40,17 +41,24 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
     public function headings(): array
     {
         return [
-            'SrNo',
             'OrderCode',
             'Date',
-            'User',
-            'Seller',
-            'ShippingAddress',
-            'DeliveryStatus',
-            'PaymentType',
+            'DeliveryDate',
+            'Name',
+            'Phone',
+            'Community',
+            'FlatNo',
+            'Product',
+            'Category',
+            'Sub Category',
+            'Variant',
+            'FarmLocation',
+            'Qty',
+            'Price',
+            'TotalPrice',
             'PaymentStatus',
-            'PaymentDetails',
-            'GrandTotal',
+            'PaymentType',
+            'DeliveryStatus',
         ];
     }
 
@@ -59,21 +67,39 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
     */
     public function map($order): array
     {
-        $userName = isset($order->user) ? $order->user->name : $order->user_id;
-        $sellerName = isset($order->seller) ? $order->seller->name : $order->seller_id;
+        $userName = isset($order->order) && isset($order->order->user) ? $order->order->user->name : '--';
+        $userPhone = isset($order->order) && isset($order->order->user) ? str_replace('+91', '', $order->order->user->phone) : '--';
+        $communityName = isset($order->product) && isset($order->product->user) ? $order->product->user->name : $order->seller_id;
+        $flatNo = isset($order->order) && isset($order->order->user) ? $order->order->user->address : '--';
+        $parentCategory = isset($order->product) && isset($order->product->parent_category) ? $order->product->parent_category->name : '--';
+        $subCategory = isset($order->product) && isset($order->product->sub_category) ? $order->product->sub_category->name : '--';
+        $category = isset($order->product) && isset($order->product->category) ? $order->product->category->name : '--';
+        $farmLocation = isset($order->product) ? $order->product->manufacturer_location : '--';
+
+        $deliveryDate = '--';
+        if (isset($order->product_stock) && isset($order->product_stock->purchase_end_date)) {
+            $deliveryDate = date('d-m-Y', strtotime($order->product_stock->purchase_end_date. '+' . intval($order->product_stock->est_shipping_days) . ' days'));
+        }
 
         return [
-            $order->id,
-            $order->code,
+            $order->order->code,
             $order->created_at,
+            $deliveryDate,
             $userName,
-            $sellerName,
-            $order->shipping_address,
-            $order->delivery_status,
-            $order->payment_type,
+            $userPhone,
+            $communityName,
+            $flatNo,
+            $order->product->name,
+            $parentCategory,
+            $subCategory,
+            $category,
+            $farmLocation,
+            $order->quantity,
+            $order->price,
+            $order->order->grand_total,
             $order->payment_status,
-            $order->payment_details,
-            $order->grand_total,
+            $order->order->payment_type,
+            $order->delivery_status,
         ];
     }
 }
