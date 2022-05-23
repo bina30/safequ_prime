@@ -127,13 +127,12 @@
                 <table class="table table-bordered aiz-table invoice-summary">
                     <thead>
                         <tr class="bg-trans-dark">
-                            <th data-breakpoints="lg" class="min-col">#</th>
+                            <th class="min-col">#</th>
                             <th width="10%">{{translate('Photo')}}</th>
                             <th class="text-uppercase">{{translate('Description')}}</th>
-                            <th data-breakpoints="lg" class="text-uppercase">{{translate('Delivery Type')}}</th>
-                            <th data-breakpoints="lg" class="min-col text-center text-uppercase">{{translate('Qty')}}</th>
-                            <th data-breakpoints="lg" class="min-col text-center text-uppercase">{{translate('Price')}}</th>
-                            <th data-breakpoints="lg" class="min-col text-right text-uppercase">{{translate('Total')}}</th>
+                            <th class="min-col text-center text-uppercase">{{translate('Qty')}}</th>
+                            <th class="min-col text-center text-uppercase">{{translate('Price')}}</th>
+                            <th class="min-col text-right text-uppercase">{{translate('Total')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -142,33 +141,21 @@
                             <td>{{ $key+1 }}</td>
                             <td>
                                 @if ($orderDetail->product != null && $orderDetail->product->auction_product == 0)
-                                    <a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank"><img height="50" src="{{ uploaded_asset($orderDetail->product->thumbnail_img) }}"></a>
+                                    <p><img height="50" src="{{ uploaded_asset($orderDetail->product->thumbnail_img) }}"></p>
                                 @elseif ($orderDetail->product != null && $orderDetail->product->auction_product == 1)
-                                    <a href="{{ route('auction-product', $orderDetail->product->slug) }}" target="_blank"><img height="50" src="{{ uploaded_asset($orderDetail->product->thumbnail_img) }}"></a>
+                                    <p><img height="50" src="{{ uploaded_asset($orderDetail->product->thumbnail_img) }}"></p>
                                 @else
                                     <strong>{{ translate('N/A') }}</strong>
                                 @endif
                             </td>
                             <td>
                                 @if ($orderDetail->product != null && $orderDetail->product->auction_product == 0)
-                                    <strong><a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank" class="text-muted">{{ $orderDetail->product->getTranslation('name') }}</a></strong>
+                                    <strong><p class="text-muted">{{ $orderDetail->product->getTranslation('name') }}</p></strong>
                                     <small>{{ $orderDetail->variation }}</small>
                                 @elseif ($orderDetail->product != null && $orderDetail->product->auction_product == 1)
-                                    <strong><a href="{{ route('auction-product', $orderDetail->product->slug) }}" target="_blank" class="text-muted">{{ $orderDetail->product->getTranslation('name') }}</a></strong>
+                                    <strong><p class="text-muted">{{ $orderDetail->product->getTranslation('name') }}</p></strong>
                                 @else
                                     <strong>{{ translate('Product Unavailable') }}</strong>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($order->shipping_type != null && $order->shipping_type == 'home_delivery')
-                                {{ translate('Home Delivery') }}
-                                @elseif ($order->shipping_type == 'pickup_point')
-
-                                @if ($order->pickup_point != null)
-                                {{ $order->pickup_point->getTranslation('name') }} ({{ translate('Pickup Point') }})
-                                @else
-                                {{ translate('Pickup Point') }}
-                                @endif
                                 @endif
                             </td>
                             <td class="text-center">{{ $orderDetail->quantity }}</td>
