@@ -25,29 +25,7 @@
                                            placeholder="{{ translate('Customer Name') }}" value="{{ $user->name }}" disabled>
                                 </div>
                             </div>
-
-                            <div class="form-group row" id="category">
-                                <label class="col-md-3 col-from-label">{{translate('Proudct')}} <span
-                                        class="text-danger">*</span></label>
-                                <div class="col-md-8">
-                                    <select class="form-control aiz-selectpicker" name="proudct_id" id="proudct_id"
-                                            data-live-search="true" required>
-                                        <option value=""></option>
-                                        @foreach ($active_products as $product)
-                                            <option value="{{ $product->id }}">{{ $product->product->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{translate('Quantity')}} <span
-                                        class="text-danger">*</span></label>
-                                <div class="col-md-8">
-                                    <input type="number" lang="en" class="form-control" name="quantity" value="1"
-                                           min="0.1" step="0.001" required>
-                                </div>
-                            </div>
-                            <div class="form-group row" id="category">
+                            <div class="form-group row" id="payment_status">
                                 <label class="col-md-3 col-from-label">{{translate('Payment Status')}} <span
                                         class="text-danger">*</span></label>
                                 <div class="col-md-8">
@@ -70,6 +48,81 @@
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" name="transaction_id" id="transaction_id"
                                            placeholder="{{ translate('GP123456 etc..') }}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-from-label">
+                                    {{translate('Products')}} <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-md-9">
+                                    <div class="qunatity-price">
+                                        <div class="row gutters-5">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <select class="form-control aiz-selectpicker" name="proudct[]" data-live-search="true" required onchange="loadProductUnit(this);">
+                                                        <option value="">Select Product</option>
+                                                        @foreach ($active_products as $product)
+                                                            <option value="{{ $product->id }}" data-unit_label="{{ $product->unit_label }}">
+                                                                {{ $product->product->name. ' ['.$product->product->variation.']' }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control prod_qty" placeholder="{{ translate('Qty') }}" name="prod_qty[]" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control prod_unit" placeholder="{{ translate('Unit') }}" name="price_per_unit[]">
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <button type="button" class="mt-1 btn btn-icon btn-circle btn-sm btn-soft-danger" data-toggle="remove-parent" data-parent=".row">
+                                                    <i class="las la-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        class="btn btn-soft-secondary btn-sm"
+                                        data-toggle="add-more"
+                                        data-content='<div class="row gutters-5">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <select class="form-control aiz-selectpicker" name="proudct[]" data-live-search="true" required onchange="loadProductUnit(this);">
+                                                <option value="">Select Product</option>
+                                                @foreach ($active_products as $product)
+                                                <option value="{{ $product->id }}" data-unit_label="{{ $product->unit_label }}">
+                                                                    {{ $product->product->name. ' ['.$product->product->variation.']' }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control prod_qty" placeholder="{{ translate('Qty') }}" name="prod_qty[]" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control prod_unit" placeholder="{{ translate('Unit') }}" name="price_per_unit[]">
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <button type="button" class="mt-1 btn btn-icon btn-circle btn-sm btn-soft-danger" data-toggle="remove-parent" data-parent=".row">
+                                                    <i class="las la-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>'
+                                        data-target=".qunatity-price">
+                                        {{ translate('Add More') }}
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -120,6 +173,11 @@
                 $('#payment_type').removeAttr('required');
                 $('#transaction_id').removeAttr('required');
             }
+        }
+
+        function loadProductUnit(Obj) {
+            let unit_label = $(Obj).find(':selected').data('unit_label');
+            $(Obj).parent().parent().parent().parent().find('.prod_unit').val(unit_label);
         }
 
     </script>

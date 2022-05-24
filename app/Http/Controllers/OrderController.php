@@ -462,26 +462,76 @@ class OrderController extends Controller
         $combined_order->user_id = $user->id;
         $combined_order->shipping_address = json_encode($shippingAddress);
         $combined_order->save();
-        dd($request->proudct_id);
-
-        $product = Product::find($request->proudct_id);
-        $product_stock = ProductStock::find($request->proudct_id);
 
         $order = new Order;
         $order->combined_order_id = $combined_order->id;
-        $order->user_id = Auth::user()->id;
+        $order->user_id = $request->user_id;
         $order->shipping_address = $combined_order->shipping_address;
-        $order->shipping_type = $carts[0]['shipping_type'];
-        if ($carts[0]['shipping_type'] == 'pickup_point') {
-            $order->pickup_point_id = $cartItem['pickup_point'];
-        }
-        $order->payment_type = $request->payment_option;
+        $order->payment_type = $request->payment_type;
+        $order->payment_status = $request->payment_status;
         $order->delivery_viewed = '0';
         $order->payment_status_viewed = '0';
+        $order->added_by_admin = 1;
         $order->code = date('Ymd-His') . rand(10, 99);
         $order->date = strtotime('now');
         $order->save();
 
+        $subtotal = 0;
+        $tax = 0;
+        $shipping = 0;
+        $coupon_discount = 0;
+
+        $prod_qty = $request->prod_qty;
+        foreach ($request->proudct as $key => $val){
+            $product_stock = ProductStock::find($val);
+            $product = $product_stock->product;
+
+            $productPrice = $product_stock->price;
+
+            $wholesalePrice = $product_stock->wholesalePrices->where('min_qty', '<=', $prod_qty[$key])->where('max_qty', '>=', $prod_qty[$key])->first();
+            if ($wholesalePrice) {
+                $productPrice = $wholesalePrice->price;
+            }
+
+            $subtotal += $productPrice * $prod_qty[$key];
+
+            $product_stock->qty -= $prod_qty[$key];
+            $product_stock->save();
+
+            $order_detail = new OrderDetail;
+            $order_detail->order_id = $order->id;
+            $order_detail->seller_id = $product->user_id;
+            $order_detail->product_id = $product->id;
+            $order_detail->product_stock_id = $product_stock->id;
+            $order_detail->price =  $productPrice * $prod_qty[$key];
+            $order_detail->tax = $tax;
+            $order_detail->shipping_cost = $shipping;
+            $order_detail->quantity = $prod_qty[$key];
+            $order_detail->payment_status = $request->payment_status;
+
+            $shipping += $order_detail->shipping_cost;
+
+            //End of storing shipping cost
+            $order_detail->save();
+
+            $product->num_of_sale += $prod_qty[$key];
+            $product->save();
+
+            $payment_details = '';
+            if($request->payment_status == 'paid') {
+                $payment_details = json_encode(array('id' => $request->transaction_id, 'method' => $request->payment_type, 'amount' => $productPrice * $prod_qty[$key]));
+            }
+            $order->payment_details = $payment_details;
+            $order->seller_id = $product->user_id;
+
+            $order->grand_total = $subtotal + $tax + $shipping;
+
+            $combined_order->grand_total += $order->grand_total;
+
+            $order->save();
+        }
+
+        $combined_order->save();
     }
 
     /**

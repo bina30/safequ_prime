@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductStock;
 use App\Models\Seller;
 use App\Models\Shop;
 use Illuminate\Http\Request;
@@ -170,7 +171,7 @@ class CustomerController extends Controller
         $user = User::findOrFail($id);
 
         if ($user) {
-            $order_details = $user->order_details;
+            $order_details = $user->all_order_details;
             $wallet_history = $user->wallets;
 
             return view('backend.customer.customers.details', compact('user', 'order_details', 'wallet_history'));
@@ -192,13 +193,31 @@ class CustomerController extends Controller
                 $products_purchase_expired = isset($seller->products_purchase_expired) ? $seller->products_purchase_expired : [];
 
                 $active_products = [];
-                /*if (!$products_purchase_expired->isEmpty() && !$products_purchase_started->isEmpty()) {
-                    $active_products = array_merge($products_purchase_started, $products_purchase_expired);
-                } else {
-                    $active_products = (!$products_purchase_started->isEmpty() ? $products_purchase_started : $products_purchase_expired);
-                }*/
+                foreach ($products_purchase_started AS $product) {
+                    $unit = '';
+                    if (floatval($product->product->min_qty) >= 1) {
+                        $unit = floatval(1000 * $product->product->min_qty) . ' ' . $product->product->secondary_unit;
+                    } else {
+                        $unit = floatval(1000 * $product->product->min_qty) . ' ' . $product->product->secondary_unit;
+                    }
 
-                $active_products = $products_purchase_started;
+                    $unit = single_price($product->price).' / '.$unit;
+                    $product->unit_label = $unit;
+                    $active_products[] = $product;
+                }
+
+                foreach ($products_purchase_expired AS $product) {
+                    $unit = '';
+                    if (floatval($product->product->min_qty) >= 1) {
+                        $unit = floatval(1000 * $product->product->min_qty) . ' ' . $product->product->secondary_unit;
+                    } else {
+                        $unit = floatval(1000 * $product->product->min_qty) . ' ' . $product->product->secondary_unit;
+                    }
+
+                    $unit = single_price($product->price).'/'.$unit;
+                    $product->unit_label = $unit;
+                    $active_products[] = $product;
+                }
 
                 return view('backend.customer.customers.add_product', compact('user', 'shop', 'seller', 'active_products'));
             } else {
@@ -211,7 +230,27 @@ class CustomerController extends Controller
 
     public function add_customer_order(Request $request)
     {
-        (new OrderController)->save_order_from_backend($request);
-        dd($request);
+        $qtyAvailable = true;
+        $msg = '';
+        $prod_qty = $request->prod_qty;
+        foreach($request->proudct AS $key => $val) {
+            $productStock = ProductStock::find($val);
+            if (floatval($prod_qty[$key]) > floatval($productStock->qty)) {
+                $msg = 'Available quantity for '.$productStock->product->name.' is less then required quantity';
+                $qtyAvailable = false;
+                break;
+            }
+        }
+
+        if ($qtyAvailable == true) {
+            (new OrderController)->save_order_from_backend($request);
+
+            flash(translate('Order has been added.'))->success();
+            return redirect()->route('customers.detail', $request->user_id);
+        } else {
+            flash($msg)->error();
+            return back();
+        }
+
     }
 }

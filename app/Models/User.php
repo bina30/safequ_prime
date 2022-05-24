@@ -86,6 +86,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasManyThrough(OrderDetail::class, Order::class, 'user_id', 'order_id', 'id', 'id')->where('orders.payment_status', 'paid');
     }
 
+    public function all_order_details()
+    {
+        return $this->hasManyThrough(OrderDetail::class, Order::class, 'user_id', 'order_id', 'id', 'id');
+    }
+
     public function seller_orders()
     {
         return $this->hasMany(Order::class);
