@@ -37,3 +37,6 @@ ALTER TABLE `order_details` ADD COLUMN `product_stock_id` int(11) NULL AFTER `pr
 /* Dt: 19-05-22 */
 ALTER TABLE `products` ADD COLUMN `parent_category_id` int(11) NOT NULL AFTER `user_id`;
 ALTER TABLE `products` ADD COLUMN `sub_category_id` int(11) NOT NULL AFTER `parent_category_id`;
+
+/* Dt: 24-05-22 */
+ALTER TABLE `products` ADD COLUMN `variation` varchar(255) NULL AFTER `category_id`;

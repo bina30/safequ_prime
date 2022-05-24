@@ -28,15 +28,11 @@
         <table class="table aiz-table mb-0">
             <thead>
                 <tr>
-                    <th data-breakpoints="lg">#</th>
+                    <th>#</th>
                     <th>{{translate('Name')}}</th>
-                    <th data-breakpoints="lg">{{ translate('Parent Category') }}</th>
-                    <th data-breakpoints="lg">{{ translate('Order Level') }}</th>
-                    <th data-breakpoints="lg">{{ translate('Level') }}</th>
-                    <th data-breakpoints="lg">{{translate('Banner')}}</th>
-                    <th data-breakpoints="lg">{{translate('Icon')}}</th>
-                    <th data-breakpoints="lg">{{translate('Featured')}}</th>
-                    <th data-breakpoints="lg">{{translate('Commission')}}</th>
+                    <th>{{ translate('Parent Category') }}</th>
+                    <th>{{translate('Banner')}}</th>
+                    <th>{{translate('Icon')}}</th>
                     <th width="10%" class="text-right">{{translate('Options')}}</th>
                 </tr>
             </thead>
@@ -55,8 +51,6 @@
                                 —
                             @endif
                         </td>
-                        <td>{{ $category->order_level }}</td>
-                        <td>{{ $category->level }}</td>
                         <td>
                             @if($category->banner != null)
                                 <img src="{{ uploaded_asset($category->banner) }}" alt="{{translate('Banner')}}" class="h-50px">
@@ -73,13 +67,6 @@
                                 —
                             @endif
                         </td>
-                        <td>
-                            <label class="aiz-switch aiz-switch-success mb-0">
-                                <input type="checkbox" onchange="update_featured(this)" value="{{ $category->id }}" <?php if($category->featured == 1) echo "checked";?>>
-                                <span></span>
-                            </label>
-                        </td>
-                        <td>{{ $category->commision_rate }} %</td>
                         <td class="text-right">
                             <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('categories.edit', ['id'=>$category->id, 'lang'=>env('DEFAULT_LANGUAGE')] )}}" title="{{ translate('Edit') }}">
                                 <i class="las la-edit"></i>

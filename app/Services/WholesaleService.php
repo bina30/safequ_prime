@@ -42,7 +42,8 @@ class WholesaleService
         $product->added_by = $added_by;
         $product->parent_category_id = $request->parent_category_id;
         $product->sub_category_id = $request->sub_category_id;
-        $product->category_id = (intval($request->category_id) == 0 ? $request->sub_category_id : $request->category_id);
+        $product->category_id = $request->sub_category_id;
+        $product->variation = $request->variation;
         $product->brand_id = $request->brand_id;
         $product->barcode = $request->barcode;
         $product->manufacturer_location = $request->manufacturer_location;
@@ -203,7 +204,8 @@ class WholesaleService
         $request->category_id = (intval($request->category_id) == 0 ? $request->sub_category_id : $request->category_id);
         $product->parent_category_id = $request->parent_category_id;
         $product->sub_category_id = $request->sub_category_id;
-        $product->category_id = $request->category_id;
+        $product->category_id = $request->sub_category_id;
+        $product->variation = $request->variation;
         $product->brand_id = $request->brand_id;
         $product->barcode = $request->barcode;
         $product->cash_on_delivery = 0;

@@ -14,16 +14,6 @@
                     <input type="hidden" name="lang" value="{{ $lang }}">
                     @csrf
                     <div class="card">
-                    <!--                    <ul class="nav nav-tabs nav-fill border-light">
-                        @foreach (\App\Models\Language::all() as $key => $language)
-                        <li class="nav-item">
-                            <a class="nav-link text-reset @if ($language->code == $lang) active @else bg-soft-dark border-light border-left-0 @endif py-3" href="{{ route('wholesale_product_edit.admin', ['id'=>$product->id, 'lang'=> $language->code] ) }}">
-                                <img src="{{ static_asset('assets/img/flags/'.$language->code.'.png') }}" height="11" class="mr-1">
-                                <span>{{$language->name}}</span>
-                            </a>
-                        </li>
-                        @endforeach
-                            </ul>-->
                         <div class="card-body">
                             <div class="form-group row">
                                 <label class="col-lg-3 col-from-label">{{translate('Product Name')}} <i
@@ -35,21 +25,6 @@
                                            value="{{ $product->getTranslation('name', $lang) }}" required>
                                 </div>
                             </div>
-<!--                            <div class="form-group row" id="category">
-                                <label class="col-lg-3 col-from-label">{{translate('Category')}}</label>
-                                <div class="col-lg-8">
-                                    <select class="form-control aiz-selectpicker" name="category_id" id="category_id"
-                                            data-selected="{{ $product->category_id }}" data-live-search="true"
-                                            required>
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->getTranslation('name') }}</option>
-                                            @foreach ($category->childrenCategories as $childCategory)
-                                                @include('categories.child_category', ['child_category' => $childCategory])
-                                            @endforeach
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>-->
                             <div class="form-group row" id="category">
                                 <label class="col-md-3 col-from-label">{{translate('Category')}} <span
                                         class="text-danger">*</span></label>
@@ -79,17 +54,11 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row" id="cat_variant">
-                                <label class="col-md-3 col-from-label">{{translate('Varieties')}} </label>
-                                <div class="col-md-8" id="cat_variant_select">
-                                    <select class="form-control aiz-selectpicker" name="category_id" id="category_id"
-                                            data-live-search="true">
-                                        @foreach ($cat_variants as $cat_variant)
-                                            <option value="{{ $cat_variant->id }}" @if($cat_variant->id == $product->category_id) selected @endif >
-                                                {{ $cat_variant->getTranslation('name') }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-from-label">{{translate('Variation')}}</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="variation"
+                                           placeholder="{{ translate('Variation') }}" value="{{ $product->variation }}">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -651,46 +620,12 @@
                     id: $(this).val()
                 }, function (data) {
                     $('#sub_category_select').html('');
-                    $("select[name=category_id]").val('');
                     $('#sub_category_select').html(data.subcategory);
 
                     $("select[name=sub_category_id]").selectpicker("refresh");
-                    $("select[name=category_id]").selectpicker("refresh");
                 });
             }
         });
-
-        $("#sub_category_id").on("change", function () {
-            if ($(this).val() > 0) {
-                $.post('{{ route('wholesale_products.load_category_variant') }}', {
-                    _token: AIZ.data.csrf,
-                    id: $(this).val()
-                }, function (data) {
-                    $('#cat_variant_select').html('');
-                    $('#cat_variant_select').html(data.subcategory);
-
-                    $("select[name=category_id]").selectpicker("refresh");
-                });
-            }
-        });
-
-        function loadCatVarieties(obj) {
-            $.post('{{ route('wholesale_products.load_category_variant') }}', {
-                _token: AIZ.data.csrf,
-                id: $(obj).val()
-            }, function (data) {
-                $('#cat_variant_select').html('');
-                $('#cat_variant_select').html(data.subcategory);
-
-                $("select[name=category_id]").selectpicker("refresh");
-
-                if (data.result == 0) {
-                    $("select[name=category_id]").removeAttr('required');
-                } else {
-                    $("select[name=category_id]").attr('required');
-                }
-            });
-        }
 
         AIZ.plugins.tagify();
 

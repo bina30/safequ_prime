@@ -151,7 +151,8 @@
                             <td>
                                 @if ($orderDetail->product != null && $orderDetail->product->auction_product == 0)
                                     <strong><p class="text-muted">{{ $orderDetail->product->getTranslation('name') }}</p></strong>
-                                    <small>{{ $orderDetail->variation }}</small>
+                                    <small><b>Variation: </b>{{ $orderDetail->product->variation }}</small><br/>
+                                    <small><b>Location: </b>{{ $orderDetail->product->manufacturer_location }}</small>
                                 @elseif ($orderDetail->product != null && $orderDetail->product->auction_product == 1)
                                     <strong><p class="text-muted">{{ $orderDetail->product->getTranslation('name') }}</p></strong>
                                 @else

@@ -213,7 +213,7 @@
                                         <div class="px-2">
                                             <h6 class="pt-1 fw700 mb-1">{{ $product->product->name }}</h6>
                                             <p class="fw600f fsize13 body-txt mb-2">
-                                                Variety: {{ $product->product->category->name }}</p>
+                                                Variety: {{ $product->product->variation }}</p>
                                             {{-- <p class="rating-stars"> --}}
                                             {{-- {{ renderStarRating($product->rating) }} --}}
                                             {{-- </p> --}}

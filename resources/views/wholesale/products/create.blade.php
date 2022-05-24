@@ -25,21 +25,6 @@
                                            required>
                                 </div>
                             </div>
-<!--                            <div class="form-group row" id="category">
-                                <label class="col-md-3 col-from-label">{{translate('Category')}} <span
-                                            class="text-danger">*</span></label>
-                                <div class="col-md-8">
-                                    <select class="form-control aiz-selectpicker" name="category_id" id="category_id"
-                                            data-live-search="true" required>
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->getTranslation('name') }}</option>
-                                            @foreach ($category->childrenCategories as $childCategory)
-                                                @include('categories.child_category', ['child_category' => $childCategory])
-                                            @endforeach
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>-->
                             <div class="form-group row" id="category">
                                 <label class="col-md-3 col-from-label">{{translate('Category')}} <span
                                         class="text-danger">*</span></label>
@@ -65,15 +50,11 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row" id="cat_variant">
-                                <label class="col-md-3 col-from-label">{{translate('Varieties')}} </label>
-                                <div class="col-md-8" id="cat_variant_select">
-                                    <select class="form-control aiz-selectpicker" name="category_id" id="category_id"
-                                            data-live-search="true" required>
-                                        @foreach ($cat_variants as $cat_variant)
-                                            <option value="{{ $cat_variant->id }}">{{ $cat_variant->getTranslation('name') }}</option>
-                                        @endforeach
-                                    </select>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-from-label">{{translate('Variation')}}</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="variation"
+                                           placeholder="{{ translate('Variation') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -593,38 +574,6 @@
                 });
             }
         });
-
-        $("#sub_category_id").on("change", function () {
-            if ($(this).val() > 0) {
-                $.post('{{ route('wholesale_products.load_category_variant') }}', {
-                    _token: AIZ.data.csrf,
-                    id: $(this).val()
-                }, function (data) {
-                    $('#cat_variant_select').html('');
-                    $('#cat_variant_select').html(data.subcategory);
-
-                    $("select[name=category_id]").selectpicker("refresh");
-                });
-            }
-        });
-
-        function loadCatVarieties(obj) {
-            $.post('{{ route('wholesale_products.load_category_variant') }}', {
-                _token: AIZ.data.csrf,
-                id: $(obj).val()
-            }, function (data) {
-                $('#cat_variant_select').html('');
-                $('#cat_variant_select').html(data.subcategory);
-
-                $("select[name=category_id]").selectpicker("refresh");
-
-                if (data.result == 0) {
-                    $("select[name=category_id]").removeAttr('required');
-                } else {
-                    $("select[name=category_id]").attr('required');
-                }
-            });
-        }
 
     </script>
 
