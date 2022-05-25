@@ -161,7 +161,7 @@
     @include('modals.delete_modal')
 
     <!-- offline payment Modal -->
-    <
+
     <div class="modal fade" id="offline_wallet_recharge_modal" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

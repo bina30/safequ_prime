@@ -747,6 +747,9 @@ class OrderController extends Controller
     public function update_payment_status(Request $request)
     {
         $order = Order::findOrFail($request->order_id);
+        if($request->status == 'paid' && $request->added_by_admin == 1) {
+            $order->payment_details = json_encode(array('id' => $request->transaction_id, 'method' => $request->payment_type, 'amount' => $order->grand_total));
+        }
         $order->payment_status_viewed = '0';
         $order->save();
 
@@ -799,7 +802,13 @@ class OrderController extends Controller
 
             }
         }
-        return 1;
+
+        if (isset($request->form_type) && $request->form_type == 'modal') {
+            flash(translate('Payment status has been updated.'))->success();
+            return redirect()->route('all_orders.show', encrypt($order->id));
+        } else {
+            return 1;
+        }
     }
 
     public function assign_delivery_boy(Request $request)
