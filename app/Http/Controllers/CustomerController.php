@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\User;
 use App\Models\Order;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -252,5 +253,80 @@ class CustomerController extends Controller
             return back();
         }
 
+    }
+
+    public function add_customer()
+    {
+        $sellers = Seller::all();
+
+        return view('backend.customer.customers.add_customer', compact('sellers'));
+    }
+
+    public function store_customer(Request $request)
+    {
+        $user = User::where('phone', '+' . $request->country_code . $request->phone)->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name'                => $request->name,
+                'phone'               => '+' . $request->country_code . $request->phone,
+                'password'            => Hash::make(123456),
+                'verification_code'   => rand(1000, 9999),
+                'balance'             => env('WELCOME_BONUS_AMOUNT'),
+                'joined_community_id' => $request->community_id,
+                'email'               => $request->email,
+                'email_verified_at'   => date('Y-m-d H:i:s'),
+                'address'             => $request->address
+            ]);
+
+            $user->referral_key = md5($user->id);
+            $user->save();
+
+            $customer = new Customer;
+            $customer->user_id = $user->id;
+            $customer->save();
+
+            flash(translate('Customer has been added.'))->success();
+            return redirect('admin/customers');
+        } else {
+            flash('Customer with same phone number already present.')->error();
+            return back();
+        }
+    }
+
+    public function edit_customer($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user) {
+            $sellers = Seller::all();
+
+            return view('backend.customer.customers.edit_customer', compact('user', 'sellers'));
+        } else {
+            flash('Customer not found')->error();
+            return back();
+        }
+    }
+
+    public function update_customer(Request $request)
+    {
+        $user_present = User::where('id', '!=', $request->user_id)->where('phone', '+' . $request->country_code . $request->phone)->first();
+
+        if (!$user_present) {
+            $user = User::where('id', $request->user_id)->first();
+
+            $user->name                 = $request->name;
+            $user->phone                = '+' . $request->country_code . $request->phone;
+            $user->joined_community_id  = $request->community_id;
+            $user->email                = $request->email;
+            $user->address              = $request->address;
+            $user->save();
+
+            flash(translate('Customer has been added.'))->success();
+            return redirect('admin/customers');
+        } else {
+            flash('Customer with same phone number already present.')->error();
+            return back();
+        }
     }
 }

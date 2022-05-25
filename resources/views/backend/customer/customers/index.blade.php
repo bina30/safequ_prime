@@ -3,8 +3,15 @@
 @section('content')
 
     <div class="aiz-titlebar text-left mt-2 mb-3">
-        <div class="align-items-center">
-            <h1 class="h3">{{translate('All Customers')}}</h1>
+        <div class="row align-items-center">
+            <div class="col-auto">
+                <h1 class="h3">{{translate('All Customers')}}</h1>
+            </div>
+            <div class="col text-right">
+                <a href="{{ route('customers.add') }}" class="btn btn-circle btn-info">
+                    <span>{{translate('Add New Customer')}}</span>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -78,6 +85,11 @@
                                 <td>{{$user->phone}}</td>
                                 <td>{{single_price($user->balance)}}</td>
                                 <td class="text-right">
+                                    <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
+                                       href="{{route('customers.edit', ['id'=>$user->id] )}}"
+                                       title="{{ translate('Edit') }}">
+                                        <i class="las la-edit"></i>
+                                    </a>
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                        href="{{route('customers.detail', ['id'=> $user->id] )}}"
                                        title="{{ translate('Edit') }}">

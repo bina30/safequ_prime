@@ -175,6 +175,14 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        $userData = User::where('phone', '+' . $request->country_code . $request->phone)->first();
+        if ($userData != null) {
+           if ($userData->banned == 1) {
+               flash(translate('Cannot login, you are banned from Admin.'))->error();
+               return back();
+           }
+        }
+
         /*if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
             if (User::where('email', $request->email)->first() != null) {
                 flash(translate('Email or Phone already exists.'));
