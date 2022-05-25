@@ -51,7 +51,7 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
             'Product',
             'Category',
             'Sub Category',
-            'Variant',
+            'Variation',
             'FarmLocation',
             'Qty',
             'Price',
@@ -72,8 +72,7 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
         $communityName = isset($order->product) && isset($order->product->user) ? $order->product->user->name : $order->seller_id;
         $flatNo = isset($order->order) && isset($order->order->user) ? $order->order->user->address : '--';
         $parentCategory = isset($order->product) && isset($order->product->parent_category) ? $order->product->parent_category->name : '--';
-        $subCategory = isset($order->product) && isset($order->product->sub_category) ? $order->product->sub_category->name : '--';
-        $category = isset($order->product) && isset($order->product->category) ? $order->product->category->name : '--';
+        $subCategory = isset($order->product) && isset($order->product->category_id) ? $order->product->category->name : '--';
         $farmLocation = isset($order->product) ? $order->product->manufacturer_location : '--';
 
         $deliveryDate = '--';
@@ -92,7 +91,7 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
             $order->product->name,
             $parentCategory,
             $subCategory,
-            $category,
+            $order->product->variation,
             $farmLocation,
             $order->quantity,
             $order->price,
