@@ -42,3 +42,6 @@ ALTER TABLE `products` ADD COLUMN `sub_category_id` int(11) NOT NULL AFTER `pare
 ALTER TABLE `products` ADD COLUMN `variation` varchar(255) NULL AFTER `category_id`;
 ALTER TABLE `orders` ADD COLUMN `added_by_admin` int(0) NULL COMMENT '0: No; 1: Yes' AFTER `commission_calculated`;
 ALTER TABLE `orders` MODIFY COLUMN `added_by_admin` int(11) NULL DEFAULT 0 COMMENT '0: No; 1: Yes' AFTER `commission_calculated`;
+
+/* Dt: 26-05-22 */
+ALTER TABLE `order_details` ADD COLUMN `is_archived` int(1) NULL DEFAULT 0 AFTER `product_referral_code`;

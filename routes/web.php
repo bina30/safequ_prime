@@ -14,6 +14,7 @@
 //demo
 Route::get('/demo/cron_1', 'DemoController@cron_1');
 Route::get('/demo/cron_2', 'DemoController@cron_2');
+Route::get('/cron/archive-product-stock', 'DemoController@archive_product_stock');
 Route::get('/convert_assets', 'DemoController@convert_assets');
 Route::get('/convert_category', 'DemoController@convert_category');
 Route::get('/convert_tax', 'DemoController@convertTaxes');

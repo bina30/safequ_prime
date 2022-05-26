@@ -21,6 +21,11 @@ class OrderDetail extends Model
         return $this->belongsTo(ProductStock::class);
     }
 
+    public function archive_product_stock()
+    {
+        return $this->belongsTo(ArchiveProductStock::class, 'product_stock_id');
+    }
+
     public function pickup_point()
     {
         return $this->belongsTo(PickupPoint::class);

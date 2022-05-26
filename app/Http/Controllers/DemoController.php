@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\ProductStock;
 use Illuminate\Http\Request;
 use DB;
@@ -569,5 +570,21 @@ class DemoController extends Controller
             $order->seller_id = $order->orderDetails[0]->seller_id;
             $order->save();
         }
+    }
+
+    public function archive_product_stock()
+    {
+        $product_stocks = ProductStock::whereRaw('DATE_ADD(purchase_end_date,INTERVAL IFNULL(est_shipping_days,0) day) < NOW()')->get();
+
+        $product_stocks->each(function ($oldRecord) {
+            $newRecord = $oldRecord->replicate();
+            $newRecord->setTable('archive_product_stocks');
+            $newRecord->id = $oldRecord->id;
+            $newRecord->save();
+
+            OrderDetail::where('product_stock_id', $oldRecord->id)->update(['is_archived' => 1]);
+
+            $oldRecord->delete();
+        });
     }
 }

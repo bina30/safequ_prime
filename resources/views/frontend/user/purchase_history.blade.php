@@ -49,6 +49,13 @@
                                     <th><b>Estimated Delivery Date</b></th>
                                     <tbody>
                                         @foreach($order->orderDetails AS $key => $detail)
+                                            @php
+                                                if ($detail->is_archived == 1):
+                                                    $deliveryDate = date('d M Y',strtotime($detail->archive_product_stock->purchase_end_date . '+' . intval($detail->archive_product_stock->est_shipping_days) . ' days'));
+                                                else:
+                                                    $deliveryDate = date('d M Y',strtotime($detail->product_stock->purchase_end_date . '+' . intval($detail->product_stock->est_shipping_days) . ' days'));
+                                                endif;
+                                            @endphp
                                             <tr>
                                                 <td style="width:5%"> {{ ++$key }} </td>
                                                 <td style="width:55%"> {{ $detail->product->name }} </td>
@@ -56,7 +63,7 @@
                                                     @if ($detail->delivery_status == 'delivered')
                                                         {{ date('d M Y',strtotime($detail->updated_at)).' [Delivered]' }}
                                                     @else
-                                                        {{ date('d M Y',strtotime($detail->product_stock->purchase_end_date . '+' . intval($detail->product_stock->est_shipping_days) . ' days')) }}
+                                                        {{ $deliveryDate }}
                                                     @endif
                                                 </td>
                                             </tr>
