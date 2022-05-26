@@ -8,6 +8,7 @@ use App\Models\ProductStock;
 use App\Models\ProductTax;
 use App\Models\ProductTranslation;
 use App\Models\Product;
+use App\Models\Seller;
 use App\Models\User;
 use App\Models\WholesalePrice;
 use Artisan;
@@ -403,6 +404,24 @@ class WholesaleService
 
     public function stock_add(Request $request)
     {
+        if ($request->seller_id == 0) { // When All Community is selected
+            $sellers = Seller::all();
+
+            foreach ($sellers AS $seller) {
+                $this->add_product_for_community($request, $seller->id);
+            }
+        } else { // When Single Community is selected
+            $this->add_product_for_community($request, $request->seller_id);
+        }
+
+        flash(translate('Product has been inserted successfully'))->success();
+
+        Artisan::call('view:clear');
+        Artisan::call('cache:clear');
+    }
+
+    public function add_product_for_community($request, $seller_id)
+    {
         $product_stock = new ProductStock;
         $product_stock->product_id = $request->product_id;
         $product_stock->variant = '';
@@ -411,8 +430,8 @@ class WholesaleService
         $product_stock->qty = $request->current_stock;
         $product_stock->est_shipping_days = $request->est_shipping_days;
 
-        if (intval($request->seller_id) > 0) {
-            $product_stock->seller_id = $request->seller_id;
+        if (intval($seller_id) > 0) {
+            $product_stock->seller_id = $seller_id;
         }
 
         if ($request->purchase_date_range != null) {
@@ -434,18 +453,43 @@ class WholesaleService
             }
         }
 
-        flash(translate('Product has been inserted successfully'))->success();
+        return true;
+    }
+
+    public function stock_update(Request $request, $id)
+    {
+        if ($request->seller_id == 0) {
+            $sellers = Seller::all();
+
+            foreach ($sellers AS $seller) {
+                $product_stock = ProductStock::where('seller_id', $seller->id)->where('product_id', $request->product_id)->first();
+
+                if ($product_stock) {
+                    $this->update_product_for_community($request, $seller->id, $product_stock->id);
+                } else {
+                    $this->add_product_for_community($request, $seller->id);
+                }
+            }
+        } else {
+            $this->update_product_for_community($request, $request->seller_id, $id);
+        }
+
+        flash(translate('Product has been updated successfully'))->success();
 
         Artisan::call('view:clear');
         Artisan::call('cache:clear');
     }
 
-    public function stock_update(Request $request, $id)
+    public function update_product_for_community($request, $seller_id, $id)
     {
         $product_stock = ProductStock::findOrFail($id);
 
-        if (intval($request->seller_id) > 0) {
-            $product_stock->seller_id = $request->seller_id;
+        $product_stock->price = $request->unit_price;
+        $product_stock->sku = $request->sku;
+        $product_stock->qty = $request->current_stock;
+        $product_stock->est_shipping_days = $request->est_shipping_days;
+        if (intval($seller_id) > 0) {
+            $product_stock->seller_id = $seller_id;
         }
 
         if ($request->purchase_date_range != null) {
@@ -453,7 +497,6 @@ class WholesaleService
             $product_stock->purchase_start_date = date('Y-m-d H:i:s', strtotime($purchase_date_var[0]));
             $product_stock->purchase_end_date = date('Y-m-d H:i:s', strtotime($purchase_date_var[1]));
         }
-        $product_stock->est_shipping_days = $request->est_shipping_days;
 
         $product_stock->save();
 
@@ -471,11 +514,6 @@ class WholesaleService
                 $wholesale_price->save();
             }
         }
-
-        flash(translate('Product has been updated successfully'))->success();
-
-        Artisan::call('view:clear');
-        Artisan::call('cache:clear');
     }
 
     public function stock_destroy($id)

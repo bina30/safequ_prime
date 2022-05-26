@@ -38,8 +38,8 @@
                         <option value="">{{ translate('All Sellers') }}</option>
                         @foreach (\App\Models\Seller::all() as $key => $seller)
                             @if ($seller->user != null && $seller->user->shop != null)
-                                <option value="{{ $seller->user->id }}"
-                                        @if ($seller->user->id == $seller_id) selected @endif>{{ $seller->user->shop->name }}
+                                <option value="{{ $seller->id }}"
+                                        @if ($seller->id == $seller_id) selected @endif>{{ $seller->user->shop->name }}
                                     ({{ $seller->user->name }})
                                 </option>
                             @endif
@@ -89,6 +89,7 @@
                         </th>
                         <th>{{translate('Name')}}</th>
                         <th data-breakpoints="sm">{{translate('Community')}}</th>
+                        <th data-breakpoints="sm">{{translate('Purchase Dates')}}</th>
                         <th data-breakpoints="sm">{{translate('Info')}}</th>
                         <th data-breakpoints="md">{{translate('Total Stock')}}</th>
                         <th data-breakpoints="sm" class="text-right">{{translate('Options')}}</th>
@@ -106,23 +107,28 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="row gutters-5 w-200px w-md-300px mw-100">
-                                    <div class="col-auto">
+                                <div class="row gutters-5">
+<!--                                    <div class="col-auto">
                                         <img src="{{ uploaded_asset($product->product->thumbnail_img)}}" alt="Image"
                                              class="size-50px img-fit">
-                                    </div>
+                                    </div>-->
                                     <div class="col">
                                         <span class="text-muted text-truncate-2">{{ $product->product->getTranslation('name') }}</span>
+                                        <strong>{{translate('Variation')}}
+                                            :</strong> {{ $product->product->variation }}
                                     </div>
                                 </div>
                             </td>
                             <td>{{ $product->seller->user->name }}</td>
                             <td>
+                                <strong>{{translate('From')}} :</strong> {{ $product->purchase_start_date }} </br>
+                                <strong>{{translate('To')}} :</strong> {{ $product->purchase_end_date }}
+                            </td>
+                            <td>
                                 <strong>{{translate('Num of Sale')}}
                                     :</strong> {{ $product->product->num_of_sale }} {{translate('times')}} </br>
                                 <strong>{{translate('Base Price')}}
-                                    :</strong> {{ single_price($product->product->unit_price) }} </br>
-                                <strong>{{translate('Rating')}}:</strong> {{ $product->product->rating }} </br>
+                                    :</strong> {{ single_price($product->product->unit_price) }}
                             </td>
                             <td>
                                 @php
