@@ -71,6 +71,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Shop::class);
     }
 
+    public function referred_user()
+    {
+        return $this->belongsTo(User::class, 'referred_by', 'id');
+    }
+
+    public function user_community()
+    {
+        return $this->belongsTo(User::class, 'joined_community_id', 'id');
+    }
+
     public function staff()
     {
         return $this->hasOne(Staff::class);

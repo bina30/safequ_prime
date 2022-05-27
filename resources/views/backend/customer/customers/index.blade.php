@@ -57,9 +57,10 @@
                             </div>
                         </th>
                         <th>{{translate('Name')}}</th>
-                        <th>{{translate('Email Address')}}</th>
+                        <th>{{translate('Community')}}</th>
                         <th>{{translate('Phone')}}</th>
                         <th>{{translate('Wallet Balance')}}</th>
+                        <th>{{translate('Referred By')}}</th>
                         <th>{{translate('Options')}}</th>
                     </tr>
                     </thead>
@@ -81,9 +82,22 @@
                                 </td>
                                 <td>@if($user->banned == 1) <i class="fa fa-ban text-danger"
                                                                aria-hidden="true"></i> @endif {{$user->name}}</td>
-                                <td>{{$user->email}}</td>
+                                <td>
+                                    @if($user->user_community != null)
+                                        {{ $user->user_community->name }}
+                                    @else
+                                        {{ '--' }}
+                                    @endif
+                                </td>
                                 <td>{{$user->phone}}</td>
                                 <td>{{single_price($user->balance)}}</td>
+                                <td>
+                                    @if($user->referred_user != null)
+                                        {{ $user->referred_user->name }}
+                                    @else
+                                        {{ '--' }}
+                                    @endif
+                                </td>
                                 <td class="text-right">
                                     <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                        href="{{route('customers.edit', ['id'=>$user->id] )}}"
