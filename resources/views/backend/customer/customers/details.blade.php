@@ -74,7 +74,7 @@
                 <tr>
                     <th>#</th>
                     <th>{{translate('Order No')}}</th>
-                    <th>{{translate('Seller')}}</th>
+                    <th>{{translate('Community')}}</th>
                     <th>{{translate('Product')}}</th>
                     <th>{{translate('Quantity')}}</th>
                     <th>{{translate('Price')}}</th>
@@ -85,8 +85,8 @@
                 <tbody>
                 @foreach ($order_details as $key => $detail)
                     @php
-                        $seller = \App\Models\Seller::where('id', $detail->seller_id)->first();
-                        $sellerName = (isset($seller) && ($seller->user) ? $seller->user->name : '-');
+                        $seller = \App\Models\User::where('id', $detail->seller_id)->first();
+                        $sellerName = (isset($seller) ? $seller->name : '-');
                         $totalPrice = floatval($detail->price) + floatval($detail->tax) + floatval($detail->shipping_cost);
                     @endphp
                     <tr>
@@ -97,7 +97,7 @@
                             {{ date('d-m-Y', strtotime($detail->created_at)) }}
                         </td>
                         <td>{{ $sellerName }}</td>
-                        <td>{{ $detail->product_stock->product->name }}</td>
+                        <td>{{ (isset($detail->product_stock->product) ? $detail->product_stock->product->name : '--') }}</td>
                         <td>{{ $detail->quantity }}</td>
                         <td>{{ single_price($totalPrice) }}</td>
                         <td>{{ ucwords($detail->delivery_status) }}</td>

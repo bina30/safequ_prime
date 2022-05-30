@@ -339,7 +339,6 @@ class HomeController extends Controller
             $categories = [];
             $parentCategories = Category::where('parent_id', 0)
                 ->with('childrenCategories')
-                ->orderBy('name', 'asc')
                 ->get();
             if ($parentCategories) {
                 foreach ($parentCategories AS $parCat) {
