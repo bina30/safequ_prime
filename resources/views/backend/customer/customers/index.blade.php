@@ -39,6 +39,12 @@
                                @endisset placeholder="{{ translate('Type email or name & Enter') }}">
                     </div>
                 </div>
+
+                <div class="col-auto">
+                    <div class="form-group mb-0">
+                        <button type="button" class="btn btn-primary" onclick="exportCustomerExcel()">{{ translate('Export') }}</button>
+                    </div>
+                </div>
             </div>
 
             <div class="card-body">
@@ -293,6 +299,14 @@
         function show_make_wallet_recharge_modal(user_id) {
             $('#offline_wallet_recharge_modal #user_id').val(user_id);
             $('#offline_wallet_recharge_modal').modal('show', {backdrop: 'static'});
+        }
+
+        function exportCustomerExcel() {
+            let search = $('#search').val();
+            let url = "{{route('customer_export.excel', ':search')}}";
+            url = url.replace(':search', '&search='+search);
+
+            window.location.href = url;
         }
     </script>
 @endsection

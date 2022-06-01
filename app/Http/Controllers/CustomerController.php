@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomersExport;
 use App\Models\ProductStock;
 use App\Models\Seller;
 use App\Models\Shop;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\User;
 use App\Models\Order;
+use Excel;
 use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
@@ -328,5 +330,10 @@ class CustomerController extends Controller
             flash('Customer with same phone number already present.')->error();
             return back();
         }
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new CustomersExport($request), 'customers.xlsx');
     }
 }
