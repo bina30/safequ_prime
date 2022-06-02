@@ -39,7 +39,10 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{translate('Mobile No')}}</label>
+                                <label class="col-md-3 col-from-label">
+                                    {{translate('Mobile No')}}
+                                    <span class="text-danger">*</span>
+                                </label>
                                 <div class="col-md-8 phone-form-group">
                                     <input type="tel" id="phone-code" required maxlength="10" minlength="10"
                                            class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
@@ -50,12 +53,14 @@
                                 <label class="col-md-3 col-from-label">{{translate('Email')}}</label>
                                 <div class="col-md-8">
                                     <input type="email" class="form-control" name="email"
-                                           placeholder="{{ translate('customer@text.com') }}"
-                                           required>
+                                           placeholder="{{ translate('customer@text.com') }}" >
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-3 col-from-label">Flat No</label>
+                                <label class="col-lg-3 col-from-label">
+                                    Flat No
+                                    <span class="text-danger">*</span>
+                                </label>
                                 <div class="col-lg-8">
                                     <input type="text" class="form-control" name="address" id="address" required/>
                                 </div>
