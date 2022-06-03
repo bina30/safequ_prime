@@ -269,6 +269,14 @@ class CustomerController extends Controller
         $user = User::where('phone', '+' . $request->country_code . $request->phone)->first();
 
         if (!$user) {
+            if (!empty($request->email)) {
+                $user = User::where('email', $request->email)->first();
+                if ($user) {
+                    flash('Customer with same email already present.')->error();
+                    return back();
+                }
+            }
+
             $user = User::create([
                 'name'                => $request->name,
                 'phone'               => '+' . $request->country_code . $request->phone,
@@ -315,6 +323,14 @@ class CustomerController extends Controller
         $user_present = User::where('id', '!=', $request->user_id)->where('phone', '+' . $request->country_code . $request->phone)->first();
 
         if (!$user_present) {
+            if (!empty($request->email)) {
+                $user = User::where('email', $request->email)->first();
+                if ($user) {
+                    flash('Customer with same email already present.')->error();
+                    return back();
+                }
+            }
+
             $user = User::where('id', $request->user_id)->first();
 
             $user->name                 = $request->name;
