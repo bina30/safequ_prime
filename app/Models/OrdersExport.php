@@ -54,6 +54,7 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
             'Variation',
             'FarmLocation',
             'Qty',
+            'Unit',
             'Price',
             'TotalPrice',
             'PaymentStatus',
@@ -80,6 +81,11 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
             $deliveryDate = date('d-m-Y', strtotime($order->product_stock->purchase_end_date. '+' . intval($order->product_stock->est_shipping_days) . ' days'));
         }
 
+        $qty_unit_main = $order->product->min_qty;
+        if (floatval($order->product->min_qty) < 1) {
+            $qty_unit_main = (1000 * floatval($order->product->min_qty));
+        }
+
         return [
             $order->order->code,
             $order->created_at,
@@ -94,6 +100,7 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
             $order->product->variation,
             $farmLocation,
             $order->quantity,
+            number_format($qty_unit_main, 0).' '.$order->product->secondary_unit,
             number_format(floatval($order->price / $order->quantity), 2),
             $order->price,
             $order->payment_status,
