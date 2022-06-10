@@ -9,24 +9,13 @@
         <div class="card-body">
             <div class="alert" style="color: #004085;background-color: #cce5ff;border-color: #b8daff;margin-bottom:0;margin-top:10px;">
                 <strong>{{ translate('Step 1')}}:</strong>
-                <p>1. {{translate('Download the skeleton file and fill it with proper data')}}.</p>
-                <p>2. {{translate('You can download the example file to understand how the data must be filled')}}.</p>
-                <p>3. {{translate('Once you have downloaded and filled the skeleton file, upload it in the form below and submit')}}.</p>
-                <p>4. {{translate('After uploading products you need to edit them and set product\'s images and choices')}}.</p>
+                <p>1. {{translate('Download the skeleton file and fill it with proper data [Note: Please add only Price and StartDate and EndDate for orders in excel]')}}.</p>
+                <p>2. {{translate('Once you have downloaded and filled the skeleton file, upload it in the form below and submit')}}.</p>
             </div>
             <br>
             <div class="">
-                <a href="{{ static_asset('download/product_bulk_demo.xlsx') }}" download><button class="btn btn-info">{{ translate('Download CSV')}}</button></a>
-            </div>
-            <div class="alert" style="color: #004085;background-color: #cce5ff;border-color: #b8daff;margin-bottom:0;margin-top:10px;">
-                <strong>{{translate('Step 2')}}:</strong>
-                <p>1. {{translate('Category and Brand should be in numerical id')}}.</p>
-                <p>2. {{translate('You can download the pdf to get Category and Brand id')}}.</p>
-            </div>
-            <br>
-            <div class="">
-                <a href="{{ route('pdf.download_category') }}"><button class="btn btn-info">{{translate('Download Category')}}</button></a>
-                <a href="{{ route('pdf.download_brand') }}"><button class="btn btn-info">{{translate('Download Brand')}}</button></a>
+{{--                <a href="{{ static_asset('download/product_bulk_demo.xlsx') }}" download><button class="btn btn-info">{{ translate('Download CSV')}}</button></a>--}}
+                <a href="{{ route('product_bulk_export.index') }}" ><button class="btn btn-info">{{ translate('Download Products')}}</button></a>
             </div>
             <br>
         </div>
@@ -37,8 +26,23 @@
             <h5 class="mb-0 h6"><strong>{{translate('Upload Product File')}}</strong></h5>
         </div>
         <div class="card-body">
-            <form class="form-horizontal" action="{{ route('bulk_product_upload') }}" method="POST" enctype="multipart/form-data">
+            <div class="alert" style="color: #004085;background-color: #cce5ff;border-color: #b8daff;margin-bottom:0;margin-top:10px;">
+                <strong>{{ translate('Step 2')}}:</strong>
+                <p>1. {{translate('Mandatory to select Community [Single / Multiple] and upload file')}}.</p>
+                <p>2. {{translate('If any error occurs while uploading, a file with error comment will be available so you can download and make changes according to it and re-upload the file again.')}}.</p>
+            </div>
+            <form class="form-horizontal mt-4" action="{{ route('bulk_product_upload') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <div class="form-group row">
+                    <label class="col-md-2 col-from-label pt-2">{{translate('Community')}} <span class="text-danger">*</span></label>
+                    <div class="col-md-7">
+                        <select class="form-control aiz-selectpicker" name="community[]" id="community_id" data-live-search="true" multiple required>
+                            @foreach ($sellers as $seller)
+                                <option value="{{ $seller->id }}">{{ $seller->user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <div class="form-group row">
                     <div class="col-sm-9">
                         <div class="custom-file">
