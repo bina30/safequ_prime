@@ -324,7 +324,7 @@
                                     </div>
                                     <div class="card-bottom">
                                         <button class="btn text-uppercase text-white fw600 w-100"
-                                                onclick="addToCart('{{ route('products-details', $product->product->id) }}');">
+                                                onclick="addToCart('{{ route('products-details', $product    ->id) }}');">
                                             <i class="fas fa-shopping-cart text-white fsize18"></i>
                                             &nbsp; Add to cart
                                         </button>

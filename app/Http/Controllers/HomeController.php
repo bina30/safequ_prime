@@ -423,7 +423,7 @@ class HomeController extends Controller
 
     public function show_product_details($id)
     {
-        $product = ProductStock::with('product')->where('product_id', $id)->first();
+        $product = ProductStock::with('product')->findOrFail($id);
         return view('frontend.cart_modal', compact('product'));
     }
 
@@ -501,7 +501,7 @@ class HomeController extends Controller
             }
         }
 
-        $product_stock = $product->stocks->where('variant', $str)->first();
+        $product_stock = $product->stocks->where('id', $request->stock_id)->first();
         $price = $product_stock->price;
 
         if ($product->wholesale_product) {

@@ -1,4 +1,5 @@
 <input type="hidden" id="product_id" value="{{ $product->product->id }}">
+<input type="hidden" id="product_stock_id" value="{{ $product->id }}">
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-body">
@@ -114,7 +115,7 @@
                 },
                 type: "POST",
                 url: '{{ route('products.variant_price') }}',
-                data: {id: $('#product_id').val(), quantity: qty},
+                data: {id: $('#product_id').val(),stock_id: $('#product_stock_id').val(), quantity: qty},
                 success: function (data) {
                     if (data.total_price != '') {
                         $('#total_price').html('');
