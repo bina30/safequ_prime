@@ -60,17 +60,19 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
             'PaymentStatus',
             'PaymentType',
             'DeliveryStatus',
+            'Added By Admin',
         ];
     }
 
     /**
-    * @var Order $order
-    */
+     * @var Order $order
+     */
     public function map($order): array
     {
         $userName = isset($order->order) && isset($order->order->user) ? $order->order->user->name : '--';
         $code = isset($order->order) ? $order->order->code : '--';
         $paymentType = isset($order->order) ? $order->order->payment_type : '--';
+        $addedByAdmin = isset($order->order) && $order->order->added_by_admin == 1 ? 'true' : 'false';
         $userPhone = isset($order->order) && isset($order->order->user) ? str_replace('+91', '', $order->order->user->phone) : '--';
         $communityName = isset($order->product) && isset($order->product->user) ? $order->product->user->name : $order->seller_id;
         $flatNo = isset($order->order) && isset($order->order->user) ? $order->order->user->address : '--';
@@ -80,7 +82,7 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
 
         $deliveryDate = '--';
         if (isset($order->product_stock) && isset($order->product_stock->purchase_end_date)) {
-            $deliveryDate = date('d-m-Y', strtotime($order->product_stock->purchase_end_date. '+' . intval($order->product_stock->est_shipping_days) . ' days'));
+            $deliveryDate = date('d-m-Y', strtotime($order->product_stock->purchase_end_date . '+' . intval($order->product_stock->est_shipping_days) . ' days'));
         }
 
         $qty_unit_main = $order->product->min_qty;
@@ -102,12 +104,13 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
             $order->product->variation,
             $farmLocation,
             $order->quantity,
-            number_format($qty_unit_main, 0).' '.$order->product->secondary_unit,
+            number_format($qty_unit_main, 0) . ' ' . $order->product->secondary_unit,
             number_format(floatval($order->price / $order->quantity), 2),
             $order->price,
             $order->payment_status,
             $paymentType,
             $order->delivery_status,
+            $addedByAdmin
         ];
     }
 }
