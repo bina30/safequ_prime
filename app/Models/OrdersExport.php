@@ -69,6 +69,8 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
     public function map($order): array
     {
         $userName = isset($order->order) && isset($order->order->user) ? $order->order->user->name : '--';
+        $code = isset($order->order) ? $order->order->code : '--';
+        $paymentType = isset($order->order) ? $order->order->payment_type : '--';
         $userPhone = isset($order->order) && isset($order->order->user) ? str_replace('+91', '', $order->order->user->phone) : '--';
         $communityName = isset($order->product) && isset($order->product->user) ? $order->product->user->name : $order->seller_id;
         $flatNo = isset($order->order) && isset($order->order->user) ? $order->order->user->address : '--';
@@ -87,7 +89,7 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
         }
 
         return [
-            $order->order->code,
+            $code,
             $order->created_at,
             $deliveryDate,
             $userName,
@@ -104,7 +106,7 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
             number_format(floatval($order->price / $order->quantity), 2),
             $order->price,
             $order->payment_status,
-            $order->order->payment_type,
+            $paymentType,
             $order->delivery_status,
         ];
     }
