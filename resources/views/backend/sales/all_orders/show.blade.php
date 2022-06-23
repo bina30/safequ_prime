@@ -49,7 +49,7 @@
                 </div>
                 <div class="col-md-3 ml-auto">
                     <label for="update_delivery_status">{{translate('Delivery Status')}}</label>
-                    @if($delivery_status != 'delivered' && $delivery_status != 'cancelled')
+                    @if($delivery_status != 'delivered' && $delivery_status != 'cancelled' && $delivery_status != 'replaced')
                         <select class="form-control aiz-selectpicker" data-minimum-results-for-search="Infinity"
                                 id="update_delivery_status">
                             <option value="pending"
@@ -64,9 +64,21 @@
                                     @if ($delivery_status == 'delivered') selected @endif>{{translate('Delivered')}}</option>
                             <option value="cancelled"
                                     @if ($delivery_status == 'cancelled') selected @endif>{{translate('Cancel')}}</option>
+                            @if ($delivery_status == 'delivered')
+                                <option value="replaced"
+                                        @if ($delivery_status == 'replaced') selected @endif>{{translate('Replaced')}}</option>
+                            @endif
+                        </select>
+                    @elseif ($delivery_status == 'delivered')
+                        <select class="form-control aiz-selectpicker" data-minimum-results-for-search="Infinity"
+                                id="update_delivery_status">
+                            <option value="delivered"
+                                    @if ($delivery_status == 'delivered') selected @endif>{{translate('Delivered')}}</option>
+                            <option value="replaced"
+                                    @if ($delivery_status == 'replaced') selected @endif>{{translate('Replaced')}}</option>
                         </select>
                     @else
-                        <input type="text" class="form-control" value="{{ $delivery_status }}" disabled>
+                        <input type="text" class="form-control" value="{{ ucwords($delivery_status) }}" disabled>
                     @endif
                 </div>
                 <div class="col-md-3 ml-auto">
@@ -335,6 +347,10 @@
                 status: status
             }, function (data) {
                 AIZ.plugins.notify('success', '{{ translate('Delivery status has been updated') }}');
+
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
             });
         });
 

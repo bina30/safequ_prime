@@ -45,3 +45,7 @@ ALTER TABLE `orders` MODIFY COLUMN `added_by_admin` int(11) NULL DEFAULT 0 COMME
 
 /* Dt: 26-05-22 */
 ALTER TABLE `order_details` ADD COLUMN `is_archived` int(1) NULL DEFAULT 0 AFTER `product_referral_code`;
+
+
+/* Dt: 23-06-22 */
+ALTER TABLE `orders` ADD COLUMN `replaced_order_id` int(11) NULL DEFAULT 0 AFTER `added_by_admin`;

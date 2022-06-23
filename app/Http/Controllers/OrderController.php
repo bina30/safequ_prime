@@ -623,6 +623,32 @@ class OrderController extends Controller
         $order->delivery_status = $request->status;
         $order->save();
 
+        if ($request->status == 'replaced') {
+            $newOrder = $order->replicate();
+            $newOrder->code = date('Ymd-His') . rand(10, 99);
+            $newOrder->delivery_status = 'pending';
+            $newOrder->replaced_order_id = $request->order_id;
+            $newOrder->date = strtotime('now');
+            $newOrder->save();
+
+            foreach ($order->orderDetails AS $details) {
+                $newOrderDetails = new OrderDetail();
+                $newOrderDetails->order_id = $newOrder->id;
+                $newOrderDetails->seller_id = $details->seller_id;
+                $newOrderDetails->product_id = $details->product_id;
+                $newOrderDetails->product_stock_id = $details->product_stock_id;
+                $newOrderDetails->variation = $details->variation;
+                $newOrderDetails->price = $details->price;
+                $newOrderDetails->tax = $details->tax;
+                $newOrderDetails->shipping_cost = $details->shipping_cost;
+                $newOrderDetails->quantity = $details->quantity;
+                $newOrderDetails->payment_status = $details->payment_status;
+                $newOrderDetails->delivery_status = 'pending';
+                $newOrderDetails->is_archived = 0;
+                $newOrderDetails->save();
+            }
+        }
+
         if ($request->status == 'cancelled' && $order->payment_type == 'wallet') {
             $user = User::where('id', $order->user_id)->first();
             $user->balance += $order->grand_total;
