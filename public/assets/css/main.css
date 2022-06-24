@@ -330,6 +330,10 @@ h6 {
     font-weight: bolder !important;
 }
 
+.fsize10{
+    font-size: 10px !important;
+}
+
 .fsize11,
 .x-tiny-text {
     font-size: 11px !important;

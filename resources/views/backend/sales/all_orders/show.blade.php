@@ -69,14 +69,6 @@
                                         @if ($delivery_status == 'replaced') selected @endif>{{translate('Replaced')}}</option>
                             @endif
                         </select>
-                    @elseif ($delivery_status == 'delivered')
-                        <select class="form-control aiz-selectpicker" data-minimum-results-for-search="Infinity"
-                                id="update_delivery_status">
-                            <option value="delivered"
-                                    @if ($delivery_status == 'delivered') selected @endif>{{translate('Delivered')}}</option>
-                            <option value="replaced"
-                                    @if ($delivery_status == 'replaced') selected @endif>{{translate('Replaced')}}</option>
-                        </select>
                     @else
                         <input type="text" class="form-control" value="{{ ucwords($delivery_status) }}" disabled>
                     @endif
@@ -158,21 +150,54 @@
             </div>
             <hr class="new-section-sm bord-no">
             <div class="row">
+                @if($delivery_status == 'delivered')
+                    <div class="col-auto">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" onclick="replaceOrder()">{{ translate('Replace Order') }}</button>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="col-lg-12 table-responsive">
-                    <table class="table table-bordered aiz-table invoice-summary">
+                    <table class="table table-bordered aiz-table invoice-summary" id="order-details-table">
                         <thead>
                         <tr class="bg-trans-dark">
+                            @if($delivery_status == 'delivered')
+                                <th width="5%">
+                                    <div class="form-group">
+                                        <div class="aiz-checkbox-inline">
+                                            <label class="aiz-checkbox">
+                                                <input type="checkbox" class="check-all">
+                                                <span class="aiz-square-check"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </th>
+                            @endif
                             <th class="min-col">#</th>
                             <th width="10%">{{translate('Photo')}}</th>
                             <th class="text-uppercase">{{translate('Description')}}</th>
                             <th class="min-col text-center text-uppercase">{{translate('Qty')}}</th>
-                            <th class="min-col text-center text-uppercase">{{translate('Price')}}</th>
+                            <th class="min-col text-right text-uppercase">{{translate('Price')}}</th>
                             <th class="min-col text-right text-uppercase">{{translate('Total')}}</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($order->orderDetails as $key => $orderDetail)
                             <tr>
+                                @if($delivery_status == 'delivered')
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="aiz-checkbox-inline">
+                                                <label class="aiz-checkbox">
+                                                    <input type="checkbox" class="check-one" name="id[]"
+                                                           value="{{$orderDetail->id}}" @if($orderDetail->delivery_status == 'replaced') disabled @endif>
+                                                    <span class="aiz-square-check"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                @endif
                                 <td>{{ $key+1 }}</td>
                                 <td>
                                     @if ($orderDetail->product != null && $orderDetail->product->auction_product == 0)
@@ -192,6 +217,8 @@
                                         </strong>
                                         <small><b>Variation: </b>{{ $orderDetail->product->variation }}</small><br/>
                                         <small><b>Location: </b>{{ $orderDetail->product->manufacturer_location }}
+                                        </small><br/>
+                                        <small><b>Status: </b>{{ translate($orderDetail->delivery_status) }}
                                         </small>
                                     @elseif ($orderDetail->product != null && $orderDetail->product->auction_product == 1)
                                         <strong><p
@@ -202,8 +229,8 @@
                                     @endif
                                 </td>
                                 <td class="text-center">{{ $orderDetail->quantity }}</td>
-                                <td class="text-center">{{ single_price($orderDetail->price/$orderDetail->quantity) }}</td>
-                                <td class="text-center">{{ single_price($orderDetail->price) }}</td>
+                                <td class="text-right">{{ single_price($orderDetail->price/$orderDetail->quantity) }}</td>
+                                <td class="text-right">{{ single_price($orderDetail->price) }}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -217,7 +244,7 @@
                         <td>
                             <strong class="text-muted">{{translate('Sub Total')}} :</strong>
                         </td>
-                        <td>
+                        <td class="text-right">
                             {{ single_price($order->orderDetails->sum('price')) }}
                         </td>
                     </tr>
@@ -225,7 +252,7 @@
                         <td>
                             <strong class="text-muted">{{translate('Tax')}} :</strong>
                         </td>
-                        <td>
+                        <td class="text-right">
                             {{ single_price($order->orderDetails->sum('tax')) }}
                         </td>
                     </tr>
@@ -233,7 +260,7 @@
                         <td>
                             <strong class="text-muted">{{translate('Shipping')}} :</strong>
                         </td>
-                        <td>
+                        <td class="text-right">
                             {{ single_price($order->orderDetails->sum('shipping_cost')) }}
                         </td>
                     </tr>
@@ -241,7 +268,7 @@
                         <td>
                             <strong class="text-muted">{{translate('Coupon')}} :</strong>
                         </td>
-                        <td>
+                        <td class="text-right">
                             {{ single_price($order->coupon_discount) }}
                         </td>
                     </tr>
@@ -326,6 +353,21 @@
 
 @section('script')
     <script type="text/javascript">
+        $(document).on("change", ".check-all", function () {
+            if (this.checked) {
+                // Iterate each checkbox
+                if (!$('.check-one:checkbox').attr('disabled')) {
+                    $('.check-one:checkbox').each(function () {
+                        this.checked = true;
+                    });
+                }
+            } else {
+                $('.check-one:checkbox').each(function () {
+                    this.checked = false;
+                });
+            }
+        });
+
         $('#assign_deliver_boy').on('change', function () {
             var order_id = {{ $order->id }};
             var delivery_boy = $('#assign_deliver_boy').val();
@@ -387,5 +429,30 @@
                 AIZ.plugins.notify('success', '{{ translate('Order tracking code has been updated') }}');
             });
         });
+
+        function replaceOrder() {
+            var order_detail_ids = $("#order-details-table input:checkbox:checked").map(function(){
+                if ($(this).val() != 'on') return $(this).val();
+            }).get();
+
+            if (order_detail_ids.length == 0) {
+                AIZ.plugins.notify('danger', '{{ translate('Please select product.') }}');
+                return false;
+            } else {
+                let order_id = {{ $order->id }};
+                $.post('{{ route('orders.replace_delivered_order') }}', {
+                    _token: '{{ @csrf_token() }}',
+                    order_id: order_id,
+                    status: 'replaced',
+                    order_detail_ids: order_detail_ids
+                }, function (data) {
+                    AIZ.plugins.notify('success', '{{ translate('Order submitted for replacement') }}');
+
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                });
+            }
+        }
     </script>
 @endsection

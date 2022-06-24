@@ -389,6 +389,14 @@
                         @endforeach
                     @endif
 
+                    @if (count($products_purchase_expired) == 0 && count($products_purchase_started) == 0)
+                            <div class="row pt-5">
+                                <div class="col-lg-12 mx-auto">
+                                    <img src="{{ static_asset('assets/img/product-not-found.jpg') }}" class="mw-100 mx-auto">
+                                </div>
+                            </div>
+                    @endif
+
                 </div>
 
             </div>
