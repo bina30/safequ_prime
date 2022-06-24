@@ -14,8 +14,14 @@ class Shop extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function customers()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'joined_community_id')->where('user_type', 'customer');
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class, 'seller_id', 'user_id');
     }
+
 }
