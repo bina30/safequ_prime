@@ -84,6 +84,7 @@ class OrderController extends Controller
         $date = $request->date;
         $sort_search = null;
         $delivery_status = null;
+        $payment_status = null;
 
         $orders = Order::orderBy('id', 'desc');
         if ($request->has('search')) {
@@ -94,11 +95,15 @@ class OrderController extends Controller
             $orders = $orders->where('delivery_status', $request->delivery_status);
             $delivery_status = $request->delivery_status;
         }
+        if ($request->payment_status != null) {
+            $orders = $orders->where('payment_status', $request->payment_status);
+            $payment_status = $request->payment_status;
+        }
         if ($date != null) {
             $orders = $orders->where('created_at', '>=', date('Y-m-d', strtotime(explode(" to ", $date)[0])))->where('created_at', '<=', date('Y-m-d', strtotime(explode(" to ", $date)[1])));
         }
         $orders = $orders->paginate(15);
-        return view('backend.sales.all_orders.index', compact('orders', 'sort_search', 'delivery_status', 'date'));
+        return view('backend.sales.all_orders.index', compact('orders', 'sort_search','payment_status', 'delivery_status', 'date'));
     }
 
     public function all_orders_show($id)

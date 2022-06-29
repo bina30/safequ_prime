@@ -104,7 +104,8 @@
                                 <th data-breakpoints="md" class="text-center">{{ translate('Total Customers') }}</th>
                                 <th data-breakpoints="md" class="text-center">Total Orders</th>
                                 <th data-breakpoints="md" class="text-right">{{ translate('Total Sales') }}</th>
-                                <th data-breakpoints="md" class="text-right">{{ translate('Total Pending Payment') }}</th>
+                                <th data-breakpoints="md"
+                                    class="text-right">{{ translate('Total Pending Payment') }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -117,13 +118,21 @@
                                         {{ $community_data->customers_count }}
                                     </td>
                                     <td class="text-center">
-                                        {{ $community_data->orders_count }}
+                                        {{ $community_data->orders()->where(function ($query){
+                                            $query->where('payment_status', 'paid')->orWhere(function ($query) {
+                                                    $query->where('added_by_admin', 1)->where('payment_status', 'unpaid');
+                                                });
+                                            })->count() }}
                                     </td>
                                     <td class="text-right">
-                                        {!! single_price($community_data->orders()->sum('grand_total'))  !!}
+                                        {!! single_price($community_data->orders()->where(function ($query){
+                                            $query->where('payment_status', 'paid')->orWhere(function ($query) {
+                                                    $query->where('added_by_admin', 1)->where('payment_status', 'unpaid');
+                                                });
+                                            })->sum('grand_total'))  !!}
                                     </td>
                                     <td class="text-right">
-                                        {!! single_price($community_data->orders()->where('payment_status','unpaid')->sum('grand_total'))  !!}
+                                        {!! single_price($community_data->orders()->where('payment_status','unpaid')->where('added_by_admin','1')->sum('grand_total'))  !!}
                                     </td>
                                 </tr>
                             @endforeach
@@ -192,7 +201,7 @@
 @endsection
 @section('script')
     <script type="text/javascript">
-        AIZ.plugins.chart('#graph-1',{
+        AIZ.plugins.chart('#graph-1', {
             type: 'bar',
             data: {
                 labels: [
@@ -243,7 +252,7 @@
                         }
                     }]
                 },
-                legend:{
+                legend: {
                     labels: {
                         fontFamily: 'Poppins',
                         boxWidth: 10,

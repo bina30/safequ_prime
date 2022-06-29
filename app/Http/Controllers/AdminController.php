@@ -47,9 +47,13 @@ class AdminController extends Controller
             $item['qty_data'] = $qty_data;
 
             $item['total_customers'] = User::where('user_type', 'customer')->where('email_verified_at', '!=', null)->count();
-            $item['total_orders'] = Order::count();
-            $item['total_sales'] = Order::sum('grand_total');
-            $item['total_pending_payment'] = Order::where('payment_status', 'unpaid')->sum('grand_total');
+            $item['total_orders'] = Order::where('payment_status', 'paid')->orWhere(function ($query) {
+                $query->where('added_by_admin', 1)->where('payment_status', 'unpaid');
+            })->count();
+            $item['total_sales'] = Order::where('payment_status', 'paid')->orWhere(function ($query) {
+                $query->where('added_by_admin', 1)->where('payment_status', 'unpaid');
+            })->sum('grand_total');
+            $item['total_pending_payment'] = Order::where('payment_status', 'unpaid')->where('added_by_admin', 1)->sum('grand_total');
             $item['community_data'] = Shop::whereIn('user_id', verified_sellers_id())->withCount('orders', 'customers')->get();
 
 
