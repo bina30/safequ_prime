@@ -83,6 +83,8 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
         $deliveryDate = '--';
         if (isset($order->product_stock) && isset($order->product_stock->purchase_end_date)) {
             $deliveryDate = date('d-m-Y', strtotime($order->product_stock->purchase_end_date . '+' . intval($order->product_stock->est_shipping_days) . ' days'));
+        } elseif ($order->is_archived == 1 && isset($order->archive_product_stock) && isset($order->archive_product_stock->purchase_end_date)) {
+            $deliveryDate = date('d-m-Y', strtotime($order->archive_product_stock->purchase_end_date . '+' . intval($order->archive_product_stock->est_shipping_days) . ' days'));
         }
 
         $qty_unit_main = $order->product->min_qty;

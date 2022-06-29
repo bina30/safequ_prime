@@ -50,3 +50,92 @@ ALTER TABLE `order_details` ADD COLUMN `is_archived` int(1) NULL DEFAULT 0 AFTER
 /* Dt: 23-06-22 */
 ALTER TABLE `orders` ADD COLUMN `replaced_order_id` int(11) NULL DEFAULT 0 AFTER `added_by_admin`;
 ALTER TABLE `order_details` ADD COLUMN `replaced_order_detail_id` int(11) NULL DEFAULT 0 AFTER `is_archived`;
+
+
+-- ----------------------------
+-- Table structure for archive_orders Dt: 29-6-22
+-- ----------------------------
+DROP TABLE IF EXISTS `archive_orders`;
+CREATE TABLE `archive_orders`  (
+   `id` int(11) NOT NULL,
+   `combined_order_id` int(11) NULL DEFAULT NULL,
+   `user_id` int(11) NULL DEFAULT NULL,
+   `guest_id` int(11) NULL DEFAULT NULL,
+   `seller_id` int(11) NULL DEFAULT NULL,
+   `shipping_address` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+   `shipping_type` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+   `pickup_point_id` int(11) NOT NULL DEFAULT 0,
+   `delivery_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT 'pending',
+   `payment_type` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+   `payment_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT 'unpaid',
+   `payment_details` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+   `grand_total` double(20, 2) NULL DEFAULT NULL,
+  `coupon_discount` double(20, 2) NOT NULL DEFAULT 0.00,
+  `code` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  `tracking_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `date` int(11) NOT NULL,
+  `viewed` int(11) NOT NULL DEFAULT 0,
+  `delivery_viewed` int(11) NOT NULL DEFAULT 1,
+  `payment_status_viewed` int(11) NULL DEFAULT 1,
+  `commission_calculated` int(11) NOT NULL DEFAULT 0,
+  `added_by_admin` int(11) NULL DEFAULT 0 COMMENT '0: No; 1: Yes',
+  `replaced_order_id` int(11) NULL DEFAULT 0,
+  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0)
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+
+-- ----------------------------
+-- Table structure for archive_order_details Dt: 29-6-22
+-- ----------------------------
+DROP TABLE IF EXISTS `archive_order_details`;
+CREATE TABLE `archive_order_details`  (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `seller_id` int(11) NULL DEFAULT NULL,
+  `product_id` int(11) NOT NULL,
+  `product_stock_id` int(11) NULL DEFAULT NULL,
+  `variation` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  `price` double(20, 2) NULL DEFAULT NULL,
+  `tax` double(20, 2) NOT NULL DEFAULT 0.00,
+  `shipping_cost` double(20, 2) NOT NULL DEFAULT 0.00,
+  `quantity` int(11) NULL DEFAULT NULL,
+  `payment_status` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'unpaid',
+  `delivery_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT 'pending',
+  `shipping_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `pickup_point_id` int(11) NULL DEFAULT NULL,
+  `product_referral_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `is_archived` int(1) NULL DEFAULT 0,
+  `replaced_order_detail_id` int(11) NULL DEFAULT 0,
+  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0)
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+
+-- ----------------------------
+-- Table structure for archive_product_stocks Dt: 29-6-22
+-- ----------------------------
+DROP TABLE IF EXISTS `archive_product_stocks`;
+CREATE TABLE `archive_product_stocks`  (
+   `id` int(11) NOT NULL,
+   `product_id` int(11) NOT NULL,
+   `variant` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+   `sku` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+   `price` double(20, 2) NOT NULL DEFAULT 0.00,
+  `qty` int(11) NOT NULL DEFAULT 0,
+  `image` int(11) NULL DEFAULT NULL,
+  `seller_id` int(11) NULL DEFAULT NULL,
+  `est_shipping_days` int(11) NULL DEFAULT NULL,
+  `purchase_start_date` datetime(0) NULL DEFAULT NULL,
+  `purchase_end_date` datetime(0) NULL DEFAULT NULL,
+  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0)
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
+
+SET FOREIGN_KEY_CHECKS = 1;
