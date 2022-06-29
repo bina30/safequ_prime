@@ -363,6 +363,7 @@ class OrderController extends Controller
             //Order Details Storing
             foreach ($seller_product as $cartItem) {
                 $product = Product::find($cartItem['product_id']);
+                $product_stock = ProductStock::find($cartItem['product_stock_id']);
 
                 $subtotal += $cartItem['price'] * $cartItem['quantity'];
                 $tax += $cartItem['tax'] * $cartItem['quantity'];
@@ -382,7 +383,7 @@ class OrderController extends Controller
 
                 $order_detail = new OrderDetail;
                 $order_detail->order_id = $order->id;
-                $order_detail->seller_id = $product->user_id;
+                $order_detail->seller_id = $product_stock->seller->user_id;
                 $order_detail->product_id = $product->id;
                 $order_detail->product_stock_id = $cartItem['product_stock_id'];
                 $order_detail->variation = $product_variation;
@@ -401,7 +402,7 @@ class OrderController extends Controller
                 $product->num_of_sale += $cartItem['quantity'];
                 $product->save();
 
-                $order->seller_id = $product->user_id;
+                $order->seller_id = $product_stock->seller->user_id;
 
                 if ($product->added_by == 'seller' && $product->user->seller != null){
                     $seller = $product->user->seller;
@@ -500,7 +501,7 @@ class OrderController extends Controller
 
             $order_detail = new OrderDetail;
             $order_detail->order_id = $order->id;
-            $order_detail->seller_id = $product->user_id;
+            $order_detail->seller_id = $product_stock->seller->user_id;
             $order_detail->product_id = $product->id;
             $order_detail->product_stock_id = $product_stock->id;
             $order_detail->price =  $productPrice * $prod_qty[$key];
@@ -522,7 +523,7 @@ class OrderController extends Controller
                 $payment_details = json_encode(array('id' => $request->transaction_id, 'method' => $request->payment_type, 'amount' => $productPrice * $prod_qty[$key]));
             }
             $order->payment_details = $payment_details;
-            $order->seller_id = $product->user_id;
+            $order->seller_id = $product_stock->seller->user_id;
 
             $order->grand_total = $subtotal + $tax + $shipping;
 
