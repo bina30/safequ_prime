@@ -22,7 +22,12 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <a href="{{ route('purchase_details', encrypt($order->id)) }}">
                                     <div class="pr-2">
-                                        <p class="fw600 fsize15 title-txt mb-1">Order # {{ $order->code }}</p>
+                                        <p class="fw600 fsize14 title-txt mb-1">
+                                            Order # {{ $order->code }}
+                                            @if($order->replaced_order_id > 0)
+                                                <span class="badge badge-success fsize10">Replaced</span>
+                                            @endif
+                                        </p>
                                         <p class="mb-0 lh-17">
                                             <span class="fsize13 body-txt ordered-qty">
                                                 {{ date('d M Y H:i', $order->date) }}

@@ -97,7 +97,7 @@ class CommissionController extends Controller
                 $orderDetail->payment_status = 'paid';
                 $orderDetail->save();
                 $commission_percentage = 0;
-                
+
                 if(get_setting('vendor_commission_activation')){
                     if (get_setting('category_wise_commission')) {
                         $commission_percentage = $orderDetail->product->category->commision_rate;
@@ -165,12 +165,14 @@ class CommissionController extends Controller
                     $commission_history->seller_earning = $seller_earning;
 
                     $commission_history->save();
+
+                    if($order->seller != null){
+                        $seller->admin_to_pay -= $order->coupon_discount;
+                        $seller->save();
+                    }
                 }
             }
-            if($order->seller != null){
-                $seller->admin_to_pay -= $order->coupon_discount;
-                $seller->save();
-            }
+
         }
     }
 }

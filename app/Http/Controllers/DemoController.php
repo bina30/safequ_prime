@@ -587,4 +587,28 @@ class DemoController extends Controller
             $oldRecord->delete();
         });
     }
+
+    public function archive_unpaid_products()
+    {
+        $orders = Order::whereRaw("added_by_admin = 0 AND payment_status = 'unpaid' AND DATE_ADD(created_at, INTERVAL 7 DAY) < NOW()")->get();
+
+        $orders->each(function ($oldOrder) {
+            $newOrder = $oldOrder->replicate();
+            $newOrder->setTable('archive_orders');
+            $newOrder->id = $oldOrder->id;
+            $newOrder->save();
+
+            $orderDetails = $oldOrder->orderDetails;
+            $orderDetails->each(function ($oldOrderDetail) {
+                $newOrderDetail = $oldOrderDetail->replicate();
+                $newOrderDetail->setTable('archive_order_details');
+                $newOrderDetail->id = $oldOrderDetail->id;
+                $newOrderDetail->save();
+
+                $oldOrderDetail->delete();
+            });
+
+            $oldOrder->delete();
+        });
+    }
 }

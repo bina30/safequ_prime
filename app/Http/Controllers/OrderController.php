@@ -368,6 +368,7 @@ class OrderController extends Controller
             //Order Details Storing
             foreach ($seller_product as $cartItem) {
                 $product = Product::find($cartItem['product_id']);
+                $product_stock = ProductStock::find($cartItem['product_stock_id']);
 
                 $subtotal += $cartItem['price'] * $cartItem['quantity'];
                 $tax += $cartItem['tax'] * $cartItem['quantity'];
@@ -387,7 +388,7 @@ class OrderController extends Controller
 
                 $order_detail = new OrderDetail;
                 $order_detail->order_id = $order->id;
-                $order_detail->seller_id = $product->user_id;
+                $order_detail->seller_id = $product_stock->seller->user_id;
                 $order_detail->product_id = $product->id;
                 $order_detail->product_stock_id = $cartItem['product_stock_id'];
                 $order_detail->variation = $product_variation;
@@ -406,7 +407,7 @@ class OrderController extends Controller
                 $product->num_of_sale += $cartItem['quantity'];
                 $product->save();
 
-                $order->seller_id = $product->user_id;
+                $order->seller_id = $product_stock->seller->user_id;
 
                 if ($product->added_by == 'seller' && $product->user->seller != null){
                     $seller = $product->user->seller;
@@ -505,7 +506,7 @@ class OrderController extends Controller
 
             $order_detail = new OrderDetail;
             $order_detail->order_id = $order->id;
-            $order_detail->seller_id = $product->user_id;
+            $order_detail->seller_id = $product_stock->seller->user_id;
             $order_detail->product_id = $product->id;
             $order_detail->product_stock_id = $product_stock->id;
             $order_detail->price =  $productPrice * $prod_qty[$key];
@@ -527,7 +528,7 @@ class OrderController extends Controller
                 $payment_details = json_encode(array('id' => $request->transaction_id, 'method' => $request->payment_type, 'amount' => $productPrice * $prod_qty[$key]));
             }
             $order->payment_details = $payment_details;
-            $order->seller_id = $product->user_id;
+            $order->seller_id = $product_stock->seller->user_id;
 
             $order->grand_total = $subtotal + $tax + $shipping;
 
@@ -739,6 +740,53 @@ class OrderController extends Controller
         }
 
         return 1;
+    }
+
+    public function replace_delivered_order(Request $request)
+    {
+        $order = Order::findOrFail($request->order_id);
+
+        if ($order) {
+            $newOrder = $order->replicate();
+            $newOrder->code = date('Ymd-His') . rand(10, 99);
+            $newOrder->delivery_status = 'pending';
+            $newOrder->replaced_order_id = $request->order_id;
+            $newOrder->date = strtotime('now');
+            $newOrder->save();
+
+            foreach ($request->order_detail_ids AS $orderDetailId) {
+                $orderDetail = OrderDetail::findOrFail($orderDetailId);
+                $orderDetail->delivery_status = $request->status;
+                $orderDetail->save();
+
+                $newOrderDetail = $orderDetail->replicate();
+                $newOrderDetail->order_id = $newOrder->id;
+                $newOrderDetail->delivery_status = 'pending';
+                $newOrderDetail->replaced_order_detail_id = $orderDetailId;
+                $newOrderDetail->save();
+            }
+
+            return 1;
+        } else {
+            return 0;
+        }
+
+        /*foreach ($order->orderDetails AS $details) {
+            $newOrderDetails = new OrderDetail();
+            $newOrderDetails->order_id = $newOrder->id;
+            $newOrderDetails->seller_id = $details->seller_id;
+            $newOrderDetails->product_id = $details->product_id;
+            $newOrderDetails->product_stock_id = $details->product_stock_id;
+            $newOrderDetails->variation = $details->variation;
+            $newOrderDetails->price = $details->price;
+            $newOrderDetails->tax = $details->tax;
+            $newOrderDetails->shipping_cost = $details->shipping_cost;
+            $newOrderDetails->quantity = $details->quantity;
+            $newOrderDetails->payment_status = $details->payment_status;
+            $newOrderDetails->delivery_status = 'pending';
+            $newOrderDetails->is_archived = 0;
+            $newOrderDetails->save();
+        }*/
     }
 
    public function update_tracking_code(Request $request) {
