@@ -33,4 +33,9 @@ class Shop extends Model
         return $this->hasMany(Order::class, 'seller_id', 'user_id')->where('added_by_admin', 1)->where('payment_status', 'unpaid');
     }
 
+    public function delivered_orders()
+    {
+        return $this->hasMany(Order::class, 'seller_id', 'user_id')->where('delivery_status', 'delivered');
+    }
+
 }

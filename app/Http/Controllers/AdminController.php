@@ -73,6 +73,8 @@ class AdminController extends Controller
                 $query->whereDate('created_at', '>=', date('Y-m-d', strtotime($from)))->whereDate('created_at', '<=', date('Y-m-d', strtotime($to)));
             }, 'orders'     => function ($query) use ($from, $to) {
                 $query->whereDate('created_at', '>=', date('Y-m-d', strtotime($from)))->whereDate('created_at', '<=', date('Y-m-d', strtotime($to)));
+            }, 'delivered_orders'     => function ($query) use ($from, $to) {
+                $query->whereDate('created_at', '>=', date('Y-m-d', strtotime($from)))->whereDate('created_at', '<=', date('Y-m-d', strtotime($to)));
             }
         ])->withCount('customers')->get();
 

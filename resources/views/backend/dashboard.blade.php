@@ -106,12 +106,22 @@
                                 <th data-breakpoints="md" class="text-center">{{ translate('Total Customers') }}</th>
                                 <th data-breakpoints="md" class="text-center">Total Orders</th>
                                 <th data-breakpoints="md" class="text-right">{{ translate('Total Sales') }}</th>
-                                <th data-breakpoints="md"
-                                    class="text-right">{{ translate('Total Pending Payment') }}</th>
+                                <th data-breakpoints="md" class="text-right">{{ translate('Deliveried') }}</th>
+                                <th data-breakpoints="md" class="text-right">{{ translate('Pending Deliveries') }}</th>
+                                <th data-breakpoints="md" class="text-right">{{ translate('Total Pending Payment') }}</th>
+                                <th data-breakpoints="md" class="text-right">{{ translate('Average Order Value') }}</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach ($cached_data['community_data'] as $key => $community_data)
+                                @php
+                                    $aov = 0;
+                                    if ($community_data->orders->sum('grand_total') > 0 && $community_data->orders->count() > 0) {
+                                        $aov = floatval($community_data->orders->sum('grand_total') / $community_data->orders->count());
+                                    }
+
+                                    $pendingDel = $community_data->orders->count() - $community_data->delivered_orders->count();
+                                @endphp
                                 <tr>
                                     <td>
                                         {{ $community_data->name }}
@@ -126,7 +136,16 @@
                                         {!! single_price($community_data->orders->sum('grand_total'))  !!}
                                     </td>
                                     <td class="text-right">
+                                        {{ $community_data->delivered_orders->count() }}
+                                    </td>
+                                    <td class="text-right">
+                                        {{ $pendingDel }}
+                                    </td>
+                                    <td class="text-right">
                                         {!! single_price($community_data->unpaid_orders->sum('grand_total'))  !!}
+                                    </td>
+                                    <td class="text-right">
+                                        {!! single_price($aov)  !!}
                                     </td>
                                 </tr>
                             @endforeach
