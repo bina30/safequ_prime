@@ -286,8 +286,10 @@
             let delivery_status = $('#delivery_status').val();
             let filter_date = $('#filter_date').val();
             let search = $('#search').val();
-            let url = "{{route('order_export.excel', ':delivery_status:filter_date:search')}}";
+            let payment_status = $('#payment_status').val();
+            let url = "{{route('order_export.excel', ':delivery_status:payment_status:filter_date:search')}}";
             url = url.replace(':delivery_status', 'delivery_status=' + delivery_status);
+            url = url.replace(':payment_status', '&payment_status=' + payment_status);
             url = url.replace(':filter_date', '&filter_date=' + filter_date);
             url = url.replace(':search', '&search=' + search);
 

@@ -11,24 +11,26 @@
         </div>
     @endif
     @if(Auth::user()->user_type == 'admin' || in_array('1', json_decode(Auth::user()->staff->role->permissions)))
-        <div class="row gutters-10">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="col-lg-4">
-                            <div class="form-group mb-0">
-                                <input type="text" class="aiz-date-range form-control"
-                                       value=""
-                                       name="date"
-                                       id="filter_date" placeholder="{{ translate('Filter by date') }}"
-                                       data-format="DD-MM-Y" data-separator=" to " data-advanced-range="true"
-                                       autocomplete="off">
+        <form class="" action="" id="dashboard_filter" method="GET">
+            <div class="row gutters-10">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="col-lg-4">
+                                <div class="form-group mb-0">
+                                    <input type="text" class="aiz-date-range form-control"
+                                           value="{{$from}} to {{$to}}"
+                                           name="date"
+                                           id="filter_date" placeholder="{{ translate('Filter by date') }}"
+                                           data-format="DD-MM-Y" data-separator=" to " data-advanced-range="true"
+                                           autocomplete="off">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
         <div class="row gutters-10">
             <div class="col-lg-3 col-6">
                 <div class="bg-grad-2 text-white rounded-lg mb-4 overflow-hidden">
@@ -118,21 +120,13 @@
                                         {{ $community_data->customers_count }}
                                     </td>
                                     <td class="text-center">
-                                        {{ $community_data->orders()->where(function ($query){
-                                            $query->where('payment_status', 'paid')->orWhere(function ($query) {
-                                                    $query->where('added_by_admin', 1)->where('payment_status', 'unpaid');
-                                                });
-                                            })->count() }}
+                                        {{ $community_data->orders->count() }}
                                     </td>
                                     <td class="text-right">
-                                        {!! single_price($community_data->orders()->where(function ($query){
-                                            $query->where('payment_status', 'paid')->orWhere(function ($query) {
-                                                    $query->where('added_by_admin', 1)->where('payment_status', 'unpaid');
-                                                });
-                                            })->sum('grand_total'))  !!}
+                                        {!! single_price($community_data->orders->sum('grand_total'))  !!}
                                     </td>
                                     <td class="text-right">
-                                        {!! single_price($community_data->orders()->where('payment_status','unpaid')->where('added_by_admin','1')->sum('grand_total'))  !!}
+                                        {!! single_price($community_data->unpaid_orders->sum('grand_total'))  !!}
                                     </td>
                                 </tr>
                             @endforeach
@@ -263,6 +257,10 @@
                     },
                 }
             }
+        });
+
+        $('#filter_date').on('apply.daterangepicker', function (ev, picker) {
+            $('form#dashboard_filter').submit();
         });
     </script>
 @endsection

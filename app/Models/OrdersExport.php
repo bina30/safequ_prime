@@ -16,6 +16,7 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
     public function __construct($request)
     {
         $this->delivery_status = $request->delivery_status;
+        $this->payment_status = $request->payment_status;
         $this->filter_date = $request->filter_date;
         $this->search = $request->search;
     }
@@ -30,6 +31,9 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
         }
         if ($this->delivery_status != null) {
             $orders = $orders->where('delivery_status', $this->delivery_status);
+        }
+        if ($this->payment_status != null) {
+            $orders = $orders->where('payment_status', $this->payment_status);
         }
         if ($this->filter_date != null) {
             $orders = $orders->where('created_at', '>=', date('Y-m-d', strtotime(explode(" to ", $this->filter_date)[0])))->where('created_at', '<=', date('Y-m-d', strtotime(explode(" to ", $this->filter_date)[1])));
