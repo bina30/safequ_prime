@@ -33,7 +33,7 @@
             @foreach ($carts as $key => $cartItem)
                 @php
                     $product = \App\Models\Product::find($cartItem['product_id']);
-                    $product_stock = $product->stocks->where('variant', $cartItem['variation'])->first();
+                    $product_stock = $product->stocks->where('id', $cartItem['product_stock_id'])->first();
                     $product_shipping_cost = $cartItem['shipping_cost'];
                     $shipping += $product_shipping_cost;
                     $sub_total = ($cartItem['price'] + $cartItem['tax']) * $cartItem['quantity'];
@@ -72,9 +72,7 @@
                                         </button>
                                         <input class="quantity" min="1" name="quantity[{{ $cartItem['id'] }}]"
                                                value="{{ $cartItem['quantity'] }}"
-                                               type="number" id="quantity_{{ $cartItem['id'] }}"
-                                               value="{{ $cartItem['quantity'] }}" min="1"
-                                               max="{{ $product_stock->qty }}" readonly/>
+                                               type="number" id="quantity_{{ $cartItem['id'] }}" readonly/>
                                         <button class="btn"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepUp();"
                                                 type="button" data-field="quantity[{{ $cartItem['id'] }}]"

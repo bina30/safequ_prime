@@ -40,7 +40,10 @@ class CustomersExport implements FromCollection, WithMapping, WithHeadings
             'Address',
             'WalletBalance',
             'ReferredBy',
-            'TotalOrder'
+            'TotalOrder',
+            'TotalSalesAmount',
+            'TotalPaid',
+            'TotalPending'
         ];
     }
 
@@ -49,6 +52,9 @@ class CustomersExport implements FromCollection, WithMapping, WithHeadings
     */
     public function map($user): array
     {
+        $totalSalesAmount = ($user->orders->count() > 0 ? $user->all_order_details->sum('price') : '0');
+        $totalPaid = ($user->orders->count() > 0 ? $user->order_details->sum('price') : '0');
+        $totalPending = ($user->orders->count() > 0 ? $user->unpaid_order_details->sum('price') : '0');
         $communityName = isset($user->user_community) && !empty($user->user_community) ? $user->user_community->name : '--';
         $referredBy = isset($user->referred_user) && !empty($user->referred_user) ? $user->referred_user->name : '--';
         return [
@@ -58,7 +64,10 @@ class CustomersExport implements FromCollection, WithMapping, WithHeadings
             $user->address,
             $user->balance,
             $referredBy,
-            $user->orders->count()
+            ($user->orders->count() > 0 ? $user->orders->count() : '0'),
+            ($totalSalesAmount ? $totalSalesAmount : '0.00'),
+            ($totalPaid ? $totalPaid : '0.00'),
+            ($totalPending ? $totalPending : '0.00')
         ];
     }
 }

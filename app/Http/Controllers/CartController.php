@@ -110,7 +110,7 @@ class CartController extends Controller
 
             $data['variation'] = $str;
 
-            $product_stock = $product->stocks->where('variant', $str)->first();
+            $product_stock = $product->stocks->where('id', $data['product_stock_id'])->first();
             $price = $product_stock->price;
 
             if ($product->wholesale_product) {
@@ -313,7 +313,7 @@ class CartController extends Controller
         $user_data = array();
         if ($cartItem['id'] == $request->id) {
             $product = Product::find($cartItem['product_id']);
-            $product_stock = $product->stocks->where('variant', $cartItem['variation'])->first();
+            $product_stock = $product->stocks->where('id', $cartItem['product_stock_id'])->first();
             $quantity = $product_stock->qty;
             $price = $product_stock->price;
 

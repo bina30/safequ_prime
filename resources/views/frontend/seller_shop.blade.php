@@ -324,7 +324,7 @@
                                     </div>
                                     <div class="card-bottom">
                                         <button class="btn text-uppercase text-white fw600 w-100"
-                                                onclick="addToCart('{{ route('products-details', $product->product->id) }}');">
+                                                onclick="addToCart('{{ route('products-details', $product    ->id) }}');">
                                             <i class="fas fa-shopping-cart text-white fsize18"></i>
                                             &nbsp; Add to cart
                                         </button>
@@ -387,6 +387,14 @@
                                 </div>
                             @endif
                         @endforeach
+                    @endif
+
+                    @if (count($products_purchase_expired) == 0 && count($products_purchase_started) == 0)
+                            <div class="row pt-5">
+                                <div class="col-lg-12 mx-auto">
+                                    <img src="{{ static_asset('assets/img/product-not-found.jpg') }}" class="mw-100 mx-auto">
+                                </div>
+                            </div>
                     @endif
 
                 </div>

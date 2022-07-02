@@ -324,7 +324,7 @@ class CustomerController extends Controller
 
         if (!$user_present) {
             if (!empty($request->email)) {
-                $user = User::where('email', $request->email)->first();
+                $user = User::where('email', $request->email)->where('id', '!=', $request->user_id)->first();
                 if ($user) {
                     flash('Customer with same email already present.')->error();
                     return back();

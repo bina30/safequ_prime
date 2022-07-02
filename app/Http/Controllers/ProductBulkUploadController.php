@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductErrorsExport;
+use App\Models\ProductStocksImport;
+use App\Models\Seller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
@@ -20,7 +23,7 @@ class ProductBulkUploadController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->user_type == 'seller') {
+        /*if (Auth::user()->user_type == 'seller') {
             if(Auth::user()->seller->verification_status){
                 return view('frontend.user.seller.product_bulk_upload.index');
             }
@@ -28,9 +31,11 @@ class ProductBulkUploadController extends Controller
                 flash('Your shop is not verified yet!')->warning();
                 return back();
             }
-        }
-        elseif (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
-            return view('backend.product.bulk_upload.index');
+        }*/
+        if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
+            $sellers = Seller::get();
+
+            return view('backend.product.bulk_upload.index', compact('sellers'));
         }
     }
 
@@ -66,14 +71,22 @@ class ProductBulkUploadController extends Controller
 
     }
 
-    public function bulk_upload(Request $request)
+    public function bulk_upload_old(Request $request)
     {
         if($request->hasFile('bulk_file')){
             $import = new ProductsImport;
             Excel::import($import, request()->file('bulk_file'));
         }
-        
+
         return back();
     }
 
+    public function bulk_upload(Request $request)
+    {
+        if($request->hasFile('bulk_file')){
+            $import = new ProductStocksImport($request);
+            Excel::import($import, request()->file('bulk_file'));
+        }
+        return back();
+    }
 }

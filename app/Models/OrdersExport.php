@@ -16,6 +16,7 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
     public function __construct($request)
     {
         $this->delivery_status = $request->delivery_status;
+        $this->payment_status = $request->payment_status;
         $this->filter_date = $request->filter_date;
         $this->search = $request->search;
     }
@@ -30,6 +31,9 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
         }
         if ($this->delivery_status != null) {
             $orders = $orders->where('delivery_status', $this->delivery_status);
+        }
+        if ($this->payment_status != null) {
+            $orders = $orders->where('payment_status', $this->payment_status);
         }
         if ($this->filter_date != null) {
             $orders = $orders->where('created_at', '>=', date('Y-m-d', strtotime(explode(" to ", $this->filter_date)[0])))->where('created_at', '<=', date('Y-m-d', strtotime(explode(" to ", $this->filter_date)[1])));
@@ -60,15 +64,19 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
             'PaymentStatus',
             'PaymentType',
             'DeliveryStatus',
+            'Added By Admin',
         ];
     }
 
     /**
-    * @var Order $order
-    */
+     * @var Order $order
+     */
     public function map($order): array
     {
         $userName = isset($order->order) && isset($order->order->user) ? $order->order->user->name : '--';
+        $code = isset($order->order) ? $order->order->code : '--';
+        $paymentType = isset($order->order) ? $order->order->payment_type : '--';
+        $addedByAdmin = isset($order->order) && $order->order->added_by_admin == 1 ? 'true' : 'false';
         $userPhone = isset($order->order) && isset($order->order->user) ? str_replace('+91', '', $order->order->user->phone) : '--';
         $communityName = isset($order->product) && isset($order->product->user) ? $order->product->user->name : $order->seller_id;
         $flatNo = isset($order->order) && isset($order->order->user) ? $order->order->user->address : '--';
@@ -78,7 +86,9 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
 
         $deliveryDate = '--';
         if (isset($order->product_stock) && isset($order->product_stock->purchase_end_date)) {
-            $deliveryDate = date('d-m-Y', strtotime($order->product_stock->purchase_end_date. '+' . intval($order->product_stock->est_shipping_days) . ' days'));
+            $deliveryDate = date('d-m-Y', strtotime($order->product_stock->purchase_end_date . '+' . intval($order->product_stock->est_shipping_days) . ' days'));
+        } elseif ($order->is_archived == 1 && isset($order->archive_product_stock) && isset($order->archive_product_stock->purchase_end_date)) {
+            $deliveryDate = date('d-m-Y', strtotime($order->archive_product_stock->purchase_end_date . '+' . intval($order->archive_product_stock->est_shipping_days) . ' days'));
         }
 
         $qty_unit_main = $order->product->min_qty;
@@ -87,7 +97,7 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
         }
 
         return [
-            $order->order->code,
+            $code,
             $order->created_at,
             $deliveryDate,
             $userName,
@@ -100,12 +110,13 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
             $order->product->variation,
             $farmLocation,
             $order->quantity,
-            number_format($qty_unit_main, 0).' '.$order->product->secondary_unit,
+            number_format($qty_unit_main, 0) . ' ' . $order->product->secondary_unit,
             number_format(floatval($order->price / $order->quantity), 2),
             $order->price,
             $order->payment_status,
-            $order->order->payment_type,
+            $paymentType,
             $order->delivery_status,
+            $addedByAdmin
         ];
     }
 }
