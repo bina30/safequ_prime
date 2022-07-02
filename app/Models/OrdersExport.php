@@ -33,7 +33,13 @@ class OrdersExport implements FromCollection, WithMapping, WithHeadings
             $orders = $orders->where('delivery_status', $this->delivery_status);
         }
         if ($this->payment_status != null) {
-            $orders = $orders->where('payment_status', $this->payment_status);
+            if ($this->payment_status == 'unpaid') {
+                $orders = $orders->whereHas('order', function ($query) {
+                    $query->where('added_by_admin', 1)->where('payment_status', $this->payment_status);
+                });
+            } else {
+                $orders = $orders->where('payment_status', $this->payment_status);
+            }
         }
         if ($this->filter_date != null) {
             $orders = $orders->where('created_at', '>=', date('Y-m-d', strtotime(explode(" to ", $this->filter_date)[0])))->where('created_at', '<=', date('Y-m-d', strtotime(explode(" to ", $this->filter_date)[1])));
