@@ -132,7 +132,7 @@
                                     <td class="text-center">
                                         {{ $community_data->orders->count() }}
                                     </td>
-                                    <td class="text-right">
+                                    <td class="text-right text-nowrap">
                                         {!! single_price($community_data->orders->sum('grand_total'))  !!}
                                     </td>
                                     <td class="text-right">
@@ -141,11 +141,11 @@
                                     <td class="text-right">
                                         {{ $pendingDel }}
                                     </td>
-                                    <td class="text-right">
+                                    <td class="text-right text-nowrap">
                                         {!! single_price($community_data->unpaid_orders->sum('grand_total'))  !!}
                                     </td>
-                                    <td class="text-right">
-                                        {!! single_price($aov)  !!}
+                                    <td class="text-right text-nowrap">
+                                        {!! single_price(round($aov, 2))  !!}
                                     </td>
                                 </tr>
                             @endforeach
