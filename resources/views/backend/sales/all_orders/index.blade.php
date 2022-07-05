@@ -16,10 +16,13 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="#"
                                onclick="bulk_delete()"> {{translate('Delete selection')}}</a>
-                        <!--                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">
-                        <i class="las la-sync-alt"></i>
-                        {{translate('Change Order Status')}}
-                                </a>-->
+
+                            <a class="dropdown-item" href="#"
+                               onclick="change_status()"> {{translate('Order Delivered')}}</a>
+
+<!--                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">
+                                <i class="las la-sync-alt"></i>{{translate('Change Order Status')}}
+                            </a>-->
                         </div>
                     </div>
 
@@ -37,12 +40,9 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <select class="form-control aiz-selectpicker" onchange="change_status()"
+                                    <select class="form-control aiz-selectpicker mb-5" onchange="change_status()"
                                             data-minimum-results-for-search="Infinity" id="update_delivery_status">
                                         <option value="pending">{{translate('Pending')}}</option>
-                                        <option value="confirmed">{{translate('Confirmed')}}</option>
-                                        <option value="picked_up">{{translate('Picked Up')}}</option>
-                                        <option value="on_the_way">{{translate('On The Way')}}</option>
                                         <option value="delivered">{{translate('Delivered')}}</option>
                                         <option value="cancelled">{{translate('Cancel')}}</option>
                                     </select>
@@ -242,25 +242,25 @@
 
         });
 
-        //        function change_status() {
-        //            var data = new FormData($('#order_form')[0]);
-        //            $.ajax({
-        //                headers: {
-        //                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //                },
-        //                url: "{{route('bulk-order-status')}}",
-        //                type: 'POST',
-        //                data: data,
-        //                cache: false,
-        //                contentType: false,
-        //                processData: false,
-        //                success: function (response) {
-        //                    if(response == 1) {
-        //                        location.reload();
-        //                    }
-        //                }
-        //            });
-        //        }
+        function change_status() {
+            var data = new FormData($('#sort_orders')[0]);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{route('bulk-order-status')}}",
+                type: 'POST',
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if(response == 1) {
+                        location.reload();
+                    }
+                }
+            });
+        }
 
         function bulk_delete() {
             var data = new FormData($('#sort_orders')[0]);

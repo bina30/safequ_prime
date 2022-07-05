@@ -13,6 +13,9 @@
                     <p><b>Email: </b> {{ $user->email }}</p>
                     <p><b>Phone: </b> {{ $user->phone }}</p>
                     <p><b>Address: </b> {{ $user->address }}</p>
+                    <a href="javascript:void(0)" class="" onclick="copyUrl(this)" data-url="{{ route('referral.registration', $user->referral_key) }}">
+                        <button type="submit" class="btn btn-primary"><i class="las la-clipboard mr-2"></i> {{ translate('Copy Referral Link') }}</button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -157,6 +160,18 @@
 @endsection
 @section('script')
     <script type="text/javascript">
-
+        function copyUrl(e) {
+            var url = $(e).data('url');
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(url).select();
+            try {
+                document.execCommand("copy");
+                AIZ.plugins.notify('success', '{{ translate('Link copied to clipboard') }}');
+            } catch (err) {
+                AIZ.plugins.notify('danger', '{{ translate('Oops, unable to copy') }}');
+            }
+            $temp.remove();
+        }
     </script>
 @endsection

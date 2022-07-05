@@ -619,6 +619,52 @@ class OrderController extends Controller
         return 1;
     }
 
+    public function bulk_order_status(Request $request)
+    {
+        if ($request->id) {
+            foreach ($request->id as $order_id) {
+                $this->update_order_status($order_id);
+            }
+        }
+
+        return 1;
+    }
+
+    public function update_order_status($order_id)
+    {
+        $order = Order::findOrFail($order_id);
+
+        if ($order != null) {
+            $order->delivery_status = 'delivered';
+            $order->save();
+
+            foreach ($order->orderDetails as $orderDetail) {
+                $orderDetail->delivery_status = 'delivered';
+                $orderDetail->save();
+            }
+
+            if (addon_is_activated('otp_system')) {
+                try {
+                    if ($order->delivery_status == 'on_the_way') {
+                        SmsUtility::order_shipped(json_decode($order->shipping_address)->phone, $order);
+                    } else if ($order->delivery_status == 'confirmed') {
+                        SmsUtility::order_confirmed_sms(json_decode($order->shipping_address)->phone, $order);
+                    } else if ($order->delivery_status == 'cancelled') {
+                        SmsUtility::order_cancelled(json_decode($order->shipping_address)->phone, $order);
+                    } else {
+                        SmsUtility::delivery_status_change(json_decode($order->shipping_address)->phone, $order);
+                    }
+                } catch (\Exception $e) {
+
+                }
+            }
+            flash(translate('Order(s) status has been changed'))->success();
+        } else {
+            flash(translate('Something went wrong'))->error();
+        }
+
+    }
+
     public function order_details(Request $request)
     {
         $order = Order::findOrFail($request->order_id);
