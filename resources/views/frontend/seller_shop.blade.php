@@ -53,7 +53,7 @@
                         <div class="col-12 pb-md-5 pb-4 px-2">
                             <div class="srch-fltr-card mb-md-0 mb-2">
                                 <ul class="item-tags pb-3 mb-0 flex-acenter-jbtw">
-                                    <li class="active_filter filter-button" data-filter="all"> All </li>
+                                    <li class="active_filter filter-button" data-filter="all"> All</li>
 
                                     @foreach ($categories as $key => $cat)
                                         <li class="filter-button mr-1" data-filter="{{ $cat['filter'] }}">
@@ -223,89 +223,92 @@
                                             </p>
                                             <hr>
                                         </div>
-                                        <p class="fw700 px-2">Time Remaining</p>
+                                        <div style="display: none;">
+                                            <p class="fw700 px-2">Time Remaining</p>
 
-                                        <!-- Preloader -->
-                                        <div class="flex-astart-jcenter preloader_div pb-2 px-2">
-                                            @for ($i = 0; $i < 4; $i++)
-                                                <div>
-                                                    <div class="timing mb-0">
-                                                        <div>
-                                                            <h3 class="mb-0"></h3>
+                                            <!-- Preloader -->
+                                            <div class="flex-astart-jcenter preloader_div pb-2 px-2">
+                                                @for ($i = 0; $i < 4; $i++)
+                                                    <div>
+                                                        <div class="timing mb-0">
+                                                            <div>
+                                                                <h3 class="mb-0"></h3>
+                                                            </div>
+                                                        </div>
+                                                        <p class="mb-0"></p>
+                                                    </div>
+                                                @endfor
+                                            </div>
+                                            <!-- Preloader -->
+
+                                            <div class="remaining-time pb-2 px-2"
+                                                 data-time="{{ date('m-d-Y H:i:s', strtotime($product->purchase_end_date)) }}"
+                                                 style="display: none">
+                                                <div class="timing">
+                                                    <div class="cnt">
+                                                        <h3 class="mb-0 days ">00</h3>
+                                                    </div>
+                                                    <span>Days</span>
+                                                </div>
+                                                <div class="timing">
+                                                    <div class="cnt">
+                                                        <h3 class="mb-0 hours">00</h3>
+                                                    </div>
+                                                    <span>Hours</span>
+                                                </div>
+                                                <div class="timing">
+                                                    <div class="cnt">
+                                                        <h3 class="mb-0 minutes">00</h3>
+                                                    </div>
+                                                    <span>Minutes</span>
+                                                </div>
+                                                <div class="timing">
+                                                    <div class="cnt">
+                                                        <h3 class="mb-0 seconds">00</h3>
+                                                    </div>
+                                                    <span>Seconds</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="order-progress text-center pt-3 px-2">
+                                                <p class="fw600 target-qty">Available Harvest: {{ $product->qty }}
+                                                    {{ $product->product->unit }}&nbsp;
+                                                    <a href="javascript:void(0)" data-toggle="tooltip"
+                                                       data-placement="top"
+                                                       title="Unlock special community benefits when the available harvest is booked out by your community.">
+                                                        <i class="fad fa-info-circle animated faa-tada align-middle"></i>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                            <div class="progress-div mb-4">
+                                                <div class="progress">
+                                                    <div class="progress-bar" data-target="{{ $product->qty }}"
+                                                         data-progress="{{ $product->orderDetails->sum('quantity')*$product->product->min_qty }}"
+                                                         data-unit="{{ $product->product->unit }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @if (count($product->orders->where('payment_status','paid')->unique('user_id')) > 0)
+                                                <a href="javascript:void(0)" data-toggle="modal"
+                                                   data-target="#orderListModal_{{ $product->id }}">
+                                                    <div class="card-members pb-3">
+                                                        <div class="mbr-img pr-3">
+                                                            @foreach ($product->product->orders->where('payment_status','paid')->unique('user_id') as $i => $order)
+                                                                @if ($i < 5)
+                                                                    <img src="{{ uploaded_asset($order->user->avatar_original) }}"
+                                                                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                        <div class="mbr-cnt pl-2">
+                                                            <p class="mb-0 text-primary fsize13">have already
+                                                                ordered</p>
                                                         </div>
                                                     </div>
-                                                    <p class="mb-0"></p>
-                                                </div>
-                                            @endfor
-                                        </div>
-                                        <!-- Preloader -->
-
-                                        <div class="remaining-time pb-2 px-2"
-                                             data-time="{{ date('m-d-Y H:i:s', strtotime($product->purchase_end_date)) }}"
-                                             style="display: none">
-                                            <div class="timing">
-                                                <div class="cnt">
-                                                    <h3 class="mb-0 days ">00</h3>
-                                                </div>
-                                                <span>Days</span>
-                                            </div>
-                                            <div class="timing">
-                                                <div class="cnt">
-                                                    <h3 class="mb-0 hours">00</h3>
-                                                </div>
-                                                <span>Hours</span>
-                                            </div>
-                                            <div class="timing">
-                                                <div class="cnt">
-                                                    <h3 class="mb-0 minutes">00</h3>
-                                                </div>
-                                                <span>Minutes</span>
-                                            </div>
-                                            <div class="timing">
-                                                <div class="cnt">
-                                                    <h3 class="mb-0 seconds">00</h3>
-                                                </div>
-                                                <span>Seconds</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="order-progress text-center pt-3 px-2">
-                                            <p class="fw600 target-qty">Available Harvest: {{ $product->qty }}
-                                                {{ $product->product->unit }}&nbsp;
-                                                <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top"
-                                                   title="Unlock special community benefits when the available harvest is booked out by your community.">
-                                                    <i class="fad fa-info-circle animated faa-tada align-middle"></i>
                                                 </a>
-                                            </p>
+                                            @endif
                                         </div>
-                                        <div class="progress-div mb-4">
-                                            <div class="progress">
-                                                <div class="progress-bar" data-target="{{ $product->qty }}"
-                                                     data-progress="{{ $product->orderDetails->sum('quantity')*$product->product->min_qty }}"
-                                                     data-unit="{{ $product->product->unit }}">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        @if (count($product->orders->where('payment_status','paid')->unique('user_id')) > 0)
-                                            <a href="javascript:void(0)" data-toggle="modal"
-                                               data-target="#orderListModal_{{ $product->id }}">
-                                                <div class="card-members pb-3">
-                                                    <div class="mbr-img pr-3">
-                                                        @foreach ($product->product->orders->where('payment_status','paid')->unique('user_id') as $i => $order)
-                                                            @if ($i < 5)
-                                                                <img src="{{ uploaded_asset($order->user->avatar_original) }}"
-                                                                     onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                    <div class="mbr-cnt pl-2">
-                                                        <p class="mb-0 text-primary fsize13">have already ordered</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        @endif
-
                                         @if ($product->product->tags)
                                             @php
                                                 $tagsAry = explode(',', $product->product->tags);
@@ -390,11 +393,12 @@
                     @endif
 
                     @if (count($products_purchase_expired) == 0 && count($products_purchase_started) == 0)
-                            <div class="row pt-5">
-                                <div class="col-lg-12 mx-auto">
-                                    <img src="{{ static_asset('assets/img/product-not-found.jpg') }}" class="mw-100 mx-auto">
-                                </div>
+                        <div class="row pt-5">
+                            <div class="col-lg-12 mx-auto">
+                                <img src="{{ static_asset('assets/img/product-not-found.jpg') }}"
+                                     class="mw-100 mx-auto">
                             </div>
+                        </div>
                     @endif
 
                 </div>
@@ -530,22 +534,19 @@
                 }, 15);
             });
 
-            $(".filter-button").click(function(){
+            $(".filter-button").click(function () {
                 $('.filter-button').removeClass('active_filter');
                 $(this).addClass('active_filter');
                 var value = $(this).attr('data-filter');
 
-                if(value == "all")
-                {
+                if (value == "all") {
                     //$('.filter').removeClass('hidden');
                     $('.filter').show();
-                }
-                else
-                {
+                } else {
 //            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
 //            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
-                    $(".filter").not('.'+value).hide();
-                    $('.filter').filter('.'+value).show();
+                    $(".filter").not('.' + value).hide();
+                    $('.filter').filter('.' + value).show();
                 }
             });
 
