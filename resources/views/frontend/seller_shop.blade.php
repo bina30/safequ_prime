@@ -292,11 +292,17 @@
                                                data-target="#orderListModal_{{ $product->id }}">
                                                 <div class="card-members pb-3">
                                                     <div class="mbr-img pr-3">
-                                                        @foreach ($product->product->orders->where('payment_status','paid')->unique('user_id') as $i => $order)
+                                                        @php
+                                                            $i = 1;
+                                                        @endphp
+                                                        @foreach ($product->orders->where('payment_status','paid')->unique('user_id') as $order)
                                                             @if ($i < 5)
                                                                 <img src="{{ uploaded_asset($order->user->avatar_original) }}"
                                                                      onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
                                                             @endif
+                                                            @php
+                                                                $i++;
+                                                            @endphp
                                                         @endforeach
                                                     </div>
                                                     <div class="mbr-cnt pl-2">
