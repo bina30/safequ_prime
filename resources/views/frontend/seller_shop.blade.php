@@ -75,7 +75,7 @@
                                         <div class="img-name pr-2">
                                             <div class="item-img item-img-sm text-center">
                                                 <img src="{{ uploaded_asset($expired_product->product->photos) }}"
-                                                     onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';"
+                                                     onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png;')}}'"
                                                      alt="{{ $expired_product->product->name }}"/>
                                             </div>
                                         </div>
@@ -109,7 +109,7 @@
                                                     @foreach ($expired_product->orders->unique('user_id') as $i => $order)
                                                         @if ($i < 5)
                                                             <img src="{{ uploaded_asset($order->user->avatar_original) }}"
-                                                                 onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                                 onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp;') }}'">
                                                         @endif
                                                     @endforeach
                                                 </div>
@@ -162,7 +162,7 @@
                                                                 </div>
                                                                 <div class="user-img-sm m-0">
                                                                     <img src="{{ uploaded_asset($orderDetail->order->user->avatar_original) }}"
-                                                                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp;') }}';">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -266,7 +266,7 @@
                                                                     </div>
                                                                     <div class="user-img-sm m-0">
                                                                         <img src="{{ uploaded_asset($orderDetail->order->user->avatar_original) }}"
-                                                                             onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp') }}';">
+                                                                             onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-default.webp;') }}';">
                                                                     </div>
                                                                 </div>
                                                             </div>
