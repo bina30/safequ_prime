@@ -36,7 +36,7 @@
 
 @section('content')
 
-    <main class="main-tag mt-0">
+    <main class="main-tag mt-0 promain">
 
         <div class="breadcrumbs high">
             <div class="container">
@@ -1038,6 +1038,17 @@
     $('.input-group').on('click', '.button-minus', function(e) {
         decrementValue(e);
     });
+</script>
+<script>
+
+$(window).scroll(function(){
+    if ($(this).scrollTop() > 50) {
+       $('.srch-fltr-card').addClass('newClass');
+    } else {
+       $('.srch-fltr-card').removeClass('newClass');
+    }
+});
+
 </script>
 
 @endsection

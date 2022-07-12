@@ -138,7 +138,7 @@ body {
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 html {
@@ -772,6 +772,7 @@ main.main-tag-mt-sm {
     background-repeat: no-repeat;
     background-size: cover;
     padding: 35px 0;
+    min-height: 140px;
 }
 
 /* Home Page */
@@ -2471,6 +2472,9 @@ input[type=checkbox]:checked + .check-box::before,
     main {
         min-height: calc(100vh - 73.3px - 171.69px);
     }
+    main.promain {
+        min-height: 100%!important;
+    }
 
     main.withOnlyFtr {
         min-height: calc(100vh - 171.69px);
@@ -2572,10 +2576,10 @@ input[type=checkbox]:checked + .check-box::before,
     }
 
     .breadcrumbs.sticky {
-        position: fixed;
-        top: 0;
+        position: fixed!important;
+        top: 0!important;
         width: 100%;
-        z-index: 999;
+        z-index: 999!important;
     }
 
     .content {
@@ -3207,6 +3211,9 @@ input[type=checkbox]:checked + .check-box::before,
     }
 
 
+    main.promain {
+        min-height: 100%!important;
+    }
 
 
 
@@ -3231,8 +3238,7 @@ input[type=checkbox]:checked + .check-box::before,
 
 
 
-
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @media screen and (max-width: 991px){
 
         .mobile_hr_card .mainimg{
             height:45px;
@@ -3271,8 +3277,9 @@ input[type=checkbox]:checked + .check-box::before,
                 font-size: 15px!important;}
               
                 .middlesec {
-                    height: 300px;
+                    height: 422px;
                     overflow-y: scroll;
+                    /* margin-top: -24px!important; */
                 }
 
 
@@ -3281,5 +3288,28 @@ input[type=checkbox]:checked + .check-box::before,
                     padding-bottom: 100px;
               
                 }
+                .newClass{position: fixed;
+                    left: 0;
+                    right: 0;
+                    margin: 0px auto;
+                    width: 95%;
+                    top: 119px;
+                    z-index: 9999;}
+                    main.promain {
+                        min-height: 100%!important;
+                    }
+                    header.header2 {
+                        position: relative;
+                    }
+                
+                    .navbar .container, .navbar {
+                        display: flex;
+                        flex-wrap: nowrap!important;
+                        align-items: center;
+                        justify-content: space-between;
+                    }
 
             }
+
+         
+    
