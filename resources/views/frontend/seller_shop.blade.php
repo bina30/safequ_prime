@@ -46,7 +46,7 @@
 
         <!-- Cards -->
         <div class="content  bgcream-product ">
-            <div class="container">
+            <div class="container px-0">
                 <div class="row justify-content-center ">
 
                     @if ($categories && (count($products_purchase_expired) > 0 || count($products_purchase_started) > 0))
@@ -190,7 +190,7 @@
                                         $qty_unit_main = (1000 * floatval($product->product->min_qty)) . ' ' . $product->product->secondary_unit;
                                     }
                             @endphp
-                            <div class="col-lg-12 px-2 pb-4 filter {{ $product->product->category->slug }} ">
+                            <div class="col-lg-12 px-0 pb-4 filter {{ $product->product->category->slug }} ">
                                 <!-- Item Cards -->
                                     <div class="mobile_hr_card">
                                         <div class="shop-datail">
@@ -218,9 +218,32 @@
                                             </div>
                                         </div>
                                     </div>
-                                <div>
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-1.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Beauty Pear</h3>
+                                                        <p>₹149.00 / 500 gms</p>
+                                                        <p class="fruite-location">Farm Location:<span>Nashikkkk</span></p>
+                                                    </div>
 
-                            </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                             </div>
                             
@@ -433,6 +456,7 @@
                     }
                 }, 15);
             });
+
 
             $(".filter-button").click(function () {
                 $('.filter-button').removeClass('active_filter');

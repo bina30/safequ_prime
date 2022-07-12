@@ -3274,4 +3274,12 @@ input[type=checkbox]:checked + .check-box::before,
                     height: 300px;
                     overflow-y: scroll;
                 }
-}
+
+
+                .bgcream-product {
+              
+                    padding-bottom: 100px;
+              
+                }
+
+            }
