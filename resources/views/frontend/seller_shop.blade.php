@@ -179,7 +179,7 @@
 
                     @if (count($products_purchase_started) > 0)
 
-                    <div class="container">
+                    <div class="container position-relative">
                     <div class="middlesec row">
 
                     
@@ -850,14 +850,14 @@
  <div class="container">
             <div class="row ">
                 <div class="col-12 px-0">
-                    <div class="sticky-bottom sticky-bottom">
+                    <div class="sticky-bottom sticky2" >
                         <a href="" class="sticky-button-bottom">checkout</a>
                     </div>
 
                 </div>
             </div>
         </div>
-       
+        <div class="sticky-stopper"></div>
         <!-- Item Modal -->
         <div class="modal fade itemModal" id="itemModal" data-backdrop="static" tabindex="-1"
              aria-labelledby="itemModalLabel" aria-hidden="true">
@@ -1050,6 +1050,40 @@ $(window).scroll(function(){
 });
 
 </script>
+ <script>
+$(document).ready(function() {
+    var inner = $(".sticky-bottom");
+    var elementPosTop =  inner.position().top;
+   // alert(elementPosTop);
+    var viewportHeight = $(window).height();
+    //alert(viewportHeight);
+    $(window).on('scroll', function() {
+      //  alert(); 
+        var scrollPos = $(window).scrollTop();
+
+        var elementFromTop = elementPosTop - scrollPos;
+
+        var bgcreheight = $('.middlesec').height(); 
+     
+        bgcreheight = bgcreheight - 500;
+
+
+        if(bgcreheight >= scrollPos)
+        {
+            inner.addClass("sticky2");
+        }else
+        {
+            inner.removeClass("sticky2");
+        }
+
+ 
+    });
+});
+
+
+
+</script> 
+
 
 @endsection
 
