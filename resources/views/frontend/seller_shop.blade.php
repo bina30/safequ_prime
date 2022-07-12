@@ -202,7 +202,35 @@
                                                     <div>
                                                         <h3>Beauty Pear</h3>
                                                         <p>₹149.00 / 500 gms</p>
-                                                        <p class="fruite-location">Farm Location:<span>Nashik</span></p>
+                                      
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 
+                              
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-2.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Turkey Cherry</h3>
+                                                        <p>₹149.00 / 500 gms</p>
+                                                        <!-- <p class="fruite-location">Farm Location:<span>Nashikkkk</span></p> -->
                                                     </div>
 
                                                 </div>
@@ -222,13 +250,513 @@
                                         <div class="shop-datail">
                                             <div class="shop-datail">
                                                 <div class="mainimg">
-                                                    <img src="../public/assets/img/fruite-1.png" class="img-fluid">
+                                                    <img src="../public/assets/img/fruite-3.png" class="img-fluid">
                                                 </div>
                                                 <div>
                                                     <div>
-                                                        <h3>Beauty Pear</h3>
+                                                        <h3>Plum</h3>
                                                         <p>₹149.00 / 500 gms</p>
-                                                        <p class="fruite-location">Farm Location:<span>Nashikkkk</span></p>
+                                                        <!-- <p class="fruite-location">Farm Location:<span>Nashikkkk</span></p> -->
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-4.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Lettuce Summer Crisp</h3>
+                                                        <p>₹89.99 / Pc.</p>
+                                                      <p class="fruite-location">Farm Location:<span>Nashik</span></p> 
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-5.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>New Zealand Apple</h3>
+                                                        <p>₹149.00 / 500 gms</p>
+                                                  
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-6.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Avocado</h3>
+                                                        <p>₹199.00 / Pc.</p>
+                                                      <p class="fruite-location">Farm Location:<span>New Zealand</span></p> 
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-7.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Lettuce Green Oak Leaf</h3>
+                                                        <p>₹89.99 / Pc.</p>
+                                                      <p class="fruite-location">Farm Location:<span>Nashik</span></p> 
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-8.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Lettuce Romaine</h3>
+                                                        <p>₹89.99 / Pc.</p>
+                                                      <p class="fruite-location">Farm Location:<span>Nashik</span></p> 
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-9.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Lettuce Lotto Rosso</h3>
+                                                        <p>₹89.99 / Pc.</p>
+                                                      <p class="fruite-location">Farm Location:<span>Nashik</span></p> 
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-10.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Red Capsicum</h3>
+                                                        <p>₹59.99 / Pc.</p>
+                                                      <p class="fruite-location">Farm Location:<span>Nashik</span></p> 
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-11.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Yellow Capsicum</h3>
+                                                        <p>₹59.99 / Pc.</p>
+                                                      <p class="fruite-location">Farm Location:<span>Nashik</span></p> 
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-12.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Red Cherry Tomatoes</h3>
+                                                        <p>₹39.99 / 100 gm</p>
+                                                      <p class="fruite-location">Farm Location:<span>Nashik</span></p> 
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-13.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Baby Spinach</h3>
+                                                        <p>₹79.90 / 100 gm</p>
+                                                      <p class="fruite-location">Farm Location:<span>Nashik</span></p> 
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-14.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3> Spinach</h3>
+                                                        <p>₹69.99 / 200 gm</p>
+                                                      <p class="fruite-location">Farm Location:<span>Nashik</span></p> 
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-15.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3> Spanish Blueberry</h3>
+                                                        <p>₹399.99 / 125 gm</p>
+                                                      <p class="fruite-location">Farm Location:<span>Spain</span></p> 
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-16.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Chausa Mango</h3>
+                                                        <p>₹249.00 / Kg</p>
+                                                      <!-- <p class="fruite-location">Farm Location:<span>Nashik</span></p>  -->
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-17.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Langra Mango</h3>
+                                                        <p>₹249.00 / Kg</p>
+                                                      <!-- <p class="fruite-location">Farm Location:<span>Nashik</span></p>  -->
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-18.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Peach</h3>
+                                                        <p>₹199.00 / 500 gms</p>
+                                                      <!-- <p class="fruite-location">Farm Location:<span>Nashik</span></p>  -->
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-19.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Dasheri Mango</h3>
+                                                        <p>₹249.00 / Kg</p>
+                                                      <!-- <p class="fruite-location">Farm Location:<span>Nashik</span></p>  -->
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-20.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Mangosteen</h3>
+                                                        <p>₹349.00 / 500 gms</p>
+                                                      <!-- <p class="fruite-location">Farm Location:<span>Nashik</span></p>  -->
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="countitem ">
+                                                <div class="input-group w-auto counterinput ">
+                                                    <input type="button" value="-" class="button-minus   icon-shape icon-sm  lftcount" data-field="quantity">
+                                                    <input type="number" step="1" max="10" value="0" name="quantity" class="quantity-field border-0 text-center w-25">
+                                                    <input type="button" value="+" class="button-plus icon-shape icon-sm lh-0 rgtcount" data-field="quantity">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mobile_hr_card">
+                                        <div class="shop-datail">
+                                            <div class="shop-datail">
+                                                <div class="mainimg">
+                                                    <img src="../public/assets/img/fruite-21.png" class="img-fluid">
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <h3>Jamun</h3>
+                                                        <p>₹349.00 / 500 gms</p>
+                                                      <!-- <p class="fruite-location">Farm Location:<span>Nashik</span></p>  -->
                                                     </div>
 
                                                 </div>

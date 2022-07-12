@@ -3097,7 +3097,7 @@ input[type=checkbox]:checked + .check-box::before,
     -o-border-radius:50%;
 }
     .shop-datail{display: flex; align-items: center; justify-content: space-between;}
-    .mobile_hr_card h3{font-size: 31px; font-weight: bold;font-family: 'Montserrat', sans-serif; color: #000;}
+    .mobile_hr_card h3{font-size: 31px; font-weight: bold;font-family: 'Montserrat', sans-serif; color: #000; text-transform: capitalize;}
     .mobile_hr_card p{margin-bottom: 0px; font-size: 18px!important; font-family: 'Montserrat', sans-serif; color: #000;}
 
 
