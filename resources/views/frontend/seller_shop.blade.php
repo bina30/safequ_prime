@@ -1051,14 +1051,17 @@ $(window).scroll(function(){
 
 </script>
  <script>
+
+
+
 $(document).ready(function() {
     var inner = $(".sticky-bottom");
     var elementPosTop =  inner.position().top;
-   // alert(elementPosTop);
+
     var viewportHeight = $(window).height();
-    //alert(viewportHeight);
+ 
     $(window).on('scroll', function() {
-      //  alert(); 
+   
         var scrollPos = $(window).scrollTop();
 
         var elementFromTop = elementPosTop - scrollPos;
@@ -1066,6 +1069,8 @@ $(document).ready(function() {
         var bgcreheight = $('.middlesec').height(); 
      
         bgcreheight = bgcreheight - 500;
+
+
 
 
         if(bgcreheight >= scrollPos)
@@ -1076,7 +1081,7 @@ $(document).ready(function() {
             inner.removeClass("sticky2");
         }
 
- 
+     
     });
 });
 
